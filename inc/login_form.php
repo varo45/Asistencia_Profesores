@@ -123,7 +123,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -276,26 +276,26 @@ input[type=text]:placeholder {
     <div class="wrapper fadeInDown">
         <div id="formContent">
           <!-- Tabs Titles -->
-      
+
           <!-- Icon -->
           <div class="fadeIn first">
             <img src="resources/img/usuario.png" id="icon" alt="User Icon" /> <h1>Iniciar Sesión</h1>
           </div>
-      
+
           <!-- Login Form -->
-          <form>
-            <input type="text" id="login" class="fadeIn second" name="login" value="<?php $_POST['login'][0] ?>" placeholder="Usuario">
-            <input type="text" id="password" class="fadeIn third" name="login" value="<?php $_POST['login'][1] ?>" placeholder="Contraseña">
+          <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
+            <input type="text" id="login" class="fadeIn second" name="user" value="<?php echo $_POST['user']; ?>" placeholder="Usuario">
+            <input type="password" id="password" class="fadeIn third" name="pass" placeholder="Contraseña">
             <input type="submit" class="fadeIn fourth" value="Iniciar">
           </form>
-      
+
           <!-- Remind Passowrd -->
           <div id="formFooter">
             <a class="underlineHover" href="#">Registrarme</a>
             </br>
             <a class="underlineHover" href="#">¿Has olvidado la contraseña?</a>
           </div>
-      
+
         </div>
       </div>
 </body>
