@@ -8,16 +8,16 @@ $valida = new Login;
 
 if ($valida->filledLogin($_POST['user'], $_POST['pass']))
 {
-    if($valida->validFormUser($_POST['user']))
+    if(! $valida->validFormUser($_POST['user']))
     {
-        echo "usuario válido";
+        $ERR_LOGIN_FORM .= "· Nombre de usuario no válido";
     }
     else
     {
-        echo "Usuario no válido";
+        return true;
     }
 }
 else
 {
-    echo "rellenar campos";
+    $ERR_LOGIN_FORM .= "· Rellene los campos vacíos";
 }

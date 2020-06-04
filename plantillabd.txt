@@ -1,0 +1,6 @@
+Profesores (id profesor, nombre, dni (posible clave generada), password) 
+Horarios (id profesor, dia (semana), hora (1º, 2º..), nº aula, grupo (1º eso, etc) hora salida del profesor) (esto básicamente sería para marcar si un profesor está ausente para cubrirlo con un profesor de guardia) (30 registros por profesor) 
+Fichaje (idprofesor, fecha, hora entrada, hora salida)
+Faltas (calculo entre horario y personas no fichadas) (entre los campos, posible justificación) idprofesor, Fecha y hora.
+Cuestión a resolver: calculo entre horario, fichajes y faltas para establecer las ausencias).
+
