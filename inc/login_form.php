@@ -284,8 +284,8 @@ input[type=text]:placeholder {
       
           <!-- Login Form -->
           <form>
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usuario">
-            <input type="text" id="password" class="fadeIn third" name="login" placeholder="Contraseña">
+            <input type="text" id="login" class="fadeIn second" name="login" value="<?php $_POST['login'][0] ?>" placeholder="Usuario">
+            <input type="text" id="password" class="fadeIn third" name="login" value="<?php $_POST['login'][1] ?>" placeholder="Contraseña">
             <input type="submit" class="fadeIn fourth" value="Iniciar">
           </form>
       
