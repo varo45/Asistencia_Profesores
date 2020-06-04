@@ -1,3 +1,9 @@
+<?php
+if(isset($_POST['user']) || isset($_POST['pass']))
+{
+  require_once($dirs['inc'] . 'login_valida.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

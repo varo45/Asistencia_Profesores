@@ -2,7 +2,7 @@
 
 // Clase para gestionar login
 
-class login
+class Login
 {
     private $username;
     private $password;
@@ -19,23 +19,40 @@ class login
         }
     }
 
-    function filledLogin($loginarray)
+    function filledLogin($campo1, $campo2)
     {
-        foreach($loginarray as $value)
+        if($campo1 == '')
         {
-            if($value == '')
-            {
-                $ERR_MS_LOGIN = 'Error, debe rellenar todos los campos del formulario.';
-                return $ERR_MS_LOGIN;
-            }
-            else
-            {
-                return true;
-            }
+            return false;
+        }
+        elseif($campo2 == '')
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
-    function Login($username, $password)
+    function validFormUser($username)
+    {
+        if(preg_match('/^[a-z0-9]{4,50}$/i', $username))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function encryptPassword($pass)
+    {
+        $pass = sha1($pass);
+    }
+
+    function goLogin($username, $password)
     {
         if($username == '' || $password == '')
         {
