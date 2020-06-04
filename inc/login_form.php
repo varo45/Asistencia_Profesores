@@ -286,7 +286,7 @@ input[type=text]:placeholder {
           <form>
             <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usuario">
             <input type="text" id="password" class="fadeIn third" name="login" placeholder="Contraseña">
-            <input type="submit" class="fadeIn fourth" value="Log In">
+            <input type="submit" class="fadeIn fourth" value="Iniciar">
           </form>
       
           <!-- Remind Passowrd -->
