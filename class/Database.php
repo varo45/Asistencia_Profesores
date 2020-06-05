@@ -6,29 +6,40 @@ class DataBase
 {
     // Configuración de variables de sesión de MySQL
 
-    private $host = '192.168.1.84:8989';
+    private $host = '192.168.1.133:8989';
     private $user = 'profesores';
     private $pass = 'f36c0d6388963313095f349dabd4c2e9f730868e';
     private $db = 'Asinet';
 
     public $conex_status;
-    public $bd;
+    public $conex;
 
     function bdConex()
     {
-        $this->bd = new mysqli($this->host, $this->user, $this->pass, $this->db);
-        if ($this->bd->connect_errno) {
+        $this->conex = new mysqli($this->host, $this->user, $this->pass, $this->db);
+        if ($this->conex->connect_errno) {
+            echo "Fallo al conectar a MySQL: (" . $this->conex->connect_errno . ") " . $this->conex->connect_error;
             $this->conex_status = false;
-            echo "Fallo al conectar a MySQL: (" . $this->bd->connect_errno . ") " . $this->bd->connect_error;
+            return $this->conex_status;
         }
         else
         {
-            return $this->conex_status = true;
+            $this->conex_status = true;
+            return $this->conex_status;
         }
     }
 
-    function bdSelect($sql)
+    function bdCompareLogin($conex, $sql)
     {
-        $bd->query($sql);
+        $ejec = $conex->query($sql);
+        $fila = $ejec->fetch_assoc();
+        if($fila['num'] == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

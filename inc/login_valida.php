@@ -5,12 +5,12 @@
 require_once($dirs['class'] . 'Login.php');
 require_once($dirs['class'] . 'Database.php');
 
-$valida = new Login;
+$login = new Login;
 $bd = new DataBase;
 
-if ($valida->filledLogin($_POST['user'], $_POST['pass']))
+if ($login->filledLogin($_POST['user'], $_POST['pass']))
 {
-    if(! $valida->validFormUser($_POST['user']))
+    if(! $login->validFormUser($_POST['user']))
     {
         $ERR_LOGIN_FORM .= "· Nombre de usuario no válido </br>";
     }
@@ -18,8 +18,17 @@ if ($valida->filledLogin($_POST['user'], $_POST['pass']))
     {
         if($bd->bdConex() == 1)
         {
-            $_SESSION['logged'] = true;
-            $_SESSION['user'] = $_POST['user'];
+            $conex = $bd->conex;
+            $sql = $login->proceedLogin($_POST['user'], $_POST['pass'], $bd->bdConex());
+            if($bd->bdCompareLogin($conex, $sql) == 1)
+            {
+                $_SESSION['logged'] = true;
+                $_SESSION['user'] = $_POST['user'];
+            }
+            else
+            {
+                $ERR_LOGIN_FORM .= "Nombre de Usuario o Contraseña incorrectos.";
+            }
         }
         else
         {

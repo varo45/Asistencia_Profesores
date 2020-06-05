@@ -6,6 +6,8 @@ class Login
 {
     private $username;
     private $password;
+    
+    public $ERR_LOGIN;
 
     function isLogged()
     {
@@ -62,15 +64,16 @@ class Login
         return $pass;
     }
 
-    function proceedLogin($username, $password)
+    function proceedLogin($username, $password, $conex)
     {
-        if($username == '' || $password == '')
+        if($conex == 1)
         {
-            return false;
+            $password = $this->encryptPassword($password);
+            return "SELECT count(*) as num FROM Profesores WHERE DNI='$username' AND Password='$password'";
         }
         else
         {
-            return true;
+            return $this->ERR_LOGIN = "No existe una conexión a la Base de Datos.";
         }
     }
 
