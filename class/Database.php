@@ -7,10 +7,8 @@ class DataBase
     // Configuración de variables de sesión de MySQL
 
     private $host = '192.168.1.84:8989';
-    // private $user = 'admin';
-    // private $pass = 'f36c0d6388963313095f349dabd4c2e9f730868e';
-    private $user = 'root';
-    private $pass = 'PractiRoot2020';
+    private $user = 'profesores';
+    private $pass = 'f36c0d6388963313095f349dabd4c2e9f730868e';
     private $db = 'Asinet';
 
     public $conex_status;

@@ -9,7 +9,7 @@ class Login
 
     function isLogged()
     {
-        if($_SESSION['logged'] === true)
+        if($_SESSION['logged'] === true && isset($_SESSION['user']) && ! $_SESSION['user'] == '')
         {
             return true;
         }
@@ -17,6 +17,15 @@ class Login
         {
             return false;
         }
+    }
+
+    function proceedLogout()
+    {
+        $_SESSION['logged'] = false;
+        unset($_SESSION['user']);
+        session_destroy();
+        session_abort();
+        return true;
     }
 
     function filledLogin($campo1, $campo2)
@@ -50,9 +59,10 @@ class Login
     function encryptPassword($pass)
     {
         $pass = sha1($pass);
+        return $pass;
     }
 
-    function goLogin($username, $password)
+    function proceedLogin($username, $password)
     {
         if($username == '' || $password == '')
         {

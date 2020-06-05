@@ -1,9 +1,3 @@
-<?php
-if(isset($_POST['user']) || isset($_POST['pass']))
-{
-  require_once($dirs['inc'] . 'login_valida.php');
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -291,7 +285,7 @@ input[type=text]:placeholder {
           <!-- Login Form -->
           <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
             <input type="text" id="login" class="fadeIn second" name="user" value="<?php echo $_POST['user']; ?>" placeholder="Usuario" required>
-            <input type="password" id="password" class="fadeIn third" name="pass" placeholder="Contraseña" required>
+            <input type="password" id="password" class="fadeIn third" name="pass" minlength="8" placeholder="Contraseña" required>
             <input type="submit" class="fadeIn fourth" value="Iniciar">
           </form>
 
