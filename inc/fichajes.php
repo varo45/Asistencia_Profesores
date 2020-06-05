@@ -2,21 +2,23 @@
 $conex = $bd->conex;
 $sql = "SELECT * FROM $bd->fichajes";
 $ejec = $conex->query($sql);
-echo "<h2>Profesores</h2>";
-echo "</br><div class='tablaprofesores'>";
-    echo "<div class='cabeceraprofesores'>";
-        echo "<div class='celdaprofesores'>ID</div>";
-        echo "<div class='celdaprofesores'>Nombre</div>";
-        echo "<div class='celdaprofesores'>DNI</div>";
-        echo "<div class='celdaprofesores'>Admin</div>";
+echo "<h2>Fichajes</h2>";
+echo "</br><div class='tablafichajes'>";
+    echo "<div class='cabecerafichajes'>";
+        echo "<div class='celdafichajes'>ID</div>";
+        echo "<div class='celdafichajes'>ID_PROFESOR</div>";
+        echo "<div class='celdafichajes'>Fecha</div>";
+        echo "<div class='celdafichajes'>Hora_entrada</div>";
+        echo "<div class='celdafichajes'>Hora_salida</div>";
     echo "</div>";
 while ($fila = $ejec->fetch_assoc())
     {
         echo "<div class='fila'>";
-            echo "<div class='celdaprofesores'>$fila[ID]</div>";
-            echo "<div class='celdaprofesores'>$fila[Nombre]</div>";
-            echo "<div class='celdaprofesores'>$fila[DNI]</div>";
-            echo "<div class='celdaprofesores'>$fila[Admin]</div>";
+            echo "<div class='celdafichajes'>$fila[ID]</div>";
+            echo "<div class='celdafichajes'>$fila[ID_PROFESOR]</div>";
+            echo "<div class='celdafichajes'>$fila[Fecha]</div>";
+            echo "<div class='celdafichajes'>$fila[Hora_entrada]</div>";
+            echo "<div class='celdafichajes'>$fila[Hora_salida]</div>";
         echo "</div>";
     }
 echo "</div>";
