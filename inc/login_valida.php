@@ -2,9 +2,11 @@
 
 // Validación del formulario
 
-require_once($dirs['class'] . 'login.php');
+require_once($dirs['class'] . 'Login.php');
+require_once($dirs['class'] . 'Database.php');
 
 $valida = new Login;
+$bd = new DataBase;
 
 if ($valida->filledLogin($_POST['user'], $_POST['pass']))
 {
@@ -14,7 +16,7 @@ if ($valida->filledLogin($_POST['user'], $_POST['pass']))
     }
     else
     {
-        return true;
+        $bd->bdConex();
     }
 }
 else

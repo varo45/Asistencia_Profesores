@@ -2,16 +2,26 @@
 
 // Clase para operar con la base de datos
 
-class BaseDatos
+class DataBase
 {
-    private $conex_status;
+    // Configuración de variables de sesión de MySQL
+
+    private $host = '192.168.1.84:8989';
+    // private $user = 'admin';
+    // private $pass = 'f36c0d6388963313095f349dabd4c2e9f730868e';
+    private $user = 'root';
+    private $pass = 'PractiRoot2020';
+    private $db = 'Asinet';
+
+    public $conex_status;
+    public $bd;
+
     function bdConex()
     {
-        require_once($dirs['inc'] . 'config.php');
-        $bd = new mysqli($host, $user, $pass, $db);
-        if ($bd->connect_errno) {
+        $this->bd = new mysqli($this->host, $this->user, $this->pass, $this->db);
+        if ($this->bd->connect_errno) {
             $this->conex_status = false;
-            echo "Fallo al conectar a MySQL: (" . $bd->connect_errno . ") " . $bd->connect_error;
+            echo "Fallo al conectar a MySQL: (" . $this->bd->connect_errno . ") " . $this->bd->connect_error;
         }
         else
         {
@@ -19,8 +29,8 @@ class BaseDatos
         }
     }
 
-    function bdSelect( string $selected, string $tabla, string $where)
+    function bdSelect($sql)
     {
-        $sql = "SELECT $selected FROM $tabla $where";
+        $bd->query($sql);
     }
 }

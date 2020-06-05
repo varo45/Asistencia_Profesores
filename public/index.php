@@ -2,4 +2,4 @@
 
 require_once('../inc/dir_config.php');
 
-include($dirs['inc'] . 'login_form.php');
+include_once($dirs['inc'] . 'login_form.php');
