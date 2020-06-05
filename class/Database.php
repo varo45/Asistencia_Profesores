@@ -13,9 +13,9 @@ class DataBase
 
     // Tablas Base de datos
 
-    private $fichaje = 'Fichajes';
-    private $horarios = 'Horarios';
-    private $profesores = 'Profesores';
+    public $fichaje = 'Fichajes';
+    public $horarios = 'Horarios';
+    public $profesores = 'Profesores';
 
     public $conex_status;
     public $conex;
