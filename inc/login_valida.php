@@ -19,7 +19,7 @@ if ($valida->filledLogin($_POST['user'], $_POST['pass']))
         if($bd->bdConex() == 1)
         {
             $_SESSION['logged'] = true;
-            $_SESSION['user'] = 'varo';
+            $_SESSION['user'] = $_POST['user'];
         }
         else
         {
