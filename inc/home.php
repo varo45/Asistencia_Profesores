@@ -1,2 +1,2 @@
 <?php
-include "inc/Horarios.php";
+include($dirs['inc'] . 'Horarios.php');
