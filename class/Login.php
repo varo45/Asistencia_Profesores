@@ -27,7 +27,7 @@ class Login
         unset($_SESSION['user']);
         session_destroy();
         session_abort();
-        return true;
+        header("Location : index.php");
     }
 
     function filledLogin($campo1, $campo2)

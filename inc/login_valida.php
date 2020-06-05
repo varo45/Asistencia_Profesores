@@ -2,12 +2,6 @@
 
 // Validación del formulario
 
-require_once($dirs['class'] . 'Login.php');
-require_once($dirs['class'] . 'Database.php');
-
-$login = new Login;
-$bd = new DataBase;
-
 if ($login->filledLogin($_POST['user'], $_POST['pass']))
 {
     if(! $login->validFormUser($_POST['user']))
