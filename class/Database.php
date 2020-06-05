@@ -11,6 +11,12 @@ class DataBase
     private $pass = 'f36c0d6388963313095f349dabd4c2e9f730868e';
     private $db = 'Asinet';
 
+    // Tablas Base de datos
+
+    private $fichaje = 'Fichajes';
+    private $horarios = 'Horarios';
+    private $profesores = 'Profesores';
+
     public $conex_status;
     public $conex;
 
