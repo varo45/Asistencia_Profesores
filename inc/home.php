@@ -1,2 +1,4 @@
 <?php
-include($dirs['inc'] . 'Horarios.php');
+include($dirs['inc'] . 'top-nav.php');
+include($dirs['inc'] . 'horarios.php');
+include($dirs['inc'] . 'fichajes.php');
