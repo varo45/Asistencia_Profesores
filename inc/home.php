@@ -1,2 +1,2 @@
 <?php
-include "inc/home.php";
+include "inc/Horarios.php";
