@@ -48,4 +48,9 @@ class DataBase
             return false;
         }
     }
+
+    function Fichar()
+    {
+        
+    }
 }
