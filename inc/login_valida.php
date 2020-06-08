@@ -1,7 +1,6 @@
 <?php
 
 // Validación del formulario
-
 if ($login->filledLogin($_POST['user'], $_POST['pass']))
 {
     if(! $login->validFormUser($_POST['user']))
@@ -18,10 +17,13 @@ if ($login->filledLogin($_POST['user'], $_POST['pass']))
             {
                 $_SESSION['logged'] = true;
                 $_SESSION['user'] = $_POST['user'];
+                $_SESSION['username'] = $user->getUserName($bd->conex);
+                $user->isAdmin($bd->conex);
+                header('Location: index.php');
             }
             else
             {
-                $ERR_LOGIN_FORM .= "Nombre de Usuario o Contraseña incorrectos.";
+                $ERR_LOGIN_FORM .= "Nombre de Usuario o Contraseña incorrectos. </br>";
             }
         }
         else
