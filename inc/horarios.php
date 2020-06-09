@@ -1,4 +1,5 @@
 <?php
+$bd->bdConex();
 $conex = $bd->conex;
 $sql = "SELECT * FROM $bd->horarios";
 $ejec = $conex->query($sql);
