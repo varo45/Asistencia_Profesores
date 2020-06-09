@@ -3,22 +3,26 @@ $conex = $bd->conex;
 $sql = "SELECT * FROM $bd->fichajes";
 $ejec = $conex->query($sql);
 echo "<h2>Fichajes</h2>";
-echo "</br><div class='tablafichajes'>";
-    echo "<div class='cabecerafichajes'>";
-        echo "<div class='celdafichajes'>ID</div>";
-        echo "<div class='celdafichajes'>ID_PROFESOR</div>";
-        echo "<div class='celdafichajes'>Fecha</div>";
-        echo "<div class='celdafichajes'>Hora_entrada</div>";
-        echo "<div class='celdafichajes'>Hora_salida</div>";
-    echo "</div>";
-while ($fila = $ejec->fetch_assoc())
-    {
-        echo "<div class='fila'>";
-            echo "<div class='celdafichajes'>$fila[ID]</div>";
-            echo "<div class='celdafichajes'>$fila[ID_PROFESOR]</div>";
-            echo "<div class='celdafichajes'>$fila[Fecha]</div>";
-            echo "<div class='celdafichajes'>$fila[Hora_entrada]</div>";
-            echo "<div class='celdafichajes'>$fila[Hora_salida]</div>";
-        echo "</div>";
-    }
-echo "</div>";
+echo "</br><table class='table table-striped'>";
+    echo "<thead>";
+        echo "<tr>";
+            echo "<th>ID</th>";
+            echo "<th>ID_PROFESOR</th>";
+            echo "<th>Fecha</th>";
+            echo "<th>Hora_entrada</th>";
+            echo "<th>Hora_salida</th>";
+        echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
+        while ($fila = $ejec->fetch_assoc())
+            {
+                echo "<tr>";
+                    echo "<td>$fila[ID]</td>";
+                    echo "<td>$fila[ID_PROFESOR]</td>";
+                    echo "<td>$fila[Fecha]</td>";
+                    echo "<td>$fila[Hora_entrada]</td>";
+                    echo "<td>$fila[Hora_salida]</td>";
+                echo "</tr>";
+            }
+    echo "</tbody>";
+echo "</table>";
