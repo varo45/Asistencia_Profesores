@@ -24,7 +24,24 @@ if(isset($_GET['ACTION']))
     include_once($dirs['inc'] . 'logout.php');
   }
   elseif ($_GET['ACTION'] == 'registrarse') {
-    include_once($dirs['inc'] . 'register_form.php');
+    if (! $_POST['Nombre'] == '' && $_POST['DNI'] == '' && $_POST['pass1'] == '' && $_POST['pass2'] == '')
+    {
+      include_once($dirs['inc'] . 'register_valida.php');
+      include_once($dirs['inc'] . 'register_form.php');
+      if (isset($ERR_REG_FORM))
+      {
+        include_once($dirs['inc'] . 'register_form.php');
+      }
+      else
+      {
+        header('location: index.php');
+      }
+    }
+    else
+    {
+      $ERR_REG_FORM .= "Por favor, rellene todos los campos <br>";
+      include_once($dirs['inc'] . 'register_form.php');
+    }
   }
   elseif ($_GET['ACTION'] == 'horarios') {
     if($login->isLogged())

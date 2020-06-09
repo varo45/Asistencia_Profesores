@@ -1,6 +1,7 @@
 <?php
 
 // Validación del formulario
+
 if ($login->filledLogin($_POST['user'], $_POST['pass']))
 {
     if(! $login->validFormUser($_POST['user']))

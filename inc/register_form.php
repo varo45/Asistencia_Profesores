@@ -283,13 +283,13 @@ input[type=text]:placeholder {
           </div>
 
           <!-- Login Form -->
-          <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
+          <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
             <input type="text" id="login" class="fadeIn second" name="Nombre" value="<?php echo $_POST['Nombre']; ?>" placeholder="Nombre y Apellidos" required>
             <p><i>* Su DNI será utilizado como su usuario para iniciar sesión.</i></p>
             <input type="text" id="login" class="fadeIn second" name="DNI" value="<?php echo $_POST['DNI']; ?>" placeholder="DNI" required>
             <input type="password" id="password" class="fadeIn third" name="pass1" minlength="8" placeholder="Contraseña" required>
             <input type="password" id="password" class="fadeIn third" name="pass2" minlength="8" placeholder="Confirme Contraseña" required>
-            <input type="submit" class="fadeIn fourth" value="Iniciar">
+            <input type="submit" class="fadeIn fourth" value="Registrarme">
           </form>
 
           <!-- Remind Passowrd -->
@@ -299,16 +299,16 @@ input[type=text]:placeholder {
         </div>
       </div>
 <?php 
-if(isset($ERR_LOGIN_FORM))
+if(isset($ERR_REG_FORM))
 {
   echo <<< EOL
   <script>
   window.onload = function() {
-    $('#ERR_LOGIN_MODAL').modal('show')
+    $('#ERR_REG_MODAL').modal('show')
   };
   </script>
   <!-- Modal -->
-  <div class="modal fade" id="ERR_LOGIN_MODAL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" id="ERR_REG_MODAL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -318,7 +318,7 @@ if(isset($ERR_LOGIN_FORM))
         </div>
         <div class="modal-body">
           <p style="color: red;">
-            $ERR_LOGIN_FORM
+            $ERR_REG_FORM
           </p>
         </div>
       </div>

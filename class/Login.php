@@ -8,6 +8,7 @@ class Login
     private $password;
     
     public $ERR_LOGIN;
+    public $ERR_REG_FORM;
 
     function isLogged()
     {
@@ -46,14 +47,30 @@ class Login
         }
     }
 
-    function validFormUser($username)
+    function validNameRegister($registername)
     {
-        if(preg_match('/^[a-z0-9]{4,50}$/i', $username))
+        if(preg_match('/^[ a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-]{6,60}$/i', $registername))
         {
             return true;
         }
         else
         {
+            $this->ERR_REG_FORM = "Nombre no válido <br>";
+            return false;
+        }
+    }
+
+    function validFormUser($registerdni)
+    {
+        $registerdni = strtoupper($registerdni);
+
+        if(preg_match('/(^[XYZ][0-9]{7}[A-Z]$)|(^[0-9]{8}[A-Z]$)i/', $registerdni))
+        {
+            return true;
+        }
+        else
+        {
+            $this->ERR_REG_FORM = "DNI no válido <br>";
             return false;
         }
     }
