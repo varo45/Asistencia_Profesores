@@ -13,7 +13,7 @@ class DataBase
 
     // Tablas Base de datos
 
-    public $fichajes = 'Fichajes';
+    public $fichaje = 'Fichaje';
     public $horarios = 'Horarios';
     public $profesores = 'Profesores';
 
@@ -85,17 +85,19 @@ class DataBase
         $this->bdConex();
         $conex = $this->conex;
         $id = $this->getID();
-        if($this->conex_status)
+        if($this->conex_status == 1)
         {
             date_default_timezone_set('Europe/Madrid');
+            $fecha = date('Y-m-d');
             $hora = date('H:i:s');
             $hora_salida = $this->getHoraSalida();
-            $fichaje = "INSERT INTO $this->fichajes (ID_PROFESOR, Fecha, Hora_entrada, Hora_salida) VALUES ($id, date(Y-m-d), $hora, $hora_salida";
+            $fichaje = "INSERT INTO $this->fichajes (ID_PROFESOR, Fecha, Hora_entrada, Hora_salida) VALUES ($id, $fecha, $hora, $hora_salida)";
             $exec = $conex->query($fichaje);
+            return $fichaje;
         }
         else
         {
-            return $ERR_BD .= "No hay conexión con la Base de Datos. </br>";
+            return false;
         }
     }
 
