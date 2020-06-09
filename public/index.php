@@ -24,7 +24,9 @@ if(isset($_GET['ACTION']))
     include_once($dirs['inc'] . 'logout.php');
   }
   elseif ($_GET['ACTION'] == 'horarios') {
-    include_once($dirs['inc'] . 'horarios.php');
+    include_once($dirs['inc'] . 'top-nav.php');
+    include_once($dirs['inc'] . 'contenido-horarios.php');
+    include_once($dirs['inc'] . 'footer.php');
   }
   elseif ($_GET['ACTION'] == 'asistencias') {
     include_once($dirs['inc'] . 'asistencias.php');
@@ -42,7 +44,14 @@ else
   }
   if($login->isLogged())
   {
-    include($dirs['inc'] . 'home.php');
+    if($bd->FicharWeb())
+    {
+      echo "Insertado correctamente";
+    }
+    else
+    {
+      include($dirs['inc'] . 'home.php');
+    }
   }
   else
   {

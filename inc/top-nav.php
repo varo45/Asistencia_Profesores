@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <title>Inicio</title>
   <meta charset="utf-8">
@@ -24,17 +24,18 @@
     </div>
     <div class="collapse navbar-collapse" id="top-menu">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="<?php echo "index.php"; ?>"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-calendar"></span> Horario<span class="caret"></span></a>
+      <li class="<?php echo $act_home; ?>"><a href="<?php echo "index.php"; ?>"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
+      <li class="dropdown <?php echo $act_horario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-calendar"></span> Horario<span class="caret"></span></a>
         <ul class="dropdown-menu">
+          <li><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=horarios' ?>"><span class="glyphicon glyphicon-calendar"></span> Consultar horario</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-plus"></span> Crear horario</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Modificar horario</a></li>
         </ul>
       </li>
-      <li><a href="#"><span class="glyphicon glyphicon-check"></span> Asistencias</a></li>
+      <li class="<?php echo $act_asistencia; ?>"><a href="#"><span class="glyphicon glyphicon-check"></span> Asistencias</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['username']; ?><span class="caret"></span></a>
+      <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['username']; ?><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Notificaciones</a></li>
@@ -46,11 +47,3 @@
   </div>
   </div>
 </nav>
-  
-<div class="container" style="margin-top:50px">
-  <h3>Contenido de la Página de inicio</h3>
-  <p>Podemos morstrar una tabla que muestre las clases de hoy del profesor que haya iniciado sesión.</p>
-</div>
-
-</body>
-</html>

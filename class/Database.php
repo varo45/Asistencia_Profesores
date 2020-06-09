@@ -13,12 +13,13 @@ class DataBase
 
     // Tablas Base de datos
 
-    public $fichaje = 'Fichajes';
+    public $fichajes = 'Fichajes';
     public $horarios = 'Horarios';
     public $profesores = 'Profesores';
 
     public $conex_status;
     public $conex;
+    public $ERR_BD;
 
     function bdConex()
     {
@@ -49,7 +50,56 @@ class DataBase
         }
     }
 
-    function Fichar()
+    function getID()
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $userdata = "SELECT ID FROM $this->profesores WHERE DNI='$_SESSION[user]' AND Nombre='$_SESSION[username]'";
+        $userid = $conex->query($userdata);
+        $userid = $userid->fetch_assoc();
+        return $userid['ID'];
+    }
+
+    function getCampoProfesores(string $campo)
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $userdata = "SELECT $campo FROM $this->profesores WHERE DNI='$_SESSION[user]' AND Nombre='$_SESSION[username]'";
+        $resultado = $conex->query($userdata);
+        $return = $resultado->fetch_assoc();
+        return $return[$campo];
+    }
+
+    function getHoraSalida()
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $userdata = "SELECT Hora_salida FROM $this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID WHERE DNI='$_SESSION[user]' AND Nombre='$_SESSION[username]'";
+        $hs = $conex->query($userdata);
+        $hs = $hs->fetch_assoc();
+        return $hs['Hora_salida'];
+    }
+
+    function FicharWeb()
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $id = $this->getID();
+        if($this->conex_status)
+        {
+            date_default_timezone_set('Europe/Madrid');
+            $hora = date('H:i:s');
+            $hora_salida = $this->getHoraSalida();
+            $fichaje = "INSERT INTO $this->fichajes (ID_PROFESOR, Fecha, Hora_entrada, Hora_salida) VALUES ($id, date(Y-m-d), $hora, $hora_salida";
+            $exec = $conex->query($fichaje);
+        }
+        else
+        {
+            return $ERR_BD .= "No hay conexión con la Base de Datos. </br>";
+        }
+    }
+
+    function FicharTerminal()
     {
         
     }
