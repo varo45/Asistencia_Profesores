@@ -1,7 +1,7 @@
 <?php
 $bd->bdConex();
 $conex = $bd->conex;
-$sql = "SELECT * FROM $bd->horarios order by Hora";
+$sql = "SELECT * FROM $bd->horarios INNER JOIN $bd->profesores ON $bd->horarios.ID_PROFESORES=$bd->profesores.ID WHERE DNI='$_SESSION[user]' order by Hora";
 $ejec = $conex->query($sql);
 echo "<h2>Horarios</h2>";
 if ($row_cnt_horarios = $ejec->num_rows >=1)
