@@ -44,14 +44,8 @@ else
   }
   if($login->isLogged())
   {
-    if($bd->FicharWeb())
-    {
-      echo "Insertado correctamente";
-    }
-    else
-    {
+      $ERR_BD = "No ha sido posible fichar.";
       include($dirs['inc'] . 'home.php');
-    }
   }
   else
   {
