@@ -279,21 +279,22 @@ input[type=text]:placeholder {
 
           <!-- Icon -->
           <div class="fadeIn first">
-            <img src="resources/img/usuario.png" id="icon" alt="User Icon" /> <h1>Iniciar Sesión</h1>
+            <img src="resources/img/usuario.png" id="icon" alt="User Icon" /> <h1>Registrarse</h1>
           </div>
 
           <!-- Login Form -->
           <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
-            <input type="text" id="login" class="fadeIn second" name="user" value="<?php echo $_POST['user']; ?>" placeholder="Usuario" required>
-            <input type="password" id="password" class="fadeIn third" name="pass" minlength="8" placeholder="Contraseña" required>
+            <input type="text" id="login" class="fadeIn second" name="Nombre" value="<?php echo $_POST['Nombre']; ?>" placeholder="Nombre y Apellidos" required>
+            <p><i>* Su DNI será utilizado como su usuario para iniciar sesión.</i></p>
+            <input type="text" id="login" class="fadeIn second" name="DNI" value="<?php echo $_POST['DNI']; ?>" placeholder="DNI" required>
+            <input type="password" id="password" class="fadeIn third" name="pass1" minlength="8" placeholder="Contraseña" required>
+            <input type="password" id="password" class="fadeIn third" name="pass2" minlength="8" placeholder="Confirme Contraseña" required>
             <input type="submit" class="fadeIn fourth" value="Iniciar">
           </form>
 
           <!-- Remind Passowrd -->
           <div id="formFooter">
-            <a class="underlineHover" href="<?php echo $_SERVER['PHP_SELF'] . "?ACTION=registrarse"; ?>">Registrarme</a>
-            </br>
-            <a class="underlineHover" href="#">¿Has olvidado la contraseña?</a>
+            <a class="underlineHover" href="<?php echo "index.php"; ?>">Iniciar Sesión</a>
           </div>
         </div>
       </div>
