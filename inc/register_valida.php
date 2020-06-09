@@ -28,7 +28,25 @@ else
 }
 if(! isset($ERR_REG_FORM))
 {
-    header('Location: index.php');
+    if($bd->searchDuplicate($_POST['DNI']))
+    {
+        if($bd->insertNewUser($_POST['Nombre'], $_POST['DNI'], $login->encryptPassword($_POST['pass1'])))
+        {
+            $MSG = "Te has registrado correctamente.";
+            header("Refresh:2; url=index.php");
+            include_once($dirs['inc'] . 'msg_modal.php');
+        }
+        else
+        {
+            $ERR_REG_FORM = $bd->ERR_BD;
+            include_once($dirs['inc'] . 'register_form.php');
+        }
+    }
+    else
+    {
+        $ERR_REG_FORM = "El usuario con DNI: $_POST[DNI] ya existe.";
+        include_once($dirs['inc'] . 'register_form.php');
+    }
 }
 else
 {

@@ -6,7 +6,6 @@
 <?php
 
 
-
 if(isset($ERR_BD))
 {
   echo <<< EOL

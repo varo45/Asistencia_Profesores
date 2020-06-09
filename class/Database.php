@@ -88,15 +88,75 @@ class DataBase
         if($this->conex_status == 1)
         {
             date_default_timezone_set('Europe/Madrid');
-            $fecha = date('Y-m-d');
+            $fecha = date('Ymd');
             $hora = date('H:i:s');
             $hora_salida = $this->getHoraSalida();
-            $fichaje = "INSERT INTO $this->fichajes (ID_PROFESOR, Fecha, Hora_entrada, Hora_salida) VALUES ($id, $fecha, $hora, $hora_salida)";
+            $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, Hora_entrada, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida')";
             $exec = $conex->query($fichaje);
-            return $fichaje;
+            return true;
         }
         else
         {
+            return false;
+        }
+    }
+
+    function getFichadoHoy()
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $id = $this->getID();
+        if($this->conex_status == 1)
+        {
+            date_default_timezone_set('Europe/Madrid');
+            $fecha = date('Ymd');
+            $hora = date('H:i:s');
+            $hora_salida = $this->getHoraSalida();
+            $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, Hora_entrada, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida')";
+            $exec = $conex->query($fichaje);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function searchDuplicate($dni)
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $consulta = "SELECT Nombre, DNI FROM $this->profesores WHERE DNI='$dni'";
+        if($res = $conex->query($consulta))
+        {
+            if($res->num_rows == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            $this->ERR_BD = $conex->error;
+            return false;
+        }
+    }
+
+    function insertNewUser($name, $dni, $pass)
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $consulta = "INSERT INTO $this->profesores (Nombre, DNI, Password, Admin) VALUES ('$name', '$dni', '$pass', 0)";
+        if($conex->query($consulta))
+        {
+            return true;
+        }
+        else
+        {
+            $this->ERR_BD = $conex->error;
             return false;
         }
     }
