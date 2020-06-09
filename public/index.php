@@ -23,13 +23,32 @@ if(isset($_GET['ACTION']))
   {
     include_once($dirs['inc'] . 'logout.php');
   }
+  elseif ($_GET['ACTION'] == 'registrarse') {
+    include_once($dirs['inc'] . 'register_form.php');
+  }
   elseif ($_GET['ACTION'] == 'horarios') {
-    include_once($dirs['inc'] . 'top-nav.php');
-    include_once($dirs['inc'] . 'contenido-horarios.php');
-    include_once($dirs['inc'] . 'footer.php');
+    if($login->isLogged())
+    {
+      include_once($dirs['inc'] . 'top-nav.php');
+      include_once($dirs['inc'] . 'contenido-horarios.php');
+      include_once($dirs['inc'] . 'footer.php');
+    }
   }
   elseif ($_GET['ACTION'] == 'asistencias') {
     include_once($dirs['inc'] . 'asistencias.php');
+  }
+  elseif ($_GET['ACTION'] == 'fichar') {
+    if($login->isLogged())
+    {
+      if($bd->FicharWeb())
+      {
+        $MSG_BD = "Has fichado correctamente";
+      }
+      else
+      {
+        $ERR_BD = "Ha ocurrido un error, no has podido fichar.";
+      }
+    }
   }
   else
   {
@@ -44,7 +63,6 @@ else
   }
   if($login->isLogged())
   {
-      $ERR_BD = "No ha sido posible fichar.";
       include($dirs['inc'] . 'home.php');
   }
   else
