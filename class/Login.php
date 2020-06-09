@@ -64,7 +64,7 @@ class Login
     {
         $registerdni = strtoupper($registerdni);
 
-        if(preg_match('/(^[XYZ][0-9]{7}[A-Z]$)|(^[0-9]{8}[A-Z]$)i/', $registerdni))
+        if(preg_match('/(^[XYZ][0-9]{7}[A-Z]$)|(^[0-9]{8}[A-Z]$)/i', $registerdni))
         {
             return true;
         }

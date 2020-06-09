@@ -283,7 +283,7 @@ input[type=text]:placeholder {
           </div>
 
           <!-- Login Form -->
-          <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+          <form action="<?php echo $_SERVER['PHP_SELF'] . "?ACTION=registrarse" ?>" method="POST">
             <input type="text" id="login" class="fadeIn second" name="Nombre" value="<?php echo $_POST['Nombre']; ?>" placeholder="Nombre y Apellidos" required>
             <p><i>* Su DNI será utilizado como su usuario para iniciar sesión.</i></p>
             <input type="text" id="login" class="fadeIn second" name="DNI" value="<?php echo $_POST['DNI']; ?>" placeholder="DNI" required>
