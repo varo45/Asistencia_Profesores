@@ -91,7 +91,7 @@ class DataBase
             $fecha = date('Ymd');
             $hora = date('H:i:s');
             $hora_salida = $this->getHoraSalida();
-            $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, Hora_entrada, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida')";
+            $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, F_salida, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida', '$hora_salida')";
             if($exec = $conex->query($fichaje))
             {
                 return true;
@@ -124,7 +124,7 @@ class DataBase
             $fecha = date('Ymd');
             $hora = date('H:i:s');
             $hora_salida = $this->getHoraSalida();
-            $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, Hora_entrada, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida')";
+            $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, F_salida, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida', '$hora_salida')";
             $exec = $conex->query($fichaje);
             return true;
         }
@@ -193,7 +193,7 @@ class DataBase
             $fecha = date('Ymd');
             $hora = date('H:i:s');
             $hora_salida = $this->getHoraSalida();
-            $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida')";
+            $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, F_salida, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida', '$hora_salida')";
             $exec = $conex->query($fichaje);
             return true;
         }
