@@ -64,7 +64,7 @@ class DataBase
     {
         $this->bdConex();
         $conex = $this->conex;
-        $userdata = "SELECT TOP 1 ID FROM $this->fichaje WHERE ID_PROFESOR='$_SESSION[user]' ORDER BY ID DESC";
+        $userdata = "SELECT ID FROM $this->fichaje WHERE ID_PROFESOR='$_SESSION[user]' ORDER BY ID DESC LIMIT 1";
         $lastID = $conex->query($userdata);
         $lastID = $lastID->fetch_assoc();
         return $lastID['ID'];
