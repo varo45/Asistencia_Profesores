@@ -60,6 +60,16 @@ class DataBase
         return $userid['ID'];
     }
 
+    function getLastIDFichaje()
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $userdata = "SELECT TOP 1 ID FROM $this->fichaje WHERE ID_PROFESOR='$_SESSION[user]' ORDER BY ID DESC";
+        $lastID = $conex->query($userdata);
+        $lastID = $lastID->fetch_assoc();
+        return $lastID['ID'];
+    }
+
     function getCampoProfesores(string $campo)
     {
         $this->bdConex();
@@ -121,8 +131,8 @@ class DataBase
         if($this->conex_status == 1)
         {
             date_default_timezone_set('Europe/Madrid');
-            $fecha = date('Ymd');
-            $hora = date('H:i:s');
+            $fecha = date('Y-m-d');
+            $hora = date('H:i:00');
             $hora_salida = $this->getHoraSalida();
             $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, F_salida, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida', '$hora_salida')";
             $exec = $conex->query($fichaje);
@@ -190,8 +200,8 @@ class DataBase
         if($this->conex_status == 1)
         {
             date_default_timezone_set('Europe/Madrid');
-            $fecha = date('Ymd');
-            $hora = date('H:i:s');
+            $fecha = date('Y-m-d');
+            $hora = date('H:i');
             $hora_salida = $this->getHoraSalida();
             $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, F_salida, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida', '$hora_salida')";
             $exec = $conex->query($fichaje);
