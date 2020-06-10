@@ -12,7 +12,8 @@ if ($row_cnt_fichajes = $ejec->num_rows > 0)
                 echo "<th>ID_PROFESOR</th>";
                 echo "<th>Fecha</th>";
                 echo "<th>Día</th>";
-                echo "<th>Hora_entrada</th>";
+                echo "<th>F_entrada</th>";
+                echo "<th>F_salida</th>";
                 echo "<th>Hora_salida</th>";
             echo "</tr>";
         echo "</thead>";
@@ -24,7 +25,8 @@ if ($row_cnt_fichajes = $ejec->num_rows > 0)
                         echo "<td>$fila[ID_PROFESOR]</td>";
                         echo "<td>$fila[Fecha]</td>";
                         echo "<td></td>";
-                        echo "<td>$fila[Hora_entrada]</td>";
+                        echo "<td>$fila[F_entrada]</td>";
+                        echo "<td>$fila[F_salida]</td>";
                         echo "<td>$fila[Hora_salida]</td>";
                     echo "</tr>";
                 }

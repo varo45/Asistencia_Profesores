@@ -92,8 +92,15 @@ class DataBase
             $hora = date('H:i:s');
             $hora_salida = $this->getHoraSalida();
             $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, Hora_entrada, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida')";
-            $exec = $conex->query($fichaje);
-            return true;
+            if($exec = $conex->query($fichaje))
+            {
+                return true;
+            }
+            else
+            {
+                $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+                return false;
+            }
         }
         else
         {
@@ -171,6 +178,27 @@ class DataBase
         else
         {
             $this->ERR_BD = $conex->error;
+            return false;
+        }
+    }
+
+    function tooLate()
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $id = $this->getID();
+        if($this->conex_status == 1)
+        {
+            date_default_timezone_set('Europe/Madrid');
+            $fecha = date('Ymd');
+            $hora = date('H:i:s');
+            $hora_salida = $this->getHoraSalida();
+            $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida')";
+            $exec = $conex->query($fichaje);
+            return true;
+        }
+        else
+        {
             return false;
         }
     }
