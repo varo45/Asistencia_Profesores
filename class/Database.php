@@ -182,12 +182,12 @@ class DataBase
             $this->ERR_BD = $this->ERR_BD;
             return false;
         }
-        $sql = "SELECT $this->horarios.Aula, $this->horarios.Grupo FROM $this->horarios INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE $this->horarios.Dia='$diahoy' AND $this->horarios.Hora='$horaactual' AND $this->fichaje.F_salida <> $this->fichaje.Hora_salida";
+        $sql = "SELECT $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Hora FROM $this->horarios INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE $this->horarios.Dia='$diahoy' AND $this->horarios.Hora='$horaactual' AND $this->fichaje.F_salida <> $this->fichaje.Hora_salida";
         if($exec = $conex->query($sql))
         {
             if($exec->num_rows > 0)
             {
-                return $fila = $exec->fetch_assoc();
+                return $exec;
             }
             else
             {
