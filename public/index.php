@@ -113,6 +113,24 @@ if(isset($_GET['ACTION']))
       include_once($dirs['inc'] . 'msg_modal.php');
     }
   }
+  elseif ($_GET['ACTION'] == 'fichar_salida')
+  {
+    if($login->isLogged())
+    {
+      include_once($dirs['inc'] . 'fichar-salida.php');
+      //header("Refresh:2; url=index.php");
+      include_once($dirs['inc'] . 'top-nav.php');
+      include_once($dirs['inc'] . 'contenido-home.php');
+      include_once($dirs['inc'] . 'contenido-fichajes.php');
+      include_once($dirs['inc'] . 'footer.php');
+    }
+    else
+    {
+      $MSG = "Debes iniciar sesión para fichar.";
+      header("Refresh:2; url=index.php");
+      include_once($dirs['inc'] . 'msg_modal.php');
+    }
+  }
   else
   {
     header("Refresh:0; url=index.php");
