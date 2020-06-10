@@ -3,7 +3,7 @@ if($user->isAdmin($bd->conex))
 {
     $bd->bdConex();
     $conex = $bd->conex;
-    $sql = "SELECT * FROM $bd->profesores";
+    $sql = "SELECT ID, Nombre, DNI, Admin FROM $bd->profesores";
     $ejec = $conex->query($sql);
     echo "<h2>Profesores</h2>";
     if ($row_cnt_profesores = $ejec->num_rows >=1)
