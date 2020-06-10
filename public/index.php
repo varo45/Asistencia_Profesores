@@ -92,7 +92,8 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $ERR_BD = "Ha ocurrido un error, no has podido fichar.";
+          $ERR_BD .= "Ha ocurrido un error, no has podido fichar. <br>";
+          $ERR_BD .= "Debes tener un horario para poder fichar. <br>";
         }
       }
       else
@@ -101,7 +102,8 @@ if(isset($_GET['ACTION']))
       }
       header("Refresh:2; url=index.php");
       include_once($dirs['inc'] . 'top-nav.php');
-      include_once($dirs['inc'] . 'home.php');
+      include_once($dirs['inc'] . 'contenido-home.php');
+      include_once($dirs['inc'] . 'contenido-fichajes.php');
       include_once($dirs['inc'] . 'footer.php');
     }
     else
