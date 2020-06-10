@@ -81,11 +81,133 @@ class DataBase
         return $return[$campo];
     }
 
-    function getHoraSalida()
+    function getDiaSemana()
+    {
+        date_default_timezone_set('Europe/Madrid');
+        $d = cal_days_in_month(CAL_GREGORIAN,date('m'),date('Y'));
+        $start = unixtojd(mktime(date('H'),date('i'),date('s'),date('m'),date('d'),date('Y')));
+        $array = cal_from_jd($start,CAL_GREGORIAN);
+        if($array['dayname'] === 'Monday')
+        {
+            return "Lunes";
+        }
+        elseif($array['dayname'] === 'Tuesday')
+        {
+            return "Martes";
+        }
+        elseif($array['dayname'] === 'Wednesday')
+        {
+            return "Miércoles";
+        }
+        elseif($array['dayname'] === 'Thursday')
+        {
+            return "Jueves";
+        }
+        elseif($array['dayname'] === 'Friday')
+        {
+            return "Viernes";
+        }
+        elseif($array['dayname'] === 'Saturday')
+        {
+            return "Sábado";
+        }
+        elseif($array['dayname'] === 'Sunday')
+        {
+            return "Domingo";
+        }
+        else
+        {
+            $this->ERR_BD = "No es un día de la semana";
+            return false;
+        }
+    }
+
+    function getHoraActual()
+    {
+        date_default_timezone_set('Europe/Madrid');
+        $ahora = mktime(date('H'),date('i'),date('s'),date('m'),date('d'),date('Y'));
+        $primera = mktime('08','30','00',date('m'),date('d'),date('Y'));
+        $segunda = mktime('09','30','00',date('m'),date('d'),date('Y'));
+        $tercera = mktime('10','30','00',date('m'),date('d'),date('Y'));
+        $cuarta = mktime('12','00','00',date('m'),date('d'),date('Y'));
+        $quinta = mktime('13','00','00',date('m'),date('d'),date('Y'));
+        $sexta = mktime('14','00','00',date('m'),date('d'),date('Y'));
+        $finclases = mktime('15','00','00',date('m'),date('d'),date('Y'));
+        $ahora = mktime('12','00','00',date('m'),date('d'),date('Y'));
+
+        if($ahora > $primera &&  $ahora < $finclases)
+        {
+            if($ahora >= $primera && $ahora < $segunda)
+            {
+                return 1;
+            }
+            elseif($ahora >= $segunda && $ahora < $tercera)
+            {
+                return 2;
+            }
+            elseif($ahora >= $tercera && $ahora < $cuarta)
+            {
+                return 3;
+            }
+            elseif($ahora >= $cuarta && $ahora < $quinta)
+            {
+                return 4;
+            }
+            elseif($ahora >= $quinta && $ahora < $sexta)
+            {
+                return 5;
+            }
+            elseif($ahora >= $sexta && $ahora < $finclases)
+            {
+                return 6;
+            }
+        }
+        else
+        {
+            $this->ERR_BD = "Fuera de Horario";
+            return false;
+        }
+    }
+
+    function getGuardias()
     {
         $this->bdConex();
         $conex = $this->conex;
-        $userdata = "SELECT Hora_salida FROM $this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID WHERE DNI='$_SESSION[user]' AND Nombre='$_SESSION[username]'";
+        if(! $diahoy = $this->getDiaSemana())
+        {
+            $this->ERR_BD = "Día semana no válido";
+            return false;
+        }
+        if(! $horaactual = $this->getHoraActual())
+        {
+            $this->ERR_BD = $this->ERR_BD;
+            return false;
+        }
+        $sql = "SELECT $this->horarios.Aula, $this->horarios.Grupo FROM $this->horarios INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE $this->horarios.Dia='$diahoy' AND $this->horarios.Hora='$horaactual' AND $this->fichaje.F_salida <> $this->fichaje.Hora_salida";
+        if($exec = $conex->query($sql))
+        {
+            if($exec->num_rows > 0)
+            {
+                return $fila = $exec->fetch_assoc();
+            }
+            else
+            {
+                $this->ERR_BD = "No existen Aulas sin Profesor.";
+                return false;
+            }
+        }
+        else
+        {
+            $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error . "<br>" . $sql;
+            return false;
+        }
+    }
+
+    function getHoraSalida(string $dia)
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $userdata = "SELECT $this->horarios.Hora_salida FROM ($this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID) INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE DNI='$_SESSION[user]' AND Nombre='$_SESSION[username]' AND $this->horarios.Dia='$dia' LIMIT 1";
         $hs = $conex->query($userdata);
         $hs = $hs->fetch_assoc();
         return $hs['Hora_salida'];

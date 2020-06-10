@@ -6,17 +6,7 @@
 </div>
 <?php
 
-$cadena = "now";
-echo $cadena . "<br>";
-date_default_timezone_set('Europe/Madrid');
-if ($timestamp = strtotime($cadena))
-{
-  echo "$cadena == " . date('H:00:00');
-}
-else
-{
-  echo "fecha no válida";
-}
+
 
 if(isset($ERR_BD))
 {
