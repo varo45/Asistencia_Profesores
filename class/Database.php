@@ -197,7 +197,7 @@ class DataBase
         }
         else
         {
-            $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error . "<br>" . $sql;
+            $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
             return false;
         }
     }
@@ -208,8 +208,15 @@ class DataBase
         $conex = $this->conex;
         $userdata = "SELECT $this->horarios.Hora_salida FROM ($this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID) INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE DNI='$_SESSION[user]' AND Nombre='$_SESSION[username]' AND $this->horarios.Dia='$dia' LIMIT 1";
         $hs = $conex->query($userdata);
-        $hs = $hs->fetch_assoc();
-        return $hs['Hora_salida'];
+        if($hs = $hs->fetch_assoc())
+        {
+            return $hs['Hora_salida'];
+        }
+        else
+        {
+            $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            return false;
+        }
     }
 
     function FicharWeb()
@@ -222,7 +229,7 @@ class DataBase
             date_default_timezone_set('Europe/Madrid');
             $fecha = date('Ymd');
             $hora = date('H:i:s');
-            $hora_salida = $this->getHoraSalida();
+            $hora_salida = $this->getHoraSalida($this->getDiaSemana());
             $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, F_salida, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida', '$hora_salida')";
             if($exec = $conex->query($fichaje))
             {
