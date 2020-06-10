@@ -133,7 +133,6 @@ class DataBase
         $quinta = mktime('13','00','00',date('m'),date('d'),date('Y'));
         $sexta = mktime('14','00','00',date('m'),date('d'),date('Y'));
         $finclases = mktime('15','00','00',date('m'),date('d'),date('Y'));
-        $ahora = mktime('12','00','00',date('m'),date('d'),date('Y'));
 
         if($ahora > $primera &&  $ahora < $finclases)
         {
