@@ -80,6 +80,22 @@ if(isset($_GET['ACTION']))
       include_once($dirs['inc'] . 'msg_modal.php');
     }
   }
+  elseif ($_GET['ACTION'] == 'guardias')
+  {
+    $bd->bdConex();
+    if($login->isLogged())
+    {
+      include_once($dirs['inc'] . 'top-nav.php');
+      include_once($dirs['inc'] . 'contenido-guardias.php');
+      include_once($dirs['inc'] . 'footer.php');
+    }
+    else
+    {
+      $MSG = "Debes iniciar sesión para acceder a la lista de profesores.";
+      header("Refresh:2; url=index.php");
+      include_once($dirs['inc'] . 'msg_modal.php');
+    }
+  }
   elseif ($_GET['ACTION'] == 'fichar')
   {
     if($login->isLogged())
