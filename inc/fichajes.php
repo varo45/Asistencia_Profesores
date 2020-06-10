@@ -1,9 +1,9 @@
 <?php
 $conex = $bd->conex;
-$sql = "SELECT * FROM $bd->fichaje";
+$sql = "SELECT DISTINCT $bd->fichaje.* FROM ($bd->fichaje INNER JOIN $bd->horarios ON $bd->fichaje.ID_PROFESOR=$bd->horarios.ID_PROFESOR) INNER JOIN $bd->profesores ON $bd->profesores.ID WHERE $bd->profesores.Nombre='$_SESSION[username]' AND $bd->profesores.DNI='$_SESSION[user]' ORDER BY $bd->fichaje.ID DESC";
 $ejec = $conex->query($sql);
 echo "<h2>Fichajes</h2>";
-if ($row_cnt_fichajes = $ejec->num_rows >=1)
+if ($row_cnt_fichajes = $ejec->num_rows > 0)
 {
     echo "</br><table class='table table-striped'>";
         echo "<thead>";

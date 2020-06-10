@@ -101,6 +101,11 @@ class DataBase
         }
     }
 
+    function FicharTerminal()
+    {
+        
+    }
+    
     function getFichadoHoy()
     {
         $this->bdConex();
@@ -122,11 +127,36 @@ class DataBase
         }
     }
 
-    function searchDuplicate($dni)
+    function searchDuplicateUser($dni)
     {
         $this->bdConex();
         $conex = $this->conex;
         $consulta = "SELECT Nombre, DNI FROM $this->profesores WHERE DNI='$dni'";
+        if($res = $conex->query($consulta))
+        {
+            if($res->num_rows == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            $this->ERR_BD = $conex->error;
+            return false;
+        }
+    }
+
+    function searchDuplicateDay()
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $id = $this->getID();
+        $today = date('Ymd');
+        $consulta = "SELECT ID FROM $this->fichaje WHERE ID_PROFESOR='$id' AND Fecha='$today'";
         if($res = $conex->query($consulta))
         {
             if($res->num_rows == 0)
@@ -159,10 +189,5 @@ class DataBase
             $this->ERR_BD = $conex->error;
             return false;
         }
-    }
-
-    function FicharTerminal()
-    {
-        
     }
 }

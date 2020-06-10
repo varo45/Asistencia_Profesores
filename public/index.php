@@ -34,33 +34,86 @@ if(isset($_GET['ACTION']))
       include_once($dirs['inc'] . 'register_form.php');
     }
   }
-  elseif ($_GET['ACTION'] == 'horarios') {
+  elseif ($_GET['ACTION'] == 'horarios')
+  {
     if($login->isLogged())
     {
       include_once($dirs['inc'] . 'top-nav.php');
       include_once($dirs['inc'] . 'contenido-horarios.php');
       include_once($dirs['inc'] . 'footer.php');
     }
-  }
-  elseif ($_GET['ACTION'] == 'asistencias') {
-    include_once($dirs['inc'] . 'asistencias.php');
-  }
-  elseif ($_GET['ACTION'] == 'fichar') {
-    if($login->isLogged())
+    else
     {
-      if($bd->FicharWeb())
+      $MSG = "Debes iniciar sesión para ver los horarios.";
+      header("Refresh:2; url=index.php");
+      include_once($dirs['inc'] . 'msg_modal.php');
+    }
+  }
+  elseif ($_GET['ACTION'] == 'asistencias')
+  {
+      include_once($dirs['inc'] . 'top-nav.php');
+      include_once($dirs['inc'] . 'contenido-asistencias.php');
+      include_once($dirs['inc'] . 'footer.php');
+  }
+  elseif ($_GET['ACTION'] == 'profesores')
+  {
+    $bd->bdConex();
+    if($login->isLogged() && $user->isAdmin($bd->conex))
+    {
+      if($login->isLogged())
       {
-        $MSG_BD = "Has fichado correctamente";
+        include_once($dirs['inc'] . 'top-nav.php');
+        include_once($dirs['inc'] . 'contenido-profesores.php');
+        include_once($dirs['inc'] . 'footer.php');
       }
       else
       {
-        $ERR_BD = "Ha ocurrido un error, no has podido fichar.";
+        $MSG = "Debes iniciar sesión para acceder a la lista de profesores.";
+        header("Refresh:2; url=index.php");
+        include_once($dirs['inc'] . 'msg_modal.php');
       }
+    }
+    else
+    {
+      $MSG = "No tienes permisos de administrador.";
+      header("Refresh:2; url=index.php");
+      include_once($dirs['inc'] . 'msg_modal.php');
+    }
+  }
+  elseif ($_GET['ACTION'] == 'fichar')
+  {
+    if($login->isLogged())
+    {
+      if($bd->searchDuplicateDay())
+      {
+        if($bd->FicharWeb())
+        {
+          $MSG_BD = "Has fichado correctamente";
+        }
+        else
+        {
+          $ERR_BD = "Ha ocurrido un error, no has podido fichar.";
+        }
+      }
+      else
+      {
+        $MSG_BD = "Ya has fichado hoy.";
+      }
+      header("Refresh:2; url=index.php");
+      include_once($dirs['inc'] . 'top-nav.php');
+      include_once($dirs['inc'] . 'home.php');
+      include_once($dirs['inc'] . 'footer.php');
+    }
+    else
+    {
+      $MSG = "Debes iniciar sesión para fichar.";
+      header("Refresh:2; url=index.php");
+      include_once($dirs['inc'] . 'msg_modal.php');
     }
   }
   else
   {
-    unset($_GET['ACTION']);
+    header("Refresh:0; url=index.php");
   }
 }
 else

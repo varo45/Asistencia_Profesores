@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/bootstrap-3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style-cal.css">
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -32,7 +33,14 @@
           <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Modificar horario</a></li>
         </ul>
       </li>
-      <li class="<?php echo $act_asistencia; ?>"><a href="#"><span class="glyphicon glyphicon-check"></span> Asistencias</a></li>
+      <li class="<?php echo $act_asistencia; ?>"><a href="<?php $d = date('d'); $m = date('m'); $Y = date('Y'); echo $_SERVER['PHP_SELF'] . "?ACTION=asistencias&d=$d&m=$m&Y=$Y"; ?>"><span class="glyphicon glyphicon-check"></span> Mis asistencias</a></li>
+      <?php
+        if($_SESSION['Admin'])
+        {
+            echo "<li class=' $act_asistencia '><a href='$_SERVER[PHP_SELF]?ACTION=profesores'><span class='glyphicon glyphicon-education'></span> Profesores</a></li>";
+        }
+    ?>
+      <li class="<?php echo $act_asistencia; ?>"><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=guardias' ?>"><span class="glyphicon glyphicon-eye-open"></span> Guardias</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['username']; ?><span class="caret"></span></a>

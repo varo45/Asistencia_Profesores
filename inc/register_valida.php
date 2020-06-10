@@ -28,7 +28,7 @@ else
 }
 if(! isset($ERR_REG_FORM))
 {
-    if($bd->searchDuplicate($_POST['DNI']))
+    if($bd->searchDuplicateUser($_POST['DNI']))
     {
         if($bd->insertNewUser($_POST['Nombre'], $_POST['DNI'], $login->encryptPassword($_POST['pass1'])))
         {
