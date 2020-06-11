@@ -7,6 +7,28 @@
 <?php
 
 
+function tooLateEntrada()
+{
+    $bd->bdConex();
+    $conex = $bd->conex;
+    $id = $bd->getID();
+    if($bd->conex_status == 1)
+    {
+        date_default_timezone_set('Europe/Madrid');
+        $fecha = date('Y-m-d');
+        $horaactual = mktime(date('H'),date('i'),date('s'),date('m'),date('d'),date('Y'));
+        $hora_salida = $bd->getHoraSalida($bd->getDiaSemana());
+        return $hora_salida;
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
 
 if(isset($ERR_BD))
 {

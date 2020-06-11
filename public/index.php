@@ -135,8 +135,8 @@ if(isset($_GET['ACTION']))
     {
       header("Refresh:2; url=index.php");
       include_once($dirs['inc'] . 'top-nav.php');
-      include_once($dirs['inc'] . 'contenido-home.php');
       include_once($dirs['inc'] . 'fichar-salida.php');
+      include_once($dirs['inc'] . 'contenido-home.php');
       include_once($dirs['inc'] . 'contenido-fichajes.php');
       include_once($dirs['inc'] . 'footer.php');
     }

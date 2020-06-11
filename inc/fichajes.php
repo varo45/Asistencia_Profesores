@@ -1,7 +1,7 @@
 <?php
 $bd->bdConex();
 $conex = $bd->conex;
-$sql = "SELECT DISTINCT $bd->fichaje.* FROM ($bd->fichaje INNER JOIN $bd->horarios ON $bd->fichaje.ID_PROFESOR=$bd->horarios.ID_PROFESOR) INNER JOIN $bd->profesores ON $bd->profesores.ID WHERE $bd->profesores.Nombre='$_SESSION[username]' AND $bd->profesores.DNI='$_SESSION[user]' ORDER BY $bd->fichaje.ID DESC";
+$sql = "SELECT DISTINCT $bd->fichaje.* FROM ($bd->fichaje INNER JOIN $bd->horarios ON $bd->fichaje.ID_PROFESOR=$bd->horarios.ID_PROFESOR) INNER JOIN $bd->profesores ON $bd->profesores.ID=$bd->horarios.ID_PROFESOR WHERE $bd->profesores.Nombre='$_SESSION[username]' AND $bd->profesores.DNI='$_SESSION[user]' ORDER BY $bd->fichaje.ID DESC LIMIT 5";
 $ejec = $conex->query($sql);
 echo "<h2>Fichajes</h2>";
 if ($row_cnt_fichajes = $ejec->num_rows > 0)

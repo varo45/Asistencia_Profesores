@@ -97,7 +97,7 @@ class DataBase
         }
         elseif($array['dayname'] === 'Wednesday')
         {
-            return "Miércoles";
+            return "Miercoles";
         }
         elseif($array['dayname'] === 'Thursday')
         {
@@ -109,7 +109,7 @@ class DataBase
         }
         elseif($array['dayname'] === 'Saturday')
         {
-            return "Sábado";
+            return "Sabado";
         }
         elseif($array['dayname'] === 'Sunday')
         {
@@ -167,6 +167,19 @@ class DataBase
             return false;
         }
     }
+    function getHoraSistema()
+    {
+        date_default_timezone_set('Europe/Madrid');
+        if($hora = date('H:i:s'))
+        {
+            return $hora;
+        }
+        else
+        {
+            $this->ERR_BD = "Error al obtener hora actual del sistema";
+            return false;
+        }
+    }
 
     function getDiaCompleto()
     {
@@ -201,7 +214,12 @@ class DataBase
             $this->ERR_BD = $this->ERR_BD;
             return false;
         }
-        $sql = "SELECT $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Hora FROM $this->horarios INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE $this->horarios.Dia='$diasemana' AND $this->horarios.Hora='$horaactual' AND $this->fichaje.F_salida <> $this->fichaje.Hora_salida AND $this->fichaje.Fecha='$dia'";
+        if(! $horasistema = $this->getHoraSistema())
+        {
+            $this->ERR_BD = $this->ERR_BD;
+            return false;
+        }
+        $sql = "SELECT $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Hora FROM $this->horarios INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE $this->horarios.Dia='$diasemana' AND $this->horarios.Hora='$horaactual' AND $this->fichaje.F_salida <> $this->fichaje.Hora_salida AND $this->fichaje.Fecha='$dia'  AND $this->fichaje.F_salida < '$horasistema' AND $this->fichaje.Hora_salida > '$horasistema'";
         if($exec = $conex->query($sql))
         {
             if($exec->num_rows > 0)
@@ -221,11 +239,11 @@ class DataBase
         }
     }
 
-    function getHoraSalida(string $dia)
+    function getHoraSalida($dia)
     {
         $this->bdConex();
         $conex = $this->conex;
-        $userdata = "SELECT $this->horarios.Hora_salida FROM ($this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID) INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE DNI='$_SESSION[user]' AND Nombre='$_SESSION[username]' AND $this->horarios.Dia='$dia' LIMIT 1";
+        $userdata = "SELECT $this->horarios.Hora_salida FROM $this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID WHERE DNI='$_SESSION[user]' AND Nombre='$_SESSION[username]' AND $this->horarios.Dia='$dia' LIMIT 1";
         $hs = $conex->query($userdata);
         if($hs = $hs->fetch_assoc())
         {
@@ -246,8 +264,8 @@ class DataBase
         if($this->conex_status == 1)
         {
             date_default_timezone_set('Europe/Madrid');
-            $fecha = date('Ymd');
-            $hora = date('H:i:s');
+            $fecha = date('Y-m-d');
+            $hora = date('H:i:00');
             $hora_salida = $this->getHoraSalida($this->getDiaSemana());
             $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, F_salida, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida', '$hora_salida')";
             if($exec = $conex->query($fichaje))
@@ -340,7 +358,7 @@ class DataBase
         }
     }
 
-    function tooLate()
+    function tooLateEntrada()
     {
         $this->bdConex();
         $conex = $this->conex;
@@ -349,7 +367,28 @@ class DataBase
         {
             date_default_timezone_set('Europe/Madrid');
             $fecha = date('Y-m-d');
-            $hora = date('H:i');
+            $horaactual = mktime(date('H'),date('i'),date('s'),date('m'),date('d'),date('Y'));
+            $hora_salida = $this->getHoraSalida($this->getDiaSemana());
+            return $hora_salida;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function tooLateSalida()
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        $id = $this->getID();
+        if($this->conex_status == 1)
+        {
+            date_default_timezone_set('Europe/Madrid');
+            $fecha = date('Y-m-d');
+            $hora = date('H:i:s');
             $hora_salida = $this->getHoraSalida();
             $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, F_salida, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida', '$hora_salida')";
             $exec = $conex->query($fichaje);
