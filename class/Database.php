@@ -168,11 +168,25 @@ class DataBase
         }
     }
 
+    function getDiaCompleto()
+    {
+        date_default_timezone_set('Europe/Madrid');
+        if($dia = date('Y-m-d'))
+        {
+            return $dia;
+        }
+        else
+        {
+            $this->ERR_BD = "Error al obtener fecha actual";
+            return false;
+        }
+    }
+
     function getGuardias()
     {
         $this->bdConex();
         $conex = $this->conex;
-        if(! $diahoy = $this->getDiaSemana())
+        if(! $diasemana = $this->getDiaSemana())
         {
             $this->ERR_BD = "Día semana no válido";
             return false;
@@ -182,7 +196,12 @@ class DataBase
             $this->ERR_BD = $this->ERR_BD;
             return false;
         }
-        $sql = "SELECT $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Hora FROM $this->horarios INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE $this->horarios.Dia='$diahoy' AND $this->horarios.Hora='$horaactual' AND $this->fichaje.F_salida <> $this->fichaje.Hora_salida";
+        if(! $dia = $this->getDiaCompleto())
+        {
+            $this->ERR_BD = $this->ERR_BD;
+            return false;
+        }
+        $sql = "SELECT $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Hora FROM $this->horarios INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE $this->horarios.Dia='$diasemana' AND $this->horarios.Hora='$horaactual' AND $this->fichaje.F_salida <> $this->fichaje.Hora_salida AND $this->fichaje.Fecha='$dia'";
         if($exec = $conex->query($sql))
         {
             if($exec->num_rows > 0)
