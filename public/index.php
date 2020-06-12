@@ -5,13 +5,9 @@
 // Requerimos el fichero de configuración de directorios
 // Requerimos los ficheros de las clases que hemos creado
 require_once('../inc/dir_config.php');
-require_once($dirs['class'] . 'Database.php');
-require_once($dirs['class'] . 'Users.php');
 require_once($dirs['class'] . 'Netasys.php');
 
 // iniciamos las clases y las guardamos en variables
-$bd = new DataBase;
-$user = new User;
 $class = new Netasys;
 
 // Comprobamos si está seteada la variable ACTION en la URL (Método GET)
@@ -154,7 +150,7 @@ if(isset($_GET['ACTION']))
 }
 else
 {
-  if(isset($_POST['user']) || isset($_POST['pass']))
+  if(isset($_POST['DNI']) || isset($_POST['pass']))
   {
     require_once($dirs['inc'] . 'login_valida.php');
   }

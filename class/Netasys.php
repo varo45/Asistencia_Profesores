@@ -50,7 +50,7 @@ class Netasys
 
     function isLogged()
     {
-        if($_SESSION['logged'] === true && isset($_SESSION['Nombre']) && ! $_SESSION['Nombre'] == '')
+        if($_SESSION['logged'] === true && isset($_SESSION['Nombre']) && isset($_SESSION['ID']) && $_SESSION['Nombre'] != '')
         {
             return true;
         }
@@ -113,10 +113,11 @@ class Netasys
             {
                 if($response->num_rows == 1)
                 {
-                    if($response = $this->selectFrom("SELECT Nombre, $this->perfiles.Tipo FROM $this->profesores INNER JOIN $this->perfiles ON $this->profesores.TIPO=$this->perfiles.ID WHERE DNI='$username' AND Password='$password'"))
+                    if($response = $this->selectFrom("SELECT $this->profesores.ID, $this->profesores.Nombre, $this->perfiles.Tipo FROM $this->profesores INNER JOIN $this->perfiles ON $this->profesores.TIPO=$this->perfiles.ID WHERE DNI='$username' AND Password='$password'"))
                     {
                         $fila = $response->fetch_assoc();
                         $_SESSION['logged'] = true;
+                        $_SESSION['ID'] = $fila['ID'];
                         $_SESSION['Nombre'] = $fila['Nombre'];
                         $_SESSION['Perfil'] = $fila['Tipo'];
                         return true;
@@ -139,6 +140,97 @@ class Netasys
         }
         else
         {
+            return false;
+        }
+    }
+
+    function getDate()
+    {
+        date_default_timezone_set('Europe/Madrid');
+        if($fecha = getdate())
+        {
+            if($fecha['weekday'] === 'Monday')
+            {
+                $fecha['weekday'] = "Lunes";
+            }
+            elseif($fecha['weekday'] === 'Tuesday')
+            {
+                $fecha['weekday'] = "Martes";
+            }
+            elseif($fecha['weekday'] === 'Wednesday')
+            {
+                $fecha['weekday'] = "Miercoles";
+            }
+            elseif($fecha['weekday'] === 'Thursday')
+            {
+                $fecha['weekday'] = "Jueves";
+            }
+            elseif($fecha['weekday'] === 'Friday')
+            {
+                $fecha['weekday'] = "Viernes";
+            }
+            elseif($fecha['weekday'] === 'Saturday')
+            {
+                $fecha['weekday'] = "Sabado";
+            }
+            elseif($fecha['weekday'] === 'Sunday')
+            {
+                $fecha['weekday'] = "Domingo";
+            }
+            
+            if($fecha['month'] === 'January')
+            {
+                $fecha['month'] = "Enero";
+            }
+            elseif($fecha['month'] === 'February')
+            {
+                $fecha['month'] = "Febrero";
+            }
+            elseif($fecha['month'] === 'March')
+            {
+                $fecha['month'] = "Marzo";
+            }
+            elseif($fecha['month'] === 'April')
+            {
+                $fecha['month'] = "Abril";
+            }
+            elseif($fecha['month'] === 'May')
+            {
+                $fecha['month'] = "Mayo";
+            }
+            elseif($fecha['month'] === 'June')
+            {
+                $fecha['month'] = "Junio";
+            }
+            elseif($fecha['month'] === 'July')
+            {
+                $fecha['month'] = "Julio";
+            }
+            elseif($fecha['month'] === 'August')
+            {
+                $fecha['month'] = "Agosto";
+            }
+            elseif($fecha['month'] === 'September')
+            {
+                $fecha['month'] = "Septiembre";
+            }
+            elseif($fecha['month'] === 'October')
+            {
+                $fecha['month'] = "Octubre";
+            }
+            elseif($fecha['month'] === 'November')
+            {
+                $fecha['month'] = "Noviembre";
+            }
+            elseif($fecha['month'] === 'December')
+            {
+                $fecha['month'] = "Diciembre";
+            }
+            return $fecha;
+        }
+        else
+        {
+            $this->ERR_NETASYS = "Error al obtener fecha.";
             return false;
         }
     }

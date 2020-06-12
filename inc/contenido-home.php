@@ -7,7 +7,7 @@
 <?php
 
   date_default_timezone_set('Europe/Madrid');
-  $ahora = getdate();
+  $ahora = $class->getDate();
   var_dump($ahora);
 
 
