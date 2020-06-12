@@ -50,7 +50,7 @@ class Netasys
 
     function isLogged()
     {
-        if($_SESSION['logged'] === true && isset($_SESSION['user']) && ! $_SESSION['user'] == '')
+        if($_SESSION['logged'] === true && isset($_SESSION['Nombre']) && ! $_SESSION['Nombre'] == '')
         {
             return true;
         }
@@ -63,7 +63,8 @@ class Netasys
     function Logout()
     {
         $_SESSION['logged'] = false;
-        unset($_SESSION['user']);
+        unset($_SESSION['Nombre']);
+        unset($_SESSION['Tipo']);
         session_destroy();
         session_abort();
         header("Location : index.php");
@@ -105,14 +106,40 @@ class Netasys
 
     function Login($username, $password)
     {
-        if($conex == 1)
+        if($conex = $this->bdConex())
         {
             $password = $this->encryptPassword($password);
-            return "SELECT count(*) as num FROM Profesores WHERE DNI='$username' AND Password='$password'";
+            if($response = $this->selectFrom("SELECT count(*) as num FROM $this->profesores WHERE DNI='$username' AND Password='$password'"))
+            {
+                if($response->num_rows == 1)
+                {
+                    if($response = $this->selectFrom("SELECT Nombre, $this->perfiles.Tipo FROM $this->profesores INNER JOIN $this->perfiles ON $this->profesores.TIPO=$this->perfiles.ID WHERE DNI='$username' AND Password='$password'"))
+                    {
+                        $fila = $response->fetch_assoc();
+                        $_SESSION['logged'] = true;
+                        $_SESSION['Nombre'] = $fila['Nombre'];
+                        $_SESSION['Perfil'] = $fila['Tipo'];
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    $this->ERR_NETASYS = "Usuario o contraseña no válidos.";
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
-            return $this->ERR_NETASYS = "No existe una conexión a la Base de Datos.";
+            return false;
         }
     }
 

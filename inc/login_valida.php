@@ -2,38 +2,25 @@
 
 // Validación del formulario
 
-if ($login->filledLogin($_POST['user'], $_POST['pass']))
+if($_POST['DNI'] != '' && $_POST['pass'] != '')
 {
-    if(! $login->validFormUser($_POST['user']))
+    if($class->validFormDni($_POST['DNI']))
     {
-        $ERR_LOGIN_FORM .= "· Nombre de usuario no válido </br>";
-    }
-    else
-    {
-        if($bd->bdConex() == 1)
+        if($class->Login($_POST['DNI'], $_POST['pass']))
         {
-            $conex = $bd->conex;
-            $sql = $login->proceedLogin($_POST['user'], $_POST['pass'], $bd->bdConex());
-            if($bd->bdCompareLogin($conex, $sql) == 1)
-            {
-                $_SESSION['logged'] = true;
-                $_SESSION['user'] = $_POST['user'];
-                $_SESSION['username'] = $user->getUserName($bd->conex);
-                $user->isAdmin($bd->conex);
-                header('Location: index.php');
-            }
-            else
-            {
-                $ERR_LOGIN_FORM .= "Nombre de Usuario o Contraseña incorrectos. </br>";
-            }
+            header("Location: index.php");
         }
         else
         {
-            $ERR_LOGIN_FORM .= "· No ha sido posible conectar con la base de datos. </br>";
+            $ERR_LOGIN_FORM = $class->ERR_NETASYS;
         }
+    }
+    else
+    {
+        $ERR_LOGIN_FORM = $class->ERR_NETASYS;
     }
 }
 else
 {
-    $ERR_LOGIN_FORM .= "· Rellene los campos vacíos </br>";
+    $ERR_LOGIN_FORM = "· Rellene los campos vacíos </br>";
 }
