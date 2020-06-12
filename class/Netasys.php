@@ -48,25 +48,3 @@ class Netasys
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if($response = $netasys->selectFrom("SELECT"))
-{
-
-}
-else
-{
-    echo $netasys->ERR_BD;
-}
