@@ -36,7 +36,7 @@ if(isset($_GET['ACTION']))
   }
   elseif ($_GET['ACTION'] == 'horarios')
   {
-    if($login->isLogged())
+    if($class->isLogged())
     {
       include_once($dirs['inc'] . 'top-nav.php');
       include_once($dirs['inc'] . 'contenido-horarios.php');
@@ -58,9 +58,9 @@ if(isset($_GET['ACTION']))
   elseif ($_GET['ACTION'] == 'profesores')
   {
     $bd->bdConex();
-    if($login->isLogged() && $user->isAdmin($bd->conex))
+    if($class->isLogged() && $user->isAdmin($bd->conex))
     {
-      if($login->isLogged())
+      if($class->isLogged())
       {
         include_once($dirs['inc'] . 'top-nav.php');
         include_once($dirs['inc'] . 'contenido-profesores.php');
@@ -83,7 +83,7 @@ if(isset($_GET['ACTION']))
   elseif ($_GET['ACTION'] == 'guardias')
   {
     $bd->bdConex();
-    if($login->isLogged())
+    if($class->isLogged())
     {
       include_once($dirs['inc'] . 'top-nav.php');
       include_once($dirs['inc'] . 'contenido-guardias.php');
@@ -98,7 +98,7 @@ if(isset($_GET['ACTION']))
   }
   elseif ($_GET['ACTION'] == 'fichar')
   {
-    if($login->isLogged())
+    if($class->isLogged())
     {
       if($bd->searchDuplicateDay())
       {
@@ -131,7 +131,7 @@ if(isset($_GET['ACTION']))
   }
   elseif ($_GET['ACTION'] == 'fichar_salida')
   {
-    if($login->isLogged())
+    if($class->isLogged())
     {
       header("Refresh:2; url=index.php");
       include_once($dirs['inc'] . 'top-nav.php');
@@ -158,7 +158,7 @@ else
   {
     require_once($dirs['inc'] . 'login_valida.php');
   }
-  if($login->isLogged())
+  if($class->isLogged())
   {
       include($dirs['inc'] . 'home.php');
   }

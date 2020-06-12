@@ -284,7 +284,7 @@ input[type=text]:placeholder {
 
           <!-- Login Form -->
           <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-            <input type="text" id="login" class="fadeIn second" name="user" value="<?php echo $_POST['user']; ?>" placeholder="Usuario" required>
+            <input type="text" id="login" class="fadeIn second" name="DNI" value="<?php echo $_POST['DNI']; ?>" placeholder="Usuario (DNI/NIE)" required>
             <input type="password" id="password" class="fadeIn third" name="pass" minlength="8" placeholder="Contraseña" required>
             <input type="submit" class="fadeIn fourth" value="Iniciar">
           </form>
