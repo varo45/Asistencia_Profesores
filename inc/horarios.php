@@ -1,12 +1,10 @@
 <?php
-$bd->bdConex();
-$conex = $bd->conex;
-$sql = "SELECT * FROM $bd->horarios INNER JOIN $bd->profesores ON $bd->horarios.ID_PROFESOR=$bd->profesores.ID WHERE DNI='$_SESSION[user]' ORDER BY Hora";
-$ejec = $conex->query($sql);
-echo "<h2>Horarios</h2>";
-if ($row_cnt_horarios = $ejec->num_rows >=1)
+if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horarios INNER JOIN $class->profesores ON $class->horarios.ID_PROFESOR=$class->profesores.ID WHERE $class->profesores.ID='$_SESSION[ID]'"))
 {
-    echo "</br><table class='table table-striped'>";
+    if ($response->num_rows > 0)
+    {
+        echo "<h2>Horarios</h2>";
+        echo "</br><table class='table table-striped'>";
         echo "<thead>";
             echo "<tr>";
                 echo "<th>Horas</th>";
@@ -18,7 +16,7 @@ if ($row_cnt_horarios = $ejec->num_rows >=1)
                 echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
-            while ($fila = $ejec->fetch_assoc())
+            while ($fila = $response->fetch_assoc())
                 {
                     if ($fila['Dia'] == 'Lunes')
                     {
@@ -44,9 +42,10 @@ if ($row_cnt_horarios = $ejec->num_rows >=1)
             for ($i = 0; $i < 6; $i++)
             {
                 $count=$i+1;
+                $horas = $count . 'M';
                 echo "<tr>";
                     echo "<td>" . $count . "</td>";
-                    if ($lunes[$i]['Hora'] == $count && $lunes[$i]['Aula'] != null && $lunes[$i]['Grupo'] != null)
+                    if ($lunes[$i]['HORA_TIPO'] == $horas && $lunes[$i]['Aula'] != null && $lunes[$i]['Grupo'] != null)
                     {
                         echo "<td>" . "Aula: " . $lunes[$i]['Aula'] . "<br>" . "Grupo: " . $lunes[$i]['Grupo'] . "</td>";
                     }
@@ -54,7 +53,7 @@ if ($row_cnt_horarios = $ejec->num_rows >=1)
                     {
                         echo "<td></td>";
                     }                 
-                    if ($martes[$i]['Hora'] == $count && $martes[$i]['Aula'] != null && $martes[$i]['Grupo'] != null)
+                    if ($martes[$i]['HORA_TIPO'] == $horas && $martes[$i]['Aula'] != null && $martes[$i]['Grupo'] != null)
                     {
                         echo "<td>" . "Aula: " . $martes[$i]['Aula'] . "<br>" . "Grupo: " . $martes[$i]['Grupo'] . "</td>";
                     }
@@ -62,7 +61,7 @@ if ($row_cnt_horarios = $ejec->num_rows >=1)
                     {
                         echo "<td></td>";
                     }   
-                    if ($miercoles[$i]['Hora'] == $count && $miercoles[$i]['Aula'] != null && $miercoles[$i]['Grupo'] != null)
+                    if ($miercoles[$i]['HORA_TIPO'] == $horas && $miercoles[$i]['Aula'] != null && $miercoles[$i]['Grupo'] != null)
                     {
                         echo "<td>" . "Aula: " . $miercoles[$i]['Aula'] . "<br>" . "Grupo: " . $miercoles[$i]['Grupo'] . "</td>";
                     }
@@ -70,7 +69,7 @@ if ($row_cnt_horarios = $ejec->num_rows >=1)
                     {
                         echo "<td></td>";
                     }   
-                    if ($jueves[$i]['Hora'] == $count && $jueves[$i]['Aula'] != null && $jueves[$i]['Grupo'] != null)
+                    if ($jueves[$i]['HORA_TIPO'] == $horas && $jueves[$i]['Aula'] != null && $jueves[$i]['Grupo'] != null)
                     {
                         echo "<td>" . "Aula: " . $jueves[$i]['Aula'] . "<br>" . "Grupo: " . $jueves[$i]['Grupo'] . "</td>";
                     }
@@ -78,7 +77,7 @@ if ($row_cnt_horarios = $ejec->num_rows >=1)
                     {
                         echo "<td></td>";
                     }   
-                    if ($viernes[$i]['Hora'] == $count && $viernes[$i]['Aula'] != null && $viernes[$i]['Grupo'] != null)
+                    if ($viernes[$i]['HORA_TIPO'] == $horas && $viernes[$i]['Aula'] != null && $viernes[$i]['Grupo'] != null)
                     {
                         echo "<td>" . "Aula: " . $viernes[$i]['Aula'] . "<br>" . "Grupo: " . $viernes[$i]['Grupo'] . "</td>";
                     }
@@ -89,9 +88,14 @@ if ($row_cnt_horarios = $ejec->num_rows >=1)
                 echo "</tr>";
             }
         echo "</tbody>";
-    echo "</table>";
+        echo "</table>";
+    }
+    else
+    {
+        $ERR_MSG = $class->ERR_NETASYS;
+    }
 }
 else
 {
-    echo "No existen registros de horarios.";
+    $ERR_MSG = $class->ERR_NETASYS;
 }
