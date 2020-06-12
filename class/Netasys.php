@@ -6,7 +6,7 @@ class Netasys
     private $host = '192.168.1.133:8989';
     private $user = 'profesores';
     private $pass = 'f36c0d6388963313095f349dabd4c2e9f730868e';
-    private $db = 'Asinet';
+    private $db = 'Netasys';
 
     public $fichar = 'Fichar';
     public $horarios = 'Horarios';
