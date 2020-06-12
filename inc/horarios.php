@@ -1,5 +1,5 @@
 <?php
-if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horarios INNER JOIN $class->profesores ON $class->horarios.ID_PROFESOR=$class->profesores.ID WHERE $class->profesores.ID='$_SESSION[ID]'"))
+if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horarios INNER JOIN $class->profesores ON $class->horarios.ID_PROFESOR=$class->profesores.ID WHERE $class->profesores.ID='$_SESSION[ID]' ORDER BY $class->horarios.HORA_TIPO"))
 {
     if ($response->num_rows > 0)
     {
