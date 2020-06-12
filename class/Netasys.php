@@ -20,21 +20,25 @@ class Netasys
     function bdConex()
     {
         $conex = new mysqli($this->host, $this->user, $this->pass, $this->db);
-        if ($conex->connect_errno) {
-            $this->ERR_NETASYS = "Fallo al conectar a MySQL: (" . $this->conex->connect_errno . ") " . $this->conex->connect_error;
-            return false;
+        if(! $conex->connect_errno) {
+            return $conex;
         }
         else
         {
-            return $conex;
+            $this->ERR_NETASYS = "Fallo al conectar a MySQL: (" . $this->conex->connect_errno . ") " . $this->conex->connect_error;
+            return false;
         }
+    }
+
+    function getConsulta($sql)
+    {
+        echo $sql;
     }
 
     function selectFrom($sql)
     {
         if(! $conex = $this->bdConex())
         {
-            $this->ERR_NETASYS = "Fallo al conectar a MySQL: (" . $this->conex->connect_errno . ") " . $this->conex->connect_error;
             return false;
         }
         if($resultado = $conex->query($sql))
@@ -56,6 +60,7 @@ class Netasys
         }
         else
         {
+            $this->ERR_NETASYS = "Debe iniciar sesión.";
             return false;
         }
     }
@@ -231,6 +236,135 @@ class Netasys
         else
         {
             $this->ERR_NETASYS = "Error al obtener fecha.";
+            return false;
+        }
+    }
+
+    function getLastIDFichaje()
+    {
+        $conex = $this->bdConex();
+        $id = $_SESSION['ID'];
+        $userdata = "SELECT ID FROM $this->fichaje WHERE ID_PROFESOR='$id' ORDER BY ID DESC LIMIT 1";
+        if($lastID = $conex->query($userdata))
+        {
+            $lastID = $lastID->fetch_assoc();
+            return $lastID['ID'];
+        }
+        else
+        {
+            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            return false;
+        }
+    }
+
+    function getGuardias()
+    {
+        $this->bdConex();
+        $conex = $this->conex;
+        if(! $diasemana = $this->getDiaSemana())
+        {
+            $this->ERR_BD = "Día semana no válido";
+            return false;
+        }
+        if(! $horaactual = $this->getHoraActual())
+        {
+            $this->ERR_BD = $this->ERR_BD;
+            return false;
+        }
+        if(! $dia = $this->getDiaCompleto())
+        {
+            $this->ERR_BD = $this->ERR_BD;
+            return false;
+        }
+        if(! $horasistema = $this->getHoraSistema())
+        {
+            $this->ERR_BD = $this->ERR_BD;
+            return false;
+        }
+        $sql = "SELECT $this->horarios.Edificio, $this->horarios.Aula, $this->horarios.Grupo, $this->horas.Inicio, $this->horas.Fin FROM $this->horarios INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE $this->horarios.Dia='$diasemana' AND $this->horarios.Hora>='$horaactual' AND $this->fichaje.F_salida <> $this->fichaje.Hora_salida AND $this->fichaje.Fecha='$dia'  AND $this->fichaje.F_salida < '$horasistema' AND $this->fichaje.Hora_salida > '$horasistema'";
+        if($exec = $conex->query($sql))
+        {
+            if($exec->num_rows > 0)
+            {
+                return $exec;
+            }
+            else
+            {
+                $this->ERR_BD = "No existen Aulas sin Profesor.";
+                return false;
+            }
+        }
+        else
+        {
+            $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            return false;
+        }
+    }
+
+    function FicharWeb()
+    {
+        $id = $_SESSION['ID'];
+        if($conex = $this->bdConex())
+        {
+            date_default_timezone_set('Europe/Madrid');
+            $fecha = date('Y-m-d');
+            $hora = date('H:i:00');
+            $hora_salida = $this->getHoraSalida($this->getDiaSemana());
+            $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, F_salida, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida', '$hora_salida')";
+            if($exec = $conex->query($fichaje))
+            {
+                return true;
+            }
+            else
+            {
+                $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function getHoraEntrada()
+    {
+        $dia = $this->getDate();
+        if($response = $this->selectFrom("SELECT $this->horarios.Hora_entrada FROM $this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID WHERE $this->profesores.ID='$_SESSION[ID]' AND $this->profesores.Nombre='$_SESSION[Nombre]' AND $this->horarios.Dia='$dia[weekday]' LIMIT 1"))
+        {
+            if($hora_entrada = $response->fetch_assoc())
+            {
+                return $hora_entrada['Hora_entrada'];
+            }
+            else
+            {
+                $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function getHoraSalida()
+    {
+        $dia = $this->getDate();
+        if($response = $this->selectFrom("SELECT $this->horarios.Hora_salida FROM $this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID WHERE $this->profesores.ID='$_SESSION[ID]' AND $this->profesores.Nombre='$_SESSION[Nombre]' AND $this->horarios.Dia='$dia[weekday]' LIMIT 1"))
+        {
+            if($hora_salida = $response->fetch_assoc())
+            {
+                return $hora_salida['Hora_salida'];
+            }
+            else
+            {
+                $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+                return false;
+            }
+        }
+        else
+        {
             return false;
         }
     }
