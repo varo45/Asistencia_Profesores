@@ -1,3 +1,3 @@
 <?php
-$login->proceedLogout();
+$class->Logout();
 header("Location: index.php");
