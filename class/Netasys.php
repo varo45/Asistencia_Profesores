@@ -14,14 +14,14 @@ class Netasys
     public $horas = 'Horas';
     public $perfiles = 'Perfiles';
 
-    public $ERR_BD;
+    public $ERR_NETASYS;
 
 
     function bdConex()
     {
         $conex = new mysqli($this->host, $this->user, $this->pass, $this->db);
         if ($conex->connect_errno) {
-            $this->ERR_BD = "Fallo al conectar a MySQL: (" . $this->conex->connect_errno . ") " . $this->conex->connect_error;
+            $this->ERR_NETASYS = "Fallo al conectar a MySQL: (" . $this->conex->connect_errno . ") " . $this->conex->connect_error;
             return false;
         }
         else
@@ -34,7 +34,7 @@ class Netasys
     {
         if(! $conex = $this->bdConex())
         {
-            $this->ERR_BD = "Fallo al conectar a MySQL: (" . $this->conex->connect_errno . ") " . $this->conex->connect_error;
+            $this->ERR_NETASYS = "Fallo al conectar a MySQL: (" . $this->conex->connect_errno . ") " . $this->conex->connect_error;
             return false;
         }
         if($resultado = $conex->query($sql))
@@ -43,8 +43,77 @@ class Netasys
         }
         else
         {
-            $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
             return false;
         }
     }
+
+    function isLogged()
+    {
+        if($_SESSION['logged'] === true && isset($_SESSION['user']) && ! $_SESSION['user'] == '')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function Logout()
+    {
+        $_SESSION['logged'] = false;
+        unset($_SESSION['user']);
+        session_destroy();
+        session_abort();
+        header("Location : index.php");
+    }
+
+    function validFormName($registername)
+    {
+        if(preg_match('/^[ a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-]{6,60}$/i', $registername))
+        {
+            return true;
+        }
+        else
+        {
+            $this->ERR_NETASYS = "Nombre no válido <br>";
+            return false;
+        }
+    }
+
+    function validFormDni($registerdni)
+    {
+        $registerdni = strtoupper($registerdni);
+
+        if(preg_match('/(^[XYZ][0-9]{7}[A-Z]$)|(^[0-9]{8}[A-Z]$)/i', $registerdni))
+        {
+            return true;
+        }
+        else
+        {
+            $this->ERR_NETASYS = "DNI no válido <br>";
+            return false;
+        }
+    }
+
+    function encryptPassword($pass)
+    {
+        $pass = sha1($pass);
+        return $pass;
+    }
+
+    function Login($username, $password)
+    {
+        if($conex == 1)
+        {
+            $password = $this->encryptPassword($password);
+            return "SELECT count(*) as num FROM Profesores WHERE DNI='$username' AND Password='$password'";
+        }
+        else
+        {
+            return $this->ERR_NETASYS = "No existe una conexión a la Base de Datos.";
+        }
+    }
+
 }
