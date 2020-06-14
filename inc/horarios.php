@@ -45,41 +45,46 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                 $horas = $count . 'M';
                 echo "<tr>";
                     echo "<td>" . $count . "</td>";
-                    if ($lunes[$i]['HORA_TIPO'] == $horas && $lunes[$i]['Aula'] != null && $lunes[$i]['Grupo'] != null)
+                    if ($lunes[$i]['HORA_TIPO'] == $horas && $lunes[$i]['Edificio'] && $lunes[$i]['Aula'] != null && $lunes[$i]['Grupo'] != null)
                     {
-                        echo "<td>" . "Aula: " . $lunes[$i]['Aula'] . "<br>" . "Grupo: " . $lunes[$i]['Grupo'] . "</td>";
+                        strlen($lunes[$i]['Aula']) == 1 ? $lunes[$i]['Aula'] = 0 . $lunes[$i]['Aula'] : $lunes[$i]['Aula'];
+                        echo "<td>" . "Aula: " . $lunes[$i]['Edificio'] . $lunes[$i]['Aula'] . "<br>" . "Grupo: " . $lunes[$i]['Grupo'] . "</td>";
                     }
                     else
                     {
                         echo "<td></td>";
                     }                 
-                    if ($martes[$i]['HORA_TIPO'] == $horas && $martes[$i]['Aula'] != null && $martes[$i]['Grupo'] != null)
+                    if ($martes[$i]['HORA_TIPO'] == $horas && $martes[$i]['Edificio'] && $martes[$i]['Aula'] != null && $martes[$i]['Grupo'] != null)
                     {
-                        echo "<td>" . "Aula: " . $martes[$i]['Aula'] . "<br>" . "Grupo: " . $martes[$i]['Grupo'] . "</td>";
+                        strlen($martes[$i]['Aula']) == 1 ? $martes[$i]['Aula'] = 0 . $martes[$i]['Aula'] : $martes[$i]['Aula'];
+                        echo "<td>" . "Aula: " . $martes[$i]['Edificio'] . $martes[$i]['Aula'] . "<br>" . "Grupo: " . $martes[$i]['Grupo'] . "</td>";
                     }
                     else
                     {
                         echo "<td></td>";
                     }   
-                    if ($miercoles[$i]['HORA_TIPO'] == $horas && $miercoles[$i]['Aula'] != null && $miercoles[$i]['Grupo'] != null)
+                    if ($miercoles[$i]['HORA_TIPO'] == $horas && $miercoles[$i]['Edificio'] && $miercoles[$i]['Aula'] != null && $miercoles[$i]['Grupo'] != null)
                     {
-                        echo "<td>" . "Aula: " . $miercoles[$i]['Aula'] . "<br>" . "Grupo: " . $miercoles[$i]['Grupo'] . "</td>";
+                        strlen($miercoles[$i]['Aula']) == 1 ? $miercoles[$i]['Aula'] = 0 . $miercoles[$i]['Aula'] : $miercoles[$i]['Aula'];
+                        echo "<td>" . "Aula: " . $miercoles[$i]['Edificio'] . $miercoles[$i]['Aula'] . "<br>" . "Grupo: " . $miercoles[$i]['Grupo'] . "</td>";
                     }
                     else
                     {
                         echo "<td></td>";
                     }   
-                    if ($jueves[$i]['HORA_TIPO'] == $horas && $jueves[$i]['Aula'] != null && $jueves[$i]['Grupo'] != null)
+                    if ($jueves[$i]['HORA_TIPO'] == $horas && $jueves[$i]['Edificio'] && $jueves[$i]['Aula'] != null && $jueves[$i]['Grupo'] != null)
                     {
-                        echo "<td>" . "Aula: " . $jueves[$i]['Aula'] . "<br>" . "Grupo: " . $jueves[$i]['Grupo'] . "</td>";
+                        strlen($jueves[$i]['Aula']) == 1 ? $jueves[$i]['Aula'] = 0 . $jueves[$i]['Aula'] : $jueves[$i]['Aula'];
+                        echo "<td>" . "Aula: " . $jueves[$i]['Edificio'] . $jueves[$i]['Aula'] . "<br>" . "Grupo: " . $jueves[$i]['Grupo'] . "</td>";
                     }
                     else
                     {
                         echo "<td></td>";
                     }   
-                    if ($viernes[$i]['HORA_TIPO'] == $horas && $viernes[$i]['Aula'] != null && $viernes[$i]['Grupo'] != null)
+                    if ($viernes[$i]['HORA_TIPO'] == $horas && $viernes[$i]['Edificio'] && $viernes[$i]['Aula'] != null && $viernes[$i]['Grupo'] != null)
                     {
-                        echo "<td>" . "Aula: " . $viernes[$i]['Aula'] . "<br>" . "Grupo: " . $viernes[$i]['Grupo'] . "</td>";
+                        strlen($viernes[$i]['Aula']) == 1 ? $viernes[$i]['Aula'] = 0 . $viernes[$i]['Aula'] : $viernes[$i]['Aula'];
+                        echo "<td>" . "Aula: " . $viernes[$i]['Edificio'] . $viernes[$i]['Aula'] . "<br>" . "Grupo: " . $viernes[$i]['Grupo'] . "</td>";
                     }
                     else
                     {

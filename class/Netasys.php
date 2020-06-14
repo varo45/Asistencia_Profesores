@@ -52,6 +52,23 @@ class Netasys
         }
     }
 
+    function registerNewUser($name, $dni, $password, $type )
+    {
+        if(! $conex = $this->bdConex())
+        {
+            return false;
+        }
+        if($resultado = $conex->query($sql))
+        {
+            return $resultado;
+        }
+        else
+        {
+            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            return false;
+        }
+    }
+
     function isLogged()
     {
         if($_SESSION['logged'] === true && isset($_SESSION['Nombre']) && isset($_SESSION['ID']) && $_SESSION['Nombre'] != '')
@@ -114,7 +131,7 @@ class Netasys
         if($conex = $this->bdConex())
         {
             $password = $this->encryptPassword($password);
-            if($response = $this->selectFrom("SELECT count(*) as num FROM $this->profesores WHERE DNI='$username' AND Password='$password'"))
+            if($response = $this->selectFrom("SELECT ID FROM $this->profesores WHERE DNI='$username' AND Password='$password'"))
             {
                 if($response->num_rows == 1)
                 {
@@ -261,25 +278,16 @@ class Netasys
     {
         $this->bdConex();
         $conex = $this->conex;
-        if(! $diasemana = $this->getDiaSemana())
+        if(! $ahora = $this->getDate())
         {
-            $this->ERR_BD = "Día semana no válido";
             return false;
         }
-        if(! $horaactual = $this->getHoraActual())
+        else
         {
-            $this->ERR_BD = $this->ERR_BD;
-            return false;
-        }
-        if(! $dia = $this->getDiaCompleto())
-        {
-            $this->ERR_BD = $this->ERR_BD;
-            return false;
-        }
-        if(! $horasistema = $this->getHoraSistema())
-        {
-            $this->ERR_BD = $this->ERR_BD;
-            return false;
+            $diasemana = $ahora['weekday'];
+            $horaactual = $this->selectFrom("");
+            $dia = $ahora['year'] . $ahora['mon'] . $ahora['mday'];
+            $horasistema = $ahora['hours'] . ":" . $ahora['minutes'] . ":" . $ahora['seconds'];
         }
         $sql = "SELECT $this->horarios.Edificio, $this->horarios.Aula, $this->horarios.Grupo, $this->horas.Inicio, $this->horas.Fin FROM $this->horarios INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE $this->horarios.Dia='$diasemana' AND $this->horarios.Hora>='$horaactual' AND $this->fichaje.F_salida <> $this->fichaje.Hora_salida AND $this->fichaje.Fecha='$dia'  AND $this->fichaje.F_salida < '$horasistema' AND $this->fichaje.Hora_salida > '$horasistema'";
         if($exec = $conex->query($sql))
@@ -360,6 +368,26 @@ class Netasys
             else
             {
                 $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function searchDuplicateField($data, $field, $table)
+    {
+        if($response = $this->selectFrom("SELECT $field FROM $table WHERE $field='$data'"))
+        {
+            if($response->num_rows == 1)
+            {
+                return true;
+            }
+            else
+            {
+                $this->ERR_NETASYS = "Ya existe el usuario $data";
                 return false;
             }
         }

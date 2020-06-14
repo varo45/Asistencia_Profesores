@@ -1,5 +1,5 @@
 <?php
-if($_SESSION['Perfil'] == 'Admin')
+if($_SESSION['Perfil'] === 'Admin')
 { 
  if ($response = $class->selectFrom("SELECT $class->profesores.ID, $class->profesores.Nombre, $class->profesores.DNI, $class->perfiles.Tipo FROM $class->profesores INNER JOIN $class->perfiles ON $class->profesores.TIPO=$class->perfiles.ID"))
  {
@@ -38,4 +38,8 @@ if($_SESSION['Perfil'] == 'Admin')
  {
    $ERR_MSG = $class->ERR_NETASYS;
  }
+}
+else
+{
+  $ERR_MSG = "No tiene permisos de administrador.";
 }

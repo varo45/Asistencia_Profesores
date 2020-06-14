@@ -53,9 +53,6 @@ if(isset($_GET['ACTION']))
   }
   elseif ($_GET['ACTION'] == 'profesores')
   {
-    $bd->bdConex();
-    if($class->isLogged() && $user->isAdmin($bd->conex))
-    {
       if($class->isLogged())
       {
         include_once($dirs['inc'] . 'top-nav.php');
@@ -68,17 +65,9 @@ if(isset($_GET['ACTION']))
         header("Refresh:2; url=index.php");
         include_once($dirs['inc'] . 'msg_modal.php');
       }
-    }
-    else
-    {
-      $MSG = "No tienes permisos de administrador.";
-      header("Refresh:2; url=index.php");
-      include_once($dirs['inc'] . 'msg_modal.php');
-    }
   }
   elseif ($_GET['ACTION'] == 'guardias')
   {
-    $bd->bdConex();
     if($class->isLogged())
     {
       include_once($dirs['inc'] . 'top-nav.php');

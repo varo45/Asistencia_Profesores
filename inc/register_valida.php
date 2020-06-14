@@ -2,35 +2,23 @@
 
 //Validación del formulario de registro
 
-if($login->validNameRegister($_POST['Nombre']))
+if(! $class->validFormName($_POST['Nombre']))
 {
-
+    $ERR_REG_FORM .= $class->ERR_NETASYS;
 }
-else
+if(! $class->validFormDni($_POST['DNI']))
 {
-    $ERR_REG_FORM .= $login->ERR_REG_FORM;
+    $ERR_REG_FORM .= $class->ERR_NETASYS;
 }
-if($login->validFormUser($_POST['DNI']))
+if(! $class->encryptPassword($_POST['pass1']) == $class->encryptPassword($_POST['pass2']))
 {
-
-}
-else
-{
-    $ERR_REG_FORM .= $login->ERR_REG_FORM;
-}
-if($login->encryptPassword($_POST['pass1']) == $login->encryptPassword($_POST['pass2']))
-{
-  
-}
-else
-{
-  $ERR_REG_FORM .= "Las contraseñas no coinciden <br>";
+    $ERR_REG_FORM .= "Las contraseñas no coinciden <br>";
 }
 if(! isset($ERR_REG_FORM))
 {
-    if($bd->searchDuplicateUser($_POST['DNI']))
+    if($class->searchDuplicateField($_POST['DNI'], 'DNI', $class->profesores))
     {
-        if($bd->insertNewUser($_POST['Nombre'], $_POST['DNI'], $login->encryptPassword($_POST['pass1'])))
+        if($class->registerNewUser($_POST['Nombre'], $_POST['DNI'], $class->encryptPassword($_POST['pass1'])))
         {
             $MSG = "Te has registrado correctamente.";
             header("Refresh:2; url=index.php");
@@ -38,7 +26,7 @@ if(! isset($ERR_REG_FORM))
         }
         else
         {
-            $ERR_REG_FORM = $bd->ERR_BD;
+            $ERR_REG_FORM = $class->ERR_NETASYS;
             include_once($dirs['inc'] . 'register_form.php');
         }
     }

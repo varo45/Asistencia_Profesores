@@ -35,7 +35,7 @@
       </li>
       <li class="<?php echo $act_asistencia; ?>"><a href="<?php $d = date('d'); $m = date('m'); $Y = date('Y'); echo $_SERVER['PHP_SELF'] . "?ACTION=asistencias&d=$d&m=$m&Y=$Y"; ?>"><span class="glyphicon glyphicon-check"></span> Mis asistencias</a></li>
       <?php
-        if($_SESSION['Admin'])
+        if($_SESSION['Perfil'] === 'Admin')
         {
             echo "<li class=' $act_asistencia '><a href='$_SERVER[PHP_SELF]?ACTION=profesores'><span class='glyphicon glyphicon-education'></span> Profesores</a></li>";
         }
@@ -43,7 +43,7 @@
       <li class="<?php echo $act_asistencia; ?>"><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=guardias' ?>"><span class="glyphicon glyphicon-eye-open"></span> Guardias</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['username']; ?><span class="caret"></span></a>
+      <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['Nombre']; ?><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Notificaciones</a></li>
