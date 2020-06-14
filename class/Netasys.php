@@ -41,9 +41,43 @@ class Netasys
         {
             return false;
         }
-        if($resultado = $conex->query($sql))
+        if($response = $conex->query($sql))
         {
-            return $resultado;
+            return $response;
+        }
+        else
+        {
+            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            return false;
+        }
+    }
+
+    function insertInto($sql)
+    {
+        if(! $conex = $this->bdConex())
+        {
+            return false;
+        }
+        if($response = $conex->query($sql))
+        {
+            return $response;
+        }
+        else
+        {
+            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            return false;
+        }
+    }
+
+    function updateSet($sql)
+    {
+        if(! $conex = $this->bdConex())
+        {
+            return false;
+        }
+        if($response = $conex->query($sql))
+        {
+            return $response;
         }
         else
         {
@@ -58,9 +92,9 @@ class Netasys
         {
             return false;
         }
-        if($resultado = $conex->query($sql))
+        if($response = $conex->query($sql))
         {
-            return $resultado;
+            return $response;
         }
         else
         {
@@ -261,8 +295,8 @@ class Netasys
     {
         $conex = $this->bdConex();
         $id = $_SESSION['ID'];
-        $userdata = "SELECT ID FROM $this->fichaje WHERE ID_PROFESOR='$id' ORDER BY ID DESC LIMIT 1";
-        if($lastID = $conex->query($userdata))
+        $sql = "SELECT ID FROM $this->fichaje WHERE ID_PROFESOR='$id' ORDER BY ID DESC LIMIT 1";
+        if($lastID = $this->selectFrom($sql))
         {
             $lastID = $lastID->fetch_assoc();
             return $lastID['ID'];
@@ -274,10 +308,24 @@ class Netasys
         }
     }
 
+    function getHoraClase()
+    {
+        date_default_timezone_set('Europe/Madrid');
+        $now = date('H:i:s');
+        $now = '10:22:00';
+        if($response = $this->selectFrom("SELECT Hora FROM Horas WHERE Inicio <= '$now' AND Fin >= '$now'"))
+        {  
+            return $response;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     function getGuardias()
     {
-        $this->bdConex();
-        $conex = $this->conex;
+        
         if(! $ahora = $this->getDate())
         {
             return false;
@@ -285,12 +333,20 @@ class Netasys
         else
         {
             $diasemana = $ahora['weekday'];
-            $horaactual = $this->selectFrom("");
-            $dia = $ahora['year'] . $ahora['mon'] . $ahora['mday'];
+            $horaclase = $this->getHoraClase();
+            $horaactual = $horaclase->fetch_assoc();
+            $horaactual = $horaactual['Hora'];
+            $dia = $ahora['year'] . "-" . $ahora['mon'] . "-" . $ahora['mday'];
             $horasistema = $ahora['hours'] . ":" . $ahora['minutes'] . ":" . $ahora['seconds'];
         }
-        $sql = "SELECT $this->horarios.Edificio, $this->horarios.Aula, $this->horarios.Grupo, $this->horas.Inicio, $this->horas.Fin FROM $this->horarios INNER JOIN $this->fichaje ON $this->horarios.ID_PROFESOR=$this->fichaje.ID_PROFESOR WHERE $this->horarios.Dia='$diasemana' AND $this->horarios.Hora>='$horaactual' AND $this->fichaje.F_salida <> $this->fichaje.Hora_salida AND $this->fichaje.Fecha='$dia'  AND $this->fichaje.F_salida < '$horasistema' AND $this->fichaje.Hora_salida > '$horasistema'";
-        if($exec = $conex->query($sql))
+        $sql = "SELECT $this->horas.Hora, $this->profesores.Nombre, $this->horarios.Edificio, $this->horarios.Aula, $this->horarios.Grupo 
+                FROM (($this->profesores 
+                        INNER JOIN $this->horarios ON $this->profesores.ID=$this->horarios.ID_PROFESOR) 
+                        INNER JOIN $this->fichar ON $this->horarios.ID_PROFESOR=$this->fichar.ID_PROFESOR) 
+                        INNER JOIN $this->horas ON $this->horarios.HORA_TIPO=$this->horas.Hora 
+                WHERE $this->horarios.Dia='$diasemana' AND $this->fichar.DIA_SEMANA='$diasemana' AND $this->horas.Inicio >= '$horasistema' AND $this->fichar.Fecha = '$dia' AND $this->fichar.F_salida <> $this->horarios.Hora_salida AND $this->horarios.Edificio IS NOT NULL AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo IS NOT NULL 
+                ORDER BY $this->horas.Hora";
+        if($exec = $this->selectFrom($sql))
         {
             if($exec->num_rows > 0)
             {
@@ -298,13 +354,12 @@ class Netasys
             }
             else
             {
-                $this->ERR_BD = "No existen Aulas sin Profesor.";
+                $this->ERR_NETASYS = "No existen Aulas sin Profesor.";
                 return false;
             }
         }
         else
         {
-            $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
             return false;
         }
     }
@@ -312,14 +367,15 @@ class Netasys
     function FicharWeb()
     {
         $id = $_SESSION['ID'];
-        if($conex = $this->bdConex())
+        if($this->bdConex())
         {
             date_default_timezone_set('Europe/Madrid');
             $fecha = date('Y-m-d');
             $hora = date('H:i:00');
-            $hora_salida = $this->getHoraSalida($this->getDiaSemana());
-            $fichaje = "INSERT INTO $this->fichaje (ID_PROFESOR, Fecha, F_entrada, F_salida, Hora_salida) VALUES ($id, '$fecha', '$hora', '$hora_salida', '$hora_salida')";
-            if($exec = $conex->query($fichaje))
+            $dia = $this->getDate();
+            $hora_salida = $this->getHoraSalida();
+            $fichar = "INSERT INTO $this->fichar (ID_PROFESOR, F_entrada, F_salida, DIA_SEMANA, Fecha) VALUES ($id, '$hora', '$hora_salida', '$dia[weekday]', '$fecha')";
+            if($response = $this->insertInto($fichar))
             {
                 return true;
             }
@@ -359,7 +415,12 @@ class Netasys
     function getHoraSalida()
     {
         $dia = $this->getDate();
-        if($response = $this->selectFrom("SELECT $this->horarios.Hora_salida FROM $this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID WHERE $this->profesores.ID='$_SESSION[ID]' AND $this->profesores.Nombre='$_SESSION[Nombre]' AND $this->horarios.Dia='$dia[weekday]' LIMIT 1"))
+        $dia['weekday'] == 'Sabado' || $dia['weekday'] == 'Domingo' ? $this->ERR_NETASYS = "No puedes fichar fuera de Horario." : $dia['weekday'];
+        if($response = $this->selectFrom("SELECT $this->horarios.Hora_salida 
+                                        FROM $this->horarios 
+                                        INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID 
+                                        WHERE $this->profesores.ID='$_SESSION[ID]' AND $this->profesores.Nombre='$_SESSION[Nombre]' AND $this->horarios.Dia='$dia[weekday]' 
+                                        LIMIT 1"))
         {
             if($hora_salida = $response->fetch_assoc())
             {
@@ -381,13 +442,12 @@ class Netasys
     {
         if($response = $this->selectFrom("SELECT $field FROM $table WHERE $field='$data'"))
         {
-            if($response->num_rows == 1)
+            if($response->num_rows == 0)
             {
                 return true;
             }
             else
             {
-                $this->ERR_NETASYS = "Ya existe el usuario $data";
                 return false;
             }
         }

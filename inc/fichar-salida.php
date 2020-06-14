@@ -1,24 +1,22 @@
 <?php
-$bd->bdConex();
-$conex = $bd->conex;
 date_default_timezone_set('Europe/Madrid');
-$horaactual = date('H:i:00');
-$diaactual = $bd->getDiaCompleto();
-$idprof = $bd->getID();
-$idultimofichaje = $bd->getLastIDFichaje();
-$sql = "UPDATE $bd->fichaje SET F_salida ='$horaactual' WHERE $bd->fichaje.ID_PROFESOR='$idprof' AND $bd->fichaje.ID='$idultimofichaje' AND $bd->fichaje.Fecha='$diaactual'";
-if($ejec =$conex->query($sql))
+$horaactual = date('H:i:s');
+$diaactual = date('Y-m-d');
+$idprof = $_SESSION['ID'];
+$idultimofichaje = $class->getLastIDFichaje();
+$sql = "UPDATE $class->fichar SET F_salida ='$horaactual' WHERE $class->fichar.ID_PROFESOR='$idprof' AND $class->fichar.ID='$idultimofichar' AND $class->fichar.Fecha='$diaactual'";
+if($response = $class->updateSet($sql))
 {
     if($conex->affected_rows == 1)
     {
-        $MSG_BD = "Fichaje de salida correcto.";
+        $ERR_MSG = "Fichaje de salida correcto.";
     }
     else
     {
-        $MSG_BD = "Hoy no has fichado la entrada.";
+        $ERR_MSG = "No puedes fichar la salida si no has fichado la entrada.";
     }
 }
 else
 {
-    $ERR_BD = "Error consulta Base de Datos.";
+    $ERR_MSG = $class->ERR_NETASYS;
 }

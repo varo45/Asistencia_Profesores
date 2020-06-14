@@ -34,8 +34,10 @@ if(isset($_GET['ACTION']))
   {
     if($class->isLogged())
     {
+      $act_horario = 'active';
       include_once($dirs['inc'] . 'top-nav.php');
       include_once($dirs['inc'] . 'contenido-horarios.php');
+      include_once($dirs['inc'] . 'errors.php');
       include_once($dirs['inc'] . 'footer.php');
     }
     else
@@ -47,16 +49,20 @@ if(isset($_GET['ACTION']))
   }
   elseif ($_GET['ACTION'] == 'asistencias')
   {
-      include_once($dirs['inc'] . 'top-nav.php');
-      include_once($dirs['inc'] . 'contenido-asistencias.php');
-      include_once($dirs['inc'] . 'footer.php');
+    $act_asistencia = 'active';
+    include_once($dirs['inc'] . 'top-nav.php');
+    include_once($dirs['inc'] . 'contenido-fichajes.php');
+    include_once($dirs['inc'] . 'errors.php');
+    include_once($dirs['inc'] . 'footer.php');
   }
   elseif ($_GET['ACTION'] == 'profesores')
   {
       if($class->isLogged())
       {
+        $act_profesores = 'active';
         include_once($dirs['inc'] . 'top-nav.php');
         include_once($dirs['inc'] . 'contenido-profesores.php');
+        include_once($dirs['inc'] . 'errors.php');
         include_once($dirs['inc'] . 'footer.php');
       }
       else
@@ -70,8 +76,10 @@ if(isset($_GET['ACTION']))
   {
     if($class->isLogged())
     {
+      $act_guardias = 'active';
       include_once($dirs['inc'] . 'top-nav.php');
       include_once($dirs['inc'] . 'contenido-guardias.php');
+      include_once($dirs['inc'] . 'errors.php');
       include_once($dirs['inc'] . 'footer.php');
     }
     else
@@ -85,27 +93,37 @@ if(isset($_GET['ACTION']))
   {
     if($class->isLogged())
     {
-      if($bd->searchDuplicateDay())
+      $dia = $class->getDate();
+      if($dia['weekday'] != 'Sabado' && $dia['weekday'] != 'Domingo')
       {
-        if($bd->FicharWeb())
+        if($class->searchDuplicateField(date('Y-m-d'), 'Fecha', $class->fichar))
         {
-          $MSG_BD = "Has fichado correctamente";
+          if($class->FicharWeb())
+          {
+            $ERR_MSG = "Has fichado correctamente";
+          }
+          else
+          {
+            $ERR_MSG .= "Debes tener un horario para poder fichar. <br>";
+          }
         }
         else
         {
-          $ERR_BD .= "Ha ocurrido un error, no has podido fichar. <br>";
-          $ERR_BD .= "Debes tener un horario para poder fichar. <br>";
+          $ERR_MSG = "Ya has fichado hoy.";
         }
+        header("Refresh:2; url=index.php");
+        include_once($dirs['inc'] . 'top-nav.php');
+        include_once($dirs['inc'] . 'contenido-home.php');
+        include_once($dirs['inc'] . 'contenido-fichajes.php');
+        include_once($dirs['inc'] . 'errors.php');
+        include_once($dirs['inc'] . 'footer.php');
       }
       else
       {
-        $MSG_BD = "Ya has fichado hoy.";
+        $MSG = "No puedes fichar un fin de semana.";
+        header("Refresh:2; url=index.php");
+        include_once($dirs['inc'] . 'msg_modal.php');
       }
-      header("Refresh:2; url=index.php");
-      include_once($dirs['inc'] . 'top-nav.php');
-      include_once($dirs['inc'] . 'contenido-home.php');
-      include_once($dirs['inc'] . 'contenido-fichajes.php');
-      include_once($dirs['inc'] . 'footer.php');
     }
     else
     {
@@ -123,6 +141,7 @@ if(isset($_GET['ACTION']))
       include_once($dirs['inc'] . 'fichar-salida.php');
       include_once($dirs['inc'] . 'contenido-home.php');
       include_once($dirs['inc'] . 'contenido-fichajes.php');
+      include_once($dirs['inc'] . 'errors.php');
       include_once($dirs['inc'] . 'footer.php');
     }
     else
@@ -145,7 +164,8 @@ else
   }
   if($class->isLogged())
   {
-      include($dirs['inc'] . 'home.php');
+    $act_home = 'active';
+    include($dirs['inc'] . 'home.php');
   }
   else
   {
