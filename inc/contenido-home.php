@@ -10,7 +10,7 @@ date_default_timezone_set('Europe/Madrid');
 var_dump($class->getDate());
 $now = date('H:i:s');
 echo $consulta = $class->getConsulta("SELECT Hora FROM Horas WHERE Inicio <= '$now' AND Fin >= '$now' ");
-$horaactual = $class->selectFrom($consulta);
-var_dump($horaactual);
+// $horaactual = $class->selectFrom($consulta);
+// var_dump($horaactual);
 
 ?>
