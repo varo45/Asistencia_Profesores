@@ -20,7 +20,7 @@ if($response = $class->getGuardias())
                 {
                     strlen($fila['Aula']) == 1 ? $fila['Aula'] = 0 . $fila['Aula'] : $fila['Aula'];
                     echo "<tr>";
-                        echo "<td>$fila[Hora]</td>";
+                        echo "<td>$fila[HORA_TIPO]</td>";
                         echo "<td>$fila[Nombre]</td>";
                         echo "<td>$fila[Edificio]$fila[Aula]</td>";
                         echo "<td>$fila[Grupo]</td>";

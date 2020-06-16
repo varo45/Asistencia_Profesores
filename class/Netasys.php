@@ -339,13 +339,14 @@ class Netasys
             $dia = $ahora['year'] . "-" . $ahora['mon'] . "-" . $ahora['mday'];
             $horasistema = $ahora['hours'] . ":" . $ahora['minutes'] . ":" . $ahora['seconds'];
         }
-        $sql = "SELECT $this->horas.Hora, $this->profesores.Nombre, $this->horarios.Edificio, $this->horarios.Aula, $this->horarios.Grupo 
-                FROM (($this->profesores 
-                        INNER JOIN $this->horarios ON $this->profesores.ID=$this->horarios.ID_PROFESOR) 
-                        INNER JOIN $this->fichar ON $this->horarios.ID_PROFESOR=$this->fichar.ID_PROFESOR) 
-                        INNER JOIN $this->horas ON $this->horarios.HORA_TIPO=$this->horas.Hora 
-                WHERE $this->horarios.Dia='$diasemana' AND $this->fichar.DIA_SEMANA='$diasemana' AND $this->horas.Inicio >= '$horasistema' AND $this->fichar.Fecha = '$dia' AND $this->fichar.F_salida <> $this->horarios.Hora_salida AND $this->horarios.Edificio IS NOT NULL AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo IS NOT NULL 
-                ORDER BY $this->horas.Hora";
+        $sql = "SELECT DISTINCT $this->profesores.Nombre, $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Edificio, $this->horarios.HORA_TIPO 
+        FROM $this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID 
+        WHERE NOT EXISTS 
+        (SELECT * 
+            FROM $this->fichar INNER JOIN $this->horarios ON $this->fichar.ID_PROFESOR=$this->horarios.ID_PROFESOR 
+            WHERE $this->fichar.ID_PROFESOR=$this->horarios.ID_PROFESOR AND $this->fichar.DIA_SEMANA='$diasemana' AND $this->fichar.Fecha='$dia') 
+        AND $this->horarios.Dia='$diasemana' AND $this->horarios.Edificio IS NOT NULL AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo IS NOT NULL 
+        ORDER BY $this->horarios.HORA_TIPO";
         if($exec = $this->selectFrom($sql))
         {
             if($exec->num_rows > 0)
@@ -453,30 +454,6 @@ class Netasys
         }
         else
         {
-            return false;
-        }
-    }
-
-    function inTime()
-    {
-        $fecha = new DateTime();
-        echo $fecha->getTimestamp();
-        if($conex = $this->bdConex())
-        {
-            if(getTimestamp() > getHoraSalida() && getDate() < getHoraEntrada())
-            {
-                echo "A esta hora no se puede fichar";
-                return false;
-            }
-            elseif(getTimestamp() < getHoraSalida() && getDate() > getHoraEntrada())
-            {
-                echo "Has fichado correctamente";
-                return true;
-            }
-        }
-        else
-        {
-            $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
             return false;
         }
     }
