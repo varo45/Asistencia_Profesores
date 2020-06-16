@@ -457,4 +457,28 @@ class Netasys
         }
     }
 
+    function inTime()
+    {
+        $fecha = new DateTime();
+        echo $fecha->getTimestamp();
+        if($conex = $this->bdConex())
+        {
+            if(getTimestamp() > getHoraSalida() && getDate() < getHoraEntrada())
+            {
+                echo "A esta hora no se puede fichar";
+                return false;
+            }
+            elseif(getTimestamp() < getHoraSalida() && getDate() > getHoraEntrada())
+            {
+                echo "Has fichado correctamente";
+                return true;
+            }
+        }
+        else
+        {
+            $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            return false;
+        }
+    }
+
 }
