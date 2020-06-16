@@ -208,6 +208,7 @@ class Netasys
             if($fecha['weekday'] === 'Monday')
             {
                 $fecha['weekday'] = "Lunes";
+                $act_lunes = "warning";
             }
             elseif($fecha['weekday'] === 'Tuesday')
             {
