@@ -60,10 +60,17 @@ if(isset($_GET['ACTION']))
       if($class->isLogged())
       {
         $act_profesores = 'active';
-        include_once($dirs['inc'] . 'top-nav.php');
-        include_once($dirs['inc'] . 'contenido-profesores.php');
-        include_once($dirs['inc'] . 'errors.php');
-        include_once($dirs['inc'] . 'footer.php');
+        if(isset($_GET['profesor']) && $_GET['profesor'] != '')
+        {
+          include_once($dirs['inc'] . 'contenido-horario-profesor.php');
+        }
+        else
+        {
+          include_once($dirs['inc'] . 'top-nav.php');
+          include_once($dirs['inc'] . 'contenido-profesores.php');
+          include_once($dirs['inc'] . 'errors.php');
+          include_once($dirs['inc'] . 'footer.php');
+        }
       }
       else
       {

@@ -5,6 +5,7 @@ if($_SESSION['Perfil'] === 'Admin')
  {
    if ($response->num_rows > 0)
    {
+    echo "<div id='horario'></div>";
     echo "<h2>Profesores</h2>";
     echo "</br><table class='table table-hover'>";
     echo "<thead>";
@@ -18,7 +19,7 @@ if($_SESSION['Perfil'] === 'Admin')
     echo "<tbody>";
         while ($fila = $response->fetch_assoc())
         {  
-            echo "<tr class='row_show'>";
+            echo "<tr id='profesor_$fila[ID]' class='row_show'>";
             echo "<td>$fila[ID]</td>";
             echo "<td>$fila[Nombre]</td>";
             echo "<td><span class='glyphicon glyphicon-eye-close muestra'></span> <span class='muestra' style='background-color: black; color: black; border-radius: 4px; padding: 4px;'>XXXXXXXXX</span> 
@@ -28,6 +29,7 @@ if($_SESSION['Perfil'] === 'Admin')
     echo "</tbody>";
     echo "</table>";
     include_once($dirs['public'] . 'js/show_dni.js');
+    include_once($dirs['public'] . 'js/profesores.js');
    }
    else
    {

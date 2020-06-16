@@ -17,7 +17,6 @@ if($response = $class->selectFrom($sql))
                 echo "<tr>";
                     echo "<th>Nº</th>";
                     echo "<th>F_entrada</th>";
-                    echo "<th>F_salida</th>";
                     echo "<th>Día semana</th>";
                     echo "<th>Fecha</th>";
                 echo "</tr>";
@@ -28,7 +27,6 @@ if($response = $class->selectFrom($sql))
                         echo "<tr>";
                             echo "<td>$fila[ID]</td>";
                             echo "<td>$fila[F_entrada]</td>";
-                            echo "<td>$fila[F_salida]</td>";
                             echo "<td>$fila[DIA_SEMANA]</td>";
                             echo "<td>$fila[Fecha]</td>";
                         echo "</tr>";
