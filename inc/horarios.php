@@ -4,7 +4,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
     if ($response->num_rows > 0)
     {
         echo "<h2>Horarios</h2>";
-        echo "</br><table class='table table-striped'>";
+        echo "</br><table class='table'>";
         echo "<thead>";
             echo "<tr>";
                 echo "<th>Horas</th>";
@@ -41,6 +41,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                 }
             for ($i = 0; $i < 6; $i++)
             {
+                $dia = $class->getDate();
                 $count=$i+1;
                 $horas = $count . 'M';
                 echo "<tr>";
@@ -48,7 +49,8 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     if ($lunes[$i]['HORA_TIPO'] == $horas && $lunes[$i]['Edificio'] && $lunes[$i]['Aula'] != null && $lunes[$i]['Grupo'] != null)
                     {
                         strlen($lunes[$i]['Aula']) == 1 ? $lunes[$i]['Aula'] = 0 . $lunes[$i]['Aula'] : $lunes[$i]['Aula'];
-                        echo "<td>" . "Aula: " . $lunes[$i]['Edificio'] . $lunes[$i]['Aula'] . "<br>" . "Grupo: " . $lunes[$i]['Grupo'] . "</td>";
+                        $dia['weekday'] === 'Lunes' ? $dia['color'] = "success" : $dia['color'] = '';
+                        echo "<td class='$dia[color]'>" . "Aula: " . $lunes[$i]['Edificio'] . $lunes[$i]['Aula'] . "<br>" . "Grupo: " . $lunes[$i]['Grupo'] . "</td>";
                     }
                     else
                     {
@@ -57,7 +59,8 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     if ($martes[$i]['HORA_TIPO'] == $horas && $martes[$i]['Edificio'] && $martes[$i]['Aula'] != null && $martes[$i]['Grupo'] != null)
                     {
                         strlen($martes[$i]['Aula']) == 1 ? $martes[$i]['Aula'] = 0 . $martes[$i]['Aula'] : $martes[$i]['Aula'];
-                        echo "<td>" . "Aula: " . $martes[$i]['Edificio'] . $martes[$i]['Aula'] . "<br>" . "Grupo: " . $martes[$i]['Grupo'] . "</td>";
+                        $dia['weekday'] === 'Martes' ? $dia['color'] = "success" : $dia['color'] = '';
+                        echo "<td class='$dia[color]'>" . "Aula: " . $martes[$i]['Edificio'] . $martes[$i]['Aula'] . "<br>" . "Grupo: " . $martes[$i]['Grupo'] . "</td>";
                     }
                     else
                     {
@@ -66,7 +69,8 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     if ($miercoles[$i]['HORA_TIPO'] == $horas && $miercoles[$i]['Edificio'] && $miercoles[$i]['Aula'] != null && $miercoles[$i]['Grupo'] != null)
                     {
                         strlen($miercoles[$i]['Aula']) == 1 ? $miercoles[$i]['Aula'] = 0 . $miercoles[$i]['Aula'] : $miercoles[$i]['Aula'];
-                        echo "<td>" . "Aula: " . $miercoles[$i]['Edificio'] . $miercoles[$i]['Aula'] . "<br>" . "Grupo: " . $miercoles[$i]['Grupo'] . "</td>";
+                        $dia['weekday'] === 'Miercoles' ? $dia['color'] = "success" : $dia['color'] = '';
+                        echo "<td class='$dia[color]'>" . "Aula: " . $miercoles[$i]['Edificio'] . $miercoles[$i]['Aula'] . "<br>" . "Grupo: " . $miercoles[$i]['Grupo'] . "</td>";
                     }
                     else
                     {
@@ -75,7 +79,8 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     if ($jueves[$i]['HORA_TIPO'] == $horas && $jueves[$i]['Edificio'] && $jueves[$i]['Aula'] != null && $jueves[$i]['Grupo'] != null)
                     {
                         strlen($jueves[$i]['Aula']) == 1 ? $jueves[$i]['Aula'] = 0 . $jueves[$i]['Aula'] : $jueves[$i]['Aula'];
-                        echo "<td>" . "Aula: " . $jueves[$i]['Edificio'] . $jueves[$i]['Aula'] . "<br>" . "Grupo: " . $jueves[$i]['Grupo'] . "</td>";
+                        $dia['weekday'] === 'Jueves' ? $dia['color'] = "success" : $dia['color'] = '';
+                        echo "<td class='$dia[color]'>" . "Aula: " . $jueves[$i]['Edificio'] . $jueves[$i]['Aula'] . "<br>" . "Grupo: " . $jueves[$i]['Grupo'] . "</td>";
                     }
                     else
                     {
@@ -84,7 +89,8 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     if ($viernes[$i]['HORA_TIPO'] == $horas && $viernes[$i]['Edificio'] && $viernes[$i]['Aula'] != null && $viernes[$i]['Grupo'] != null)
                     {
                         strlen($viernes[$i]['Aula']) == 1 ? $viernes[$i]['Aula'] = 0 . $viernes[$i]['Aula'] : $viernes[$i]['Aula'];
-                        echo "<td>" . "Aula: " . $viernes[$i]['Edificio'] . $viernes[$i]['Aula'] . "<br>" . "Grupo: " . $viernes[$i]['Grupo'] . "</td>";
+                        $dia['weekday'] === 'Viernes' ? $dia['color'] = "success" : $dia['color'] = '';
+                        echo "<td class='$dia[color]'>" . "Aula: " . $viernes[$i]['Edificio'] . $viernes[$i]['Aula'] . "<br>" . "Grupo: " . $viernes[$i]['Grupo'] . "</td>";
                     }
                     else
                     {
