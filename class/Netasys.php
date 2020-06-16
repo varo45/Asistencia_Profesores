@@ -375,7 +375,7 @@ class Netasys
             $hora = date('H:i:00');
             $dia = $this->getDate();
             $hora_salida = $this->getHoraSalida();
-            $fichar = "INSERT INTO $this->fichar (ID_PROFESOR, F_entrada, F_salida, DIA_SEMANA, Fecha) VALUES ($id, '$hora', '$hora_salida', '$dia[weekday]', '$fecha')";
+            $fichar = "INSERT INTO $this->fichar (ID_PROFESOR, F_entrada, DIA_SEMANA, Fecha) VALUES ($id, '$hora', '$dia[weekday]', '$fecha')";
             if($response = $this->insertInto($fichar))
             {
                 return true;
