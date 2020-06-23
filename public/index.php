@@ -55,6 +55,14 @@ if(isset($_GET['ACTION']))
     include_once($dirs['inc'] . 'errors.php');
     include_once($dirs['inc'] . 'footer.php');
   }
+  elseif ($_GET['ACTION'] == 'import-horario')
+  {
+    $act_asistencia = 'active';
+    include_once($dirs['inc'] . 'top-nav.php');
+    include_once($dirs['inc'] . 'contenido-import-horario.php');
+    include_once($dirs['inc'] . 'errors.php');
+    include_once($dirs['inc'] . 'footer.php');
+  }
   elseif ($_GET['ACTION'] == 'profesores')
   {
       if($class->isLogged())

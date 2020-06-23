@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/bootstrap-3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style-cal.css">
+  <link rel="stylesheet" href="css/Netasys.css">
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -30,6 +31,7 @@
         <ul class="dropdown-menu">
           <li><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=horarios' ?>"><span class="glyphicon glyphicon-calendar"></span> Consultar horario</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-plus"></span> Crear horario</a></li>
+          <li><a href="index.php?ACTION=import-horario"><span class="glyphicon glyphicon-plus"></span> Importar horario</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Modificar horario</a></li>
         </ul>
       </li>
