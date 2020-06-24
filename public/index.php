@@ -47,6 +47,45 @@ if(isset($_GET['ACTION']))
       include_once($dirs['inc'] . 'msg_modal.php');
     }
   }
+  elseif ($_GET['ACTION'] == 'crear-horario')
+  {
+    if($class->isLogged())
+    {
+      $act_horario = 'active';
+      include_once($dirs['inc'] . 'top-nav.php');
+      include_once($dirs['inc'] . 'contenido-horarios.php');
+      include_once($dirs['inc'] . 'errors.php');
+      include_once($dirs['inc'] . 'footer.php');
+    }
+    else
+    {
+      $MSG = "Debes iniciar sesión para ver los horarios.";
+      header("Refresh:2; url=index.php");
+      include_once($dirs['inc'] . 'msg_modal.php');
+    }
+  }
+  elseif ($_GET['ACTION'] == 'modificar-horario')
+  {
+    if($class->isLogged())
+    {
+      $act_horario = 'active';
+      include_once($dirs['inc'] . 'top-nav.php');
+      include_once($dirs['inc'] . 'modificar-horario.php');
+      include_once($dirs['inc'] . 'contenido-horarios.php');
+      include_once($dirs['inc'] . 'errors.php');
+      include_once($dirs['inc'] . 'footer.php');
+    }
+    else
+    {
+      $MSG = "Debes iniciar sesión para ver los horarios.";
+      header("Refresh:2; url=index.php");
+      include_once($dirs['inc'] . 'msg_modal.php');
+    }
+  }
+  elseif ($_GET['ACTION'] == 'update-horario')
+  {
+    include_once($dirs['inc'] . 'actualiza.php');
+  }
   elseif ($_GET['ACTION'] == 'asistencias')
   {
     $act_asistencia = 'active';

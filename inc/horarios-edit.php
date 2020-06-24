@@ -50,7 +50,12 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     {
                         strlen($lunes[$i]['Aula']) == 1 ? $lunes[$i]['Aula'] = 0 . $lunes[$i]['Aula'] : $lunes[$i]['Aula'];
                         $dia['weekday'] === 'Lunes' ? $dia['color'] = "success" : $dia['color'] = '';
-                        echo "<td class='$dia[color]'>" . "Aula: " . $lunes[$i]['Edificio'] . $lunes[$i]['Aula'] . "<br>" . "Grupo: " . $lunes[$i]['Grupo'] . "</td>";
+                        echo "<td class='$dia[color]'>
+                        Aula: <span id='sp_" . $lunes[$i]['ID'] . "_aula' class='txt'>" . $lunes[$i]['Edificio'] . $lunes[$i]['Aula'] . "</span>
+                            <input id='in_" . $lunes[$i]['ID'] . "_aula' value='' class='entrada'>
+                        <br>" . "
+                        Grupo: <span id='sp_" . $lunes[$i]['ID'] . "_grupo' class='txt'>" . $lunes[$i]['Grupo'] . "</span>
+                            <input id='in_" . $lunes[$i]['ID'] . "_grupo' value='' class='entrada'></td>";
                     }
                     else
                     {
@@ -60,7 +65,12 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     {
                         strlen($martes[$i]['Aula']) == 1 ? $martes[$i]['Aula'] = 0 . $martes[$i]['Aula'] : $martes[$i]['Aula'];
                         $dia['weekday'] === 'Martes' ? $dia['color'] = "success" : $dia['color'] = '';
-                        echo "<td class='$dia[color]'>" . "Aula: " . $martes[$i]['Edificio'] . $martes[$i]['Aula'] . "<br>" . "Grupo: " . $martes[$i]['Grupo'] . "</td>";
+                        echo "<td class='$dia[color]'>
+                        Aula: <span id='sp_" . $martes[$i]['ID'] . "_aula' class='txt'>" . $martes[$i]['Edificio'] . $martes[$i]['Aula'] . "</span>
+                            <input id='in_" . $martes[$i]['ID'] . "_aula' value='' class='entrada'>
+                        <br>" . "
+                        Grupo: <span id='sp_" . $martes[$i]['ID'] . "_grupo' class='txt'>" . $martes[$i]['Grupo'] . "</span>
+                            <input id='in_" . $martes[$i]['ID'] . "_grupo' value='' class='entrada'></td>";
                     }
                     else
                     {
@@ -70,7 +80,12 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     {
                         strlen($miercoles[$i]['Aula']) == 1 ? $miercoles[$i]['Aula'] = 0 . $miercoles[$i]['Aula'] : $miercoles[$i]['Aula'];
                         $dia['weekday'] === 'Miercoles' ? $dia['color'] = "success" : $dia['color'] = '';
-                        echo "<td class='$dia[color]'>" . "Aula: " . $miercoles[$i]['Edificio'] . $miercoles[$i]['Aula'] . "<br>" . "Grupo: " . $miercoles[$i]['Grupo'] . "</td>";
+                        echo "<td class='$dia[color]'>
+                        Aula: <span id='sp_" . $miercoles[$i]['ID'] . "_aula' class='txt'>" . $miercoles[$i]['Edificio'] . $miercoles[$i]['Aula'] . "</span>
+                            <input id='in_" . $miercoles[$i]['ID'] . "_aula' value='' class='entrada'>
+                        <br>" . "
+                        Grupo: <span id='sp_" . $miercoles[$i]['ID'] . "_grupo' class='txt'>" . $miercoles[$i]['Grupo'] . "</span>
+                            <input id='in_" . $miercoles[$i]['ID'] . "_grupo' value='' class='entrada'></td>";
                     }
                     else
                     {
@@ -80,7 +95,12 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     {
                         strlen($jueves[$i]['Aula']) == 1 ? $jueves[$i]['Aula'] = 0 . $jueves[$i]['Aula'] : $jueves[$i]['Aula'];
                         $dia['weekday'] === 'Jueves' ? $dia['color'] = "success" : $dia['color'] = '';
-                        echo "<td class='$dia[color]'>" . "Aula: " . $jueves[$i]['Edificio'] . $jueves[$i]['Aula'] . "<br>" . "Grupo: " . $jueves[$i]['Grupo'] . "</td>";
+                        echo "<td class='$dia[color]'>
+                        Aula: <span id='sp_" . $jueves[$i]['ID'] . "_aula' class='txt'>" . $jueves[$i]['Edificio'] . $jueves[$i]['Aula'] . "</span>
+                            <input id='in_" . $jueves[$i]['ID'] . "_aula' value='' class='entrada'>
+                        <br>" . "
+                        Grupo: <span id='sp_" . $jueves[$i]['ID'] . "_grupo' class='txt'>" . $jueves[$i]['Grupo'] . "</span>
+                            <input id='in_" . $jueves[$i]['ID'] . "_grupo' value='' class='entrada'></td>";
                     }
                     else
                     {
@@ -90,7 +110,12 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     {
                         strlen($viernes[$i]['Aula']) == 1 ? $viernes[$i]['Aula'] = 0 . $viernes[$i]['Aula'] : $viernes[$i]['Aula'];
                         $dia['weekday'] === 'Viernes' ? $dia['color'] = "success" : $dia['color'] = '';
-                        echo "<td class='$dia[color]'>" . "Aula: " . $viernes[$i]['Edificio'] . $viernes[$i]['Aula'] . "<br>" . "Grupo: " . $viernes[$i]['Grupo'] . "</td>";
+                        echo "<td class='$dia[color]'>
+                        Aula: <span id='sp_" . $viernes[$i]['ID'] . "_aula' class='txt'>" . $viernes[$i]['Edificio'] . $viernes[$i]['Aula'] . "</span>
+                            <input id='in_" . $viernes[$i]['ID'] . "_aula' value='' class='entrada'>
+                        <br>" . "
+                        Grupo: <span id='sp_" . $viernes[$i]['ID'] . "_grupo' class='txt'>" . $viernes[$i]['Grupo'] . "</span>
+                            <input id='in_" . $viernes[$i]['ID'] . "_grupo' value='' class='entrada'></td>";
                     }
                     else
                     {
@@ -100,6 +125,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
             }
         echo "</tbody>";
         echo "</table>";
+        echo "<div id='response'></div>";
     }
     else
     {

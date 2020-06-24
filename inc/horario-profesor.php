@@ -12,7 +12,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
             $n = $nombre->fetch_assoc();
         }
         echo "<h2>Horario: $n[Nombre]</h2>";
-        echo "</br><table class='table table-striped'>";
+        echo "</br><table class='table'>";
         echo "<thead>";
             echo "<tr>";
                 echo "<th>Horas</th>";

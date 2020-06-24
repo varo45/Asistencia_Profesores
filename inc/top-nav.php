@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/bootstrap-3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style-cal.css">
-  <link rel="stylesheet" href="css/Netasys.css">
+  <link rel="stylesheet" href="css/netasys.css">
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -22,7 +22,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="<?php echo "index.php"; ?>">Asinet</a>
+      <a class="navbar-brand" href="<?php echo "index.php"; ?>">Netasys</a>
     </div>
     <div class="collapse navbar-collapse" id="top-menu">
     <ul class="nav navbar-nav">
@@ -30,9 +30,9 @@
       <li class="dropdown <?php echo $act_horario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-calendar"></span> Horario<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=horarios' ?>"><span class="glyphicon glyphicon-calendar"></span> Consultar horario</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-plus"></span> Crear horario</a></li>
+          <li><a href="index.php?ACTION=crear-horario"><span class="glyphicon glyphicon-plus"></span> Crear horario</a></li>
           <li><a href="index.php?ACTION=import-horario"><span class="glyphicon glyphicon-plus"></span> Importar horario</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Modificar horario</a></li>
+          <li><a href="index.php?ACTION=modificar-horario"><span class="glyphicon glyphicon-pencil"></span> Modificar horario</a></li>
         </ul>
       </li>
       <li class="<?php echo $act_asistencia; ?>"><a href="<?php $d = date('d'); $m = date('m'); $Y = date('Y'); echo $_SERVER['PHP_SELF'] . "?ACTION=asistencias&d=$d&m=$m&Y=$Y"; ?>"><span class="glyphicon glyphicon-check"></span> Mis asistencias</a></li>
