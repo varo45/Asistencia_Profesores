@@ -11,7 +11,7 @@ if(isset($_POST['boton']))
     }
     else
     {
-        if($class->insertInto("INSERT INTO $class->profesores VALUES ('$_POST[nombre], $_POST[Iniciales]')")
+        if($class->insertInto("INSERT INTO $class->profesores VALUES ('$_POST[nombre]', '$_POST[Iniciales]')"))
         {
             $MSG = "Profesor añadido correctamente.";
         }
@@ -24,7 +24,7 @@ if(isset($_POST['boton']))
         echo "<form action='$_SERVER[REQUEST_URI]' method='POST'>";
         echo "<input type='text' name='nombre' value='$_POST[nombre]' placeholder='Nombre y Apellidos'><br><br>";
         echo "<input type='text' name='inicial' value='$_POST[inicial]' placeholder='Iniciales'><br><br>";
-        echo "<button value='registrar_prof' name='boton' onclick='return confirm(\"¿Desea registrar a este profesor?\")'>Registrar</button>";
+        echo "<button value='registrar_prof' name='boton' class='btn btn-default' onclick='return confirm(\"¿Desea registrar a este profesor?\")'>Registrar</button>";
         echo "</form>";
     echo "</div>";
 }
@@ -32,9 +32,9 @@ else
 {
 echo "<div>";
     echo "<form action='$_SERVER[REQUEST_URI]' method='POST'>";
-    echo "<input type='text' name='nombre' value='$_POST[nombre]' placeholder='Nombre y Apellidos'><br><br>";
-    echo "<input type='text' name='inicial' value='$_POST[inicial]' placeholder='Iniciales'><br><br>";
-    echo "<button value='registrar_prof' name='boton' onclick='return confirm(\"¿Desea registrar a este profesor?\")'>Registrar</button>";
+    echo "<input type='text' name='nombre' value='$_POST[nombre]' class='btn btn-default' placeholder='Nombre y Apellidos'><br><br>";
+    echo "<input type='text' name='inicial' value='$_POST[inicial]' class='btn btn-default' placeholder='Iniciales'><br><br>";
+    echo "<button value='registrar_prof' name='boton' class='btn btn-default' onclick='return confirm(\"¿Desea registrar a este profesor?\")'>Registrar</button>";
     echo "</form>";
 echo "</div>";
 }
