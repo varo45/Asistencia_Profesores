@@ -19,6 +19,10 @@ if(isset($_GET['ACTION']))
   {
     include_once($dirs['inc'] . 'logout.php');
   }
+  elseif ($_GET['ACTION'] == 'pruebas')
+  {
+    include_once($dirs['inc'] . 'pruebas.php');
+  }
   elseif ($_GET['ACTION'] == 'registrarse') 
   {
     if(isset($_POST['Nombre']) || isset($_POST['Iniciales']) || isset($_POST['pass1']) || isset($_POST['pass2']))
@@ -205,9 +209,31 @@ if(isset($_GET['ACTION']))
       include_once($dirs['inc'] . 'msg_modal.php');
     }
   }
+  elseif ($_GET['ACTION'] == 'fichar-asist')
+  {
+    if(isset($_GET['abrev']) && isset($_GET['enp']) && $_GET['abrev'] != 'undefined' && $_GET['enp'] != 'undefined')
+    {
+        if($response = $class->selectFrom("SELECT Nombre FROM $class->profesores WHERE Iniciales='$_GET[abrev]' AND Password='$_GET[enp]'"))
+        {
+          if($response->num_rows == 1)
+          {
+            $nombre = $response->fetch_assoc();
+            echo "<span style='color: green;'>Fichaje de asistencia correcto. $nombre[Nombre]</span>";
+          }
+          else
+          {
+            echo "<span style='color: red;'>Código QR incorrecto.</span>";
+          }
+        }
+        else
+        {
+          echo "<span style='color: red;'>$class->ERR_NETASYS</span>";
+        }
+    }
+  }
   else
   {
-    header("Refresh:0; url=index.php");
+    echo "Coloque el código QR en el lector...";
   }
 }
 else
