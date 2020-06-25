@@ -17,7 +17,7 @@ echo "<tbody>";
         $dia = $class->getDate();
         $count=$i+1;
         $horas = $count . 'M';
-        echo "<form>";
+        echo "<form action='$_SERVER[PHP_SELF]' method='POST'>";
         echo "<tr>";
             echo "<td>" . $count . "</td>";
             echo "<td id='lunes_$horas'>

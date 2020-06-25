@@ -42,7 +42,7 @@
             echo "<li class=' $act_profesores '><a href='$_SERVER[PHP_SELF]?ACTION=profesores'><span class='glyphicon glyphicon-education'></span> Profesores</a></li>";
         }
     ?>
-      <li class="<?php echo $act_guardias; ?>"><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=guardias' ?>"><span class="glyphicon glyphicon-eye-open"></span> Guardias</a></li>
+      <!--li class="<?php echo $act_guardias; ?>"><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=guardias' ?>"><span class="glyphicon glyphicon-eye-open"></span> Guardias</a></li-->
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['Nombre']; ?><span class="caret"></span></a>

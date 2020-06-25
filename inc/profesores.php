@@ -30,6 +30,7 @@ if($_SESSION['Perfil'] === 'Admin')
     echo "</table>";
     include_once($dirs['public'] . 'js/show_dni.js');
     include_once($dirs['public'] . 'js/profesores.js');
+    include_once($dirs['inc'] . 'registrar-profesor.php');
    }
    else
    {

@@ -291,8 +291,7 @@ input[type=text]:placeholder {
 
           <!-- Remind Passowrd -->
           <div id="formFooter">
-            <a class="underlineHover" href="<?php echo $_SERVER['PHP_SELF'] . "?ACTION=registrarse"; ?>">Registrarme</a>
-            </br>
+            <!--a class="underlineHover" href="<?php echo $_SERVER['PHP_SELF'] . "?ACTION=registrarse"; ?>">Registrarme</a-->
             <a class="underlineHover" href="#">¿Has olvidado la contraseña?</a>
           </div>
         </div>
