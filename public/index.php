@@ -21,7 +21,7 @@ if(isset($_GET['ACTION']))
   }
   elseif ($_GET['ACTION'] == 'registrarse') 
   {
-    if(isset($_POST['Nombre']) || isset($_POST['DNI']) || isset($_POST['pass1']) || isset($_POST['pass2']))
+    if(isset($_POST['Nombre']) || isset($_POST['Iniciales']) || isset($_POST['pass1']) || isset($_POST['pass2']))
     {
       include_once($dirs['inc'] . 'register_valida.php');
     }
@@ -212,7 +212,7 @@ if(isset($_GET['ACTION']))
 }
 else
 {
-  if(isset($_POST['DNI']) || isset($_POST['pass']))
+  if(isset($_POST['Iniciales']) || isset($_POST['pass']))
   {
     require_once($dirs['inc'] . 'login_valida.php');
   }

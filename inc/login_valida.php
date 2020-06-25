@@ -2,11 +2,11 @@
 
 // Validación del formulario
 
-if($_POST['DNI'] != '' && $_POST['pass'] != '')
+if($_POST['Iniciales'] != '' && $_POST['pass'] != '')
 {
-    if($class->validFormDni($_POST['DNI']))
+    if($class->validFormIni($_POST['Iniciales']))
     {
-        if($class->Login($_POST['DNI'], $_POST['pass']))
+        if($class->Login($_POST['Iniciales'], $_POST['pass']))
         {
             header("Location: index.php");
         }

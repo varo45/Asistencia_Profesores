@@ -12,7 +12,7 @@ if($_SESSION['Perfil'] === 'Admin')
         echo "<tr>";
             echo "<th>ID</th>";
             echo "<th>Nombre</th>";
-            echo "<th>DNI</th>";
+            echo "<th>Iniciales</th>";
             echo "<th>Tipo</th>";
         echo "</tr>";
     echo "</thead>";
@@ -23,7 +23,7 @@ if($_SESSION['Perfil'] === 'Admin')
             echo "<td>$fila[ID]</td>";
             echo "<td>$fila[Nombre]</td>";
             echo "<td><span class='glyphicon glyphicon-eye-close muestra'></span> <span class='muestra' style='background-color: black; color: black; border-radius: 4px; padding: 4px;'>XXXXXXXXX</span> 
-            <span class='glyphicon glyphicon-eye-open oculta'></span> <span class='oculta' style='border-radius: 4px; padding: 4px; margin-left: 4px;'>$fila[DNI]</span></td>";
+            <span class='glyphicon glyphicon-eye-open oculta'></span> <span class='oculta' style='border-radius: 4px; padding: 4px; margin-left: 4px;'>$fila[Iniciales]</span></td>";
             echo "<td>$fila[Tipo]</td>";
         }
     echo "</tbody>";

@@ -286,7 +286,7 @@ input[type=text]:placeholder {
           <form action="<?php echo $_SERVER['PHP_SELF'] . "?ACTION=registrarse" ?>" method="POST">
             <input type="text" id="login" class="fadeIn second" name="Nombre" value="<?php echo $_POST['Nombre']; ?>" placeholder="Nombre y Apellidos" required>
             <p><i>* Su DNI será utilizado como su usuario para iniciar sesión.</i></p>
-            <input type="text" id="login" class="fadeIn second" name="DNI" value="<?php echo $_POST['DNI']; ?>" placeholder="DNI" required>
+            <input type="text" id="login" class="fadeIn second" name="Iniciales" value="<?php echo $_POST['Iniciales']; ?>" placeholder="Iniciales" required>
             <input type="password" id="password" class="fadeIn third" name="pass1" minlength="8" placeholder="Contraseña" required>
             <input type="password" id="password" class="fadeIn third" name="pass2" minlength="8" placeholder="Confirme Contraseña" required>
             <input type="submit" class="fadeIn fourth" value="Registrarme">

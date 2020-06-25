@@ -86,7 +86,7 @@ class Netasys
         }
     }
 
-    function registerNewUser($name, $dni, $password, $type )
+    function registerNewUser($name, $iniciales, $password, $type )
     {
         if(! $conex = $this->bdConex())
         {
@@ -105,7 +105,7 @@ class Netasys
 
     function isLogged()
     {
-        if($_SESSION['logged'] === true && isset($_SESSION['Nombre']) && isset($_SESSION['ID']) && $_SESSION['Nombre'] != '')
+        if($_SESSION['logged'] === true && isset($_SESSION['Nombre']) && isset($_SESSION['Iniciales']) && $_SESSION['Nombre'] != '')
         {
             return true;
         }
@@ -154,6 +154,21 @@ class Netasys
         }
     }
 
+    function validFormIni($registerini)
+    {
+        $registerini = strtoupper($registerini);
+
+        if(preg_match('/^[A-Z]{2,4}$/i', $registerini))
+        {
+            return true;
+        }
+        else
+        {
+            $this->ERR_NETASYS = "Iniciales no válidas <br>";
+            return false;
+        }
+    }
+
     function encryptPassword($pass)
     {
         $pass = sha1($pass);
@@ -165,15 +180,17 @@ class Netasys
         if($conex = $this->bdConex())
         {
             $password = $this->encryptPassword($password);
-            if($response = $this->selectFrom("SELECT ID FROM $this->profesores WHERE DNI='$username' AND Password='$password'"))
+            if($response = $this->selectFrom("SELECT ID FROM $this->profesores WHERE Iniciales='$username' AND Password='$password'"))
             {
                 if($response->num_rows == 1)
                 {
-                    if($response = $this->selectFrom("SELECT $this->profesores.ID, $this->profesores.Nombre, $this->perfiles.Tipo FROM $this->profesores INNER JOIN $this->perfiles ON $this->profesores.TIPO=$this->perfiles.ID WHERE DNI='$username' AND Password='$password'"))
+                    if($response = $this->selectFrom("SELECT $this->profesores.ID, $this->profesores.Nombre, $this->profesores.Iniciales, $this->perfiles.Tipo 
+                                                    FROM $this->profesores INNER JOIN $this->perfiles ON $this->profesores.TIPO=$this->perfiles.ID 
+                                                    WHERE Iniciales='$username' AND Password='$password'"))
                     {
                         $fila = $response->fetch_assoc();
                         $_SESSION['logged'] = true;
-                        $_SESSION['ID'] = $fila['ID'];
+                        $_SESSION['Iniciales'] = $fila['Iniciales'];
                         $_SESSION['Nombre'] = $fila['Nombre'];
                         $_SESSION['Perfil'] = $fila['Tipo'];
                         return true;
