@@ -218,16 +218,16 @@ if(isset($_GET['ACTION']))
           if($response->num_rows == 1)
           {
             $nombre = $response->fetch_assoc();
-            echo "<span style='color: green;'>Fichaje de asistencia correcto. $nombre[Nombre]</span>";
+            echo "<span id='okqr' style='color: white; font-weight: bolder; background-color: green;'>Fichaje de asistencia correcto. $nombre[Nombre]</span>";
           }
           else
           {
-            echo "<span style='color: red;'>Código QR incorrecto.</span>";
+            echo "<span id='noqr' style='color: white; font-weight: bolder; background-color: red;'>Código QR incorrecto.</span>";
           }
         }
         else
         {
-          echo "<span style='color: red;'>$class->ERR_NETASYS</span>";
+          echo "<span id='noqr' style='color: white; font-weight: bolder; background-color: red;'>$class->ERR_NETASYS</span>";
         }
     }
   }
