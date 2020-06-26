@@ -7,6 +7,7 @@ if($_SESSION['Perfil'] === 'Admin')
    {
     echo "<div id='horario'></div>";
     echo "<h2>Profesores</h2>";
+    echo "<input id='busca_prof' class='btn btn-default' type='text' placeholder='Buscar Profesor...' autocomplete='off'>";
     echo "</br><table class='table table-hover'>";
     echo "<thead>";
         echo "<tr>";
@@ -44,3 +45,5 @@ else
 {
   $ERR_MSG = "No tiene permisos de administrador.";
 }
+include_once "js/filtro_prof.js";
+?>

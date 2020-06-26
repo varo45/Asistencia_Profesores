@@ -42,4 +42,6 @@ $('.entrada').on('change', function(){
 	$('#response').load(encodeURI(enlace))
 	
 });
+
+
 </script>

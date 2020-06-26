@@ -191,6 +191,7 @@ class Netasys
                         $fila = $response->fetch_assoc();
                         $_SESSION['logged'] = true;
                         $_SESSION['Iniciales'] = $fila['Iniciales'];
+                        $_SESSION['ID'] = $fila['ID'];
                         $_SESSION['Nombre'] = $fila['Nombre'];
                         $_SESSION['Perfil'] = $fila['Tipo'];
                         return true;

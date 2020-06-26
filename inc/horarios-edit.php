@@ -59,7 +59,13 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     }
                     else
                     {
-                        echo "<td></td>";
+                        echo "<td class='$dia[color]'>
+                        Aula: <span id='sp_" . $lunes[$i]['ID'] . "_aula' class='txt'><i>No asignada</i></span>
+                            <input id='in_" . $lunes[$i]['ID'] . "_aula' value='' class='entrada'>
+                        <br>" . "
+                        Grupo: <span id='sp_" . $lunes[$i]['ID'] . "_grupo' class='txt'><i>No asignado</i></span>
+                            <input id='in_" . $lunes[$i]['ID'] . "_grupo' value='' class='entrada'></td>";
+
                     }                 
                     if ($martes[$i]['HORA_TIPO'] == $horas && $martes[$i]['Edificio'] && $martes[$i]['Aula'] != null && $martes[$i]['Grupo'] != null)
                     {
@@ -74,7 +80,12 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     }
                     else
                     {
-                        echo "<td></td>";
+                        echo "<td class='$dia[color]'>
+                        Aula: <span class='vacio'><i>No asignada</i></span>
+                            <input id='in_" . $martes[$i]['ID'] . "_aula' value='' class='entrada'>
+                        <br>" . "
+                        Grupo: <span class='vacio'><i>No asignado</i></span>
+                            <input id='in_" . $martes[$i]['ID'] . "_grupo' value='' class='entrada'></td>";
                     }   
                     if ($miercoles[$i]['HORA_TIPO'] == $horas && $miercoles[$i]['Edificio'] && $miercoles[$i]['Aula'] != null && $miercoles[$i]['Grupo'] != null)
                     {
@@ -89,7 +100,12 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     }
                     else
                     {
-                        echo "<td></td>";
+                        echo "<td class='$dia[color]'>
+                        Aula: <span class='vacio'><i>No asignada</i></span>
+                            <input id='in_" . $miercoles[$i]['ID'] . "_aula' value='' class='entrada'>
+                        <br>" . "
+                        Grupo: <span class='vacio'><i>No asignado</i></span>
+                            <input id='in_" . $miercoles[$i]['ID'] . "_grupo' value='' class='entrada'></td>";
                     }   
                     if ($jueves[$i]['HORA_TIPO'] == $horas && $jueves[$i]['Edificio'] && $jueves[$i]['Aula'] != null && $jueves[$i]['Grupo'] != null)
                     {
@@ -104,7 +120,12 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     }
                     else
                     {
-                        echo "<td></td>";
+                        echo "<td class='$dia[color]'>
+                        Aula: <span class='vacio'><i>No asignada</i></span>
+                            <input id='in_" . $jueves[$i]['ID'] . "_aula' value='' class='entrada'>
+                        <br>" . "
+                        Grupo: <span class='vacio'><i>No asignado</i></span>
+                            <input id='in_" . $jueves[$i]['ID'] . "_grupo' value='' class='entrada'></td>";
                     }   
                     if ($viernes[$i]['HORA_TIPO'] == $horas && $viernes[$i]['Edificio'] && $viernes[$i]['Aula'] != null && $viernes[$i]['Grupo'] != null)
                     {
@@ -119,7 +140,12 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     }
                     else
                     {
-                        echo "<td></td>";
+                        echo "<td class='$dia[color]'>
+                        Aula: <span class='vacio'><i>No asignada</i></span>
+                            <input id='in_" . $viernes[$i]['ID'] . "_aula' value='' class='entrada'>
+                        <br>" . "
+                        Grupo: <span class='vacio'><i>No asignado</i></span>
+                            <input id='in_" . $viernes[$i]['ID'] . "_grupo' value='' class='entrada'></td>";
                     }
                 echo "</tr>";
             }
