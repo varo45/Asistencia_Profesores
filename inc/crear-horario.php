@@ -27,7 +27,21 @@ echo "<tbody>";
                     <option op='1' value='guardia'>Guardia</option>
                 </select>
                 <div class='clase'>
-                    Aula: <input type='text' name='aula' class='form-control' maxlength='3' size='3'>
+                    Aula: <!--input type='text' name='aula' class='form-control' maxlength='3' size='3'-->";
+                        if($response = $class->selectFrom("SELECT distinct Aula FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Aula"))
+                        {
+                            echo "<select>";
+                            while($fila = $response->fetch_assoc())
+                            {
+                                    echo "<option name='Aula' value='$fila[Aula]'>$fila[Aula]</option>";
+                            }
+                            echo "</select>";
+                        }
+                        else
+                        {
+                            echo $class->ERR_NETASYS;
+                        }
+                    echo "
                     <br />
                     Grupo: <input type='text' name='grupo' class='form-control' maxlength='14' size='3'>
                 </div>
