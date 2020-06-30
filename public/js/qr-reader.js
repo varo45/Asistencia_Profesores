@@ -3,6 +3,7 @@
         const context = canvas.getContext('2d');
         let autoCaptureStatus = false;
         let decodeFailures = 0;
+        let num = 100;
 
         const constraints = {
             video: {
@@ -45,14 +46,20 @@
             // Decode QR Code
             try {
                 decodedValue = qrcode.decode();
-                console.log(decodedValue);
+                // muestra en consola el valor decodificado
+                //console.log(decodedValue);
                 updateOutputValue(decodedValue);
                 // Stops scanning
                 autoCaptureStatus = false;
+                num = 100;
             } catch (err) {
-                updateOutputValue("");
-                if (err !== "No se ha podido encontrar la codificación (found 0)") {
+                //updateOutputValue("");
+                if (err !== "Uncaught Couldn't find enough finder patterns (found 0)") {
                     //throw err;
+                    if(num < 1000)
+                    {
+                        num++;
+                    }
                 }
             }
         });
@@ -74,7 +81,7 @@
             if (autoCaptureStatus) {
                 captureSnapshotButton.click();
                 attemptDecodeButton.click();
-                setTimeout(autoCapture, 100);
+                setTimeout(autoCapture, num);
             }
         }
 
@@ -120,6 +127,6 @@
     </script>
     <script>
       window.setInterval(function(){
-        $('#qr-canvas').html('');
-      }, 18000000);
+        location.reload();
+      }, 300000);
     </script>
