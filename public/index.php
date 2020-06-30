@@ -117,10 +117,27 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          include_once($dirs['inc'] . 'top-nav.php');
-          include_once($dirs['inc'] . 'contenido-profesores.php');
-          include_once($dirs['inc'] . 'errors.php');
-          include_once($dirs['inc'] . 'footer.php');
+          if(isset($_POST['boton']))
+          {
+            if($class->validRegisterProf())
+            {
+              header('location: index.php?ACTION=profesores');
+            }
+            else
+            {
+              include_once($dirs['inc'] . 'top-nav.php');
+              include_once($dirs['inc'] . 'contenido-profesores.php');
+              include_once($dirs['inc'] . 'errors.php');
+              include_once($dirs['inc'] . 'footer.php');
+            }
+          }
+          else
+          {
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'contenido-profesores.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
         }
       }
       else

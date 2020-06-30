@@ -29,7 +29,6 @@ if($_SESSION['Perfil'] === 'Admin')
     echo "</tbody>";
     echo "</table>";
     include_once($dirs['public'] . 'js/profesores.js');
-    include_once($dirs['inc'] . 'registrar-profesor.php');
    }
    else
    {

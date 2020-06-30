@@ -128,7 +128,7 @@ class Netasys
 
     function validFormName($registername)
     {
-        if(preg_match('/^[ a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-]{6,60}$/i', $registername))
+        if(preg_match('/^[ a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ.-]{6,60}$/i', $registername))
         {
             return true;
         }
@@ -475,4 +475,39 @@ class Netasys
         }
     }
 
+    function validRegisterProf()
+    {
+        if(! $this->validFormName($_POST['Nombre']))
+        {
+            $this->ERR_NETASYS = "Formato de Nombre incorrecto.";
+            return false;
+        }
+        elseif(! $this->validFormIni($_POST['Iniciales']))
+        {
+            $this->ERR_NETASYS = "Formato de iniciales incorrecto.";
+            return false;
+        }
+        else
+        {
+            if($this->searchDuplicateField($_POST['Iniciales'], 'Iniciales', $this->profesores))
+            {
+                if($this->insertInto("INSERT INTO $this->profesores (Nombre, Iniciales, Password, TIPO, Instituto)
+                VALUES ('$_POST[Nombre]', '$_POST[Iniciales]', 'f36c0d6388963313095f349dabd4c2e9f730868e', '2', 'IES Bezmiliana')"))
+                {
+                    return true;
+                }
+                else
+                {
+                    $this->ERR_NETASYS;
+                    return false;
+                }
+
+            }
+            else
+            {
+                $this->ERR_NETASYS = "No se pueden duplicar las iniciales.";
+                return false;
+            }
+        }
+    }
 }
