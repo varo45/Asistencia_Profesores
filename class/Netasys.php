@@ -330,7 +330,7 @@ class Netasys
     {
         date_default_timezone_set('Europe/Madrid');
         $now = date('H:i:s');
-        $now = '10:22:00';
+        //$now = '10:22:00';
         if($response = $this->selectFrom("SELECT Hora FROM Horas WHERE Inicio <= '$now' AND Fin >= '$now'"))
         {  
             return $response;
@@ -357,17 +357,18 @@ class Netasys
             $dia = $ahora['year'] . "-" . $ahora['mon'] . "-" . $ahora['mday'];
             $horasistema = $ahora['hours'] . ":" . $ahora['minutes'] . ":" . $ahora['seconds'];
         }
-        if(isset($_GET['Edificio']) && isset($_GET['N']))
+        if(isset($_GET['Numero']))
         {
-            $extra = "AND $this->horarios.Edificio=$_GET[N]";
+            
+            $extra = "AND $this->horarios.Edificio='$_GET[Numero]'";
         }
         $sql = "SELECT DISTINCT $this->profesores.Nombre, $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Edificio, $this->horarios.HORA_TIPO 
-        FROM $this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID 
+        FROM ($this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID) INNER JOIN $this->horas ON $this->horas.Hora=$this->horarios.HORA_TIPO 
         WHERE NOT EXISTS 
         (SELECT * FROM $this->fichar 
             WHERE $this->fichar.ID_PROFESOR=$this->horarios.ID_PROFESOR AND $this->fichar.DIA_SEMANA='$diasemana' AND $this->fichar.Fecha='$dia') 
-        AND $this->horarios.Dia='$diasemana' AND $this->horarios.Edificio IS NOT NULL AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo IS NOT NULL $extra
-        ORDER BY $this->horarios.HORA_TIPO";
+        AND $this->horarios.Dia='$diasemana' AND $this->horarios.Edificio IS NOT NULL AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo IS NOT NULL AND $this->horas.Fin > '$horasistema' $extra
+        ORDER BY $this->horarios.HORA_TIPO, $this->horarios.Aula, $this->profesores.Nombre";
         if($exec = $this->selectFrom($sql))
         {
             if($exec->num_rows > 0)
@@ -376,7 +377,7 @@ class Netasys
             }
             else
             {
-                $this->ERR_NETASYS = "No existen Aulas sin Profesor.";
+                echo "No existen Aulas sin Profesor.";
                 return false;
             }
         }
