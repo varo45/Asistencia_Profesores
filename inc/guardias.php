@@ -1,7 +1,6 @@
 <?php
 
 //--------------------------------------------------------
-echo "<h2>Guardias Disponibles</h2>";
 
 if($response = $class->getGuardias())
 {

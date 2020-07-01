@@ -357,12 +357,16 @@ class Netasys
             $dia = $ahora['year'] . "-" . $ahora['mon'] . "-" . $ahora['mday'];
             $horasistema = $ahora['hours'] . ":" . $ahora['minutes'] . ":" . $ahora['seconds'];
         }
+        if(isset($_GET['Edificio']) && isset($_GET['N']))
+        {
+            $extra = "AND $this->horarios.Edificio=$_GET[N]";
+        }
         $sql = "SELECT DISTINCT $this->profesores.Nombre, $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Edificio, $this->horarios.HORA_TIPO 
         FROM $this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID 
         WHERE NOT EXISTS 
         (SELECT * FROM $this->fichar 
             WHERE $this->fichar.ID_PROFESOR=$this->horarios.ID_PROFESOR AND $this->fichar.DIA_SEMANA='$diasemana' AND $this->fichar.Fecha='$dia') 
-        AND $this->horarios.Dia='$diasemana' AND $this->horarios.Edificio IS NOT NULL AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo IS NOT NULL 
+        AND $this->horarios.Dia='$diasemana' AND $this->horarios.Edificio IS NOT NULL AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo IS NOT NULL $extra
         ORDER BY $this->horarios.HORA_TIPO";
         if($exec = $this->selectFrom($sql))
         {
