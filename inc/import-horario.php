@@ -24,7 +24,7 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
 
     </div>
             <?php
-        $sql = "SELECT * FROM import";
+        $sql = "SELECT * FROM Import";
         $result = $class->selectFrom($sql);
         if (! empty($result)) {
             ?>
@@ -34,7 +34,6 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
                 <th>ID</th>
                 <th>Curso</th>
                 <th>Abprof</th>
-                <th>Abasig</th>
                 <th>Aula</th>
                 <th>Diasemana</th>
                 <th>Hora</th>
@@ -51,7 +50,6 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
                 <td><?php  echo $row['ID']; ?></td>
                 <td><?php  echo $row['Curso']; ?></td>
                 <td><?php  echo $row['Abprof']; ?></td>
-                <td><?php  echo $row['Abasig']; ?></td>
                 <td><?php  echo $row['Aula']; ?></td>
                 <td><?php  echo $row['Diasemana']; ?></td>
                 <td><?php  echo $row['Hora']; ?></td>
