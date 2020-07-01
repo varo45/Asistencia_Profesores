@@ -169,10 +169,12 @@ if(isset($_GET['ACTION']))
     if($class->isLogged())
     {
       $act_home = 'active';
-      include_once($dirs['inc'] . 'top-nav.php');
-      include_once($dirs['inc'] . 'contenido-guardias.php');
-      include_once($dirs['inc'] . 'errors.php');
-      include_once($dirs['inc'] . 'footer.php');
+      include($dirs['inc'] . 'top-nav.php');
+      include($dirs['inc'] . 'contenido-home.php');
+      include($dirs['inc'] . 'qr-reader.php');
+      include($dirs['inc'] . 'contenido-guardias.php');
+      include($dirs['inc'] . 'errors.php');
+      include($dirs['inc'] . 'footer.php');
     }
     else
     {
