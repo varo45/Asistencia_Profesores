@@ -1,6 +1,6 @@
 <h2>Import CSV file into Mysql using PHP</h2>
 <?php
-require_once($dirs['inc'] . 'import-mysql-horario.php');
+require_once($dirs['inc'] . 'import-mysql-profesorado.php');
 ?>
 <div id="response"
     class="<?php if(!empty($type)) { echo $type . " display-block"; } ?>">
@@ -32,12 +32,9 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Curso</th>
-                <th>Abprof</th>
-                <th>Abasig</th>
-                <th>Aula</th>
-                <th>Diasemana</th>
-                <th>Hora</th>
+                <th>Abreviatura</th>
+                <th>Nombre</th>
+                <th>Tutor</th>
 
             </tr>
         </thead>
@@ -49,12 +46,9 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
             <tbody>
             <tr>
                 <td><?php  echo $row['ID']; ?></td>
-                <td><?php  echo $row['Curso']; ?></td>
-                <td><?php  echo $row['Abprof']; ?></td>
-                <td><?php  echo $row['Abasig']; ?></td>
-                <td><?php  echo $row['Aula']; ?></td>
-                <td><?php  echo $row['Diasemana']; ?></td>
-                <td><?php  echo $row['Hora']; ?></td>
+                <td><?php  echo $row['ABREV']; ?></td>
+                <td><?php  echo $row['NOMBR']; ?></td>
+                <td><?php  echo $row['TUTOR']; ?></td>
             </tr>
                 <?php
             }
