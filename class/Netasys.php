@@ -409,13 +409,40 @@ class Netasys
             $horaclase = $horaclase['Hora'];
             $dia = $this->getDate();
             $hora_salida = $this->getHoraSalida();
-            $fichar = "INSERT INTO $this->fichar (ID_PROFESOR, F_entrada, F_Salida, HORA_CLASE, DIA_SEMANA, Fecha) VALUES ($id, '$hora', '15:00:00', '$horaclase', '$dia[weekday]', '$fecha')";
-            if($response = $this->insertInto($fichar))
+            $sql = "SELECT DISTINCT $this->fichar.ID, $this->horarios.Hora_salida 
+                    FROM $this->fichar INNER JOIN $this->horarios 
+                    WHERE $this->fichar.Fecha='$fecha' AND $this->fichar.ID_PROFESOR='$id'";
+            if($this->isTooLate($id, $hora))
             {
-                return true;
+                if($response = $this->selectFrom($sql))
+                {
+                    if($response->num_rows == 0)
+                    {
+                        $fichar = "INSERT INTO $this->fichar (ID_PROFESOR, F_entrada, F_Salida, HORA_CLASE, DIA_SEMANA, Fecha) 
+                                    VALUES ($id, '$hora', '15:00:00', '$horaclase', '$dia[weekday]', '$fecha')";
+                        if($response = $this->insertInto($fichar))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        $this->ERR_NETASYS = "<span id='noqr' style='color: black; font-weight: bolder; background-color: orange;'><h3>Ya has fichado hoy.</h3></span>";
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
+                $this->ERR_NETASYS = "<span id='noqr' style='color: black; font-weight: bolder; background-color: Yellow;'><h3>No se puede fichar fuera de horario.</h3></span>";
                 return false;
             }
         }
@@ -477,6 +504,25 @@ class Netasys
         if($response = $this->selectFrom("SELECT $field FROM $table WHERE $field='$data'"))
         {
             if($response->num_rows == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function isTooLate($id, $horaactual)
+    {
+        if($response = $this->selectFrom("SELECT DISTINCT $this->horarios.Hora_salida FROM $this->horarios WHERE ID_PROFESOR='$id' AND $this->horarios.Hora_salida >= '$horaactual'"))
+        {
+            if($response->num_rows == 1)
             {
                 return true;
             }
