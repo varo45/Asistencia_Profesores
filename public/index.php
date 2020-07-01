@@ -164,10 +164,11 @@ if(isset($_GET['ACTION']))
       include_once($dirs['inc'] . 'msg_modal.php');
     }
   }
-  elseif ($_GET['ACTION'] == 'Edificio' && isset($_GET['N']))
+  elseif ($_GET['ACTION'] == 'Edificio' && isset($_GET['Numero']))
   {
     if($class->isLogged())
     {
+      $act_home = 'active';
       $extras = <<< EOL
       <style>
           canvas {box-shadow: 4px 4px 8px black; padding: 2px; }
@@ -190,9 +191,8 @@ if(isset($_GET['ACTION']))
       <script type="text/javascript" src="js/jsqrcode/findpat.js"></script>
       <script type="text/javascript" src="js/jsqrcode/alignpat.js"></script>
       <script type="text/javascript" src="js/jsqrcode/databr.js"></script>
-      EOL;
-      $act_home = 'active';
 
+EOL;
       include($dirs['inc'] . 'top-nav.php');
       include($dirs['inc'] . 'contenido-home.php');
       include($dirs['inc'] . 'qr-reader.php');

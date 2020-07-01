@@ -49,7 +49,7 @@ if(isset($sql) && $sql != '')
             </div>
           </div>
         </div>
-      EOL;
+EOL;
     }
     else
     {
@@ -79,6 +79,6 @@ else
         </div>
       </div>
     </div>
-  EOL;
+EOL;
 }
 ?>
