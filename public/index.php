@@ -106,6 +106,14 @@ if(isset($_GET['ACTION']))
     include_once($dirs['inc'] . 'errors.php');
     include_once($dirs['inc'] . 'footer.php');
   }
+  elseif ($_GET['ACTION'] == 'import-profesorado')
+  {
+    $act_horario = 'active';
+    include_once($dirs['inc'] . 'top-nav.php');
+    include_once($dirs['inc'] . 'contenido-import-profesorado.php');
+    include_once($dirs['inc'] . 'errors.php');
+    include_once($dirs['inc'] . 'footer.php');
+  }
   elseif ($_GET['ACTION'] == 'profesores')
   {
       if($class->isLogged())
@@ -271,25 +279,7 @@ EOL;
   }
   elseif ($_GET['ACTION'] == 'fichar-asist')
   {
-    if(isset($_GET['abrev']) && isset($_GET['enp']) && $_GET['abrev'] != 'undefined' && $_GET['enp'] != 'undefined')
-    {
-        if($response = $class->selectFrom("SELECT Nombre FROM $class->profesores WHERE Iniciales='$_GET[abrev]' AND Password='$_GET[enp]'"))
-        {
-          if($response->num_rows == 1)
-          {
-            $nombre = $response->fetch_assoc();
-            echo "<span id='okqr' style='color: white; font-weight: bolder; background-color: green;'><h3>Fichaje de asistencia correcto. $nombre[Nombre]</h3></span>";
-          }
-          else
-          {
-            echo "<span id='noqr' style='color: white; font-weight: bolder; background-color: red;'><h3>Código QR incorrecto.</h3></span>";
-          }
-        }
-        else
-        {
-          echo "<span id='noqr' style='color: white; font-weight: bolder; background-color: red;'><h3>$class->ERR_NETASYS</h3></span>";
-        }
-    }
+    include_once($dirs['inc'] . 'fichar-asistencia.php');
   }
   else
   {

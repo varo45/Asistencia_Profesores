@@ -389,22 +389,33 @@ class Netasys
 
     function FicharWeb()
     {
-        $id = $_SESSION['ID'];
+        if($response = $this->selectFrom("SELECT ID FROM $this->profesores WHERE Iniciales='$_GET[abrev]' AND Password='$_GET[enp]'"))
+        {
+            $idprof = $response->fetch_assoc();
+            $id = $idprof['ID'];
+        }
+        else
+        {
+            return false;
+        }
+        //$id = $_SESSION['ID'];
         if($this->bdConex())
         {
             date_default_timezone_set('Europe/Madrid');
             $fecha = date('Y-m-d');
-            $hora = date('H:i:00');
+            $hora = date('H:i:s');
+            $horaclase = $this->getHoraClase();
+            $horaclase = $horaclase->fetch_assoc();
+            $horaclase = $horaclase['Hora'];
             $dia = $this->getDate();
             $hora_salida = $this->getHoraSalida();
-            $fichar = "INSERT INTO $this->fichar (ID_PROFESOR, F_entrada, DIA_SEMANA, Fecha) VALUES ($id, '$hora', '$dia[weekday]', '$fecha')";
+            $fichar = "INSERT INTO $this->fichar (ID_PROFESOR, F_entrada, F_Salida, HORA_CLASE, DIA_SEMANA, Fecha) VALUES ($id, '$hora', '15:00:00', '$horaclase', '$dia[weekday]', '$fecha')";
             if($response = $this->insertInto($fichar))
             {
                 return true;
             }
             else
             {
-                $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
                 return false;
             }
         }
