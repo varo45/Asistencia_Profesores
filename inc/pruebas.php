@@ -28,93 +28,85 @@
     </head>
     <body>
         <video id="player" controls autoplay hidden></video>
-        <canvas id="qr-canvas" width=320 height=240></canvas>
-        <div hidden>
-            <button id="captureSnapshotButton">Capture Snapshot</button>
-            <button id="attemptDecodeButton" disabled>Attempt Decode</button>
-            <button id="startAutoCaptureButton">Start Auto-Capture</button>
-            <button id="stopAutoCaptureButton">Stop Auto-Capture</button>
-            <button id="stopCameraButton">Stop Camera</button>
-        </div>
-
+        <canvas id="qr-canvas" width=240 height=240></canvas>
         <div id="output"></div>
 
         <script>
             const canvas = document.getElementById('qr-canvas');
             const context = canvas.getContext('2d');
-            let autoCaptureStatus = false;
+            let autoCaptureStatus = true;
             let decodeFailures = 0;
 
             const constraints = {
                 video: {
-                    width: 320,
+                    width: 240,
                     height: 240
                 }
             };
             
             showDefaultCanvas();
+            autoCapture();
 
             // Attach the video stream to the video element and autoplay.
             navigator.mediaDevices.getUserMedia(constraints)
                     .then((stream) => {
                         player.srcObject = stream;
                     });
-
-            window.onload = function() {
-                // Start taking snapshots to canvas
-                autoCaptureStatus = true;
-                decodeFailures = 0;
-                autoCapture();
-            };
-
-            captureSnapshotButton.addEventListener('click', () => {
+            
+            function captureSnapshotButton() {
                 // Draw the video frame to the canvas.
                 attemptDecodeButton.disabled = false;
                 context.drawImage(player, 0, 0, canvas.width, canvas.height);
-            });
+            };
 
-            stopCameraButton.addEventListener('click', () => {
+            function stopCameraButton() {
                 // Stop video capture.
                 player.srcObject.getVideoTracks().forEach(track => track.stop());
                 disableButtons();
                 autoCapture = false;
                 output.innerHTML = '<h2 style="color:#F00">Recargue la página para escanear.</h2>';
                 showDefaultCanvas();
-            });
+            };
 
-            attemptDecodeButton.addEventListener('click', () => {
+            function attemptDecodeButton() {
                 // Decode QR Code
                 try {
                     decodedValue = qrcode.decode();
-                    console.log(decodedValue);
+                    // console.log(decodedValue);
                     updateOutputValue(decodedValue);
                     // Stops scanning
                     autoCaptureStatus = false;
+                    setTimeout(scanAgain, 1000);
                 } catch (err) {
-                    updateOutputValue("");
                     if (err !== "No se ha podido encontrar la codificación (found 0)") {
                         //throw err;
                     }
                 }
-            });
+            };
 
-            startAutoCaptureButton.addEventListener('click', () => {
+            function startAutoCaptureButton() {
                 // Start taking snapshots to canvas
                 autoCaptureStatus = true;
                 decodeFailures = 0;
                 autoCapture();
-            });
+            };
 
-            stopAutoCaptureButton.addEventListener('click', () => {
+            function stopAutoCaptureButton() {
                 // Stop taking snapshots to canvas
                 autoCaptureStatus = false;
-            });
+            };
 
+            function scanAgain(){
+                $('#output').html("<span id='empty'>Acerque el código QR al lector...</span>");
+                $('#output').css('background-color', 'white');
+                autoCaptureStatus = true;
+                autoCapture();
+            };
 
             function autoCapture() {
                 if (autoCaptureStatus) {
-                    captureSnapshotButton.click();
-                    attemptDecodeButton.click();
+                    captureSnapshotButton();
+                    attemptDecodeButton();
                     setTimeout(autoCapture, 100);
                 }
             }
@@ -152,16 +144,16 @@
                 context.fillText("Lector QR", 85, 130);
             }
         </script>
-        <script>
+        <!-- <script>
           window.setInterval(function(){
             $('#output').html('');
-            startAutoCaptureButton.click();
+            startAutoCaptureButton();
           }, 1000);
         </script>
         <script>
           window.setInterval(function(){
             $('#qr-canvas').html('');
-          }, 18000000);
-        </script>
+          }, 300000);
+        </script> -->
     </body>
 </html>

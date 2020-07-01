@@ -100,7 +100,7 @@ if(isset($_GET['ACTION']))
   }
   elseif ($_GET['ACTION'] == 'import-horario')
   {
-    $act_asistencia = 'active';
+    $act_horario = 'active';
     include_once($dirs['inc'] . 'top-nav.php');
     include_once($dirs['inc'] . 'contenido-import-horario.php');
     include_once($dirs['inc'] . 'errors.php');
@@ -152,6 +152,23 @@ if(isset($_GET['ACTION']))
     if($class->isLogged())
     {
       $act_guardias = 'active';
+      include_once($dirs['inc'] . 'top-nav.php');
+      include_once($dirs['inc'] . 'contenido-guardias.php');
+      include_once($dirs['inc'] . 'errors.php');
+      include_once($dirs['inc'] . 'footer.php');
+    }
+    else
+    {
+      $MSG = "Debes iniciar sesión para acceder a la lista de profesores.";
+      header("Refresh:2; url=index.php");
+      include_once($dirs['inc'] . 'msg_modal.php');
+    }
+  }
+  elseif ($_GET['ACTION'] == 'Edificio' && isset($_GET['N']))
+  {
+    if($class->isLogged())
+    {
+      $act_home = 'active';
       include_once($dirs['inc'] . 'top-nav.php');
       include_once($dirs['inc'] . 'contenido-guardias.php');
       include_once($dirs['inc'] . 'errors.php');
@@ -235,22 +252,22 @@ if(isset($_GET['ACTION']))
           if($response->num_rows == 1)
           {
             $nombre = $response->fetch_assoc();
-            echo "<span id='okqr' style='color: white; font-weight: bolder; background-color: green;'>Fichaje de asistencia correcto. $nombre[Nombre]</span>";
+            echo "<span id='okqr' style='color: white; font-weight: bolder; background-color: green;'><h3>Fichaje de asistencia correcto. $nombre[Nombre]</h3></span>";
           }
           else
           {
-            echo "<span id='noqr' style='color: white; font-weight: bolder; background-color: red;'>Código QR incorrecto.</span>";
+            echo "<span id='noqr' style='color: white; font-weight: bolder; background-color: red;'><h3>Código QR incorrecto.</h3></span>";
           }
         }
         else
         {
-          echo "<span id='noqr' style='color: white; font-weight: bolder; background-color: red;'>$class->ERR_NETASYS</span>";
+          echo "<span id='noqr' style='color: white; font-weight: bolder; background-color: red;'><h3>$class->ERR_NETASYS</h3></span>";
         }
     }
   }
   else
   {
-    echo "Coloque el código QR en el lector...";
+    header('Location: index.php;');
   }
 }
 else

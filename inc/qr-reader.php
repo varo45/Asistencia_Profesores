@@ -11,10 +11,10 @@ echo <<< EOL
         <button id="stopCameraButton">Stop Camera</button>
     </div>
     <div class='row'>
-        <div class='col-xs-12 col-md-6'>
+        <div class='col-xs-12 col-md-4'>
             <canvas id="qr-canvas" width=240 height=240></canvas>
         </div>
-        <div class='col-xs-12 col-md-6'>
+        <div class='col-xs-12 col-md-8'>
             <h2>Respuesta de escaner:</h2>
             <div id="output" class='respuesta'></div>
         </div>
