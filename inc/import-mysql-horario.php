@@ -30,7 +30,7 @@ if (isset($_POST["import"])) {
             
             $sqlInsert = "INSERT into import (ID, Curso, Abprof, Abasig, Aula, Diasemana, Hora)
                    values (?,?,?,?,?,?,?)";
-            $paramType = "sss";
+            $paramType = "issssii";
             $paramArray = array(
                 $userId,
                 $userName,
