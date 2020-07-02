@@ -23,6 +23,10 @@ if(isset($_GET['ACTION']))
   {
     include_once($dirs['inc'] . 'pruebas.php');
   }
+  elseif ($_GET['ACTION'] == 'qrcoder')
+  {
+    include_once($dirs['inc'] . 'generate_code.php');
+  }
   elseif ($_GET['ACTION'] == 'registrarse') 
   {
     if(isset($_POST['Nombre']) || isset($_POST['Iniciales']) || isset($_POST['pass1']) || isset($_POST['pass2']))
