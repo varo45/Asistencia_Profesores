@@ -13,6 +13,7 @@ class Netasys
     public $profesores = 'Profesores';
     public $horas = 'Horas';
     public $perfiles = 'Perfiles';
+    public $lectivos = 'Lectivos';
 
     public $ERR_NETASYS;
 
@@ -572,5 +573,46 @@ class Netasys
                 return false;
             }
         }
+    }
+
+    function dateLoop()
+    {
+        //Inicio de bucle
+        $inicio = '2020-09-15';
+        //fin de bucle
+        $fin = '2021-06-18';
+
+        while(strtotime($inicio) <= strtotime($fin))
+        {
+            //Indicando la fecha
+            $diasmes = $inicio;
+            //Separa la fecha
+            $sep = preg_split('/-/', $diasmes);
+            $dia = $sep[2];
+            $m = $sep[1];
+            $Y = $sep[0];
+            //Calcula los días que tiene el mes
+            //Devuelve la fecha Unix en formato fecha juliana
+            $start = unixtojd(mktime(0,0,0,$m,$dia,$Y));
+            //Cambia la fecha juliana a un formato de calendario
+            $array = cal_from_jd($start,CAL_GREGORIAN);
+            if($array['dayname'] == "Saturday" || $array['dayname'] == "Sunday")
+            {
+
+            }
+            else
+            {
+                if($this->insertInto("INSERT INTO $this->lectivos (Fecha) VALUES ('$inicio')"))
+                {
+                    $this->ERR_NETASYS = "Insertado correctamente.";
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            $inicio = date ("Y-m-d", strtotime("+1 day", strtotime($inicio)));
+        }
+
     }
 }
