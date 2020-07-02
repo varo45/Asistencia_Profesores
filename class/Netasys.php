@@ -413,11 +413,11 @@ class Netasys
             $sql = "SELECT DISTINCT $this->fichar.ID, $this->horarios.Hora_salida 
                     FROM $this->fichar INNER JOIN $this->horarios 
                     WHERE $this->fichar.Fecha='$fecha' AND $this->fichar.ID_PROFESOR='$id'";
-            if($this->isTooLate($id, $hora))
+            if($response = $this->selectFrom($sql))
             {
-                if($response = $this->selectFrom($sql))
+                if($response->num_rows == 0)
                 {
-                    if($response->num_rows == 0)
+                    if($this->isTooLate($id, $hora, $dia['weekday']))
                     {
                         $fichar = "INSERT INTO $this->fichar (ID_PROFESOR, F_entrada, F_Salida, HORA_CLASE, DIA_SEMANA, Fecha) 
                                     VALUES ($id, '$hora', '15:00:00', '$horaclase', '$dia[weekday]', '$fecha')";
@@ -432,18 +432,18 @@ class Netasys
                     }
                     else
                     {
-                        $this->ERR_NETASYS = "<span id='noqr' style='color: black; font-weight: bolder; background-color: orange;'><h3>Ya has fichado hoy.</h3></span>";
+                        $this->ERR_NETASYS = "<span id='noqr' style='color: black; font-weight: bolder; background-color: Yellow;'><h3>No se puede fichar fuera de horario.</h3></span>";
                         return false;
                     }
                 }
                 else
                 {
+                    $this->ERR_NETASYS = "<span id='noqr' style='color: black; font-weight: bolder; background-color: orange;'><h3>Ya has fichado hoy.</h3></span>";
                     return false;
                 }
             }
             else
             {
-                $this->ERR_NETASYS = "<span id='noqr' style='color: black; font-weight: bolder; background-color: Yellow;'><h3>No se puede fichar fuera de horario.</h3></span>";
                 return false;
             }
         }
@@ -519,9 +519,9 @@ class Netasys
         }
     }
 
-    function isTooLate($id, $horaactual)
+    function isTooLate($id, $horaactual, $diasemana)
     {
-        if($response = $this->selectFrom("SELECT DISTINCT $this->horarios.Hora_salida FROM $this->horarios WHERE ID_PROFESOR='$id' AND $this->horarios.Hora_salida >= '$horaactual'"))
+        if($response = $this->selectFrom("SELECT DISTINCT $this->horarios.Hora_salida FROM $this->horarios WHERE ID_PROFESOR='$id' AND $this->horarios.Hora_salida >= '$horaactual' AND $this->horarios.Dia='$diasemana'"))
         {
             if($response->num_rows == 1)
             {
