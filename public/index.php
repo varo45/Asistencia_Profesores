@@ -306,4 +306,9 @@ else
   {
       include_once($dirs['inc'] . 'login_form.php');
   }
+  $files = glob('tmp/*');
+      foreach($files as $file){
+      if(is_file($file))
+      unlink($file);
+}
 }
