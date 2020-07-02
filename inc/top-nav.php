@@ -51,7 +51,7 @@
         <ul class="dropdown-menu">
           <li><a href="#"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Notificaciones</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-qrcode"></span> Mi código QR</a></li>
+          <li><a href="index.php?ACTION=qrcoder"><span class="glyphicon glyphicon-qrcode"></span> Mi código QR</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Ajustes</a></li>
         </ul>
       </li>

@@ -1,13 +1,41 @@
 <?php 
-if(isset($_POST) && !empty($_POST)) {
-    include('phpqrcode/qrlib.php');
-    $codesDir = "tmp/";   
-    $codeFile = uniqid().'.png';
-    QRcode::png($_POST['formData'], '../public/'.$codesDir.$codeFile, $_POST['ecc'], $_POST['size']); 
-    echo '<img class="img-thumbnail" src="'.$codesDir.$codeFile.'" />';
+if(isset($_SESSION['ID']) && ! empty($_SESSION['ID']))
+{
+    if($response = $class->selectFrom("SELECT Iniciales, Password FROM $class->profesores WHERE ID='$_SESSION[ID]'"))
+    {
+        $files = glob('tmp/*');
+        foreach($files as $file)
+        {
+            if(is_file($file))
+            {
+                unlink($file);
+            }
+        }
+        $datos = $response->fetch_assoc();
+        include_once($dirs['inc'] . 'phpqrcode/qrlib.php');
+        $codesDir = "tmp/";   
+        $codeFile = uniqid().'.png';
+        ?>
+        <div class="container" style="margin-top:50px">
+            <div class="row">
+                <div class="col-xs-12">
+                <h3>Código de identificación</h3>
+        <?php
+        QRcode::png($datos['Iniciales'].';'.$datos['Password'], $codesDir.$codeFile, 'H', '5'); 
+        echo '<img class="img-thumbnail" src="'.$codesDir.$codeFile.'" />';
+        ?>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+    else
+    {
+        $ERR_MSG = $class->ERR_NETASYS;
+    }
 } 
 else {
-    header('location:./');
+    echo $class->ERR_NETASYS;
 }
 
 ?>

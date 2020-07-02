@@ -25,7 +25,19 @@ if(isset($_GET['ACTION']))
   }
   elseif ($_GET['ACTION'] == 'qrcoder')
   {
-    include_once($dirs['inc'] . 'generate_code.php');
+    if($class->isLogged())
+    {
+      include_once($dirs['inc'] . 'top-nav.php');
+      include_once($dirs['inc'] . 'generate_code.php');
+      include_once($dirs['inc'] . 'errors.php');
+      include_once($dirs['inc'] . 'footer.php');
+    }
+    else
+    {
+      $MSG = "Debes iniciar sesión para ver la identificación.";
+      header("Refresh:2; url=index.php");
+      include_once($dirs['inc'] . 'msg_modal.php');
+    }
   }
   elseif ($_GET['ACTION'] == 'registrarse') 
   {
@@ -306,9 +318,4 @@ else
   {
       include_once($dirs['inc'] . 'login_form.php');
   }
-  $files = glob('tmp/*');
-      foreach($files as $file){
-      if(is_file($file))
-      unlink($file);
-}
 }
