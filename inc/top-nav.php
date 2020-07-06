@@ -38,6 +38,12 @@ $(function (){
 $(function (){
     $('#datepicker_fin').datepicker();
 });
+$(function (){
+    $('#datepicker_ini_fest').datepicker();
+});
+$(function (){
+    $('#datepicker_fin_fest').datepicker();
+});
 </script>
   <?php if(isset($extras)){ echo $extras;} ?>
 

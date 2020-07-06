@@ -70,6 +70,23 @@ class Netasys
         }
     }
 
+    function deleteFrom($sql)
+    {
+        if(! $conex = $this->bdConex())
+        {
+            return false;
+        }
+        if($response = $conex->query($sql))
+        {
+            return $response;
+        }
+        else
+        {
+            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            return false;
+        }
+    }
+
     function updateSet($sql)
     {
         if(! $conex = $this->bdConex())
@@ -575,13 +592,8 @@ class Netasys
         }
     }
 
-    function dateLoop()
+    function dateLoop($inicio, $fin)
     {
-        //Inicio de bucle
-        $inicio = '2020-09-15';
-        //fin de bucle
-        $fin = '2021-06-24';
-
         while(strtotime($inicio) <= strtotime($fin))
         {
             //Indicando la fecha
@@ -614,5 +626,23 @@ class Netasys
             $inicio = date ("Y-m-d", strtotime("+1 day", strtotime($inicio)));
         }
 
+    }
+    function deleteDateLoop($inicio, $fin)
+    {
+        while(strtotime($inicio) <= strtotime($fin))
+        {
+            $diasmes = $inicio;
+            $sep = preg_split('/-/', $diasmes);
+            $dia = $sep[2];
+            $m = $sep[1];
+            $Y = $sep[0];
+            $start = unixtojd(mktime(0,0,0,$m,$dia,$Y));
+            $array = cal_from_jd($start,CAL_GREGORIAN);
+            if($this->deleteFrom("DELETE FROM $this->lectivos WHERE fecha = '$inicio'"))
+            {
+                $this->ERR_NETASYS = "Festivos insertados correctamente.";
+            }
+            $inicio = date ("Y-m-d", strtotime("+1 day", strtotime($inicio)));
+        }
     }
 }
