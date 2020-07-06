@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/netasys.css">
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery-ui/jquery-ui.min.js"></script>
   <script src="js/datepicker.js"></script>
   <?php if(isset($extras)){ echo $extras;} ?>
 
