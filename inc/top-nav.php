@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/bootstrap-3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style-cal.css">
   <link rel="stylesheet" href="css/netasys.css">
+  <link rel="stylesheet" href="js/jquery-ui/jquery-ui.min.css">
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery-ui/jquery-ui.min.js"></script>
