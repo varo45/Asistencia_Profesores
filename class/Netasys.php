@@ -627,6 +627,7 @@ class Netasys
         }
 
     }
+
     function deleteDateLoop($inicio, $fin)
     {
         while(strtotime($inicio) <= strtotime($fin))
@@ -645,4 +646,5 @@ class Netasys
             $inicio = date ("Y-m-d", strtotime("+1 day", strtotime($inicio)));
         }
     }
+
 }
