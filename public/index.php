@@ -21,7 +21,9 @@ if(isset($_GET['ACTION']))
   }
   elseif ($_GET['ACTION'] == 'pruebas')
   {
+    include_once($dirs['inc'] . 'top-nav.php');
     include_once($dirs['inc'] . 'pruebas.php');
+    include_once($dirs['inc'] . 'footer.php');
   }
   elseif ($_GET['ACTION'] == 'qrcoder')
   {
