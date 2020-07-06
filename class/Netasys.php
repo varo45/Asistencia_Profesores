@@ -580,7 +580,7 @@ class Netasys
         //Inicio de bucle
         $inicio = '2020-09-15';
         //fin de bucle
-        $fin = '2021-06-18';
+        $fin = '2021-06-24';
 
         while(strtotime($inicio) <= strtotime($fin))
         {
