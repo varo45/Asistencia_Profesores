@@ -1,4 +1,4 @@
-<h2>Import CSV file into Mysql using PHP</h2>
+<h2>Importar Horarios desde CSV</h2>
 <?php
 require_once($dirs['inc'] . 'import-mysql-horario.php');
 ?>
@@ -24,7 +24,7 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
 
     </div>
             <?php
-        $sql = "SELECT * FROM Import";
+        $sql = "SELECT Horarios.*, Profesores.Nombre, Profesores.Iniciales, Diasemana.Diasemana FROM (Horarios INNER JOIN Profesores ON Horarios.ID_PROFESOR=Profesores.ID) INNER JOIN Diasemana ON Diasemana.ID=Horarios.Dia ORDER BY ID_PROFESOR, Dia, HORA_TIPO";
         $result = $class->selectFrom($sql);
         if (! empty($result)) {
             ?>
@@ -33,7 +33,8 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
             <tr>
                 <th>ID</th>
                 <th>Curso</th>
-                <th>Abprof</th>
+                <th>Abreviatura profesor</th>
+                <th>Profesor</th>
                 <th>Aula</th>
                 <th>Diasemana</th>
                 <th>Hora</th>
@@ -48,11 +49,12 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
             <tbody>
             <tr>
                 <td><?php  echo $row['ID']; ?></td>
-                <td><?php  echo $row['Curso']; ?></td>
-                <td><?php  echo $row['Abprof']; ?></td>
+                <td><?php  echo $row['Grupo']; ?></td>
+                <td><?php  echo $row['Iniciales']; ?></td>
+                <td><?php  echo $row['Nombre']; ?></td>
                 <td><?php  echo $row['Aula']; ?></td>
                 <td><?php  echo $row['Diasemana']; ?></td>
-                <td><?php  echo $row['Hora']; ?></td>
+                <td><?php  echo $row['HORA_TIPO']; ?></td>
             </tr>
                 <?php
             }

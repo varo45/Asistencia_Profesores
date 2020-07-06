@@ -1,4 +1,4 @@
-<h2>Import CSV file into Mysql using PHP</h2>
+<h2>Importar Profesores desde CSV</h2>
 <?php
 require_once($dirs['inc'] . 'import-mysql-profesorado.php');
 ?>
@@ -24,7 +24,7 @@ require_once($dirs['inc'] . 'import-mysql-profesorado.php');
 
     </div>
             <?php
-        $sql = "SELECT * FROM import";
+        $sql = "SELECT ID, Iniciales, Nombre, Tutor FROM Profesores ORDER BY Nombre, Iniciales";
         $result = $class->selectFrom($sql);
         if (! empty($result)) {
             ?>
@@ -46,9 +46,9 @@ require_once($dirs['inc'] . 'import-mysql-profesorado.php');
             <tbody>
             <tr>
                 <td><?php  echo $row['ID']; ?></td>
-                <td><?php  echo $row['ABREV']; ?></td>
-                <td><?php  echo $row['NOMBR']; ?></td>
-                <td><?php  echo $row['TUTOR']; ?></td>
+                <td><?php  echo $row['Iniciales']; ?></td>
+                <td><?php  echo $row['Nombre']; ?></td>
+                <td><?php  echo $row['Tutor']; ?></td>
             </tr>
                 <?php
             }

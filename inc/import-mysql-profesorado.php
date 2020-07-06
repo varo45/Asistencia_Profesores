@@ -1,7 +1,9 @@
 <?php
 
 require_once($dirs['class'] . 'DataSource.php');
+require_once($dirs['class'] . 'Netasys.php');
 $db = new DataSource();
+$class = new Netasys();
 $conn = $db->getConnection();
 
 if (isset($_POST["import"])) {
@@ -15,28 +17,32 @@ if (isset($_POST["import"])) {
         while (($column = fgetcsv($file, 10000, ";")) !== FALSE) {
             if($row == 1){ $row++; continue; }
             $row++;
-            $userId = "";
+            $iniciales = "";
             if (isset($column[0])) {
-                $userId = mysqli_real_escape_string($conn, utf8_encode($column[0]));
+                $iniciales = mysqli_real_escape_string($conn, utf8_encode($column[0]));
             }
-            $userName = "";
+            $nombre = "";
             if (isset($column[1])) {
-                $userName = mysqli_real_escape_string($conn, utf8_encode($column[1]));
+                $nombre = mysqli_real_escape_string($conn, utf8_encode($column[1]));
             }
-            $password = "";
+            $tutor = "";
             if (isset($column[2])) {
-                $password = mysqli_real_escape_string($conn, utf8_encode($column[2]));
+                $tutor = mysqli_real_escape_string($conn, utf8_encode($column[2]));
             }
-            
-            $sqlInsert = "INSERT into import (ABREV, NOMBR, TUTOR)
-                   values (?,?,?)";
-            $paramType = "sss";
+            $password = $class->encryptPassword($iniciales . '12345');
+            $tipo = mysqli_real_escape_string($conn, utf8_encode(2));
+            $instituto = mysqli_real_escape_string($conn, utf8_encode('IES Bezmiliana'));
+            $sqlInsert = "INSERT INTO Profesores (Iniciales, Nombre, Password, TIPO, Tutor, Instituto)
+                   values (?,?,?,?,?,?)";
+            $paramType = "sssiss";
             $paramArray = array(
-                $userId,
-                $userName,
-                $password
+                $iniciales,
+                $nombre,
+                $password,
+                $tipo,
+                $tutor,
+                $instituto
             );
-
             $insertId = $db->insert($sqlInsert, $paramType, $paramArray);
             
             if (! empty($insertId)) {

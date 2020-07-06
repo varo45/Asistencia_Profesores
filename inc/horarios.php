@@ -1,5 +1,5 @@
 <?php
-if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horarios INNER JOIN $class->profesores ON $class->horarios.ID_PROFESOR=$class->profesores.ID WHERE $class->profesores.ID='$_SESSION[ID]' ORDER BY $class->horarios.HORA_TIPO"))
+if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diasemana as Dia FROM ($class->horarios INNER JOIN $class->profesores ON $class->horarios.ID_PROFESOR=$class->profesores.ID) INNER JOIN Diasemana ON Diasemana.ID=$class->horarios.Dia WHERE $class->profesores.ID='$_SESSION[ID]' ORDER BY $class->horarios.HORA_TIPO"))
 {
     if ($response->num_rows > 0)
     {
@@ -26,7 +26,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                     {
                         $martes[] = $fila;
                     }                   
-                        elseif ($fila['Dia'] == 'Miercoles')
+                    elseif ($fila['Dia'] == 'Miercoles')
                     {
                         $miercoles[] = $fila;
                     }
@@ -39,6 +39,11 @@ if($response = $class->selectFrom("SELECT $class->horarios.* FROM $class->horari
                         $viernes[] = $fila;
                     }
                 }
+                // var_dump($lunes);
+                // var_dump($martes);
+                // var_dump($miercoles);
+                // var_dump($jueves);
+                // var_dump($viernes);
             for ($i = 0; $i < 6; $i++)
             {
                 $dia = $class->getDate();

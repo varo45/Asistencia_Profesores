@@ -64,7 +64,7 @@ $(function (){
     <div class="collapse navbar-collapse" id="top-menu">
     <ul class="nav navbar-nav">
       <li class="<?php echo $act_home; ?>"><a href="<?php echo "index.php"; ?>"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
-      <li class="dropdown <?php echo $act_horario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-calendar"></span> Horario<span class="caret"></span></a>
+      <li class="dropdown <?php echo $act_horario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-calendar"></span> Horario <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=horarios' ?>"><span class="glyphicon glyphicon-calendar"></span> Consultar horario</a></li>
           <li><a href="index.php?ACTION=crear-horario"><span class="glyphicon glyphicon-plus"></span> Crear horario</a></li>
@@ -76,13 +76,17 @@ $(function (){
       <?php
         if($_SESSION['Perfil'] === 'Admin')
         {
-            echo "<li class=' $act_profesores '><a href='$_SERVER[PHP_SELF]?ACTION=profesores'><span class='glyphicon glyphicon-education'></span> Profesores</a></li>";
+            echo "<li class='dropdown $act_profesores '><a class='dropdown-toggle' data-toggle='dropdown' href='#'<span class='glyphicon glyphicon-education'></span> Profesores <span class='caret'></a>";
+            echo "<ul class='dropdown-menu'>";
+              echo "<li><a href='$_SERVER[PHP_SELF]?ACTION=profesores'><span class='glyphicon glyphicon-education'></span> Mostrar profesores</a></li>";
+              echo "<li><a href='$_SERVER[PHP_SELF]?ACTION=import-profesorado'><span class='glyphicon glyphicon-plus'></span> Importar profesores</a></li>";
+            echo "</ul>";
         }
     ?>
       <!--li class="<?php echo $act_guardias; ?>"><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=guardias' ?>"><span class="glyphicon glyphicon-eye-open"></span> Guardias</a></li-->
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['Nombre']; ?><span class="caret"></span></a>
+      <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['Nombre']; ?> <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Notificaciones</a></li>

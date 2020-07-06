@@ -12,7 +12,8 @@ if (isset($_POST["import"])) {
         
         $file = fopen($fileName, "r");
         $row = 1;
-        while (($column = fgetcsv($file, 10000, ";")) !== FALSE) {
+        while (($column = fgetcsv($file, 10000, ";")) !== FALSE)
+        {
             if($row == 1){ $row++; continue; }
             $row++;
             $horarioID = "";
@@ -20,50 +21,60 @@ if (isset($_POST["import"])) {
                 $column[0] = preg_replace('/(\")|(\s)/', '', $column[0]);
                 $horarioID = mysqli_real_escape_string($conn, utf8_encode($column[0]));
             }
-            $horarioCurso = "";
+            $Grupo = "";
             if (isset($column[1])) {
                 $column[1] = preg_replace('/(\")|(\s)/', '', $column[1]);
-                $horarioCurso = mysqli_real_escape_string($conn, utf8_encode($column[1]));
+                $Grupo = mysqli_real_escape_string($conn, utf8_encode($column[1]));
             }
-            $horarioAbprof = "";
+            $Iniciales = "";
             if (isset($column[2])) {
                 $column[2] = preg_replace('/(\")|(\s)/', '', $column[2]);
-                $horarioAbprof = mysqli_real_escape_string($conn, utf8_encode($column[2]));
+                $Iniciales = mysqli_real_escape_string($conn, utf8_encode($column[2]));
             }
-            $horarioAula = "";
+            $Aula = "";
             if (isset($column[4])) {
                 $column[4] = preg_replace('/(\")|(\s)/', '', $column[4]);
-                $horarioAula = mysqli_real_escape_string($conn, utf8_encode($column[4]));
+                $Aula = mysqli_real_escape_string($conn, utf8_encode($column[4]));
             }
-            $horarioDiasemana = "";
+            $Diasemana = "";
             if (isset($column[5])) {
                 $column[5] = preg_replace('/(\")|(\s)/', '', $column[5]);
-                $horarioDiasemana = mysqli_real_escape_string($conn, utf8_encode($column[5]));
+                $Diasemana = mysqli_real_escape_string($conn, utf8_encode($column[5]));
             }
-            $horarioHora = "";
+            $Hora_tipo = "";
             if (isset($column[6])) {
                 $column[6] = preg_replace('/(\")|(\s)/', '', $column[6]);
-                $horarioHora = mysqli_real_escape_string($conn, utf8_encode($column[6]));
+                $Hora_tipo = mysqli_real_escape_string($conn, utf8_encode($column[6]));
+                $Hora_tipo .= 'M';
             }
-            $sqlInsert = "INSERT into Import (ID, Curso, Abprof, Aula, Diasemana, Hora)
-                   values (?, ?, ?, ?, ?, ?)";
-            $paramType = "isssii"; 
+            $response = $class->selectFrom("SELECT ID FROM Profesores WHERE Iniciales='$Iniciales'");
+            $IDPROFESOR = $response->fetch_assoc();
+            $IDPROFESOR = $IDPROFESOR['ID'];
+            $Hora_entrada = "08:30:00";
+            $Hora_salida = "15:00:00";
+            $sqlInsert = "INSERT into Horarios (ID_PROFESOR, Dia, HORA_TIPO, Aula, Grupo, Hora_entrada, Hora_salida)
+                   values (?,?,?,?,?,?,?)";
+            $paramType = "iisssss"; 
             $paramArray = array(
-                $horarioID,
-                $horarioCurso,
-                $horarioAbprof,
-                $horarioAula,
-                $horarioDiasemana,
-                $horarioHora
+                //$horarioID,
+                $IDPROFESOR,
+                $Diasemana,
+                $Hora_tipo,
+                $Aula,
+                $Grupo,
+                $Hora_entrada,
+                $Hora_salida
             );
             $insertId = $db->insert($sqlInsert, $paramType, $paramArray);
             
             if (! empty($insertId)) {
                 $type = "success";
-                $message = "Datos importados correctamente.";
+                //$message = "Datos importados correctamente.";
+                $MSG = "Datos importados correctamente.";
             } else {
                 $type = "error";
-                $message = "Error al importar datos desde CSV";
+                //$message = "Error al importar datos desde CSV";
+                $ERR_MSG = "Error al importar datos desde CSV <br>Compruebe que ha importado primero al profesorado.";
             }
         }
     }
