@@ -81,6 +81,9 @@ $(function (){
               echo "<li><a href='$_SERVER[PHP_SELF]?ACTION=profesores'><span class='glyphicon glyphicon-education'></span> Mostrar profesores</a></li>";
               echo "<li><a href='$_SERVER[PHP_SELF]?ACTION=import-profesorado'><span class='glyphicon glyphicon-plus'></span> Importar profesores</a></li>";
             echo "</ul>";
+            echo "</li>";
+
+            echo "<li><a href='$_SERVER[PHP_SELF]?ACTION=lectivos'><span class='glyphicon glyphicon-calendar'></span> Calendario escolar</a></li>";
         }
     ?>
       <!--li class="<?php echo $act_guardias; ?>"><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=guardias' ?>"><span class="glyphicon glyphicon-eye-open"></span> Guardias</a></li-->
