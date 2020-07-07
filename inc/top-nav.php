@@ -92,6 +92,7 @@ $(function (){
           <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Notificaciones</a></li>
           <li><a href="index.php?ACTION=qrcoder"><span class="glyphicon glyphicon-qrcode"></span> Mi código QR</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Ajustes</a></li>
+          <li><a href="index.php?ACTION=cambio_pass"><span class="glyphicon glyphicon-retweet"></span> Cambio de contraseña</a></li>
         </ul>
       </li>
       <li><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=logout' ?>"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>

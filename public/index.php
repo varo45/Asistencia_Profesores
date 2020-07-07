@@ -25,6 +25,12 @@ if(isset($_GET['ACTION']))
     include_once($dirs['inc'] . 'pruebas.php');
     include_once($dirs['inc'] . 'footer.php');
   }
+  elseif ($_GET['ACTION'] == 'cambio_pass')
+  {
+    include_once($dirs['inc'] . 'top-nav.php');
+    include_once($dirs['inc'] . 'cambio_pass.php');
+    include_once($dirs['inc'] . 'footer.php');
+  }
   elseif ($_GET['ACTION'] == 'qrcoder')
   {
     if($class->isLogged())
