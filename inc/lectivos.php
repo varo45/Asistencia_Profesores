@@ -32,7 +32,7 @@ if(isset($_POST['enviar']) && $_POST['enviar'] == 'Festivos')
     $m2 = $sep2[1];
     $Y2 = $sep2[2];
     $_POST['fin'] = $Y2 . '-' . $m2 . '-' . $dia2;
-    if($response = $class->deleteDateLoop($_POST['inicio'], $_POST['fin']))
+    if($response = $class->updateDateLoop($_POST['inicio'], $_POST['fin']))
     {
         
     }
