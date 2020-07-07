@@ -14,6 +14,7 @@ class Netasys
     public $horas = 'Horas';
     public $perfiles = 'Perfiles';
     public $lectivos = 'Lectivos';
+    public $diasemana = 'Diasemana';
 
     public $ERR_NETASYS;
 
@@ -538,7 +539,9 @@ class Netasys
 
     function isTooLate($id, $horaactual, $diasemana)
     {
-        if($response = $this->selectFrom("SELECT DISTINCT $this->horarios.Hora_salida FROM $this->horarios WHERE ID_PROFESOR='$id' AND $this->horarios.Hora_salida >= '$horaactual' AND $this->horarios.Dia='$diasemana'"))
+        if($response = $this->selectFrom("SELECT DISTINCT $this->horarios.Hora_salida 
+        FROM $this->horarios INNER JOIN Diasemana ON $this->horarios.Dia=$this->diasemana.ID WHERE ID_PROFESOR='$id' 
+        AND $this->horarios.Hora_salida >= '$horaactual' AND $this->diasemana.Diasemana='$diasemana'"))
         {
             if($response->num_rows == 1)
             {
@@ -628,7 +631,7 @@ class Netasys
 
     }
 
-    function deleteDateLoop($inicio, $fin)
+    function updateDateLoop($inicio, $fin)
     {
         while(strtotime($inicio) <= strtotime($fin))
         {
@@ -639,7 +642,7 @@ class Netasys
             $Y = $sep[0];
             $start = unixtojd(mktime(0,0,0,$m,$dia,$Y));
             $array = cal_from_jd($start,CAL_GREGORIAN);
-            if($this->deleteFrom("DELETE FROM $this->lectivos WHERE fecha = '$inicio'"))
+            if($this->updateSet("UPDATE $this->lectivos SET $this->lectivos.festivo='si' WHERE $this->lectivos.fecha='$inicio'"))
             {
                 $this->ERR_NETASYS = "Festivos insertados correctamente.";
             }
