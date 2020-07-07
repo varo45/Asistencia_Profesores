@@ -1,3 +1,6 @@
+<?php
+include('valida_new_pass.php');
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,17 +9,21 @@
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-	<form class="login-form" action="new_password.php" method="post">
+	<form class="login-form" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
 		<h2 class="form-title">Nuevo password</h2>
 		<!-- form validation messages -->
-		<?php include('messages.php'); ?>
+		
 		<div class="form-group">
-			<label>Nuevo password</label>
-			<input type="password" name="new_pass">
+			<label>Contraseña Actual</label>
+			<input type="password" name="act_pass">
 		</div>
 		<div class="form-group">
-			<label>Confirmar nuevo password</label>
-			<input type="password" name="new_pass_c">
+			<label>Nueva contraseña</label>
+			<input  minlength="8" type="password" name="new_pass">
+		</div>
+		<div class="form-group">
+			<label>Confirmar nueva contraseña</label>
+			<input minlength="8" type="password" name="new_pass_c">
 		</div>
 		<div class="form-group">
 			<button type="submit" name="new_password" class="login-btn">Confirmar</button>
