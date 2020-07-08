@@ -58,8 +58,6 @@
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['Nombre']; ?> <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Notificaciones</a></li>
           <li><a href="index.php?ACTION=qrcoder"><span class="glyphicon glyphicon-qrcode"></span> Mi código QR</a></li>
           <li><a href="index.php?ACTION=cambio_pass"><span class="glyphicon glyphicon-retweet"></span> Cambio de contraseña</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Ajustes</a></li>
