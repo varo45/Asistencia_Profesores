@@ -375,18 +375,18 @@ class Netasys
             $horaactual = $horaactual['Hora'];
             $dia = $ahora['year'] . "-" . $ahora['mon'] . "-" . $ahora['mday'];
             $horasistema = $ahora['hours'] . ":" . $ahora['minutes'] . ":" . $ahora['seconds'];
+            $horasistema = '10:30:00';
         }
         if(isset($_GET['Numero']))
         {
-            
             $extra = "AND $this->horarios.Edificio='$_GET[Numero]'";
         }
         $sql = "SELECT DISTINCT $this->profesores.Nombre, $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Edificio, $this->horarios.HORA_TIPO 
-        FROM ($this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID) INNER JOIN $this->horas ON $this->horas.Hora=$this->horarios.HORA_TIPO 
+        FROM (($this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID) INNER JOIN $this->horas ON $this->horas.Hora=$this->horarios.HORA_TIPO) INNER JOIN $this->diasemana ON $this->diasemana.ID=$this->horarios.Dia
         WHERE NOT EXISTS 
         (SELECT * FROM $this->fichar 
             WHERE $this->fichar.ID_PROFESOR=$this->horarios.ID_PROFESOR AND $this->fichar.DIA_SEMANA='$diasemana' AND $this->fichar.Fecha='$dia') 
-        AND $this->horarios.Dia='$diasemana' AND $this->horarios.Edificio IS NOT NULL AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo IS NOT NULL AND $this->horas.Fin > '$horasistema' $extra
+        AND $this->profesores.Sustituido=0 AND $this->diasemana.Diasemana='$diasemana' AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo IS NOT NULL AND $this->horas.Fin > '$horasistema' $extra
         ORDER BY $this->horarios.HORA_TIPO, $this->horarios.Aula, $this->profesores.Nombre";
         if($exec = $this->selectFrom($sql))
         {
@@ -619,7 +619,7 @@ class Netasys
             {
                 if($this->insertInto("INSERT INTO $this->lectivos (Fecha) VALUES ('$inicio')"))
                 {
-                    $this->ERR_NETASYS = "Insertado correctamente.";
+
                 }
                 else
                 {
@@ -642,9 +642,9 @@ class Netasys
             $Y = $sep[0];
             $start = unixtojd(mktime(0,0,0,$m,$dia,$Y));
             $array = cal_from_jd($start,CAL_GREGORIAN);
-            if($this->updateSet("UPDATE $this->lectivos SET $this->lectivos.festivo='si' WHERE $this->lectivos.fecha='$inicio'"))
+            if($this->updateSet("UPDATE $this->lectivos SET $this->lectivos.Festivo='si' WHERE $this->lectivos.Fecha='$inicio'"))
             {
-                $this->ERR_NETASYS = "Festivos insertados correctamente.";
+
             }
             $inicio = date ("Y-m-d", strtotime("+1 day", strtotime($inicio)));
         }

@@ -13,7 +13,7 @@ if(isset($_POST['enviar']) && $_POST['enviar'] == 'Insertar')
     $_POST['fin'] = $Y2 . '-' . $m2 . '-' . $dia2;
     if($response = $class->dateLoop($_POST['inicio'], $_POST['fin']))
     {
-
+        
     }
     else
     {
@@ -34,7 +34,7 @@ if(isset($_POST['enviar']) && $_POST['enviar'] == 'Festivos')
     $_POST['fin'] = $Y2 . '-' . $m2 . '-' . $dia2;
     if($response = $class->updateDateLoop($_POST['inicio'], $_POST['fin']))
     {
-        
+
     }
     else
     {
