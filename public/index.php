@@ -45,6 +45,7 @@ if(isset($_GET['ACTION']))
     break;
   
     case 'cambio_pass':
+      $extras = '<link rel="stylesheet" href="css/login-style.css">';
       include_once($dirs['inc'] . 'top-nav.php');
       include_once($dirs['inc'] . 'new_pass.php');
       include_once($dirs['inc'] . 'errors.php');
