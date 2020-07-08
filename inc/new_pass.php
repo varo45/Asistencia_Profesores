@@ -1,6 +1,3 @@
-<?php
-include('valida_new_pass.php');
-?>
 <div class="wrapper fadeInDown">
     <div id="formContent">
           <!-- Tabs Titles -->

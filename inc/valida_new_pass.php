@@ -5,7 +5,7 @@ if($_POST['new_password'])
 $_POST['act_pass'] = $class->encryptPassword($_POST['act_pass']);
 $_POST['new_pass'] = $class->encryptPassword($_POST['new_pass']);
 $_POST['new_pass_c'] = $class->encryptPassword($_POST['new_pass_c']);
-    if(! $response = $class->selectFrom("SELECT ID FROM $class->profesores WHERE ID='$_SESSION[ID]'"))
+    if($response = $class->selectFrom("SELECT ID FROM $class->profesores WHERE ID='$_SESSION[ID]' AND Password = '$_POST[act_pass]'"))
     {
         if($response->num_rows == 1)
         {
@@ -15,7 +15,10 @@ $_POST['new_pass_c'] = $class->encryptPassword($_POST['new_pass_c']);
                 {
                     if($class->updateSet("UPDATE $class->profesores SET $class->profesores.Password='$_POST[new_pass]' WHERE $class->profesores.ID='$_SESSION[ID]'"))
                     {
-    
+                        $MSG = 'Contraseña cambiada satisfatoriamente.';
+                        $cambiada = true;
+                        header("Refresh:1; url=index.php?ACTION=logout");
+                        include_once($dirs['inc'] . 'errors.php');
                     }
                     else
                     {
@@ -42,9 +45,11 @@ $_POST['new_pass_c'] = $class->encryptPassword($_POST['new_pass_c']);
     {
         $ERR_MSG = $class->ERR_NETASYS;
     }
+
 }
-
-
-
-
+if(isset($cambiada))
+{
+    include_once($dirs['inc'] . 'top-nav.php');
+    die(include_once($dirs['inc'] . 'errors.php'));
+}
 ?>
