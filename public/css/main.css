@@ -1,3 +1,6 @@
+html {
+	scroll-behavior: smooth;
+}
 body {
 	background: #3b5998;
 	font-size: 1.1em;
