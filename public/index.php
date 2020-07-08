@@ -53,6 +53,39 @@ if(isset($_GET['ACTION']))
     break;
   
     case 'lectivos':
+      $extras = "<script>
+      $.datepicker.regional['es'] = {
+      closeText: 'Cerrar',
+      prevText: '< Ant',
+      nextText: 'Sig >',
+      currentText: 'Hoy',
+      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+      dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+      dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+      dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+      weekHeader: 'Sm',
+      dateFormat: 'dd/mm/yy',
+      firstDay: 1,
+      isRTL: false,
+      showMonthAfterYear: false,
+      yearSuffix: ''
+      };
+      $.datepicker.setDefaults($.datepicker.regional['es']);
+  
+      $(function (){
+          $('#datepicker_ini').datepicker();
+      });
+      $(function (){
+          $('#datepicker_fin').datepicker();
+      });
+      $(function (){
+          $('#datepicker_ini_fest').datepicker();
+      });
+      $(function (){
+          $('#datepicker_fin_fest').datepicker();
+      });
+    </script>";
       include_once($dirs['inc'] . 'top-nav.php');
       include_once($dirs['inc'] . 'lectivos.php');
       include_once($dirs['inc'] . 'errors.php');

@@ -12,39 +12,6 @@
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery-ui/jquery-ui.min.js"></script>
-  <script>
-$.datepicker.regional['es'] = {
-closeText: 'Cerrar',
-prevText: '< Ant',
-nextText: 'Sig >',
-currentText: 'Hoy',
-monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
-dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
-weekHeader: 'Sm',
-dateFormat: 'dd/mm/yy',
-firstDay: 1,
-isRTL: false,
-showMonthAfterYear: false,
-yearSuffix: ''
-};
-$.datepicker.setDefaults($.datepicker.regional['es']);
-
-$(function (){
-    $('#datepicker_ini').datepicker();
-});
-$(function (){
-    $('#datepicker_fin').datepicker();
-});
-$(function (){
-    $('#datepicker_ini_fest').datepicker();
-});
-$(function (){
-    $('#datepicker_fin_fest').datepicker();
-});
-</script>
   <?php if(isset($extras)){ echo $extras;} ?>
 
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -94,8 +61,8 @@ $(function (){
           <li><a href="#"><span class="glyphicon glyphicon-user"></span> Perfil</a></li>
           <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Notificaciones</a></li>
           <li><a href="index.php?ACTION=qrcoder"><span class="glyphicon glyphicon-qrcode"></span> Mi código QR</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Ajustes</a></li>
           <li><a href="index.php?ACTION=cambio_pass"><span class="glyphicon glyphicon-retweet"></span> Cambio de contraseña</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Ajustes</a></li>
         </ul>
       </li>
       <li><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=logout' ?>"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
