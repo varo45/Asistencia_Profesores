@@ -1,6 +1,6 @@
 <?php
 
-if($_POST['new_password'])
+if(isset($_POST['new_password']))
 {
 $_POST['act_pass'] = $class->encryptPassword($_POST['act_pass']);
 $_POST['new_pass'] = $class->encryptPassword($_POST['new_pass']);

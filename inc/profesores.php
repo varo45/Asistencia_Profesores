@@ -15,6 +15,7 @@ if($_SESSION['Perfil'] === 'Admin')
             echo "<th>Nombre</th>";
             echo "<th>Iniciales</th>";
             echo "<th>Tipo</th>";
+            echo "<th>Editar</th>";
         echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
@@ -25,6 +26,7 @@ if($_SESSION['Perfil'] === 'Admin')
             echo "<td>$fila[Nombre]</td>";
             echo "<td>$fila[Iniciales]</td>";
             echo "<td>$fila[Tipo]</td>";
+            echo "<td><a href='index.php?ACTION=editar_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-pencil'></span></a></td>";
         }
     echo "</tbody>";
     echo "</table>";

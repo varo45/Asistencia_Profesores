@@ -43,7 +43,19 @@ if(isset($_GET['ACTION']))
       include_once($dirs['inc'] . 'pruebas.php');
       include_once($dirs['inc'] . 'footer.php');
     break;
-  
+    
+    case 'pruebas-carlos':
+      include_once($dirs['inc'] . 'top-nav.php');
+      include_once($dirs['inc'] . 'pruebas-carlos.php');
+      include_once($dirs['inc'] . 'footer.php');
+    break;
+
+    case 'pruebas-varo':
+      include_once($dirs['inc'] . 'top-nav.php');
+      include_once($dirs['inc'] . 'pruebas-varo.php');
+      include_once($dirs['inc'] . 'footer.php');
+    break;
+
     case 'cambio_pass':
       $extras = '<link rel="stylesheet" href="css/login-style.css">';
       include_once($dirs['inc'] . 'valida_new_pass.php');
@@ -236,6 +248,24 @@ if(isset($_GET['ACTION']))
       else
       {
         $MSG = "Debes iniciar sesión para acceder a la lista de profesores.";
+        header("Refresh:2; url=index.php");
+        include_once($dirs['inc'] . 'msg_modal.php');
+      }
+    break;
+
+    case 'editar_profesor':
+      if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
+      {
+        include_once($dirs['inc'] . 'valida_edit_profesor.php');
+        $extras = '<link rel="stylesheet" href="css/login-style.css">';
+        include_once($dirs['inc'] . 'top-nav.php');
+        include_once($dirs['inc'] . 'editar_profesor.php');
+        include_once($dirs['inc'] . 'errors.php');
+        include_once($dirs['inc'] . 'footer.php');
+      }
+      else
+      {
+        $MSG = "Debes iniciar sesión para editar un profesor.";
         header("Refresh:2; url=index.php");
         include_once($dirs['inc'] . 'msg_modal.php');
       }
