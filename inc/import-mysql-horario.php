@@ -65,7 +65,7 @@ if (isset($_POST["import"])) {
                 $Hora_entrada,
                 $Hora_salida
             );
-            $response = $class->selectFrom("SELECT ID FROM Horarios WHERE ID_PROFESOR='$IDPROFESOR' AND Dia='$Diasemana' AND HORA_TIPO='$Hora_tipo'");
+            $response = $class->selectFrom("SELECT ID FROM Horarios WHERE ID_PROFESOR='$IDPROFESOR' AND Dia='$Diasemana' AND HORA_TIPO='$Hora_tipo' AND Grupo='$Grupo'");
             if($response->num_rows == 0)
             {
                 $insertId = $db->insert($sqlInsert, $paramType, $paramArray);
