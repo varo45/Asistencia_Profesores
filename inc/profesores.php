@@ -18,6 +18,7 @@ if($_SESSION['Perfil'] === 'Admin')
             echo "<th>Activo</th>";
             echo "<th>Sustituido</th>";
             echo "<th>Editar</th>";
+            echo "<th>Faltas</th>";
         echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
@@ -47,6 +48,7 @@ if($_SESSION['Perfil'] === 'Admin')
             echo "<td>$fila[Activo]</td>";
             echo "<td>$fila[Sustituido]</td>";
             echo "<td><a href='index.php?ACTION=editar_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-pencil'></span></a></td>";
+            echo "<td><a href='index.php?ACTION=faltas_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-list'></span></a></td>";
         }
     echo "</tbody>";
     echo "</table>";

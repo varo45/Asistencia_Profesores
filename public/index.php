@@ -270,6 +270,23 @@ if(isset($_GET['ACTION']))
         include_once($dirs['inc'] . 'msg_modal.php');
       }
     break;
+
+    case 'faltas_profesor':
+      if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
+      {
+        $extras = '<link rel="stylesheet" href="css/login-style.css">';
+        include_once($dirs['inc'] . 'top-nav.php');
+        include_once($dirs['inc'] . 'faltas_profesor.php');
+        include_once($dirs['inc'] . 'errors.php');
+        include_once($dirs['inc'] . 'footer.php');
+      }
+      else
+      {
+        $MSG = "Debes iniciar sesión para editar un profesor.";
+        header("Refresh:2; url=index.php");
+        include_once($dirs['inc'] . 'msg_modal.php');
+      }
+    break;
   
     case 'guardias':
       if($class->isLogged())
