@@ -40,7 +40,6 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                         {
                             $k = 0;
                             $filahora = $response->fetch_all();
-                            //var_dump($filahora);
                             echo "<tr>";
                             echo "<td style='vertical-align: middle; text-align: center;'><b>$hora</b></td>";
                             for($j = 1; $j <= 5; $j++)
