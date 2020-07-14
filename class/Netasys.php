@@ -380,14 +380,12 @@ class Netasys
         {
             $extra = "AND $this->horarios.Edificio='$_GET[Numero]'";
         }
-        $sql = "SELECT DISTINCT $this->profesores.Nombre, $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Edificio, $this->horarios.HORA_TIPO 
-        FROM (($this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID) INNER JOIN $this->horas ON $this->horas.Hora=$this->horarios.HORA_TIPO) 
-        INNER JOIN $this->diasemana ON $this->diasemana.ID=$this->horarios.Dia
+        $sql = "SELECT DISTINCT $this->profesores.Nombre, $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Edificio, $this->horarios.HORA_TIPO, $this->profesores.ID 
+        FROM (($this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID) INNER JOIN $this->horas ON $this->horas.Hora=$this->horarios.HORA_TIPO) INNER JOIN $this->diasemana ON $this->diasemana.ID=$this->horarios.Dia
         WHERE NOT EXISTS 
         (SELECT * FROM $this->fichar 
             WHERE $this->fichar.ID_PROFESOR=$this->horarios.ID_PROFESOR AND $this->fichar.DIA_SEMANA='$diasemana' AND $this->fichar.Fecha='$dia') 
-        AND $this->profesores.Sustituido=0 AND $this->diasemana.Diasemana='$diasemana' AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo 
-        IS NOT NULL AND $this->horas.Fin > '$horasistema' $extra
+        AND $this->profesores.Sustituido=0 AND $this->diasemana.Diasemana='$diasemana' AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo IS NOT NULL AND $this->horas.Fin > '$horasistema' $extra
         ORDER BY $this->horarios.HORA_TIPO, $this->horarios.Aula, $this->profesores.Nombre";
         if($exec = $this->selectFrom($sql))
         {
