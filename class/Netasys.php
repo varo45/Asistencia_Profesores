@@ -616,18 +616,25 @@ class Netasys
             }
             else
             {
-                if($this->insertInto("INSERT INTO $this->lectivos (Fecha) VALUES ('$inicio')"))
+                if(! $this->searchDuplicateField($diasmes, 'Fecha', $this->lectivos))
                 {
-
+                    $this->updateSet("UPDATE $this->lectivos SET $this->lectivos.Festivo='no' WHERE $this->lectivos.Fecha='$diasmes'");
                 }
                 else
                 {
-                    return false;
+                    if($this->insertInto("INSERT INTO $this->lectivos (Fecha) VALUES ('$inicio')"))
+                    {
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
             $inicio = date ("Y-m-d", strtotime("+1 day", strtotime($inicio)));
         }
-
+        return true;
     }
 
     function updateDateLoop($inicio, $fin)
@@ -643,7 +650,11 @@ class Netasys
             $array = cal_from_jd($start,CAL_GREGORIAN);
             if($this->updateSet("UPDATE $this->lectivos SET $this->lectivos.Festivo='si' WHERE $this->lectivos.Fecha='$inicio'"))
             {
-
+                
+            }
+            else
+            {
+                return false;
             }
             $inicio = date ("Y-m-d", strtotime("+1 day", strtotime($inicio)));
         }
