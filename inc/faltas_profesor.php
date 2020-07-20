@@ -4,51 +4,51 @@ if($resp = $class->selectFrom("SELECT Nombre FROM $class->profesores WHERE ID='$
 {
     $n = $resp->fetch_assoc();
     $n = $n['Nombre'];
-    if($response = $class->selectFrom("SELECT Ausencias.ID, Dia, Motivo, Justificada FROM Ausencias WHERE ID_PROFESOR='$_GET[ID]'"))
+    $f = $class->getDate();
+    $fecha = $f['year'] . "-" . $f['mon'] . "-" . $f['mday'];
+    $fecha = '2020-10-22';
+    if($response = $class->selectFrom("SELECT Marcajes.*, Diasemana FROM Marcajes INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID WHERE ID_PROFESOR='$_GET[ID]' AND Fecha <= '$fecha' ORDER BY Fecha, Dia"))
     {
         echo '<div class="container" style="margin-top:50px">';
-                    echo "<h1>Faltas del Profesor: <b>$n</b></h1>";
-                    echo "<table class='table'>";
-                        echo "<thead>";
-                            echo "<tr>";
-                                echo "<th>ID</th>";
-                                echo "<th>Dia</th>";
-                                echo "<th>Motivo</th>";
-                                echo "<th>Justificada</th>";
-                                echo "<th>Justificar</th>";
-                                echo "<th>Descuido</th>";
-                            echo "</tr>";
-                        echo "</thead>";
-                        echo "<tbody>";
-                        while($datos = $response->fetch_assoc())
-                        {
-                            echo "<tr>";
-                            echo "<td>$datos[ID]</td>";
-                            echo "<td>$datos[Dia]</td>";
-                            if($datos['Motivo'] === 'No se ha especificado ningún motivo')
+                    echo "<h1>Asistencias de <b>$n</b></h1>";
+                    echo "<input id='busca_asiste' calss='fadeIn' type='text' placeholder='Buscar registro...' autocomplete='off'>";
+                    echo "<div id='table-container'>";
+                        echo "<div id='marcaje-response'></div>";
+                        echo "<table class='table'>";
+                            echo "<thead>";
+                                echo "<tr>";
+                                    echo "<th>Fecha</th>";
+                                    echo "<th>Dia</th>";
+                                    echo "<th>Hora</th>";
+                                    echo "<th>Asistencia</th>";
+                                    echo "<th>Asistido</th>";
+                                    echo "<th>Faltado</th>";
+                                echo "</tr>";
+                            echo "</thead>";
+                            echo "<tbody>";
+                            while($datos = $response->fetch_assoc())
                             {
-                                echo "<td style='color: #ddd;'><i>$datos[Motivo]</i></td>";
+                                echo "<tr>";
+                                echo "<td>$datos[Fecha]</td>";
+                                echo "<td>$datos[Diasemana]</td>";
+                                echo "<td>$datos[Hora]</td>";
+                                if($datos['Asiste'] == 0)
+                                {
+                                    echo "<td>No</td>";
+                                    echo "<td><a asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],1' class='actualiza'><span class='glyphicon glyphicon-ok'></span></a></td>";
+                                    echo "<td></td>";
+                                }
+                                else
+                                {
+                                    echo "<td>Si</td>";
+                                    echo "<td></td>";
+                                    echo "<td><a asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-remove'></span></a></td>";
+                                }
+                                echo "</tr>";
                             }
-                            else
-                            {
-                                echo "<td>$datos[Motivo]</td>";
-                            }
-                            if($datos['Justificada'] == 0)
-                            {
-                                echo "<td>No</td>";
-                                echo "<td><a href='index.php?ACTION=faltas_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-ok'></span></a></td>";
-                                echo "<td><a href='index.php?ACTION=faltas_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-remove'></span></a></td>";
-                            }
-                            else
-                            {
-                                echo "<td>Si</td>";
-                                echo "<td></td>";
-                                echo "<td></td>";
-                            }
-                            echo "</tr>";
-                        }
-                        echo "</tbody>";
-                    echo "</table>";
+                            echo "</tbody>";
+                        echo "</table>";
+                    echo "</div>";
         echo '</div>';
     }
     else

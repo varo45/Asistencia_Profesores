@@ -15,6 +15,9 @@
   <?php if(isset($extras)){ echo $extras;} ?>
 
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <style>
+  <?php if(isset($style)){ echo $style;} ?>
+  </style>
 </head>
 <body>
 

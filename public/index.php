@@ -53,6 +53,7 @@ if(isset($_GET['ACTION']))
     case 'pruebas-varo':
       include_once($dirs['inc'] . 'top-nav.php');
       include_once($dirs['inc'] . 'pruebas-varo.php');
+      include_once($dirs['inc'] . 'errors.php');
       include_once($dirs['inc'] . 'footer.php');
     break;
 
@@ -274,11 +275,55 @@ if(isset($_GET['ACTION']))
     case 'faltas_profesor':
       if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
       {
-        $extras = '<link rel="stylesheet" href="css/login-style.css">';
+        $style = "
+        input[type=text], input[type=password] {
+        background-color: #f6f6f6;
+        border: none;
+        color: #0d0d0d;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        width: 85%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+        }
+        
+        input[type=text]:focus {
+        background-color: #fff;
+        border-bottom: 2px solid #5fbae9;
+        }
+        
+        input[type=text]:placeholder {
+        color: #cccccc;
+        }";
         include_once($dirs['inc'] . 'top-nav.php');
         include_once($dirs['inc'] . 'faltas_profesor.php');
         include_once($dirs['inc'] . 'errors.php');
+        include_once('js/filtro_asistencias.js');
+        include_once('js/update_marcajes.js');
         include_once($dirs['inc'] . 'footer.php');
+      }
+      else
+      {
+        $MSG = "Debes iniciar sesión para editar un profesor.";
+        header("Refresh:2; url=index.php");
+        include_once($dirs['inc'] . 'msg_modal.php');
+      }
+    break;
+  
+    case 'update_marcajes':
+      if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
+      {
+        include_once($dirs['inc'] . 'update-marcajes.php');
       }
       else
       {
