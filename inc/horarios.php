@@ -40,7 +40,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                     if($filahora[$k][10] == $j)
                     {
                         $dia['weekday'] === $filahora[$k][9] ? $dia['color'] = "success" : $dia['color'] = '';
-                        echo "<td style='vertical-align: middle; padding-left: 55px;' class='$dia[color]'><b>Aula:</b> " . $filahora[$k][5] . "<br><b>Grupo:</b> " . $filahora[$k][6] . "</td>";
+                        echo "<td style='vertical-align: middle; text-align: center;' class='$dia[color]'><b>Aula:</b> " . $filahora[$k][5] . "<br><b>Grupo:</b> " . $filahora[$k][6] . "</td>";
                         $k++;
                         if($filahora[$k][10] == $j)
                         {

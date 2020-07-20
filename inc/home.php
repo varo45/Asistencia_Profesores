@@ -26,7 +26,10 @@ $extras = <<< EOL
 EOL;
 include($dirs['inc'] . 'top-nav.php');
 include($dirs['inc'] . 'contenido-home.php');
-include($dirs['inc'] . 'qr-reader.php');
+if($_SESSION['Perfil'] === 'Admin')
+{
+    include($dirs['inc'] . 'qr-reader.php');
+}
 include($dirs['inc'] . 'filtro-edif-guardias.php');
 include($dirs['inc'] . 'contenido-guardias.php');
 include($dirs['inc'] . 'errors.php');
