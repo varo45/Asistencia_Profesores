@@ -1,3 +1,11 @@
 #btn-import {
     cursor: pointer;
 }
+
+#cambio-pass {
+    transform: rotate(0deg);
+    transition-duration: 0.4s;
+}
+#cambio-pass:hover {
+    transform: rotate(360deg);
+}

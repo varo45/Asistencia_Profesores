@@ -2,8 +2,8 @@
 
 $extras = <<< EOL
 <style>
-    canvas {box-shadow: 4px 4px 8px black; padding: 2px; }
-    .respuesta span {display: block;box-shadow: 4px 4px 8px black; padding: 50px; border-radius: 10px; margin-top: 30px;}
+    canvas {box-shadow: 4px 6px 15px grey; padding: 2px; border-radius: 10px;}
+    .respuesta span {display: block; box-shadow: 4px 6px 15px grey; padding: 50px; border-radius: 10px; margin-top: 30px;}
 </style>
 <script type="text/javascript" src="js/jsqrcode/grid.js"></script>
 <script type="text/javascript" src="js/jsqrcode/version.js"></script>

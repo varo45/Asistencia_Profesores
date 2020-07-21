@@ -46,6 +46,7 @@ if(isset($_GET['ACTION']))
       break;
     
       case 'pruebas':
+        $extras = '<link rel="stylesheet" href="css/login-style.css">';
         include_once($dirs['inc'] . 'top-nav.php');
         include_once($dirs['inc'] . 'pruebas.php');
         include_once($dirs['inc'] . 'footer.php');
@@ -390,8 +391,8 @@ if(isset($_GET['ACTION']))
             $act_home = 'active';
             $extras = <<< EOL
             <style>
-                canvas {box-shadow: 4px 4px 8px black; padding: 2px; }
-                .respuesta span {display: block;box-shadow: 4px 4px 8px black; padding: 50px; border-radius: 10px; margin-top: 30px;}
+              canvas {box-shadow: 4px 6px 15px grey; padding: 2px; border-radius: 10px;}
+              .respuesta span {display: block; box-shadow: 4px 6px 15px grey; padding: 50px; border-radius: 10px; margin-top: 30px;}
             </style>
             <script type="text/javascript" src="js/jsqrcode/grid.js"></script>
             <script type="text/javascript" src="js/jsqrcode/version.js"></script>
@@ -410,7 +411,7 @@ if(isset($_GET['ACTION']))
             <script type="text/javascript" src="js/jsqrcode/findpat.js"></script>
             <script type="text/javascript" src="js/jsqrcode/alignpat.js"></script>
             <script type="text/javascript" src="js/jsqrcode/databr.js"></script>
-  EOL;
+EOL;
             include($dirs['inc'] . 'top-nav.php');
             include($dirs['inc'] . 'contenido-home.php');
             if($_SESSION['Perfil'] === 'Admin')

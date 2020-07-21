@@ -38,11 +38,25 @@
         <ul class="dropdown-menu">
           <li><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=horarios' ?>"><span class="glyphicon glyphicon-calendar"></span> Consultar horario</a></li>
           <li><a href="index.php?ACTION=crear-horario"><span class="glyphicon glyphicon-plus"></span> Crear horario</a></li>
-          <li><a href="index.php?ACTION=import-horario"><span class="glyphicon glyphicon-plus"></span> Importar horario</a></li>
+      <?php
+        if($_SESSION['Perfil'] === 'Admin')
+        {
+      ?>
+          <li><a href="index.php?ACTION=import-horario"><span class="glyphicon glyphicon-plus"></span> Importar horarios</a></li>
+      <?php
+        }
+      ?>
           <li><a href="index.php?ACTION=modificar-horario"><span class="glyphicon glyphicon-pencil"></span> Modificar horario</a></li>
         </ul>
       </li>
-      <li class="<?php echo $act_asistencia; ?>"><a href="<?php $d = date('d'); $m = date('m'); $Y = date('Y'); echo $_SERVER['PHP_SELF'] . "?ACTION=asistencias&d=$d&m=$m&Y=$Y"; ?>"><span class="glyphicon glyphicon-check"></span> Mis asistencias</a></li>
+      <?php
+        if($_SESSION['Perfil'] === 'Profesor')
+        {
+      ?>
+          <li class="<?php echo $act_asistencia; ?>"><a href="<?php $d = date('d'); $m = date('m'); $Y = date('Y'); echo $_SERVER['PHP_SELF'] . "?ACTION=asistencias&d=$d&m=$m&Y=$Y"; ?>"><span class="glyphicon glyphicon-check"></span> Mis asistencias</a></li>
+      <?php
+        }
+      ?>
       <?php
         if($_SESSION['Perfil'] === 'Admin')
         {
@@ -59,10 +73,20 @@
       <!--li class="<?php echo $act_guardias; ?>"><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=guardias' ?>"><span class="glyphicon glyphicon-eye-open"></span> Guardias</a></li-->
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['Nombre']; ?> <span class="caret"></span></a>
+      <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['Nombre']; ?> <!--span class="badge"></span--> <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="index.php?ACTION=qrcoder"><span class="glyphicon glyphicon-qrcode"></span> Mi código QR</a></li>
-          <li><a href="index.php?ACTION=cambio_pass"><span class="glyphicon glyphicon-retweet"></span> Cambio de contraseña</a></li>
+        <?php
+        if($_SESSION['Perfil'] === 'Profesor')
+        {
+          echo '<li><a href="index.php?ACTION=qrcoder"><span class="glyphicon glyphicon-qrcode"></span> Mi código QR</a></li>';
+          echo '<li><a href="index.php?ACTION=escribir_mensaje"><span class="glyphicon glyphicon-comment"></span> Escribir a Jefatura (Próximamente)</a></li>';
+        }
+        else
+        {
+          echo '<li><a href="index.php?ACTION=ver_mensajes"><span class="glyphicon glyphicon-comment"></span> Mensajes (Próximamente)</a></li>';
+        }
+        ?>
+        <li><a href="index.php?ACTION=cambio_pass"><span id="cambio-pass" class="glyphicon glyphicon-refresh"></span> Cambio de contraseña</a></li>    
         </ul>
       </li>
       <li><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=logout' ?>"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
