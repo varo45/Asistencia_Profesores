@@ -18,7 +18,7 @@ if($_SESSION['Perfil'] === 'Admin')
             echo "<th>Activo</th>";
             echo "<th>Sustituido</th>";
             echo "<th>Editar</th>";
-            echo "<th>Faltas</th>";
+            echo "<th>Asistencias</th>";
         echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
