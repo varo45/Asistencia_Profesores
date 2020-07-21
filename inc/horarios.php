@@ -8,7 +8,8 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
     if ($response->num_rows > 0)
     {
         echo "<h2>Horario</h2>";
-        echo "</br><table class='table'>";
+        echo "</br>";
+        echo "<table class='table'>";
         echo "<thead>";
             echo "<tr>";
                 echo "<th style='text-align: center;'>Horas</th>";
@@ -33,6 +34,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
             {
                 $k = 0;
                 $filahora = $response->fetch_all();
+                //var_dump($filahora);
                 echo "<tr>";
                 echo "<td style='vertical-align: middle; text-align: center;'><b>$hora</b></td>";
                 for($j = 1; $j <= 5; $j++)
@@ -40,7 +42,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                     if($filahora[$k][10] == $j)
                     {
                         $dia['weekday'] === $filahora[$k][9] ? $dia['color'] = "success" : $dia['color'] = '';
-                        echo "<td style='vertical-align: middle; text-align: center;' class='$dia[color]'><b>Aula:</b> " . $filahora[$k][5] . "<br><b>Grupo:</b> " . $filahora[$k][6] . "</td>";
+                        echo "<td style='vertical-align: middle; text-align: center;' class='$dia[color]'><b>Aula:</b> " . $filahora[$k][5] . "<br><b>Grupo:</b> " . $filahora[$k][6];
                         $k++;
                         if($filahora[$k][10] == $j)
                         {
@@ -63,12 +65,12 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                                     echo $masgrupos['Grupo'];
                                     $m++;
                                 }
-                                echo "</td>";
                             }
                             else
                             {
                                 $ERR_MSG = $class->ERR_NETASYS;
                             }
+                            echo "</td>";
                         }
                         else
                         {
