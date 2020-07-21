@@ -4,7 +4,7 @@
 
           <!-- Icon -->
         <div class="fadeIn first">
-        	 <h1>Cambio Contraseña Primer Acceso</h1>
+        	 <h2>Por seguridad, debe de cambiar la contraseña inicial</h2>
         </div>
 
           <!-- Login Form -->

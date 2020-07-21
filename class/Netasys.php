@@ -137,6 +137,7 @@ class Netasys
 
     function compruebaCambioPass()
     {
+        $pass = $this->encryptPassword($_SESSION['Iniciales'] . '12345');
         if($response = $this->selectFrom("SELECT ID FROM $this->profesores WHERE Password='$pass' AND ID='$_SESSION[ID]'"))
         {
             if($response->num_rows == 0)
