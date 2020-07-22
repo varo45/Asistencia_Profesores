@@ -15,6 +15,8 @@ class Netasys
     public $perfiles = 'Perfiles';
     public $lectivos = 'Lectivos';
     public $diasemana = 'Diasemana';
+    public $marcajes = 'Marcajes';
+    public $mensajes = 'Mensajes';
 
     public $ERR_NETASYS;
 
@@ -673,7 +675,7 @@ class Netasys
             $array = cal_from_jd($start,CAL_GREGORIAN);
             if($this->updateSet("UPDATE $this->lectivos SET $this->lectivos.Festivo='si' WHERE $this->lectivos.Fecha='$inicio'"))
             {
-                
+
             }
             else
             {

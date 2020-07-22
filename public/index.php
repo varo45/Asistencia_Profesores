@@ -66,12 +66,28 @@ if(isset($_GET['ACTION']))
       break;
   
       case 'cambio_pass':
-        $extras = '<link rel="stylesheet" href="css/login-style.css">';
-        include_once($dirs['inc'] . 'valida_new_pass.php');
-        include_once($dirs['inc'] . 'top-nav.php');
-        include_once($dirs['inc'] . 'new_pass.php');
-        include_once($dirs['inc'] . 'errors.php');
-        include_once($dirs['inc'] . 'footer.php');
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            $extras = '<link rel="stylesheet" href="css/login-style.css">';
+            include_once($dirs['inc'] . 'valida_new_pass.php');
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'new_pass.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para cambiar la contraseña.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
       break;
   
       case 'primer_cambio':
@@ -88,8 +104,8 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
-          $extras = '<link rel="stylesheet" href="css/form.css">';
-          $extras .= "<script>
+            $extras = '<link rel="stylesheet" href="css/form.css">';
+            $extras .= "<script>
             $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '< Ant',
@@ -122,6 +138,7 @@ if(isset($_GET['ACTION']))
                 $('#datepicker_fin_fest').datepicker();
             });
           </script>";
+            include_once($dirs['inc'] . 'valida-lectivos.php');
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'lectivos.php');
             include_once($dirs['inc'] . 'errors.php');
@@ -143,10 +160,17 @@ if(isset($_GET['ACTION']))
       case 'qrcoder':
         if($class->isLogged())
         {
-          include_once($dirs['inc'] . 'top-nav.php');
-          include_once($dirs['inc'] . 'generate_code.php');
-          include_once($dirs['inc'] . 'errors.php');
-          include_once($dirs['inc'] . 'footer.php');
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'generate_code.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
         }
         else
         {
@@ -170,11 +194,18 @@ if(isset($_GET['ACTION']))
       case 'horarios':
         if($class->isLogged())
         {
-          $act_horario = 'active';
-          include_once($dirs['inc'] . 'top-nav.php');
-          include_once($dirs['inc'] . 'contenido-horarios.php');
-          include_once($dirs['inc'] . 'errors.php');
-          include_once($dirs['inc'] . 'footer.php');
+          if($class->compruebaCambioPass())
+          {
+            $act_horario = 'active';
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'contenido-horarios.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
         }
         else
         {
@@ -187,11 +218,18 @@ if(isset($_GET['ACTION']))
       case 'crear-horario':
         if($class->isLogged())
         {
-          $act_horario = 'active';
-          include_once($dirs['inc'] . 'top-nav.php');
-          include_once($dirs['inc'] . 'contenido-horarios.php');
-          include_once($dirs['inc'] . 'errors.php');
-          include_once($dirs['inc'] . 'footer.php');
+          if($class->compruebaCambioPass())
+          {
+            $act_horario = 'active';
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'contenido-horarios.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
         }
         else
         {
@@ -204,12 +242,19 @@ if(isset($_GET['ACTION']))
       case 'modificar-horario':
         if($class->isLogged())
         {
-          $act_horario = 'active';
-          include_once($dirs['inc'] . 'top-nav.php');
-          include_once($dirs['inc'] . 'modificar-horario.php');
-          include_once($dirs['inc'] . 'contenido-horarios.php');
-          include_once($dirs['inc'] . 'errors.php');
-          include_once($dirs['inc'] . 'footer.php');
+          if($class->compruebaCambioPass())
+          {
+            $act_horario = 'active';
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'modificar-horario.php');
+            include_once($dirs['inc'] . 'contenido-horarios.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
         }
         else
         {
@@ -224,11 +269,28 @@ if(isset($_GET['ACTION']))
       break;
     
       case 'asistencias':
-        $act_asistencia = 'active';
-        include_once($dirs['inc'] . 'top-nav.php');
-        include_once($dirs['inc'] . 'contenido-fichajes.php');
-        include_once($dirs['inc'] . 'errors.php');
-        include_once($dirs['inc'] . 'footer.php');
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            $act_asistencia = 'active';
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'contenido-fichajes.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para ver las asistencias.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+        
       break;
     
       case 'import-horario':
