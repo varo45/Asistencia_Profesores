@@ -7,7 +7,8 @@ if($_SESSION['Perfil'] === 'Admin')
    {
     echo "<div id='horario'></div>";
     echo "<h2>Profesores</h2>";
-    echo "<input id='busca_prof' class='btn btn-default' type='text' placeholder='Buscar Profesor...' autocomplete='off'>";
+    include_once($dirs['inc'] . 'registrar-profesor.php');
+    echo "<br><input style='width: 25%;' id='busca_prof' class='form-control' type='text' placeholder='Buscar Profesor...' autocomplete='off'>";
     echo "</br><table class='table table-hover'>";
     echo "<thead>";
         echo "<tr>";

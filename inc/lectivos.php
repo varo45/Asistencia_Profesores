@@ -1,5 +1,5 @@
-<div class="container" style="margin-top:50px">
-<div class="col-xs-12 col-md-6">
+<div class="container" style="margin-top: 50px; margin-left: 0; margin-right: 0; width: 100%;">
+<div class="col-xs-12 col-md-4">
 <h2>Calendario escolar</h2>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
   <h3>Fechas Lectivas:</h3>
@@ -29,17 +29,18 @@ if($response = $class->selectFrom("SELECT * FROM $class->lectivos"))
     </div>
 EOL;        
     }
-    echo "<div class='col-xs-12 col-md-6'>";
+    echo "<div class='col-xs-12 col-md-8'>";
     if($response = $class->selectFrom("SELECT * FROM $class->lectivos ORDER BY Fecha ASC"))
     {   
-        echo "<table id='mitablita'>";
+        echo "<div id='mitablita'>";
         $contador = 0;
         $diaanterior = 99;
         while($calendario = $response->fetch_assoc())
         {
             if($calendario['Festivo'] == 'si')
             {
-                $festivo = "background-color: #dff0d8;";
+                $festivo = "background-color: #dff0d8; color: black;";
+                $festivo = "festivo";
             }
             else
             {
@@ -120,44 +121,46 @@ EOL;
             }
             if($contador == 0)
             {
+                echo "<thead>";
                 echo "<tr>";
-                echo "<th style='padding:18px; border: 1px solid black;'>L</th>";
-                echo "<th style='padding:18px; border: 1px solid black;'>M</th>";
-                echo "<th style='padding:18px; border: 1px solid black;'>X</th>";
-                echo "<th style='padding:18px; border: 1px solid black;'>J</th>";
-                echo "<th style='padding:18px; border: 1px solid black;'>V</th>";
+                echo "<th>L</th>";
+                echo "<th>M</th>";
+                echo "<th>X</th>";
+                echo "<th>J</th>";
+                echo "<th>V</th>";
                 echo "</tr>";
+                echo "</thead>";
                 echo "<tr>";
                 if($array['dayname'] == 'Monday')
                 {
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'>$array[day]</td>";
+                    echo "<td class='$festivo $diahoy'>$array[day]</td>";
                     
                 }
                 if($array['dayname'] == 'Tuesday')
                 {
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'></td>";
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'>$array[day]</td>";
+                    echo "<td class='$festivo $diahoy'></td>";
+                    echo "<td class='$festivo $diahoy'>$array[day]</td>";
                 }
                 if($array['dayname'] == 'Wednesday')
                 {
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'></td>";
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'></td>";
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'>$array[day]</td>";
+                    echo "<td class='$festivo $diahoy'></td>";
+                    echo "<td class='$festivo $diahoy'></td>";
+                    echo "<td class='$festivo $diahoy'>$array[day]</td>";
                 }
                 if($array['dayname'] == 'Thursday')
                 {
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'></td>";
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'></td>";
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'></td>";
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'>$array[day]</td>";
+                    echo "<td class='$festivo $diahoy'></td>";
+                    echo "<td class='$festivo $diahoy'></td>";
+                    echo "<td class='$festivo $diahoy'></td>";
+                    echo "<td class='$festivo $diahoy'>$array[day]</td>";
                 }
                 if($array['dayname'] == 'Friday')
                 {
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'></td>";
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'></td>";
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'></td>";
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'></td>";
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'>$array[day]</td>";
+                    echo "<td class='$festivo $diahoy'></td>";
+                    echo "<td class='$festivo $diahoy'></td>";
+                    echo "<td class='$festivo $diahoy'></td>";
+                    echo "<td class='$festivo $diahoy'></td>";
+                    echo "<td class='$festivo $diahoy'>$array[day]</td>";
                     echo "</tr>";
                 }
                 $contador++;
@@ -170,29 +173,29 @@ EOL;
                 {
                     $contador = 0;
                     echo "<tr>";
-                    echo "<th style='padding:18px; border: 1px solid black;'>$array[monthname]</th>";            
+                    echo "<th >$array[monthname]</th>";            
                     echo "</tr>";
                     echo "<tr>";
                 }
                 if($array['dayname'] == 'Monday')
                 {
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'>$array[day]</td>";   
+                    echo "<td class='$festivo $diahoy'>$array[day]</td>";   
                 }
                 if($array['dayname'] == 'Tuesday')
                 {
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'>$array[day]</td>";
+                    echo "<td class='$festivo $diahoy'>$array[day]</td>";
                 }
                 if($array['dayname'] == 'Wednesday')
                 {
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'>$array[day]</td>";
+                    echo "<td class='$festivo $diahoy'>$array[day]</td>";
                 }
                 if($array['dayname'] == 'Thursday')
                 {
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'>$array[day]</td>";
+                    echo "<td class='$festivo $diahoy'>$array[day]</td>";
                 }
                 if($array['dayname'] == 'Friday')
                 {
-                    echo "<td style='padding:18px; border: 1px solid black; $festivo $diahoy'>$array[day]</td>";
+                    echo "<td class='$festivo $diahoy'>$array[day]</td>";
                     echo "</tr>";
                 }
             }

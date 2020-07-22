@@ -71,3 +71,54 @@ input[type=text]:focus {
 input[type=text]:placeholder {
     color: #cccccc;
 }
+
+.calendario_0 {
+    display: inline-block;
+    margin-right: 17px;
+    zoom: 0.75;
+    background-color: #329dd3;
+    padding: 10px;
+    border-radius: 15px;
+    color: white;
+    margin-top: 25px;
+    font-weight: bolder;
+}
+
+.calendario_0 h2 {
+    font-weight: bolder;
+    text-align: center;
+    padding: 10px 5px 10px 5px;
+    border-radius: 10px;
+    color: white;
+}
+
+.calendario_0 table tbody tr td {
+    text-align: center;
+    padding: 8px;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    transition-duration: 0.1s;
+}
+
+.calendario_0 table thead {
+    background-color: #329dd3;
+    border-radius: 25px;
+}
+
+.calendario_0 table thead tr th{
+    text-align: center;
+    padding: 18px;
+}
+
+.calendario_0 table tbody tr td:hover{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.festivo {
+    background-color: #2980ac;
+    color: white;
+    border-radius: 20px;
+    transition-duration: 0.1s;
+}
