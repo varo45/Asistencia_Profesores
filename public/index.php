@@ -88,7 +88,8 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
-            $extras = "<script>
+          $extras = '<link rel="stylesheet" href="css/form.css">';
+          $extras .= "<script>
             $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '< Ant',

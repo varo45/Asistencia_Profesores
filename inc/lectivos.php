@@ -28,6 +28,7 @@ if(isset($_POST['enviar']))
                                 if($response = $class->dateLoop($_POST['inicio'], $_POST['fin']))
                                 {
                                     $MSG = 'Datos insertados correctamente.';
+                                    //header("Refresh: 0;  $_SERVER[REQUEST_URI]");
                                 }
                                 else
                                 {
@@ -107,11 +108,11 @@ if(isset($_POST['enviar']))
 <div class="col-xs-12 col-md-6">
 <h2>Calendario escolar</h2>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-  <label for="lectivas">Fechas Lectivas:</label><br>
-  <label for="lectivas">Inicio:</label><br>
-    <input id="datepicker_ini" type="text" name="inicio"><br>
-  <label for="lectivas">Fin:</label><br>
-    <input id="datepicker_fin" type="text" name="fin"><br><br>
+  <h3>Fechas Lectivas:</h3>
+  <h4>Inicio:</h4>
+    <input id="datepicker_ini" type="text" name="inicio" placeholder="* Fecha de inicio" autocomplete="off"><br>
+  <h4>Fin:</h4>
+    <input id="datepicker_fin" type="text" name="fin" placeholder="* Fecha de fin" autocomplete="off"><br><br>
     <input type="submit" name="enviar" value="Insertar">
 </form>
 <?php
@@ -119,28 +120,26 @@ if($response = $class->selectFrom("SELECT * FROM $class->lectivos"))
 {
     if($response->num_rows > 0)
     {
-        echo <<<EOL
+        echo <<< EOL
         <form action="$_SERVER[REQUEST_URI]" method="POST">
-          <br><label for="lectivas">Fechas Festivas:</label><br>
-          <label for="lectivas">Inicio:</label><br>
-            <input id="datepicker_ini_fest" type="text" name="inicio"><br>
-          <label for="lectivas">Fin:</label><br>
-            <input id="datepicker_fin_fest" type="text" name="fin"><br><br>
+          <br><h3>Fechas Festivas:</h3>
+          <h4>Inicio:</h4>
+            <input id="datepicker_ini_fest" type="text" name="inicio" placeholder="* Fecha de inicio" autocomplete="off"><br>
+          <h4>Fin:</h4>
+            <input id="datepicker_fin_fest" type="text" name="fin" placeholder="* Fecha de fin" autocomplete="off"><br><br>
             <input type="submit" name="enviar" value="Festivos">
         </form>
     </div>
 EOL;        
     }
-    echo '<div class="col-xs-12 col-md-6">';
-    //mostrarCalendario('2020-09-15');
-    if($response = $class->selectFrom("SELECT * FROM $class->lectivos"))
+    echo "<div class='col-xs-12 col-md-6'>";
+    if($response = $class->selectFrom("SELECT * FROM $class->lectivos ORDER BY Fecha ASC"))
     {   
         echo "<table id='mitablita'>";
         $contador = 0;
         $diaanterior = 99;
         while($calendario = $response->fetch_assoc())
         {
-            //var_dump($calendario);
             if($calendario['Festivo'] == 'si')
             {
                 $festivo = "background-color: #dff0d8;";
@@ -164,7 +163,6 @@ EOL;
             $start = unixtojd(mktime(0,0,0,$m,$dia,$Y));
             $array = cal_from_jd($start,CAL_GREGORIAN);
             $nuevodia = $array['day'];
-            //var_dump($array);
             if($array['monthname'] == 'January')
             {
                 $array['monthname'] = 'Enero';
@@ -189,7 +187,7 @@ EOL;
             {
                 $array['monthname'] = 'Junio';
             }
-            if($array['monthname'] == 'Jule')
+            if($array['monthname'] == 'July')
             {
                 $array['monthname'] = 'Julio';
             }
