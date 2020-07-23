@@ -27,7 +27,7 @@ if($response = $class->selectFrom("SELECT * FROM $class->lectivos"))
         </form>
         <h3>Generar horarios del profesorado:</h3>
         <span style='color:grey;'><i>* Después de realizar esta acción, no se podrán modificar las fechas lectivas y/o festivas.</i></span><br>
-        <input type="submit" id='generar_marcajes' value="Generar">
+        <a href="index.php?ACTION=pruebas"><input type="submit" id='generar_marcajes' value="Generar"></a>
     </div>
 EOL;        
     }
