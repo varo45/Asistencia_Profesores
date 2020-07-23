@@ -399,10 +399,12 @@ class Netasys
             $horaactual = $horaactual['Hora'];
             $dia = $ahora['year'] . "-" . $ahora['mon'] . "-" . $ahora['mday'];
             $horasistema = $ahora['hours'] . ":" . $ahora['minutes'] . ":" . $ahora['seconds'];
+            // Línea de comprobación para que muestre todas las horas a partir de las 08:00:00
+            //$horasistema = '08:00:00';
         }
         if(isset($_GET['Numero']))
         {
-            $extra = "AND ($this->horarios.Aula LIKE 'AU$_GET[Numero]%' OR $this->horarios.Aula REGEXP '^A?[0-9]+$')";
+            $extra = "AND ($this->horarios.Aula LIKE 'AU$_GET[Numero]%' OR $this->horarios.Aula REGEXP '^[A-Z]?[0-9]+$' OR $this->horarios.Aula REGEXP '^[A-Za-z]+$')";
         }
         $sql = "SELECT DISTINCT $this->profesores.Nombre, $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Edificio, $this->horarios.HORA_TIPO, $this->profesores.ID 
         FROM (($this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID) INNER JOIN $this->horas ON $this->horas.Hora=$this->horarios.HORA_TIPO) INNER JOIN $this->diasemana ON $this->diasemana.ID=$this->horarios.Dia

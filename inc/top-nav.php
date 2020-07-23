@@ -37,7 +37,7 @@
       <li class="dropdown <?php echo $act_horario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-calendar"></span> Horario <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=horarios' ?>"><span class="glyphicon glyphicon-calendar"></span> Consultar horario</a></li>
-          <li><a href="index.php?ACTION=crear-horario"><span class="glyphicon glyphicon-plus"></span> Crear horario</a></li>
+          <!--li><a href="index.php?ACTION=crear-horario"><span class="glyphicon glyphicon-plus"></span> Crear horario</a></li-->
       <?php
         if($_SESSION['Perfil'] === 'Admin')
         {
@@ -46,7 +46,7 @@
       <?php
         }
       ?>
-          <li><a href="index.php?ACTION=modificar-horario"><span class="glyphicon glyphicon-pencil"></span> Modificar horario</a></li>
+          <!--li><a href="index.php?ACTION=modificar-horario"><span class="glyphicon glyphicon-pencil"></span> Modificar horario</a></li-->
         </ul>
       </li>
       <?php
@@ -79,7 +79,7 @@
         if($_SESSION['Perfil'] === 'Profesor')
         {
           echo '<li><a href="index.php?ACTION=qrcoder"><span class="glyphicon glyphicon-qrcode"></span> Mi código QR</a></li>';
-          echo '<li><a href="index.php?ACTION=escribir_mensaje"><span class="glyphicon glyphicon-comment"></span> Escribir a Jefatura (Próximamente)</a></li>';
+          echo '<li><a href="index.php?ACTION=escribir_mensaje"><span class="glyphicon glyphicon-comment"></span> Mensajes (Próximamente)</a></li>';
         }
         else
         {

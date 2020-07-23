@@ -38,38 +38,30 @@ if($response = $class->getGuardias())
                     $aula = $datos[$i][1];
                     $grupo = $datos[$i][2];
                     $i++;
-                    if($datos[$i][1] == $aula)
+                    // $m -> Contador de pares para saltar línea o añadir espacio
+                    $m = 1;
+
+                    /*
+                    * Comprobamos si el siguiente objeto (Registro) coincide con el mismo Aula
+                    * Esta comprobación se realizará hasta que ya no coincida
+                    * Ya que pertenecerá al siguiente registro
+                    */
+
+                    while($datos[$i][1] == $aula)
                     {
-                        $m = 1;
-                        if($resp = $class->selectFrom("SELECT DISTINCT Grupo FROM $class->horarios
-                                                        WHERE $class->horarios.ID_PROFESOR=". "'" . $datos[$i][5] . "'" . "AND $class->horarios.Aula=" . "'" . $aula . "'" . "AND $class->horarios.Grupo<>" . "'" . $grupo . "'"))
+                        if($m % 2 == 0)
                         {
-                            while($masgrupos = $resp->fetch_assoc())
-                            {
-                                if($m % 2 == 0)
-                                {
-                                    echo "<br>";
-                                }
-                                else
-                                {
-                                    echo " ";
-                                }
-                                echo $masgrupos['Grupo'];
-                                $m++;
-                                $i++;
-                            }
+                            echo "<br>";
                         }
                         else
                         {
-                            echo $ERR_MSG = $class->ERR_NETASYS;
+                            echo " ";
                         }
-                        echo "</b></td>";
+                        echo $datos[$i][2];
+                        $m++;
+                        $i++;
                     }
-                    else
-                    {
-                        echo "</b></td>";
-                    }
-                    $i--;
+                    echo "</b></td>";
             echo "</tr>";
         }
         echo "</tbody>";
