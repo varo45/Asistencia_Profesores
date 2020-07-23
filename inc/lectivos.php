@@ -1,4 +1,4 @@
-<div class="container" style="margin-top: 50px; margin-left: 0; margin-right: 0; width: 100%;">
+<div class="container" style="margin-top: 50px; margin-left: auto; margin-right: auto; width: 85%;">
 <div class="col-xs-12 col-md-4">
 <h2>Calendario escolar</h2>
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
@@ -9,12 +9,14 @@
     <input id="datepicker_fin" type="text" name="fin" placeholder="* Fecha de fin" autocomplete="off"><br><br>
     <input type="submit" name="enviar" value="Insertar">
 </form>
+
 <?php
+
 if($response = $class->selectFrom("SELECT * FROM $class->lectivos"))
 {
     if($response->num_rows > 0)
     {
-        echo <<< EOL
+        echo <<<EOL
         <form action="$_SERVER[REQUEST_URI]" method="POST">
           <br><h3>Fechas Festivas:</h3>
           <h4>Inicio:</h4>
@@ -210,5 +212,3 @@ else
     $ERR_MSG = $class->ERR_NETASYS;
 }
 ?>
-
-
