@@ -12,16 +12,37 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
             name="frmCSVImport" id="frmCSVImport"
             enctype="multipart/form-data">
             <div class="input-row">
-                <label id="import-manual-trigger">Subir documento CSV:
-                    <input type="file" name="file" id="file" accept=".csv" class="btn btn-link">
-                </label>
+            <?php
+            if($response = $class->selectFrom("SELECT ID FROM $class->horarios"))
+            {
+                if($response->num_rows > 0)
+                {
+                    $fecha = date('Y-m-d');
+                    echo '
+                    <label id="import-manual-trigger">Subir documento CSV:
+                            <input type="file" name="file" id="file" accept=".csv" class="btn btn-link" style="display: inline-block;">
+                            <input type="text" class="hidden" name="fecha" value="' . $fecha . '">
+                    </label>
+                    ';
+                }
+                else
+                {
+                    echo '
+                    <label id="import-manual-trigger">Subir documento CSV:
+                            <input type="file" name="file" id="file" accept=".csv" class="btn btn-link">
+                    </label>
+                    ';
+                }
+            }
+            else
+            {
+                $ERR_MSG = $class->ERR_NETASYS;
+            }
+            ?>
                 <button type="submit" id="submit" name="import" class="btn btn-success">Importar</button>
                 <br />
-
             </div>
-
         </form>
-
     </div>
             <?php
         $sql = "SELECT Horarios.*, Profesores.Nombre, Profesores.Iniciales, Diasemana.Diasemana FROM (Horarios INNER JOIN Profesores ON Horarios.ID_PROFESOR=Profesores.ID) INNER JOIN Diasemana ON Diasemana.ID=Horarios.Dia ORDER BY ID_PROFESOR, Dia, HORA_TIPO";
