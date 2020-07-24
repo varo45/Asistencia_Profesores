@@ -1,6 +1,6 @@
 <?php
 
-$extras = <<< EOL
+$extras = '
 <style>
     canvas {box-shadow: 4px 6px 15px grey; padding: 2px; border-radius: 10px;}
     .respuesta span {display: block; box-shadow: 4px 6px 15px grey; padding: 50px; border-radius: 10px; margin-top: 30px;}
@@ -22,15 +22,36 @@ $extras = <<< EOL
 <script type="text/javascript" src="js/jsqrcode/findpat.js"></script>
 <script type="text/javascript" src="js/jsqrcode/alignpat.js"></script>
 <script type="text/javascript" src="js/jsqrcode/databr.js"></script>
-
-EOL;
+';
+$style = '
+    .filtro_edificio {
+        margin-top: 50px;
+    }
+    #qreader {
+        text-align: center;
+    }
+';
 include($dirs['inc'] . 'top-nav.php');
 include($dirs['inc'] . 'contenido-home.php');
 if($_SESSION['Perfil'] === 'Admin')
 {
-    include($dirs['inc'] . 'qr-reader.php');
+    echo "<div class='row'>";
+        echo "<div id='qreader' class='col-xs-12 col-md-4' >";
+            echo "<h3>Fichaje</h3>";
+            include($dirs['inc'] . 'qr-reader.php');
+        echo "</div>";
+        echo "<div class='col-xs-12 col-md-8' >";
+            include($dirs['inc'] . 'filtro-edif-guardias.php');
+            include($dirs['inc'] . 'contenido-guardias.php');
+        echo "</div>";
+    echo "</div>";
+    include($dirs['inc'] . 'errors.php');
+    include($dirs['inc'] . 'footer.php');
 }
-include($dirs['inc'] . 'filtro-edif-guardias.php');
-include($dirs['inc'] . 'contenido-guardias.php');
-include($dirs['inc'] . 'errors.php');
-include($dirs['inc'] . 'footer.php');
+else
+{
+    include($dirs['inc'] . 'filtro-edif-guardias.php');
+    include($dirs['inc'] . 'contenido-guardias.php');
+    include($dirs['inc'] . 'errors.php');
+    include($dirs['inc'] . 'footer.php');
+}
