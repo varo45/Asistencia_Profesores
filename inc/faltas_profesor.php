@@ -24,6 +24,7 @@ if($resp = $class->selectFrom("SELECT Nombre FROM $class->profesores WHERE ID='$
                                 echo "<th>Asistencia</th>";
                                 echo "<th>Faltado</th>";
                                 echo "<th>Asistido</th>";
+                                echo "<th>Act. Extra.</th>";
                             echo "</tr>";
                         echo "</thead>";
                         echo "<tbody>";
@@ -36,14 +37,16 @@ if($resp = $class->selectFrom("SELECT Nombre FROM $class->profesores WHERE ID='$
                             if($datos['Asiste'] == 0)
                             {
                                 echo "<td>No</td>";
-                                echo "<td><a title='Haz clic aquí si ha asistido esta hora.' asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],1' class='actualiza'><span class='glyphicon glyphicon-ok'></span></a></td>";
+                                echo "<td><a title='Haz clic aquí si ha asistido esta hora.' asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],1' class='actualiza'><span class='glyphicon glyphicon-remove'></span></a></td>";
+                                echo "<td></td>";
                                 echo "<td></td>";
                             }
                             else
                             {
                                 echo "<td>Si</td>";
                                 echo "<td></td>";
-                                echo "<td><a title='Haz clic aquí si ha faltado esta hora.'  asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-remove'></span></a></td>";
+                                echo "<td><a title='Haz clic aquí si ha faltado esta hora.'  asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-ok'></span></a></td>";
+                                echo "<td><a title='Haz clic aquí si ha faltado esta hora.'  asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-unchecked'></span></a></td>";
                             }
                             echo "</tr>";
                         }
