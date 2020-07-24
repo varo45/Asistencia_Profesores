@@ -20,7 +20,7 @@ if(isset($ERR_MSG))
         </div>
         <div class="modal-body">
           <p style="color: red;">
-            $ERR_MSG
+            ' . $ERR_MSG . '
           </p>
         </div>
       </div>
@@ -49,7 +49,7 @@ elseif(isset($class->ERR_NETASYS))
         </div>
         <div class="modal-body">
           <p style="color: red;">
-            $class->ERR_NETASYS
+            ' . $class->ERR_NETASYS . '
           </p>
         </div>
       </div>
@@ -78,7 +78,7 @@ elseif(isset($MSG))
         </div>
         <div class="modal-body">
           <p style="color: green;">
-            $MSG
+            ' . $MSG . '
           </p>
         </div>
       </div>

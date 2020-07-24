@@ -11,7 +11,7 @@ echo '
     </div>
         <canvas id="qr-canvas" width=240 height=240></canvas>
         <h2>Respuesta de escaner:</h2>
-    <div id="output" class='respuesta'></div>
+    <div id="output" class="respuesta"></div>
 ';
 
 include_once "js/qr-reader.js";

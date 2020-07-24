@@ -26,8 +26,8 @@ if($response = $class->selectFrom("SELECT * FROM $class->lectivos"))
             <input type="submit" name="enviar" value="Festivos"><br><br>
         </form>
         <h3>Generar cuadrante de horas:</h3>
-        <span style='color:grey;'><i>* Después de realizar esta acción, no se podrán modificar las fechas lectivas y/o festivas.</i></span><br>
-        <a href="index.php?ACTION=pruebas"><input type="submit" id='generar_marcajes' value="Generar"></a>
+        <span style="color:grey;"><i>* Después de realizar esta acción, no se podrán modificar las fechas lectivas y/o festivas.</i></span><br>
+        <a href="index.php?ACTION=pruebas"><input type="submit" id="generar_marcajes" value="Generar"></a>
     </div>
         ';        
     }
