@@ -400,7 +400,7 @@ class Netasys
             $dia = $ahora['year'] . "-" . $ahora['mon'] . "-" . $ahora['mday'];
             $horasistema = $ahora['hours'] . ":" . $ahora['minutes'] . ":" . $ahora['seconds'];
             // Línea de comprobación para que muestre todas las horas a partir de las 08:00:00
-            //$horasistema = '08:00:00';
+            // $horasistema = '08:00:00';
         }
         if(isset($_GET['Numero']))
         {
