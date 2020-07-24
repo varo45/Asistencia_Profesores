@@ -16,7 +16,7 @@ if($response = $class->selectFrom("SELECT * FROM $class->lectivos"))
 {
     if($response->num_rows > 0)
     {
-        echo <<<EOL
+        echo '
         <form action="$_SERVER[REQUEST_URI]" method="POST">
           <br><h3>Fechas Festivas:</h3>
           <h4>Inicio:</h4>
@@ -29,7 +29,7 @@ if($response = $class->selectFrom("SELECT * FROM $class->lectivos"))
         <span style='color:grey;'><i>* Después de realizar esta acción, no se podrán modificar las fechas lectivas y/o festivas.</i></span><br>
         <a href="index.php?ACTION=pruebas"><input type="submit" id='generar_marcajes' value="Generar"></a>
     </div>
-EOL;        
+        ';        
     }
     echo "<div class='col-xs-12 col-md-8'>";
     if($response = $class->selectFrom("SELECT * FROM $class->lectivos ORDER BY Fecha ASC"))

@@ -1,6 +1,6 @@
 <?php
 
-echo <<< EOL
+echo '
     <video id="player" controls autoplay hidden></video>
     <div hidden>
         <button id="captureSnapshotButton">Capture Snapshot</button>
@@ -12,7 +12,7 @@ echo <<< EOL
         <canvas id="qr-canvas" width=240 height=240></canvas>
         <h2>Respuesta de escaner:</h2>
     <div id="output" class='respuesta'></div>
-EOL;
+';
 
 include_once "js/qr-reader.js";
 ?>

@@ -15,12 +15,12 @@ if(isset($_SESSION['ID']) && ! empty($_SESSION['ID']))
         include_once($dirs['inc'] . 'phpqrcode/qrlib.php');
         $codesDir = "tmp/";   
         $codeFile = uniqid().'.png';
-        echo <<< EOL
+        echo '
         <div class="container" style="margin-top:50px">
             <div class="row">
                 <div class="col-xs-12">
                 <h3>Código de identificación</h3>
-EOL;
+        ';
         QRcode::png($datos['Iniciales'].';'.$datos['Password'], $codesDir.$codeFile, 'H', '10'); 
         echo '<img class="img-thumbnail" src="'.$codesDir.$codeFile.'" />';
                 echo "</div>";

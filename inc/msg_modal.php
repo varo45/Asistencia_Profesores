@@ -274,12 +274,14 @@ input[type=text]:placeholder {
 </head>
 <body>
 <?php
-  echo <<< EOL
+  echo "
   <script>
   window.onload = function() {
     $('#MSG').modal('show')
   };
   </script>
+  ";
+  echo '
   <!-- Modal -->
   <div class="modal fade" id="MSG" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -297,4 +299,4 @@ input[type=text]:placeholder {
       </div>
     </div>
   </div>
-EOL;
+  ';

@@ -1,12 +1,14 @@
 <?php
 if(isset($ERR_MSG))
 {
-  echo <<< EOL
+  echo "
   <script>
   window.onload = function() {
     $('#ERR_MSG_MODAL').modal('show')
   };
   </script>
+  ";
+  echo '
   <!-- Modal -->
   <div class="modal fade" id="ERR_MSG_MODAL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -24,16 +26,18 @@ if(isset($ERR_MSG))
       </div>
     </div>
   </div>
-EOL;
+';
 }
 elseif(isset($class->ERR_NETASYS))
 {
-  echo <<< EOL
+  echo "
   <script>
   window.onload = function() {
     $('#ERR_MSG_MODAL').modal('show')
   };
   </script>
+  ";
+  echo '
   <!-- Modal -->
   <div class="modal fade" id="ERR_MSG_MODAL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -51,16 +55,18 @@ elseif(isset($class->ERR_NETASYS))
       </div>
     </div>
   </div>
-EOL;
+';
 }
 elseif(isset($MSG))
 {
-  echo <<< EOL
+  echo "
   <script>
   window.onload = function() {
     $('#MSG_MODAL').modal('show')
   };
   </script>
+  ";
+  echo '
   <!-- Modal -->
   <div class="modal fade" id="MSG_MODAL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -78,6 +84,6 @@ elseif(isset($MSG))
       </div>
     </div>
   </div>
-EOL;
+';
 }
 ?>

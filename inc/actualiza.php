@@ -28,7 +28,7 @@ if(isset($sql) && $sql != '')
 {
     if($class->updateSet($sql))
     {
-        echo <<< EOL
+        echo '
         <script>
           $('#ERR_MSG_MODAL').modal('show')
         </script>
@@ -49,7 +49,7 @@ if(isset($sql) && $sql != '')
             </div>
           </div>
         </div>
-EOL;
+        ';
     }
     else
     {

@@ -301,12 +301,14 @@ input[type=text]:placeholder {
 <?php 
 if(isset($ERR_REG_FORM))
 {
-  echo <<< EOL
+  echo "
   <script>
   window.onload = function() {
     $('#ERR_REG_MODAL').modal('show')
   };
   </script>
+  ";
+  echo '
   <!-- Modal -->
   <div class="modal fade" id="ERR_REG_MODAL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -324,7 +326,7 @@ if(isset($ERR_REG_FORM))
       </div>
     </div>
   </div>
-EOL;
+';
 }
 ?>
 </body>
