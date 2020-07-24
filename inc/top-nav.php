@@ -37,14 +37,14 @@
       <li class="dropdown <?php echo $act_horario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-calendar"></span> Horario <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=horarios' ?>"><span class="glyphicon glyphicon-calendar"></span> Consultar horario</a></li>
-          <!--li><a href="index.php?ACTION=crear-horario"><span class="glyphicon glyphicon-plus"></span> Crear horario</a></li-->
       <?php
         if($_SESSION['Perfil'] === 'Admin')
         {
       ?>
-          <li><a href="index.php?ACTION=import-horario"><span class="glyphicon glyphicon-plus"></span> Importar horarios</a></li>
+          <li><a href="index.php?ACTION=import-horario"><span class="glyphicon glyphicon-open"></span> Importar horarios</a></li>
       <?php
         }
+        // echo '<li><a href="index.php?ACTION=crear-horario"><span class="glyphicon glyphicon-plus"></span> Editar horario</a></li>';
       ?>
           <!--li><a href="index.php?ACTION=modificar-horario"><span class="glyphicon glyphicon-pencil"></span> Modificar horario</a></li-->
         </ul>
