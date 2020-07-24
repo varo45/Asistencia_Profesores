@@ -46,7 +46,14 @@ if($resp = $class->selectFrom("SELECT Nombre FROM $class->profesores WHERE ID='$
                                 echo "<td>Si</td>";
                                 echo "<td></td>";
                                 echo "<td><a title='Haz clic aquí si ha faltado esta hora.'  asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-ok'></span></a></td>";
-                                echo "<td><a title='Haz clic aquí si ha faltado esta hora.'  asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-unchecked'></span></a></td>";
+                                if($datos['Extra'] == 0)
+                                {
+                                    echo "<td><a title='Has clic aqui si tiene Actividad Extraescolar.' asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-unchecked'></span></a></td>";
+                                }
+                                else
+                                {
+                                    echo "<td><a title='Haz clic aquí si ha faltado esta hora.'  asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-checked'></span></a></td>";
+                                }
                             }
                             echo "</tr>";
                         }

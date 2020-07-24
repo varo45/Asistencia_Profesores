@@ -45,10 +45,10 @@ if(isset($_GET['ACTION']))
         include_once($dirs['inc'] . 'logout.php');
       break;
     
-      case 'pruebas':
+      case 'pruebas-pedro':
         $extras = '<link rel="stylesheet" href="css/login-style.css">';
         include_once($dirs['inc'] . 'top-nav.php');
-        include_once($dirs['inc'] . 'pruebas.php');
+        include_once($dirs['inc'] . 'pruebas-pedro.php');
         include_once($dirs['inc'] . 'footer.php');
       break;
       
