@@ -411,25 +411,47 @@ class Netasys
         else
         {
             $diasemana = $ahora['weekday'];
+            $diasemananum = $ahora['wday'];
             $horaclase = $this->getHoraClase();
             $horaactual = $horaclase->fetch_assoc();
             $horaactual = $horaactual['Hora'];
             $dia = $ahora['year'] . "-" . $ahora['mon'] . "-" . $ahora['mday'];
             $horasistema = $ahora['hours'] . ":" . $ahora['minutes'] . ":" . $ahora['seconds'];
-            // Línea de comprobación para que muestre todas las horas a partir de las 08:00:00
-            // $horasistema = '08:00:00';
+
+            // Línea de comprobación para que muestre todas las horas a partir de las 08:00:00 día 1-Lunes Fecha 2020-9-21
+            $diasemananum = 1;
+            $diasemana = 'Lunes';
+            $dia = '2020-9-21';
+            $horasistema = '08:00:00';
         }
         if(isset($_GET['Numero']))
         {
             $extra = "AND ($this->horarios.Aula LIKE 'AU$_GET[Numero]%' OR $this->horarios.Aula REGEXP '^[A-Z]?[0-9]+$' OR $this->horarios.Aula REGEXP '^[A-Za-z]+$')";
         }
-        $sql = "SELECT DISTINCT $this->profesores.Nombre, $this->horarios.Aula, $this->horarios.Grupo, $this->horarios.Edificio, $this->horarios.HORA_TIPO, $this->profesores.ID 
-        FROM (($this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID) INNER JOIN $this->horas ON $this->horas.Hora=$this->horarios.HORA_TIPO) INNER JOIN $this->diasemana ON $this->diasemana.ID=$this->horarios.Dia
-        WHERE NOT EXISTS 
-        (SELECT * FROM $this->fichar 
-            WHERE $this->fichar.ID_PROFESOR=$this->horarios.ID_PROFESOR AND $this->fichar.DIA_SEMANA='$diasemana' AND $this->fichar.Fecha='$dia') 
-        AND $this->profesores.Sustituido = 0 AND $this->profesores.Activo = 1 AND $this->diasemana.Diasemana='$diasemana' AND $this->horarios.Aula IS NOT NULL AND $this->horarios.Grupo IS NOT NULL AND $this->horas.Fin > '$horasistema' $extra
+        
+        $sql = "SELECT DISTINCT
+            $this->profesores.Nombre,
+            $this->horarios.Aula,
+            $this->horarios.Grupo,
+            $this->horarios.Edificio,
+            $this->horarios.HORA_TIPO,
+            $this->profesores.ID 
+        FROM
+            ((($this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID) 
+            INNER JOIN $this->horas ON $this->horas.Hora=$this->horarios.HORA_TIPO) 
+            INNER JOIN $this->diasemana ON $this->diasemana.ID=$this->horarios.Dia)
+            INNER JOIN $this->marcajes ON $this->marcajes.ID_PROFESOR=$this->profesores.ID
+        WHERE $this->marcajes.Dia='$diasemananum'
+            AND $this->marcajes.Fecha='$dia'
+            AND $this->profesores.Sustituido = 0
+            AND $this->profesores.Activo = 1
+            AND $this->diasemana.Diasemana='$diasemana' 
+            AND $this->horarios.Aula IS NOT NULL
+            AND $this->horarios.Grupo IS NOT NULL
+            AND $this->horas.Fin > '$horasistema'
+            $extra 
         ORDER BY $this->horarios.HORA_TIPO, $this->horarios.Aula, $this->profesores.Nombre";
+
         if($exec = $this->selectFrom($sql))
         {
             if($exec->num_rows > 0)
@@ -471,29 +493,41 @@ class Netasys
             $horaclase = $horaclase['Hora'];
             $dia = $this->getDate();
             $hora_salida = $this->getHoraSalida();
-            $sql = "SELECT DISTINCT $this->fichar.ID, $this->horarios.Hora_salida 
+
+            $sql = "SELECT DISTINCT
+                    $this->fichar.ID,
+                    $this->horarios.Hora_salida 
                     FROM $this->fichar INNER JOIN $this->horarios 
-                    WHERE $this->fichar.Fecha='$fecha' AND $this->fichar.ID_PROFESOR='$id'";
+                    WHERE $this->fichar.Fecha='$fecha'
+                    AND $this->fichar.ID_PROFESOR='$id'";
+
             if($response = $this->selectFrom($sql))
             {
                 if($response->num_rows == 0)
                 {
-                    if($this->isTooLate($id, $hora, $dia['weekday']))
+                    $fichar = "INSERT INTO $this->fichar (ID_PROFESOR, F_entrada, F_Salida, HORA_CLASE, DIA_SEMANA, Fecha) 
+                                VALUES ($id, '$hora', '15:00:00', '$horaclase', '$dia[weekday]', '$fecha')";
+
+                    if($response = $this->insertInto($fichar))
                     {
-                        $fichar = "INSERT INTO $this->fichar (ID_PROFESOR, F_entrada, F_Salida, HORA_CLASE, DIA_SEMANA, Fecha) 
-                                    VALUES ($id, '$hora', '15:00:00', '$horaclase', '$dia[weekday]', '$fecha')";
-                        if($response = $this->insertInto($fichar))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                        return true;
                     }
                     else
                     {
-                        $this->ERR_NETASYS = "<span id='noqr' style='color: black; font-weight: bolder; background-color: Yellow;'><h3>No se puede fichar fuera de horario.</h3></span>";
+                        return false;
+                    }
+
+                    $marcajes = "UPDATE $this->marcajes
+                    SET Asiste='1'
+                    WHERE Fecha='$fecha'
+                    AND ID_PROFESOR='$id'";
+
+                    if($marcado = $this->query($marcajes))
+                    {
+                        return true;
+                    }
+                    else
+                    {
                         return false;
                     }
                 }

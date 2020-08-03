@@ -11,7 +11,6 @@ $(function(){
 
       if(text.indexOf(val) != -1)
       {
-
         $(this).show();
       }
     });

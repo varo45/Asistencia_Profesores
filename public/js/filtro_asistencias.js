@@ -1,17 +1,16 @@
 <script>
 $(function(){
-  $('#busca_asiste').keyup(function(){
+  $('#busca_asiste').on('keyup change', function(){
     var val = $(this).val().toLowerCase();
 
-    $("tr").hide();
+    $("tbody tr").hide();
 
-    $("tr").each(function(){
+    $("tbody tr").each(function(){
 
       var text = $(this).text().toLowerCase();
 
       if(text.indexOf(val) != -1)
       {
-
         $(this).show();
       }
     });

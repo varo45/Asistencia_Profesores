@@ -30,8 +30,12 @@ if($resp = $class->query("SELECT Nombre FROM $class->profesores WHERE ID='$_GET[
                         echo "<tbody>";
                         while($datos = $response->fetch_assoc())
                         {
+                            $sep = preg_split('/-/', $datos['Fecha']);
+                            $dia = $sep[2];
+                            $m = $sep[1];
+                            $Y = $sep[0];
                             echo "<tr>";
-                            echo "<td>$datos[Fecha]</td>";
+                            echo "<td>$dia/$m/$Y</td>";
                             echo "<td>$datos[Diasemana]</td>";
                             echo "<td>$datos[Hora]</td>";
                             if($datos['Asiste'] == 1)
