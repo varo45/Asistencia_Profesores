@@ -39,6 +39,23 @@ class Netasys
         echo $sql;
     }
 
+    function query($sql)
+    {
+        if(! $conex = $this->bdConex())
+        {
+            return false;
+        }
+        if($response = $conex->query($sql))
+        {
+            return $response;
+        }
+        else
+        {
+            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            return false;
+        }
+    }
+
     function selectFrom($sql)
     {
         if(! $conex = $this->bdConex())
