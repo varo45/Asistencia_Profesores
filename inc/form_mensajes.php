@@ -10,12 +10,16 @@
 
                     <!-- Icon -->
                     <div class="fadeIn first">
-                        <h2>Enviar mensaje a Jefatura</h2>
+                        <h2>Enviar mensaje a: </h2>
                     </div>
 
                     <!-- Login Form -->
                     <form class="login-form" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
                         <input type="text" name="ID" class="hidden" value="<?php echo $_SESSION['ID']; ?>">
+                        <?php
+                            include_once($dirs['inc'] . 'select_profesores.php');
+                        ?>
+                        </br></br>
                         <label for="Asunto">Asunto</label></br>
                         <input id="Asunto" type="text" minlength="2" maxlength="50" name="Asunto" class="fadeIn first" placeholder="Asunto" required></br>
                         <label for="Mensaje">Mensaje</label></br>
