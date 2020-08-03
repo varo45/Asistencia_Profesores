@@ -421,6 +421,26 @@ if(isset($_GET['ACTION']))
           include_once($dirs['inc'] . 'msg_modal.php');
         }
       break;
+
+      case 'select_celda_horario';
+        if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'select-celdas-horario.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para editar un profesor.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
   
       case 'editar_profesor':
         if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
