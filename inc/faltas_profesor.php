@@ -34,26 +34,26 @@ if($resp = $class->selectFrom("SELECT Nombre FROM $class->profesores WHERE ID='$
                             echo "<td>$datos[Fecha]</td>";
                             echo "<td>$datos[Diasemana]</td>";
                             echo "<td>$datos[Hora]</td>";
-                            if($datos['Asiste'] == 0)
+                            if($datos['Asiste'] == 1)
+                            {
+                                echo "<td>Si</td>";
+                                echo "<td></td>";
+                                echo "<td><a title='Haz clic aquí si ha faltado esta hora.'  asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-ok'></span></a></td>";
+                                echo "<td><a title='Has clic aqui si tiene Actividad Extraescolar.' asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],2' class='actualiza' ><span class='glyphicon glyphicon-unchecked'></span></a></td>";
+                            }
+                            elseif($datos['Asiste'] == 2)
+                            {
+                                echo "<td>Si</td>";
+                                echo "<td></td>";
+                                echo "<td><a title='Haz clic aquí si ha faltado esta hora.'  asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-ok'></span></a></td>";
+                                echo "<td><a title='Has clic aqui si tiene Actividad Extraescolar.' asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],1' class='actualiza' ><span class='glyphicon glyphicon-check'></span></a></td>";
+                            }
+                            else
                             {
                                 echo "<td>No</td>";
                                 echo "<td><a title='Haz clic aquí si ha asistido esta hora.' asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],1' class='actualiza'><span class='glyphicon glyphicon-remove'></span></a></td>";
                                 echo "<td></td>";
                                 echo "<td></td>";
-                            }
-                            else
-                            {
-                                echo "<td>Si</td>";
-                                echo "<td></td>";
-                                echo "<td><a title='Haz clic aquí si ha faltado esta hora.'  asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-ok'></span></a></td>";
-                                if($datos['Extra'] == 0)
-                                {
-                                    echo "<td><a title='Has clic aqui si tiene Actividad Extraescolar.' asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-unchecked'></span></a></td>";
-                                }
-                                else
-                                {
-                                    echo "<td><a title='Haz clic aquí si ha faltado esta hora.'  asiste='$datos[ID_PROFESOR],$datos[Fecha],$datos[Hora],0' class='actualiza' ><span class='glyphicon glyphicon-checked'></span></a></td>";
-                                }
                             }
                             echo "</tr>";
                         }
