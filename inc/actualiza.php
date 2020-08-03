@@ -28,10 +28,12 @@ if(isset($sql) && $sql != '')
 {
     if($class->updateSet($sql))
     {
-        echo '
+        echo "
         <script>
           $('#ERR_MSG_MODAL').modal('show')
         </script>
+        ";
+        echo '
         <!-- Modal -->
         <div class="modal fade" id="ERR_MSG_MODAL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
@@ -58,12 +60,12 @@ if(isset($sql) && $sql != '')
 }
 else
 {
-    echo '
+    echo "
     <script>
       $('#ERR_MSG_MODAL').modal('show')
     </script>
-    ';
-    echo "
+    ";
+    echo '
     <!-- Modal -->
     <div class="modal fade" id="ERR_MSG_MODAL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -75,12 +77,12 @@ else
           </div>
           <div class="modal-body">
             <p style="color: red;">
-              $MSG
+              ' . $MSG . '
             </p>
           </div>
         </div>
       </div>
     </div>
-";
+';
 }
 ?>
