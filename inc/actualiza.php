@@ -58,10 +58,12 @@ if(isset($sql) && $sql != '')
 }
 else
 {
-    echo <<< EOL
+    echo "
     <script>
       $('#ERR_MSG_MODAL').modal('show')
     </script>
+    ";
+    echo "
     <!-- Modal -->
     <div class="modal fade" id="ERR_MSG_MODAL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -79,6 +81,6 @@ else
         </div>
       </div>
     </div>
-EOL;
+";
 }
 ?>
