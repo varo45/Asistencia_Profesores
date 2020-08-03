@@ -79,7 +79,7 @@
         if($_SESSION['Perfil'] === 'Profesor')
         {
           echo '<li><a href="index.php?ACTION=qrcoder"><span class="glyphicon glyphicon-qrcode"></span> Mi código QR</a></li>';
-          echo '<li><a href="index.php?ACTION=escribir_mensaje"><span class="glyphicon glyphicon-comment"></span> Mensajes (Próximamente)</a></li>';
+          echo '<li><a href="index.php?ACTION=form_mensajes"><span class="glyphicon glyphicon-comment"></span> Mensajes </a></li>';
         }
         else
         {

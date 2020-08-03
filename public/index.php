@@ -545,6 +545,30 @@ if(isset($_GET['ACTION']))
           include_once($dirs['inc'] . 'msg_modal.php');
         }
       break;
+
+      case 'form_mensajes':
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            $extras = '<link rel="stylesheet" href="css/login-style.css">';
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'form_mensajes.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para poder enviar mensajes.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
     
       case 'Edificio':
         if(isset($_GET['Numero']))
