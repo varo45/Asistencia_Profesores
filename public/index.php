@@ -305,7 +305,60 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
-            $act_asistencia = 'active';
+            $act_asistencia = 'active'; $extras .= "<script>
+            $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '< Ant',
+            nextText: 'Sig >',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+        
+            $(function (){
+                $('#busca_asiste').datepicker();
+            });
+            </script>";
+            $style = "
+            input[type=text], input[type=password] {
+            background-color: #f6f6f6;
+            border: none;
+            color: #0d0d0d;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px;
+            width: 85%;
+            border: 2px solid #f6f6f6;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -ms-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+            -webkit-border-radius: 5px 5px 5px 5px;
+            border-radius: 5px 5px 5px 5px;
+            }
+            
+            input[type=text]:focus {
+            background-color: #fff;
+            border-bottom: 2px solid #5fbae9;
+            }
+            
+            input[type=text]:placeholder {
+            color: #cccccc;
+            }";
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'contenido-fichajes.php');
             include_once($dirs['inc'] . 'errors.php');
@@ -635,7 +688,51 @@ if(isset($_GET['ACTION']))
           include_once($dirs['inc'] . 'msg_modal.php');
         }
       break;
-    
+
+      case 'listar_mensajes':
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            //$extras = '<link rel="stylesheet" href="css/login-style.css">';
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'listar_mensajes.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=form_mensajes');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para poder ver los mensajes.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+
+      case 'enviar_mensaje':
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'enviar_mensaje.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=form_mensajes');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para poder ver los mensajes.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+
       case 'Edificio':
         if(isset($_GET['Numero']))
         {
