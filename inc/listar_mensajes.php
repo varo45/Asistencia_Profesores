@@ -13,6 +13,7 @@
                                 <th>RECEPTOR</th>
                                 <th>ASUNTO</th>
                                 <th>MENSAJE</th>
+                                <th>Fecha</th>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
@@ -28,6 +29,7 @@
                         <td>$datos[ID_DESTINATARIO]</td>
                         <td>$datos[Asunto]</td>
                         <td>$datos[Mensaje]</td>
+                        <td>$datos[Fecha]</td>
                         <td><a href='index.php?ACTION=eliminar_mensaje&ID=$fila[ID]'><span class='glyphicon glyphicon-trash'></span></a></td>
                     </tr> 
                 </tbody>
