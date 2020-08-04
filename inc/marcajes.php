@@ -1,16 +1,18 @@
 <?php
-if($response4 = $class->selectFrom("SELECT $class->lectivos.Fecha FROM $class->lectivos"))
+if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectivos"))
 {
     if($response4->num_rows > 0)
     {
-        if($lectivos = $class->selectFrom("SELECT $class->lectivos.Fecha FROM $class->lectivos WHERE $class->lectivos.Festivo='no'"))
+        if($lectivos = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectivos WHERE $class->lectivos.Festivo='no'"))
         {
             while($fila = $lectivos->fetch_assoc())
             {
-                if($response6 = $class->selectFrom("INSERT INTO $class->marcajes SELECT DISTINCT $class->horarios.ID_PROFESOR, '$fila[Fecha]' as $class->horarios.Fecha, $class->horarios.HORA_TIPO, $class->horarios.Dia, 0
-                FROM $class->horarios INNER JOIN $class->diasemana ON $class->horarios.ID=$class->diasemana.ID WHERE $class->horarios.Dia = WEEKDAY('$fila[Fecha]')+1"))
+                if($respose = $class->query("INSERT INTO Marcajes SELECT DISTINCT ID_PROFESOR,'$fila[Fecha]' as Fecha, HORA_TIPO, Dia, 0
+                FROM Horarios INNER JOIN Diasemana ON Horarios.Dia=Diasemana.ID
+                WHERE Dia = WEEKDAY('$fila[Fecha]')+1"))
                 {
-                    $MSG = 'Marcajes insertados correctamente.';
+                    $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
+                    include_once($dirs['inc'] . 'msg_modal.php');
                 }
                 else
                 {

@@ -293,7 +293,7 @@ input[type=text]:placeholder {
         </div>
         <div class="modal-body">
           <p>
-            $MSG
+            ' . $MSG . '
           </p>
         </div>
       </div>

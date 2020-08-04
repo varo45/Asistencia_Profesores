@@ -56,7 +56,7 @@ if(isset($ERR_LOGIN_FORM))
         </div>
         <div class="modal-body">
           <p style="color: red;">
-            $ERR_LOGIN_FORM
+            ' . $ERR_LOGIN_FORM . '
           </p>
         </div>
       </div>

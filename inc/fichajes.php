@@ -6,8 +6,8 @@ $sql = "SELECT DISTINCT $class->fichar.*
             INNER JOIN $class->profesores ON $class->profesores.ID=$class->horarios.ID_PROFESOR 
         WHERE $class->profesores.ID='$_SESSION[ID]' 
         ORDER BY $class->fichar.ID DESC 
-        LIMIT 5";
-echo "<h2>Fichajes</h2>";
+        ";
+echo "<h1>Fichajes diarios</h1>";
 if($response = $class->selectFrom($sql))
 {
     if ($response->num_rows > 0)
@@ -24,11 +24,15 @@ if($response = $class->selectFrom($sql))
             echo "<tbody>";
                 while ($fila = $response->fetch_assoc())
                     {
+                        $sep = preg_split('/-/', $fila['Fecha']);
+                        $dia = $sep[2];
+                        $m = $sep[1];
+                        $Y = $sep[0];
                         echo "<tr>";
                             echo "<td>$fila[ID]</td>";
                             echo "<td>$fila[F_entrada]</td>";
                             echo "<td>$fila[DIA_SEMANA]</td>";
-                            echo "<td>$fila[Fecha]</td>";
+                            echo "<td>$dia/$m/$Y</td>";
                         echo "</tr>";
                     }
             echo "</tbody>";
@@ -36,7 +40,7 @@ if($response = $class->selectFrom($sql))
     }
     else
     {
-        echo $ERR_MSG = "No existen registros de fichajes.";
+        echo "No existen registros de fichajes.";
     }
 }
 else

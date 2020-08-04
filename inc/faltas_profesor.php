@@ -9,8 +9,7 @@ if($resp = $class->query("SELECT Nombre FROM $class->profesores WHERE ID='$_GET[
     $fecha = '2020-10-22';
     if($response = $class->query("SELECT Marcajes.*, Diasemana FROM Marcajes INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID WHERE ID_PROFESOR='$_GET[ID]' AND Fecha <= '$fecha' ORDER BY Fecha DESC, Dia, Hora"))
     {
-        echo '<div class="container" style="margin-top:50px">';
-            echo "<h1>Asistencias de <b>$n</b></h1>";
+            echo "<h1>Asistencias lectivas de <b>$n</b></h1>";
             echo "<input id='busca_asiste' calss='fadeIn' type='text' placeholder='Buscar registro...' autocomplete='off'>";
             echo "<div id='marcaje-response'></div>";
             echo "<div id='table-container'>";
@@ -65,7 +64,6 @@ if($resp = $class->query("SELECT Nombre FROM $class->profesores WHERE ID='$_GET[
                     echo "</table>";
                 echo "</div>";
             echo "</div>";
-        echo "</div>";
     }
     else
     {

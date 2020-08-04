@@ -361,6 +361,8 @@ if(isset($_GET['ACTION']))
             }";
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'contenido-fichajes.php');
+            include_once('js/filtro_asistencias.js');
+            include_once('js/update_marcajes.js');
             include_once($dirs['inc'] . 'errors.php');
             include_once($dirs['inc'] . 'footer.php');
           }
@@ -580,7 +582,7 @@ if(isset($_GET['ACTION']))
             color: #cccccc;
             }";
             include_once($dirs['inc'] . 'top-nav.php');
-            include_once($dirs['inc'] . 'faltas_profesor.php');
+            include_once($dirs['inc'] . 'contenido-asistencias.php');
             include_once('js/filtro_asistencias.js');
             include_once('js/update_marcajes.js');
             include_once($dirs['inc'] . 'errors.php');
@@ -599,8 +601,29 @@ if(isset($_GET['ACTION']))
         }
       break;
     
+      case 'create_marcajes':
+        if($class->isLogged() && $_SESSION['Perfil'] == 'Admin' || $_SESSION['Perfil'] == 'Profesor')
+        {
+          if($class->compruebaCambioPass())
+          {
+            header("Refresh:2; url=index.php");
+            include_once($dirs['inc'] . 'marcajes.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para editar un profesor.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+
       case 'update_marcajes':
-        if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
+        if($class->isLogged() && $_SESSION['Perfil'] == 'Admin' || $_SESSION['Perfil'] == 'Profesor')
         {
           if($class->compruebaCambioPass())
           {
