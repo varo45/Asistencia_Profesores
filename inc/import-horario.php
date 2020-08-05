@@ -59,17 +59,18 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
         <div id="todos-registros"></div>
         <div id="loading">
         <img style="text-align: center;" src="resources/img/loading.gif" alt="Cargando...">
-        <h2>Cargando...</h2>
+        <h2 id="loading-msg"></h2>
         </div>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
     $("#frmCSVImport").on("submit", function () {
-
+        var fecha = $("#fecha_incorpora").val();
 	    $("#response").attr("class", "");
         $("#response").html("");
         $("#userTable").remove("");
-        $("#loading").attr("class", "col-xs-12");
+        $("#loading-msg").html("Importando horarios con fecha: "+fecha+" ...");
+        $("#loading").show();
         var fileType = ".csv";
         var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + fileType + ")$");
         if (!regex.test($("#file").val().toLowerCase())) {
@@ -86,6 +87,7 @@ $(document).ready(function() {
 $('#loading').hide();
 $('#btn-todos-registros').on('click', function() {
     $("#todos-registros").html(""),
+    $("#loading-msg").html("Cargando...");
     $("#loading").show(),
     $('#todos-registros').load('index.php?ACTION=muestra-registros-horarios'),
     $("#loading").delay().fadeOut()

@@ -270,6 +270,10 @@ class Netasys
                         $_SESSION['ID'] = $fila['ID'];
                         $_SESSION['Nombre'] = $fila['Nombre'];
                         $_SESSION['Perfil'] = $fila['Tipo'];
+                        if($_SESSION['Perfil'] == 'Admin')
+                        {
+                            $this->tempToValid();
+                        }
                         return true;
                     }
                     else
@@ -414,6 +418,83 @@ class Netasys
         else
         {
             return false;
+        }
+    }
+
+    function tempToValid()
+    {
+        $time="07:45:00"; // Hora límite para comprobar horarios
+        $horaactual = date("H:i:s"); // Hora actual a comparar
+        $fechaactual = date("Y-m-d");
+        if(isset($_SESSION['fecha']) && $_SESSION['fecha'] == $fechaactual)
+        {
+            return true;
+        }
+        else
+        {
+            if(strtotime($horaactual) <= strtotime($time))
+            {
+                if($response = $this->query("SELECT * FROM T_horarios WHERE Fecha_incorpora = '$fechaactual'"))
+                {
+                    if($response->num_rows > 0)
+                    {
+                        if($response1 = $this->query("SELECT DISTINCT ID_PROFESOR FROM T_horarios WHERE Fecha_incorpora = '$fechaactual'"))
+                        {
+                            while($fila = $response1->fetch_assoc())
+                            {
+                                $todos[] = $fila['ID_PROFESOR'];
+                            }
+                            foreach($todos as $id)
+                            {
+                                if(! $this->query("DELETE FROM Horarios WHERE ID_PROFESOR = '$id'"))
+                                {
+                                    return false;
+                                }
+
+                                if($response2 = $this->query("SELECT * FROM T_horarios WHERE ID_PROFESOR = '$id' AND Fecha_incorpora = '$fechaactual'"))
+                                {
+                                    while($row = $response2->fetch_assoc())
+                                    {
+                                        if(! $this->query("INSERT INTO Horarios (ID_PROFESOR, Dia, HORA_TIPO, Aula, Grupo, Hora_entrada, Hora_salida)
+                                        values (
+                                            '$row[ID_PROFESOR]',
+                                            '$row[Dia]',
+                                            '$row[HORA_TIPO]',
+                                            '$row[Aula]',
+                                            '$row[Grupo]',
+                                            '$row[Hora_entrada]',
+                                            '$row[Hora_salida]')"))
+                                        {
+                                            return false;
+                                        }
+                                    }
+                                    if(! $this->query("DELETE FROM T_horarios WHERE ID_PROFESOR = '$id' AND Fecha_incorpora = '$fechaactual'"))
+                                    {
+                                        return false;
+                                    }
+                                }
+                            }
+                            return $_SESSION['fecha'] = $fechaactual;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return $_SESSION['fecha'] = $fechaactual;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return $_SESSION['fecha'] = $fechaactual;
+            }
         }
     }
 
@@ -631,7 +712,7 @@ class Netasys
 
     function isTooLate($id, $horaactual, $diasemana)
     {
-        if($response = $this->selectFrom("SELECT DISTINCT $this->horarios.Hora_salida 
+        if($response = $this->query("SELECT DISTINCT $this->horarios.Hora_salida 
         FROM $this->horarios INNER JOIN Diasemana ON $this->horarios.Dia=$this->diasemana.ID WHERE ID_PROFESOR='$id' 
         AND $this->horarios.Hora_salida >= '$horaactual' AND $this->diasemana.Diasemana='$diasemana'"))
         {

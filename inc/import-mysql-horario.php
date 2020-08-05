@@ -17,7 +17,7 @@ if (isset($_POST["import"]))
                 $row = 1;
                 while (($column = fgetcsv($file, 10000, ";")) !== FALSE)
                 {
-                    if($row == 1){ $row++; continue; }
+                    if($row == 0 && is_string($column[0], $column[1], $column[2], $column[3], $column[4], $column[5], $column[6])){ $row++; continue; }
                     $row++;
                     $horarioID = "";
                     if (isset($column[0])) {
