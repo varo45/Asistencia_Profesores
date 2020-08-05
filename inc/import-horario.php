@@ -6,22 +6,21 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
     class="<?php if(!empty($type)) { echo $type . " display-block"; } ?>">
     <?php if(!empty($message)) { echo $message; } ?>
     </div>
-<div class="outer-scontainer">
-    <div class="row">
+<div class="outer-container">
         <form class="form-horizontal" action="" method="post"
             name="frmCSVImport" id="frmCSVImport"
             enctype="multipart/form-data">
             <div class="input-row">
             <?php
-            if($response = $class->selectFrom("SELECT ID FROM $class->horarios"))
+            if($response = $class->query("SELECT ID FROM $class->horarios"))
             {
                 if($response->num_rows > 0)
                 {
                     $fecha = date('Y-m-d');
                     echo '
                     <label id="import-manual-trigger">Subir documento CSV:
-                            <input type="file" name="file" id="file" accept=".csv" class="btn btn-link" style="display: inline-block;">
-                            <input type="text" class="hidden" name="fecha" value="' . $fecha . '">
+                            <input type="file" name="file" id="file" accept=".csv" class="btn btn-link" style="display: inline-block;" required>
+                            <input id="fecha_incorpora" type="text" class="form-control" name="fecha" placeholder="Fecha de incorporación de horarios" autocomplete="off">
                     </label>
                     ';
                 }
@@ -29,7 +28,7 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
                 {
                     echo '
                     <label id="import-manual-trigger">Subir documento CSV:
-                            <input type="file" name="file" id="file" accept=".csv" class="btn btn-link">
+                            <input type="file" name="file" id="file" accept=".csv" class="btn btn-link" required>
                     </label>
                     ';
                 }
@@ -45,44 +44,23 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
         </form>
     </div>
             <?php
-        $sql = "SELECT Horarios.*, Profesores.Nombre, Profesores.Iniciales, Diasemana.Diasemana FROM (Horarios INNER JOIN Profesores ON Horarios.ID_PROFESOR=Profesores.ID) INNER JOIN Diasemana ON Diasemana.ID=Horarios.Dia ORDER BY ID_PROFESOR, Dia, HORA_TIPO";
-        $result = $class->selectFrom($sql);
-        if (! empty($result)) {
-            ?>
-        <table id='userTable' class='table'>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Curso</th>
-                <th>Abreviatura profesor</th>
-                <th>Profesor</th>
-                <th>Aula</th>
-                <th>Diasemana</th>
-                <th>Hora</th>
-
-            </tr>
-        </thead>
-<?php
-            
-            foreach ($result as $row) {
-                ?>
-                
-            <tbody>
-            <tr>
-                <td><?php  echo $row['ID']; ?></td>
-                <td><?php  echo $row['Grupo']; ?></td>
-                <td><?php  echo $row['Iniciales']; ?></td>
-                <td><?php  echo $row['Nombre']; ?></td>
-                <td><?php  echo $row['Aula']; ?></td>
-                <td><?php  echo $row['Diasemana']; ?></td>
-                <td><?php  echo $row['HORA_TIPO']; ?></td>
-            </tr>
-                <?php
-            }
-            ?>
-            </tbody>
-    </table>
-    <?php } ?>
+        if($num_horarios = $class->query("SELECT count(DISTINCT ID_PROFESOR) as numero, count(ID) as total FROM $class->horarios"))
+        {
+            $num = $num_horarios->fetch_assoc();
+            echo "<h3>Horarios importados: $num[numero]</h3>";
+            echo "<h3>Registros totales: $num[total]</h3>";
+            echo "<a id='btn-todos-registros' class='btn btn-info'>Ver todos los registros</a>";
+        }
+        else
+        {
+            $ERR_MSG = $class->ERR_NETASYS;
+        }
+        ?>
+        <div id="todos-registros"></div>
+        <div id="loading">
+        <img style="text-align: center;" src="resources/img/loading.gif" alt="Cargando...">
+        <h2>Cargando...</h2>
+        </div>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -90,6 +68,8 @@ $(document).ready(function() {
 
 	    $("#response").attr("class", "");
         $("#response").html("");
+        $("#userTable").remove("");
+        $("#loading").attr("class", "col-xs-12");
         var fileType = ".csv";
         var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + fileType + ")$");
         if (!regex.test($("#file").val().toLowerCase())) {
@@ -100,5 +80,19 @@ $(document).ready(function() {
         }
         return true;
     });
+});
+</script>
+<script>
+$('#loading').hide();
+$('#btn-todos-registros').on('click', function() {
+    $("#todos-registros").html(""),
+    $("#loading").show(),
+    $('#todos-registros').load('index.php?ACTION=muestra-registros-horarios'),
+    $("#loading").delay().fadeOut()
+});
+</script>
+<script type="text/javascript">
+$(window).on('beforeunload', function(){
+    return ;
 });
 </script>

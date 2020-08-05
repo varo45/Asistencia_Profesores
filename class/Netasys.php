@@ -215,6 +215,21 @@ class Netasys
         }
     }
 
+    function validFormDate($date)
+    {
+        if(preg_match('/^(0[1-9]|1[0-9]|2[0-9]|3[01])\/(0[1-9]|1[0-2])\/(19[0-9]{2}|20[0-9]{2})$/', $date))
+        {
+            return true;
+        }
+        else
+        {
+            $this->ERR_NETASYS = "Formato de fecha no válido. 
+            <br>
+            Formato válido: dd/mm/AAAA";
+            return false;
+        }
+    }
+
     function validFormIni($registerini)
     {
         $registerini = strtoupper($registerini);
