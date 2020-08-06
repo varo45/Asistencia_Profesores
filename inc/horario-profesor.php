@@ -6,7 +6,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
 {
     if ($response->num_rows > 0)
     {
-        if(! $nombre = $class->selectFrom("SELECT Nombre FROM $class->profesores WHERE ID='$_GET[profesor]'"))
+        if(! $nombre = $class->selectFrom("SELECT Nombre, ID FROM $class->profesores WHERE ID='$_GET[profesor]'"))
         {
             $ERR_MSG = $class->ERR_NETASYS;
         }
@@ -100,7 +100,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                                 }
                                 else
                                 {
-                                    echo "<td></td>";
+                                    echo "<td style='vertical-align: middle; text-align: center;'><a href='index.php?ACTION=pruebas-varo&ID=$n[ID]'><span class='glyphicon glyphicon-plus'></span></a><span class='aula-grupo'></span></td>";
                                 }
                             }
                             echo "</tr>";
@@ -122,3 +122,4 @@ else
 {
     $ERR_MSG = $class->ERR_NETASYS;
 }
+?>
