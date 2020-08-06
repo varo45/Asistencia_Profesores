@@ -2,19 +2,18 @@
 $id=$_GET["id"];
 $columna=$_GET["columna"];
 $texto=$_GET["texto"];
-
+var_dump($id);
+var_dump($columna);
+var_dump($texto);
 if($columna === 'aula')
 {
     if(preg_match('/^[0-9]{1,3}$/', $texto))
     {
-        $txt=preg_split('//', $texto, -1, PREG_SPLIT_NO_EMPTY);
-        $edificio=$txt[0];
-        $aula=$txt[1].$txt[2];
-        $sql="UPDATE $class->horarios SET Aula='$aula', Edificio='$edificio' WHERE id='$id'";
+        $sql="UPDATE $class->horarios SET Aula='$aula' WHERE id='$id'";
+        echo $sql;
     }
     else
     {
-        $sql = "";
         $MSG = "El aula solo puede contener dígitos (máximo 3)";
     }
     
@@ -26,7 +25,7 @@ else
 // var_dump($sql);
 if(isset($sql) && $sql != '')
 {
-    if($class->updateSet($sql))
+    if($class->query($sql))
     {
         echo "
         <script>
