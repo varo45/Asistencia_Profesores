@@ -71,7 +71,12 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                                 if($filahora[$k][10] == $j)
                                 {
                                     $dia['weekday'] === $filahora[$k][9] ? $dia['color'] = "success" : $dia['color'] = '';
-                                    echo "<td style='vertical-align: middle; text-align: center;' class='$dia[color]'><b>Aula:</b> " . $filahora[$k][5] . "<br><b>Grupo:</b> " . $filahora[$k][6];
+                                    echo "<td style='vertical-align: middle; text-align: center;' class='$dia[color]'>
+                                    <b>Aula:</b> 
+                                    <span id='sp_" . $filahora[$k][0] . "_aula' class='txt'>" . $filahora[$k][5] . "</span>
+                                    <input id='in_" . $filahora[$k][0] . "_aula' class='entrada' type='text'>
+                                    <br>
+                                    <b>Grupo:</b> " . $filahora[$k][6];
                                     $k++;
                                     // $m -> Contador de pares para saltar línea o añadir espacio
                                     $m = 2;
@@ -112,6 +117,8 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                     }
             echo "</tbody>";
         echo "</table>";
+        include_once('js/update_horario.js');
+
     }
     else
     {
