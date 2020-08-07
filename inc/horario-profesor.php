@@ -15,6 +15,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
             $n = $nombre->fetch_assoc();
         }
         echo "<h2>Horario: $n[Nombre]</h2>";
+        echo "<div id='response'></div>";
         echo "</br><table class='table'>";
             echo "<thead>";
                 echo "<tr>";
@@ -71,12 +72,26 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                                 if($filahora[$k][10] == $j)
                                 {
                                     $dia['weekday'] === $filahora[$k][9] ? $dia['color'] = "success" : $dia['color'] = '';
-                                    echo "<td style='vertical-align: middle; text-align: center;' class='$dia[color]'>
-                                    <b>Aula:</b> 
-                                    <span id='sp_" . $filahora[$k][0] . "_aula' class='txt'>" . $filahora[$k][5] . "</span>
-                                    <input id='in_" . $filahora[$k][0] . "_aula' class='entrada' type='text'>
-                                    <br>
-                                    <b>Grupo:</b> " . $filahora[$k][6];
+                                    echo "<td style='vertical-align: middle; text-align: center;' class='$dia[color]'>";
+                                    echo "<b>Aula: </b>";
+                                    echo "<span id='sp_" . $filahora[$k][0] . "_Aula' class='txt'>" . $filahora[$k][5] . "</span>";
+                                    //echo "<input id='in_" . $filahora[$k][0] . "_Aula' class='entrada' type='text'>";
+                                    if($response = $class->selectFrom("SELECT DISTINCT $class->horarios.Aula FROM $class->horarios WHERE $class->horarios.Aula <> '' ORDER BY $class->horarios.Aula"))
+                                    {
+                                        echo "<select id='in_" . $filahora[$k][0] . "_Aula' class='entrada' name='Aula'>";
+                                            echo "<option value=''>Sin Aula</option>";
+                                            while($fila = $response->fetch_assoc())
+                                            {
+                                                echo "<option value='$fila[Aula]'>$fila[Aula]</option>";
+                                            }
+                                        echo "</select>";
+                                    }
+                                    else
+                                    {
+                                        echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
+                                    }
+                                    echo "<br>";
+                                    echo "<b>Grupo:</b> " . $filahora[$k][6];
                                     $k++;
                                     // $m -> Contador de pares para saltar línea o añadir espacio
                                     $m = 2;
