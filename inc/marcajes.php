@@ -3,26 +3,54 @@ if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectiv
 {
     if($response4->num_rows > 0)
     {
-        if($lectivos = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectivos WHERE $class->lectivos.Festivo='no'"))
+
+        if(isset($fechaactual))
         {
-            while($fila = $lectivos->fetch_assoc())
+            if($lectivos = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectivos WHERE $class->lectivos.Festivo='no' AND $class->lectivos.Fecha>='$fechaactual'"))
             {
-                if($respose = $class->query("INSERT INTO Marcajes SELECT DISTINCT ID_PROFESOR,'$fila[Fecha]' as Fecha, HORA_TIPO, Dia, 0
-                FROM Horarios INNER JOIN Diasemana ON Horarios.Dia=Diasemana.ID
-                WHERE Dia = WEEKDAY('$fila[Fecha]')+1"))
+                while($fila = $lectivos->fetch_assoc())
                 {
-                    $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
-                    include_once($dirs['inc'] . 'msg_modal.php');
+                    if($respose = $class->query("INSERT INTO Marcajes SELECT DISTINCT ID_PROFESOR,'$fila[Fecha]' as Fecha, HORA_TIPO, Dia, 0
+                    FROM Horarios INNER JOIN Diasemana ON Horarios.Dia=Diasemana.ID
+                    WHERE Dia = WEEKDAY('$fila[Fecha]')+1"))
+                    {
+                        $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
+                        include_once($dirs['inc'] . 'msg_modal.php');
+                    }
+                    else
+                    {
+                        $ERR_MSG = $class->ERR_NETASYS;
+                    }
                 }
-                else
-                {
-                    $ERR_MSG = $class->ERR_NETASYS;
-                }
+            }
+            else
+            {
+                $ERR_MSG = $class->ERR_NETASYS;
             }
         }
         else
         {
-            $ERR_MSG = $class->ERR_NETASYS;
+            if($lectivos = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectivos WHERE $class->lectivos.Festivo='no'"))
+            {
+                while($fila = $lectivos->fetch_assoc())
+                {
+                    if($respose = $class->query("INSERT INTO Marcajes SELECT DISTINCT ID_PROFESOR,'$fila[Fecha]' as Fecha, HORA_TIPO, Dia, 0
+                    FROM Horarios INNER JOIN Diasemana ON Horarios.Dia=Diasemana.ID
+                    WHERE Dia = WEEKDAY('$fila[Fecha]')+1"))
+                    {
+                        $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
+                        include_once($dirs['inc'] . 'msg_modal.php');
+                    }
+                    else
+                    {
+                        $ERR_MSG = $class->ERR_NETASYS;
+                    }
+                }
+            }
+            else
+            {
+                $ERR_MSG = $class->ERR_NETASYS;
+            }
         }
     }
     else

@@ -44,9 +44,7 @@
           <li><a href="index.php?ACTION=import-horario"><span class="glyphicon glyphicon-open"></span> Importar horarios</a></li>
       <?php
         }
-        // echo '<li><a href="index.php?ACTION=crear-horario"><span class="glyphicon glyphicon-plus"></span> Editar horario</a></li>';
       ?>
-          <!--li><a href="index.php?ACTION=modificar-horario"><span class="glyphicon glyphicon-pencil"></span> Modificar horario</a></li-->
         </ul>
       </li>
       <?php
@@ -73,18 +71,32 @@
       <!--li class="<?php echo $act_guardias; ?>"><a href="<?php echo $_SERVER['PHP_SELF'] . '?ACTION=guardias' ?>"><span class="glyphicon glyphicon-eye-open"></span> Guardias</a></li-->
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['Nombre']; ?> <!--span class="badge"></span--> <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-        <?php
+      <li class="dropdown <?php echo $act_usuario; ?>"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> 
+      <?php 
+
+        echo $_SESSION['Nombre'];
+        
+        if($response = $class->selectFrom("SELECT count(*) as new FROM Mensajes WHERE (ID_PROFESOR='$_SESSION[ID]' AND Borrado_Profesor=0) OR (ID_DESTINATARIO='$_SESSION[ID]' AND Borrado_Destinatario=0) ORDER BY ID DESC"))
+        {
+          $new = $response->fetch_assoc();
+          if($new['new'] > 0)
+          {
+            echo " <span class='badge'>$new[new]</span>";
+          }
+        }
+        echo '<span class="caret"></span></a>';
+        echo '<ul class="dropdown-menu">';
         if($_SESSION['Perfil'] === 'Profesor')
         {
           echo '<li><a href="index.php?ACTION=qrcoder"><span class="glyphicon glyphicon-qrcode"></span> Mi código QR</a></li>';
-          echo '<li><a href="index.php?ACTION=form_mensajes"><span class="glyphicon glyphicon-comment"></span> Mensajes </a></li>';
         }
-        else
+        echo '<li><a href="index.php?ACTION=form_mensajes"><span class="glyphicon glyphicon-comment"></span> Mensajes ';
+        if($new['new'] > 0)
         {
-          echo '<li><a href="index.php?ACTION=form_mensajes"><span class="glyphicon glyphicon-comment"></span> Mensajes </a></li>';
+          echo " <span class='badge'>$new[new]</span>";
         }
+        echo '</a>';
+        echo '</li>';
         ?>
         <li><a href="index.php?ACTION=cambio_pass"><span id="cambio-pass" class="glyphicon glyphicon-refresh"></span> Cambio de contraseña</a></li>    
         </ul>

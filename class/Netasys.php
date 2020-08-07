@@ -270,10 +270,6 @@ class Netasys
                         $_SESSION['ID'] = $fila['ID'];
                         $_SESSION['Nombre'] = $fila['Nombre'];
                         $_SESSION['Perfil'] = $fila['Tipo'];
-                        if($_SESSION['Perfil'] == 'Admin')
-                        {
-                            $this->tempToValid();
-                        }
                         return true;
                     }
                     else
@@ -473,6 +469,13 @@ class Netasys
                                         return false;
                                     }
                                 }
+
+                                if(! $class->query("DELETE FROM $class->marcajes WHERE ID_PROFESOR='$id' AND Fecha>'$fechaactual'"))
+                                {
+                                    return false;
+                                }
+                                
+                                include_once($dirs['inc'] . 'marcajes.php');
                             }
                             return $_SESSION['fecha'] = $fechaactual;
                         }
@@ -542,6 +545,8 @@ class Netasys
             AND $this->profesores.Sustituido = 0
             AND $this->profesores.Activo = 1
             AND $this->diasemana.Diasemana='$diasemana' 
+            AND ($this->marcajes.Asiste = 0
+                OR $this->marcajes.Asiste = 2)
             AND $this->horarios.Aula IS NOT NULL
             AND $this->horarios.Grupo IS NOT NULL
             AND $this->horas.Fin > '$horasistema'
