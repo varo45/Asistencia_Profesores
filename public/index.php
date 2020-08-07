@@ -801,6 +801,26 @@ if(isset($_GET['ACTION']))
         }
       break;
 
+      case 'eliminar_mensaje':
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'eliminar_mensaje.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=listar_mensajes');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para poder eliminar mensajes.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+
       case 'Edificio':
         if(isset($_GET['Numero']))
         {

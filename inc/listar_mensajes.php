@@ -1,5 +1,5 @@
 <?php  
-    if($response = $class->selectFrom("SELECT * FROM $class->mensajes WHERE $class->mensajes.ID_PROFESOR='$_SESSION[ID]' ORDER BY ID DESC"))
+    if($response = $class->selectFrom("SELECT * FROM Mensajes WHERE (ID_PROFESOR='$_SESSION[ID]' AND Borrado_Profesor=0) OR (ID_DESTINATARIO='$_SESSION[ID]' AND Borrado_Destinatario=0) ORDER BY ID DESC"))
     {
         echo "<div class='container' style='margin-top:50px'>";
         echo "<h2>Mensajes</h2>";
@@ -30,7 +30,7 @@
                         <td>$datos[Asunto]</td>
                         <td>$datos[Mensaje]</td>
                         <td>$datos[Fecha]</td>
-                        <td><a href='index.php?ACTION=eliminar_mensaje&ID=$fila[ID]'><span class='glyphicon glyphicon-trash'></span></a></td>
+                        <td><a href='index.php?ACTION=eliminar_mensaje&ID=$datos[ID]'><span class='glyphicon glyphicon-trash'></span></a></td>
                     </tr> 
                 </tbody>
                 ";
