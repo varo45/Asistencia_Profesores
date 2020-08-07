@@ -83,7 +83,7 @@
         }
         else
         {
-          echo '<li><a href="index.php?ACTION=ver_mensajes"><span class="glyphicon glyphicon-comment"></span> Mensajes (Próximamente)</a></li>';
+          echo '<li><a href="index.php?ACTION=form_mensajes"><span class="glyphicon glyphicon-comment"></span> Mensajes </a></li>';
         }
         ?>
         <li><a href="index.php?ACTION=cambio_pass"><span id="cambio-pass" class="glyphicon glyphicon-refresh"></span> Cambio de contraseña</a></li>    
