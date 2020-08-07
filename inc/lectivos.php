@@ -17,7 +17,7 @@ if($response = $class->selectFrom("SELECT * FROM $class->lectivos"))
     if($response->num_rows > 0)
     {
         echo '
-        <form action="$_SERVER[REQUEST_URI]" method="POST">
+        <form action="' . $_SERVER['REQUEST_URI'] . '" method="POST">
           <br><h3>Fechas Festivas:</h3>
           <h4>Inicio:</h4>
             <input id="datepicker_ini_fest" type="text" name="inicio" placeholder="* Fecha de inicio" autocomplete="off"><br>
