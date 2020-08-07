@@ -120,7 +120,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                                 }
                                 else
                                 {
-                                    echo "<td style='vertical-align: middle; text-align: center;'><a href='index.php?ACTION=pruebas-varo&ID=$n[ID]'><span class='glyphicon glyphicon-plus'></span></a><span class='aula-grupo'></span></td>";
+                                    echo "<td style='vertical-align: middle; text-align: center;'><a href='index.php?ACTION=pruebas-carlos&ID=$n[ID]&Dia=$j&Hora=$hora'><span class='glyphicon glyphicon-plus'></span></a><span class='aula-grupo'></span></td>";
                                 }
                             }
                             echo "</tr>";

@@ -449,6 +449,28 @@ if(isset($_GET['ACTION']))
           include_once($dirs['inc'] . 'msg_modal.php');
         }
       break;
+
+      case 'Agregar-registro-horario':
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            header("Refresh:0; url=index.php?ACTION=profesores");
+            include_once($dirs['inc'] . 'agregar-registro-horario.php');
+            include_once($dirs['inc'] . 'msg_modal.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para actualizar horarios.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
     
       case 'import-profesorado':
         if($class->isLogged())
