@@ -16,9 +16,15 @@ $('.txt').on('dblclick', function(){
 	datos=$(this).attr('id').split('_'),
 	id=datos[1],
 	columna=datos[2],
-	$(this).hide(),
-	tx='#in_'+id+'_'+columna,
-	tx='#in2_'+id+'_'+columna,
+	$(this).hide();
+	if(columna == 'Aula')
+	{
+		tx='#in_'+id+'_'+columna
+	}
+	else
+	{
+		tx='#in2_'+id+'_'+columna
+	}
 	$(tx).val(texto),
 	$(tx).show().focus()
 });
@@ -28,9 +34,15 @@ $('.entrada').on('change', function(){
 	datos=$(this).attr('id').split('_'),
 	id=datos[1],
 	columna=datos[2],
-	$(this).hide(),
-	sp='#sp_'+id+'_'+columna;
-	sp='#sp2_'+id+'_'+columna;
+	$(this).hide();
+	if(columna == 'Aula')
+	{
+		sp='#sp_'+id+'_'+columna
+	}
+	else
+	{
+		sp='#sp2_'+id+'_'+columna
+	}
 
     if(! confirm('¿Modificar?'))
     {
