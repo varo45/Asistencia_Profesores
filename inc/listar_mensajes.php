@@ -4,7 +4,6 @@
     {
         echo "<div class='col-xs-12 col-md-8'>";
         echo "<h2>Mensajes</h2>";
-        //echo "$fnueva = date('d/m/Y', strtotime($datos[Fecha]))";
         echo"
             <table class='table table-striped'>
                 <thead>
@@ -23,13 +22,37 @@
         {
             while($datos = $response->fetch_assoc())
             {
+                if($nombre1 = $class->query("SELECT Nombre FROM Profesores WHERE ID='$datos[ID_PROFESOR]'"))
+                {
+                    $emisor = $nombre1->fetch_assoc();
+                    $emisor = $emisor['Nombre'];
+                }
+                else
+                {
+                    $ERR_MSG = $class->ERR_NETASYS;
+                }
+
+                if($nombre2 = $class->query("SELECT Nombre FROM Profesores WHERE ID='$datos[ID_DESTINATARIO]'"))
+                {
+                    $receptor = $nombre2->fetch_assoc();
+                    $receptor = $receptor['Nombre'];
+                }
+                else
+                {
+                    $ERR_MSG = $class->ERR_NETASYS;
+                }
+                $sep = preg_split('/[ -]/', $datos['Fecha']);
+                $dia = $sep[2];
+                $m = $sep[1];
+                $Y = $sep[0];
+                $h = $sep[3];
                 echo "  
                     <tr id='$datos[ID]'>
-                        <td>$datos[ID_PROFESOR]</td>
-                        <td>$datos[ID_DESTINATARIO]</td>
+                        <td>$emisor</td>
+                        <td>$receptor</td>
                         <td>$datos[Asunto]</td>
                         <td>$datos[Mensaje]</td>
-                        <td>$datos[Fecha]</td>
+                        <td>$dia/$m/$Y $h</td>
                         <td><a href='index.php?ACTION=eliminar_mensaje&ID=$datos[ID]'><span class='glyphicon glyphicon-trash'></span></a></td>
                     </tr> 
                 ";

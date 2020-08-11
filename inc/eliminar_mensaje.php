@@ -8,6 +8,24 @@ if($res = $class->query("SELECT ID_PROFESOR FROM Mensajes WHERE ID='$_GET[ID]' A
         {
             header('Location:index.php?ACTION=form_mensajes');
         }
+        elseif($res = $class->query("SELECT ID_PROFESOR FROM Mensajes WHERE ID='$_GET[ID]' AND ID_PROFESOR = '$_SESSION[ID]' AND Borrado_Profesor=1"))
+        {
+            if($res->num_rows == 1)
+            {
+                if($response = $class->query("DELETE FROM $class->mensajes  WHERE $class->mensajes.ID='$_GET[ID]'"))
+                {
+                header('Location:index.php?ACTION=form_mensajes');
+                }
+                else
+                {
+                    $ERR_MSG = $class->ERR_NETASYS;
+                }
+            }
+            else
+            {
+                $ERR_MSG = $class->ERR_NETASYS;
+            }
+        }
         else
         {
             $ERR_MSG = $class->ERR_NETASYS;
