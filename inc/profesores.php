@@ -8,7 +8,8 @@ if($_SESSION['Perfil'] === 'Admin')
     echo "<div id='horario'></div>";
     echo "<h2>Profesores</h2>";
     include_once($dirs['inc'] . 'registrar-profesor.php');
-    echo "<br><span class='glyphicon glyphicon-search'></span> <h4 style='display: inline-block; margin-right: 15px;'>Buscar profesor: </h4><input style='width: 25%; display: inline-block;' id='busca_prof' class='form-control' type='text' placeholder='Buscar Profesor...' autocomplete='off'><br>";
+    echo "<br><span class='glyphicon glyphicon-search'></span> <h4 style='display: inline-block; margin-right: 15px;'>Buscar profesor: </h4>
+    <input style='width: 25%; display: inline-block;' id='busca_prof' class='form-control' type='text' placeholder='Buscar Profesor...' autocomplete='off'><br>";
     echo "</br><table class='table table-hover'>";
     echo "<thead>";
         echo "<tr>";

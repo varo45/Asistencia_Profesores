@@ -15,7 +15,8 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
             $n = $nombre->fetch_assoc();
         }
         echo "<h2>Horario: $n[Nombre]</h2>";
-        echo "<a href='index.php?ACTION=edit-horario-profesor&profesor=$n[ID]' class='btn btn-success'>Editar horario</a>";
+        echo "<a id='editar-horario' href='index.php?ACTION=edit-horario-profesor&profesor=$n[ID]' class='btn btn-success'>Editar horario</a>";
+        echo "<input id='fecha-edit' style='width: 25%; display: inline-block; margin-left: 25px;' type='text' class='form-control' placeholder='Seleccione una fecha...'>";
         echo "<div id='response'></div>";
         echo "</br><table class='table'>";
             echo "<thead>";
@@ -147,7 +148,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
             echo "</tbody>";
         echo "</table>";
         include_once('js/update_horario.js');
-
+        include_once('js/temp_horario.js');
     }
     else
     {
