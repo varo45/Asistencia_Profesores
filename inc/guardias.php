@@ -17,6 +17,7 @@ if($response = $class->getGuardias())
         echo "</thead>";
         echo "<tbody>";
         $datos = $response->fetch_all();
+        //var_dump($datos);
         for($i = 0; $i < $j; $i++)
         {
             echo "<tr>";
@@ -46,8 +47,8 @@ if($response = $class->getGuardias())
                     * Esta comprobación se realizará hasta que ya no coincida
                     * Ya que pertenecerá al siguiente registro
                     */
-
-                    while($datos[$i][1] == $aula)
+                    $ultimahora = $datos[$i][4];
+                    while($datos[$i][1] == $aula && $datos[$i][4] == $ultimahora)
                     {
                         if($m % 2 == 0)
                         {
@@ -58,6 +59,7 @@ if($response = $class->getGuardias())
                             echo " ";
                         }
                         echo $datos[$i][2];
+                        $ultimahora = $datos[$i][4];
                         $m++;
                         $i++;
                     }
