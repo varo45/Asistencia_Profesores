@@ -554,6 +554,27 @@ if(isset($_GET['ACTION']))
           if($class->compruebaCambioPass())
           {
             $act_profesores = 'active';
+            $extras .= "<script>
+            $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '< Ant',
+            nextText: 'Sig >',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+            </script>
+            ";
             if(isset($_GET['profesor']) && $_GET['profesor'] != '')
             {
               include_once($dirs['inc'] . 'contenido-horario-profesor.php');
@@ -815,6 +836,7 @@ if(isset($_GET['ACTION']))
             ';
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'form_mensajes.php');
+            include_once($dirs['inc'] . 'listar_mensajes.php');
             include_once($dirs['inc'] . 'errors.php');
             include_once($dirs['inc'] . 'footer.php');
           }
@@ -826,30 +848,6 @@ if(isset($_GET['ACTION']))
         else
         {
           $MSG = "Debes iniciar sesión para poder enviar mensajes.";
-          header("Refresh:2; url=index.php");
-          include_once($dirs['inc'] . 'msg_modal.php');
-        }
-      break;
-
-      case 'listar_mensajes':
-        if($class->isLogged())
-        {
-          if($class->compruebaCambioPass())
-          {
-            //$extras = '<link rel="stylesheet" href="css/login-style.css">';
-            include_once($dirs['inc'] . 'top-nav.php');
-            include_once($dirs['inc'] . 'listar_mensajes.php');
-            include_once($dirs['inc'] . 'errors.php');
-            include_once($dirs['inc'] . 'footer.php');
-          }
-          else
-          {
-            header('Location: index.php?ACTION=form_mensajes');
-          }
-        }
-        else
-        {
-          $MSG = "Debes iniciar sesión para poder ver los mensajes.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
