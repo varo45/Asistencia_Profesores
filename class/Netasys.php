@@ -540,8 +540,9 @@ class Netasys
             INNER JOIN $this->horas ON $this->horas.Hora=$this->horarios.HORA_TIPO) 
             INNER JOIN $this->diasemana ON $this->diasemana.ID=$this->horarios.Dia)
             INNER JOIN $this->marcajes ON $this->marcajes.ID_PROFESOR=$this->profesores.ID
-        WHERE $this->marcajes.Dia='$diasemananum'
-            AND $this->marcajes.Fecha='$dia'
+        WHERE $this->marcajes.Dia = '$diasemananum'
+            AND $this->marcajes.Fecha = '$dia'
+            AND $this->marcajes.Hora >= '$horaclase'
             AND $this->profesores.Sustituido = 0
             AND $this->profesores.Activo = 1
             AND $this->diasemana.Diasemana='$diasemana' 
