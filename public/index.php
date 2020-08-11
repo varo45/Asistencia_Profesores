@@ -838,6 +838,13 @@ if(isset($_GET['ACTION']))
           {
             $extras = '<link rel="stylesheet" href="css/login-style.css">';
             $style = '
+              html {
+                background-color: white;
+              }
+              body {
+                height: 100%;
+              }
+
               #select_mensaje {
                 background-color: #f6f6f6;
                 border: none;
