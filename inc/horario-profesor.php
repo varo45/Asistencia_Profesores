@@ -30,13 +30,27 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                     echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
-            
+                if($response2 = $class->selectFrom("SELECT $class->horarios.HORA_TIPO FROM $class->horarios WHERE ID_PROFESOR='$_GET[profesor]' AND HORA_TIPO LIKE '%M'"))
+                {
+                    if($response2->num_rows > 0)
+                    {
+                        $l = 6;
+                    }
+                    else
+                    {
+                        $l = 5;
+                    }
+                }
+                else
+                {
+                    $ERR_MSG = $class->ERR_NETASYS;
+                }
                     /* 
                     * Comienza bucle por filas horarias 
                     * Hasta completar las 6 de cada horario
                     */
                     
-                    for ($i = 0; $i < 6; $i++)
+                    for ($i = 0; $i < $l; $i++)
                     {
                         $dia = $class->getDate();
                         $hora = $i+1;

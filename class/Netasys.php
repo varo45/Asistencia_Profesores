@@ -406,7 +406,7 @@ class Netasys
     {
         date_default_timezone_set('Europe/Madrid');
         $now = date('H:i:s');
-        //$now = '10:22:00';
+        //$now = '08:00:00';
         if($response = $this->selectFrom("SELECT Hora FROM Horas WHERE Inicio <= '$now' AND Fin >= '$now'"))
         {  
             return $response;
@@ -540,8 +540,8 @@ class Netasys
             INNER JOIN $this->horas ON $this->horas.Hora=$this->horarios.HORA_TIPO) 
             INNER JOIN $this->diasemana ON $this->diasemana.ID=$this->horarios.Dia)
             INNER JOIN $this->marcajes ON $this->marcajes.ID_PROFESOR=$this->profesores.ID
-        WHERE $this->marcajes.Dia='$diasemananum'
-            AND $this->marcajes.Fecha='$dia'
+        WHERE $this->marcajes.Dia = '$diasemananum'
+            AND $this->marcajes.Fecha = '$dia'
             AND $this->profesores.Sustituido = 0
             AND $this->profesores.Activo = 1
             AND $this->diasemana.Diasemana='$diasemana' 
@@ -549,7 +549,7 @@ class Netasys
                 OR $this->marcajes.Asiste = 2)
             AND $this->horarios.Aula IS NOT NULL
             AND $this->horarios.Grupo IS NOT NULL
-            AND $this->horas.Fin > '$horasistema'
+            AND $this->horas.Fin >= '$horasistema'
             $extra 
         ORDER BY $this->horarios.HORA_TIPO, $this->horarios.Aula, $this->profesores.Nombre";
 
