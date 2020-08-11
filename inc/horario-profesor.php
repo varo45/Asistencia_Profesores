@@ -149,7 +149,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                                 }
                                 else
                                 {
-                                    echo "<td style='vertical-align: middle; text-align: center;'><a href='index.php?ACTION=nuevo-registro-horario-profesor&ID=$n[ID]&Dia=$j&Hora=$hora'><span class='glyphicon glyphicon-plus'></span></a><span class='aula-grupo'></span></td>";
+                                    echo "<td style='vertical-align: middle; text-align: center;'></td>";
                                 }
                             }
                             echo "</tr>";

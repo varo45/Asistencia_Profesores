@@ -10,18 +10,15 @@ if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectiv
             {
                 while($fila = $lectivos->fetch_assoc())
                 {
-                    if($respose = $class->query("INSERT INTO Marcajes SELECT DISTINCT ID_PROFESOR,'$fila[Fecha]' as Fecha, HORA_TIPO, Dia, 0
+                    if(! $respose = $class->query("INSERT INTO Marcajes SELECT DISTINCT ID_PROFESOR,'$fila[Fecha]' as Fecha, HORA_TIPO, Dia, 0
                     FROM Horarios INNER JOIN Diasemana ON Horarios.Dia=Diasemana.ID
                     WHERE Dia = WEEKDAY('$fila[Fecha]')+1"))
-                    {
-                        $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
-                        include_once($dirs['inc'] . 'msg_modal.php');
-                    }
-                    else
                     {
                         $ERR_MSG = $class->ERR_NETASYS;
                     }
                 }
+                $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
+                include_once($dirs['inc'] . 'msg_modal.php');
             }
             else
             {
@@ -34,18 +31,15 @@ if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectiv
             {
                 while($fila = $lectivos->fetch_assoc())
                 {
-                    if($respose = $class->query("INSERT INTO Marcajes SELECT DISTINCT ID_PROFESOR,'$fila[Fecha]' as Fecha, HORA_TIPO, Dia, 0
+                    if(! $respose = $class->query("INSERT INTO Marcajes SELECT DISTINCT ID_PROFESOR,'$fila[Fecha]' as Fecha, HORA_TIPO, Dia, 0
                     FROM Horarios INNER JOIN Diasemana ON Horarios.Dia=Diasemana.ID
                     WHERE Dia = WEEKDAY('$fila[Fecha]')+1"))
-                    {
-                        $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
-                        include_once($dirs['inc'] . 'msg_modal.php');
-                    }
-                    else
                     {
                         $ERR_MSG = $class->ERR_NETASYS;
                     }
                 }
+                $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
+                include_once($dirs['inc'] . 'msg_modal.php');
             }
             else
             {

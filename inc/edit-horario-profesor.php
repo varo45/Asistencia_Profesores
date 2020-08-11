@@ -1,14 +1,64 @@
 <div class="container" style="margin-top:50px">
 <?php
 
-if($response = $class->selectFrom("SELECT T_horarios.*, Diasemana.Diasemana 
-                                    FROM (T_horarios INNER JOIN $class->profesores ON T_horarios.ID_PROFESOR=$class->profesores.ID) 
-                                    INNER JOIN Diasemana ON Diasemana.ID=T_horarios.Dia WHERE $class->profesores.ID='$_GET[profesor]' 
-                                    ORDER BY T_horarios.HORA_TIPO, T_horarios.Dia"))
+$sep = preg_split('/\//', $_GET['fecha']);
+$_GET['fecha'] = $sep[2] . '-' . $sep[1] . '-' . $sep[0];
+
+$temp_table = 
+    "SELECT * 
+    FROM T_horarios
+    WHERE ID_PROFESOR = '$_GET[profesor]'
+        AND Fecha_incorpora = '$_GET[fecha]'
+    ";
+
+if($result = $class->query($temp_table))
+{
+    if(! $result->num_rows > 0)
+    {
+        $temp_horario = 
+            "INSERT INTO T_horarios
+                (ID_PROFESOR,
+                Dia,
+                HORA_TIPO,
+                Aula,
+                Grupo,
+                Hora_Entrada,
+                Hora_Salida,
+                Fecha_incorpora)
+                    SELECT ID_PROFESOR,
+                            Dia,
+                            HORA_TIPO,
+                            Aula,
+                            Grupo,
+                            Hora_Entrada,
+                            Hora_Salida,
+                            '$_GET[fecha]' as Fecha_incorpora
+                    FROM Horarios
+                    WHERE ID_PROFESOR = '$_GET[profesor]'
+                        ";
+        if(! $res = $class->query($temp_horario))
+        {
+            $ERR_MSG = $class->ERR_NETASYS;
+        }
+    }
+}
+else
+{
+    $ERR_MSG = $class->ERR_NETASYS;
+}
+$consulta = 
+"SELECT T_horarios.*,
+Diasemana.Diasemana 
+FROM (T_horarios INNER JOIN $class->profesores ON T_horarios.ID_PROFESOR=$class->profesores.ID) 
+    INNER JOIN Diasemana ON Diasemana.ID=T_horarios.Dia
+WHERE $class->profesores.ID = '$_GET[profesor]'
+    AND T_horarios.Fecha_incorpora = '$_GET[fecha]'
+ORDER BY T_horarios.HORA_TIPO, T_horarios.Dia";
+if($response = $class->query($consulta))
 {
     if ($response->num_rows > 0)
     {
-        if(! $nombre = $class->selectFrom("SELECT Nombre, ID FROM $class->profesores WHERE ID='$_GET[profesor]'"))
+        if(! $nombre = $class->query("SELECT Nombre, ID FROM $class->profesores WHERE ID='$_GET[profesor]'"))
         {
             $ERR_MSG = $class->ERR_NETASYS;
         }
@@ -16,7 +66,7 @@ if($response = $class->selectFrom("SELECT T_horarios.*, Diasemana.Diasemana
         {
             $n = $nombre->fetch_assoc();
         }
-        echo "<h2>Editar horario: $n[Nombre]</h2>";
+        echo "<h2>Horario: $n[Nombre]</h2>";
         echo "<div id='response'></div>";
         echo "</br><table class='table'>";
             echo "<thead>";
@@ -50,7 +100,7 @@ if($response = $class->selectFrom("SELECT T_horarios.*, Diasemana.Diasemana
                         FROM ((T_horarios INNER JOIN $class->profesores ON T_horarios.ID_PROFESOR=$class->profesores.ID) 
                         INNER JOIN Diasemana ON Diasemana.ID=T_horarios.Dia)
                         INNER JOIN $class->horas ON $class->horas.Hora=T_horarios.HORA_TIPO
-                        WHERE $class->profesores.ID='$_GET[profesor]' AND T_horarios.HORA_TIPO=" . "'" . $hora ."M'
+                        WHERE $class->profesores.ID='$_GET[profesor]' AND (T_horarios.HORA_TIPO=" . "'" . $hora ."M' OR T_horarios.HORA_TIPO=" . "'" . $hora ."T')
                         ORDER BY T_horarios.HORA_TIPO, T_horarios.Dia"))
                         {
                             // $k -> Contador de índice del array
@@ -63,6 +113,7 @@ if($response = $class->selectFrom("SELECT T_horarios.*, Diasemana.Diasemana
                             * Bucle que recorre el campo Dia
                             * Este campo determinará su posición en la tabla (Horizontalmente)
                             */
+                            
                             for($j = 1; $j <= 5; $j++)
                             {
 
@@ -80,7 +131,6 @@ if($response = $class->selectFrom("SELECT T_horarios.*, Diasemana.Diasemana
                                     if($response = $class->selectFrom("SELECT DISTINCT $class->horarios.Aula FROM $class->horarios WHERE $class->horarios.Aula <> '' ORDER BY $class->horarios.Aula"))
                                     {
                                         echo "<select id='in_" . $filahora[$k][0] . "_Aula' class='entrada' name='Aula'>";
-                                            echo "<option value=''>Sin Aula</option>";
                                             while($fila = $response->fetch_assoc())
                                             {
                                                 echo "<option value='$fila[Aula]'>$fila[Aula]</option>";
@@ -92,7 +142,21 @@ if($response = $class->selectFrom("SELECT T_horarios.*, Diasemana.Diasemana
                                         echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
                                     }
                                     echo "<br>";
-                                    echo "<b>Grupo:</b> " . $filahora[$k][5];
+                                    echo "<b>Grupo:</b>";
+                                    echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][5] . "</span>";
+                                    if($response2 = $class->selectFrom("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
+                                    {
+                                        echo "<select id='in2_" . $filahora[$k][0] . "_Grupo' class='entrada' name='Grupo'>";
+                                            while($fila = $response2->fetch_assoc())
+                                            {
+                                                echo "<option value='$fila[Grupo]'>$fila[Grupo]</option>";
+                                            }
+                                        echo "</select>";
+                                    }
+                                    else
+                                    {
+                                        echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
+                                    }
                                     $k++;
                                     // $m -> Contador de pares para saltar línea o añadir espacio
                                     $m = 2;
@@ -113,7 +177,21 @@ if($response = $class->selectFrom("SELECT T_horarios.*, Diasemana.Diasemana
                                         {
                                             echo " ";
                                         }
-                                        echo $filahora[$k][5];
+                                        echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][5] . "</span>";
+                                        if($response2 = $class->selectFrom("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
+                                        {
+                                            echo "<select id='in2_" . $filahora[$k][0] . "_Grupo' class='entrada' name='Grupo'>";
+                                                while($fila = $response2->fetch_assoc())
+                                                {
+                                                    echo "<option value='$fila[Grupo]'>$fila[Grupo]</option>";
+                                                }
+                                            echo "</select>";
+                                        }
+                                        else
+                                        {
+                                            echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
+                                        }
+                                        //echo $filahora[$k][5];
                                         $m++;
                                         $k++;
                                     }
@@ -121,7 +199,7 @@ if($response = $class->selectFrom("SELECT T_horarios.*, Diasemana.Diasemana
                                 }
                                 else
                                 {
-                                    echo "<td style='vertical-align: middle; text-align: center;'><a href='index.php?ACTION=pruebas-carlos&ID=$n[ID]&Dia=$j&Hora=$hora'><span class='glyphicon glyphicon-plus'></span></a><span class='aula-grupo'></span></td>";
+                                    echo "<td style='vertical-align: middle; text-align: center;'><a href='index.php?ACTION=nuevo-registro-horario-profesor&ID=$n[ID]&Dia=$j&Hora=$hora'><span class='glyphicon glyphicon-plus'></span></a><span class='aula-grupo'></span></td>";
                                 }
                             }
                             echo "</tr>";
@@ -134,7 +212,6 @@ if($response = $class->selectFrom("SELECT T_horarios.*, Diasemana.Diasemana
             echo "</tbody>";
         echo "</table>";
         include_once('js/update_horario.js');
-
     }
     else
     {

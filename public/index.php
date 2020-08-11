@@ -108,45 +108,70 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
-            $extras = '<link rel="stylesheet" href="css/form.css">';
-            $extras .= "<script>
-            $.datepicker.regional['es'] = {
-            closeText: 'Cerrar',
-            prevText: '< Ant',
-            nextText: 'Sig >',
-            currentText: 'Hoy',
-            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-            monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
-            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-            dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
-            weekHeader: 'Sm',
-            dateFormat: 'dd/mm/yy',
-            firstDay: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: ''
-            };
-            $.datepicker.setDefaults($.datepicker.regional['es']);
-        
-            $(function (){
-                $('#datepicker_ini').datepicker();
-            });
-            $(function (){
-                $('#datepicker_fin').datepicker();
-            });
-            $(function (){
-                $('#datepicker_ini_fest').datepicker();
-            });
-            $(function (){
-                $('#datepicker_fin_fest').datepicker();
-            });
-          </script>";
-            include_once($dirs['inc'] . 'valida-lectivos.php');
-            include_once($dirs['inc'] . 'top-nav.php');
-            include_once($dirs['inc'] . 'lectivos.php');
-            include_once($dirs['inc'] . 'errors.php');
-            include_once($dirs['inc'] . 'footer.php');
+            if($response = $class->query("SELECT COUNT(*) as num FROM $class->marcajes"))
+            {
+              $marcajes = $response->fetch_assoc();
+              if($marcajes['num'] > 0)
+              {
+                $extras = '<link rel="stylesheet" href="css/form.css">';
+                include_once($dirs['inc'] . 'top-nav.php');
+                echo '<div class="container" style="margin-top: 50px;">';
+                  echo "<div class='row'>";
+                    echo "<div class='col-xs-12'>";
+                      include_once($dirs['inc'] . 'calendario.php');
+                    echo "</div>";
+                  echo "</div>";
+                echo "</div>";
+                include_once($dirs['inc'] . 'errors.php');
+                include_once($dirs['inc'] . 'footer.php');
+              }
+              else
+              {
+                $extras = '<link rel="stylesheet" href="css/form.css">';
+                $extras .= "<script>
+                $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '< Ant',
+                nextText: 'Sig >',
+                currentText: 'Hoy',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+                dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+                };
+                $.datepicker.setDefaults($.datepicker.regional['es']);
+            
+                $(function (){
+                    $('#datepicker_ini').datepicker();
+                });
+                $(function (){
+                    $('#datepicker_fin').datepicker();
+                });
+                $(function (){
+                    $('#datepicker_ini_fest').datepicker();
+                });
+                $(function (){
+                    $('#datepicker_fin_fest').datepicker();
+                });
+              </script>";
+                include_once($dirs['inc'] . 'valida-lectivos.php');
+                include_once($dirs['inc'] . 'top-nav.php');
+                include_once($dirs['inc'] . 'lectivos.php');
+                include_once($dirs['inc'] . 'errors.php');
+                include_once($dirs['inc'] . 'footer.php');
+              }
+            }
+            else
+            {
+              $ERR_MSG = $class->ERR_NETASYS;
+            }
           }
           else
           {
@@ -746,7 +771,7 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
-            header("Refresh:2; url=index.php");
+            header("Refresh:2; url=$_SERVER[HTTP_REFERER]");
             include_once($dirs['inc'] . 'marcajes.php');
           }
           else
