@@ -552,7 +552,6 @@ class Netasys
             AND $this->horas.Fin >= '$horasistema'
             $extra 
         ORDER BY $this->horarios.HORA_TIPO, $this->horarios.Aula, $this->profesores.Nombre";
-
         if($exec = $this->selectFrom($sql))
         {
             if($exec->num_rows > 0)

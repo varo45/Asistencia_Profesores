@@ -38,6 +38,7 @@ if($response = $class->getGuardias())
                     echo $datos[$i][2];
                     $aula = $datos[$i][1];
                     $grupo = $datos[$i][2];
+                    $ultimahora = $datos[$i][4];
                     $i++;
                     // $m -> Contador de pares para saltar línea o añadir espacio
                     $m = 1;
@@ -47,7 +48,6 @@ if($response = $class->getGuardias())
                     * Esta comprobación se realizará hasta que ya no coincida
                     * Ya que pertenecerá al siguiente registro
                     */
-                    $ultimahora = $datos[$i][4];
                     while($datos[$i][1] == $aula && $datos[$i][4] == $ultimahora)
                     {
                         if($m % 2 == 0)
@@ -63,6 +63,7 @@ if($response = $class->getGuardias())
                         $m++;
                         $i++;
                     }
+                    $i--;
                     echo "</b></td>";
             echo "</tr>";
         }
