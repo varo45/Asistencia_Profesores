@@ -18,6 +18,7 @@ $('.txt').on('dblclick', function(){
 	columna=datos[2],
 	$(this).hide(),
 	tx='#in_'+id+'_'+columna,
+	tx='#in2_'+id+'_'+columna,
 	$(tx).val(texto),
 	$(tx).show().focus()
 });
@@ -29,6 +30,7 @@ $('.entrada').on('change', function(){
 	columna=datos[2],
 	$(this).hide(),
 	sp='#sp_'+id+'_'+columna;
+	sp='#sp2_'+id+'_'+columna;
 
     if(! confirm('¿Modificar?'))
     {

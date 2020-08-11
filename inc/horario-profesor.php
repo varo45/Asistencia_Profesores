@@ -147,7 +147,6 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
             echo "</tbody>";
         echo "</table>";
         include_once('js/update_horario.js');
-        include_once('js/update-horario-grupo.js');
 
     }
     else
