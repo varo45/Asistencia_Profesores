@@ -15,6 +15,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
             $n = $nombre->fetch_assoc();
         }
         echo "<h2>Horario: $n[Nombre]</h2>";
+        echo "<a href='index.php?ACTION=edit-horario-profesor&profesor=$n[ID]' class='btn btn-success'>Editar horario</a>";
         echo "<div id='response'></div>";
         echo "</br><table class='table'>";
             echo "<thead>";
@@ -79,7 +80,6 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                                     if($response = $class->selectFrom("SELECT DISTINCT $class->horarios.Aula FROM $class->horarios WHERE $class->horarios.Aula <> '' ORDER BY $class->horarios.Aula"))
                                     {
                                         echo "<select id='in_" . $filahora[$k][0] . "_Aula' class='entrada' name='Aula'>";
-                                            echo "<option value=''>Sin Aula</option>";
                                             while($fila = $response->fetch_assoc())
                                             {
                                                 echo "<option value='$fila[Aula]'>$fila[Aula]</option>";
@@ -91,7 +91,21 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                                         echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
                                     }
                                     echo "<br>";
-                                    echo "<b>Grupo:</b> " . $filahora[$k][6];
+                                    echo "<b>Grupo:</b>";
+                                    echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][6] . "</span>";
+                                    if($response2 = $class->selectFrom("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
+                                    {
+                                        echo "<select id='in2_" . $filahora[$k][0] . "_Grupo' class='entrada' name='Grupo'>";
+                                            while($fila = $response2->fetch_assoc())
+                                            {
+                                                echo "<option value='$fila[Grupo]'>$fila[Grupo]</option>";
+                                            }
+                                        echo "</select>";
+                                    }
+                                    else
+                                    {
+                                        echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
+                                    }
                                     $k++;
                                     // $m -> Contador de pares para saltar línea o añadir espacio
                                     $m = 2;
@@ -120,7 +134,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                                 }
                                 else
                                 {
-                                    echo "<td style='vertical-align: middle; text-align: center;'><a href='index.php?ACTION=pruebas-carlos&ID=$n[ID]&Dia=$j&Hora=$hora'><span class='glyphicon glyphicon-plus'></span></a><span class='aula-grupo'></span></td>";
+                                    echo "<td style='vertical-align: middle; text-align: center;'><a href='index.php?ACTION=nuevo-registro-horario-profesor&ID=$n[ID]&Dia=$j&Hora=$hora'><span class='glyphicon glyphicon-plus'></span></a><span class='aula-grupo'></span></td>";
                                 }
                             }
                             echo "</tr>";
@@ -133,6 +147,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
             echo "</tbody>";
         echo "</table>";
         include_once('js/update_horario.js');
+        include_once('js/update-horario-grupo.js');
 
     }
     else
