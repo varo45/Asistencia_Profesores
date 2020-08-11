@@ -1,29 +1,29 @@
 <?php  
+
     if($response = $class->selectFrom("SELECT * FROM Mensajes WHERE (ID_PROFESOR='$_SESSION[ID]' AND Borrado_Profesor=0) OR (ID_DESTINATARIO='$_SESSION[ID]' AND Borrado_Destinatario=0) ORDER BY ID DESC"))
     {
-        echo "<div class='container' style='margin-top:50px'>";
+        echo "<div class='col-xs-12 col-md-8'>";
         echo "<h2>Mensajes</h2>";
+        //echo "$fnueva = date('d/m/Y', strtotime($datos[Fecha]))";
         echo"
-            <div class='row'>
-                <div class='col-xs-12'>
-                    <table class='table table-striped'>
-                        <thead>
-                            <tr>
-                                <th>EMISOR</th>
-                                <th>RECEPTOR</th>
-                                <th>ASUNTO</th>
-                                <th>MENSAJE</th>
-                                <th>Fecha</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </thead>
+            <table class='table table-striped'>
+                <thead>
+                    <tr>
+                        <th>EMISOR</th>
+                        <th>RECEPTOR</th>
+                        <th>ASUNTO</th>
+                        <th>MENSAJE</th>
+                        <th>Fecha</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
         ";
         if ($response->num_rows > 0)
         {
             while($datos = $response->fetch_assoc())
             {
                 echo "  
-                <tbody>
                     <tr id='$datos[ID]'>
                         <td>$datos[ID_PROFESOR]</td>
                         <td>$datos[ID_DESTINATARIO]</td>
@@ -32,23 +32,22 @@
                         <td>$datos[Fecha]</td>
                         <td><a href='index.php?ACTION=eliminar_mensaje&ID=$datos[ID]'><span class='glyphicon glyphicon-trash'></span></a></td>
                     </tr> 
-                </tbody>
                 ";
             }
         }
         else
         {
-            $MSG = "No existe ningun mensajes para listar.";
-            include_once($dirs['inc'] . 'msg_modal.php');
+            $MSG = "No tienes mensajes.";
         }
         echo "
+                    </tbody>
                 </table>
-                </div>
-            </div>
-        </div>
         ";
     }
     else
     {
         $ERR_MSG = $class->ERR_NETASYS;
     }
+            echo "</div>";
+        echo "</div>";
+    echo "</div>";
