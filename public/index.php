@@ -10,6 +10,10 @@ require_once($dirs['class'] . 'Netasys.php');
 // iniciamos las clases y las guardamos en variables
 $class = new Netasys;
 
+// Comprobamos si existen horarios para actualizar
+
+$class->tempToValid();
+
 // Comprobamos si está seteada la variable ACTION en la URL (Método GET)
 // Si no es así, procedemos a validar el login, si este es correcto cargamos el fichero home.php
 // En su defecto cargaremos el formulario de login
@@ -264,6 +268,54 @@ if(isset($_GET['ACTION']))
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'modificar-horario.php');
             include_once($dirs['inc'] . 'contenido-horarios.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para modificar horarios.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+        
+      case 'edit-horario-profesor':
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            $act_horario = 'active';
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'edit-horario-profesor.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para modificar horarios.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+        
+      case 'nuevo-registro-horario-profesor':
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            $act_profesores = 'active';
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'nuevo-registro-horario-profesor.php');
             include_once($dirs['inc'] . 'errors.php');
             include_once($dirs['inc'] . 'footer.php');
           }
