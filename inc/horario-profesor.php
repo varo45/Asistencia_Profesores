@@ -29,7 +29,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                     echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
-
+            
                     /* 
                     * Comienza bucle por filas horarias 
                     * Hasta completar las 6 de cada horario
@@ -49,7 +49,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
                         FROM (($class->horarios INNER JOIN $class->profesores ON $class->horarios.ID_PROFESOR=$class->profesores.ID) 
                         INNER JOIN Diasemana ON Diasemana.ID=$class->horarios.Dia)
                         INNER JOIN $class->horas ON $class->horas.Hora=$class->horarios.HORA_TIPO
-                        WHERE $class->profesores.ID='$_GET[profesor]' AND $class->horarios.HORA_TIPO=" . "'" . $hora ."M'
+                        WHERE $class->profesores.ID='$_GET[profesor]' AND ($class->horarios.HORA_TIPO=" . "'" . $hora ."M' OR $class->horarios.HORA_TIPO=" . "'" . $hora ."T')
                         ORDER BY $class->horarios.HORA_TIPO, $class->horarios.Dia"))
                         {
                             // $k -> Contador de índice del array
