@@ -166,7 +166,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
     }
     else
     {
-        $ERR_MSG = $class->ERR_NETASYS;
+        echo "<a id='crear-horario' href='index.php?ACTION=create-horario-profesor&profesor=$n[ID]' class='btn btn-success'>Crear horario</a>";
     }
 }
 else
