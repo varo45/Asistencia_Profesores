@@ -11,7 +11,7 @@ ORDER BY ID_PROFESOR, Dia, HORA_TIPO";
 
 $result = $class->query($sql);
 if (! empty($result)) {
-   
+echo "<h2>Registros de Horarios</h2>"; 
 echo "<table id='userTable' class='table'>
 <thead>
     <tr>
