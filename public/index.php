@@ -1098,6 +1098,7 @@ if(isset($_GET['ACTION']))
           {
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'menu_admon.php');
+            include_once($dirs['public'] . 'js/admon.js');
             include_once($dirs['inc'] . 'errors.php');
             include_once($dirs['inc'] . 'footer.php');
           }
