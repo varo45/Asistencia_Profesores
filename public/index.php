@@ -1120,11 +1120,15 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
-            if(isset($_GET['select']) && $_GET['select'] == 'asistencias')
+            if(isset($_GET['export']) && $_GET['export'] == 'asistencias')
             {
-              include_once($dirs['inc'] . 'list_asistencias.php');
+              include_once($dirs['inc'] . 'export_asistencias.php');
             }
-            elseif(isset($_GET['select']) && $_GET['select'] == 'faltas')
+            elseif(isset($_GET['export']) && $_GET['export'] == 'faltas')
+            {
+              include_once($dirs['inc'] . 'list_faltas.php');
+            }
+            elseif(isset($_GET['export']) && $_GET['export'] == 'horarios')
             {
               include_once($dirs['inc'] . 'list_faltas.php');
             }

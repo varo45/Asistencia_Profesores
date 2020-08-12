@@ -1,70 +1,98 @@
 <?php
 
-if($response = $class->query("SELECT * FROM Marcajes WHERE Asiste=1 ORDER BY ID_PROFESOR ASC"))
+if($response = $class->query("SELECT * FROM Marcajes WHERE Asiste=1 OR Asiste=2 ORDER BY ID_PROFESOR ASC"))
 {
-    echo "<h2>Listado Asistencias</h2>";
-    echo"
-        <table class='table table-striped'>
-            <thead>
-                <tr>
-                    <th>ID PROFESOR</th>
-                    <th>FECHA</th>
-                    <th>HORA</th>
-                    <th>DIA</th>
-                    <th>ASISTENCIA</th>
-                    <th>EXTRA</th>
-                </tr>
-            </thead>
-            <tbody>
-    ";
+    // echo "<h2>Listado Asistencias</h2>";
     if ($response->num_rows > 0)
     {
+        $ff = "tmp/";
+        $fn = "Listado_Asistencias.csv";
+        chdir($ff);
+        if(is_file($fn))
+        {
+            unlink($fn);
+        }
+        
+        $fp = fopen($fn, 'w');
+        $delimitador = ";";
+        $titulo = [
+            'INICIALES',
+            'PROFESOR',
+            'FECHA',
+            'HORA',
+            'DIA',
+            'DIA SEMANA',
+            'ASISTENCIA',
+            'ACTIVIDAD EXTRAESCOLAR'
+        ];
+        
+        // Escribimos los títulos para los campos
+        fputcsv($fp, $titulo, $delimitador);
+
         while($datos = $response->fetch_assoc())
         {
-            if($nombre = $class->query("SELECT Nombre FROM Profesores WHERE ID='$datos[ID_PROFESOR]'"))
+            // Mostramos el Nombre del profesor en vez de su ID 
+            if($nombre = $class->query("SELECT Nombre, Iniciales FROM Profesores WHERE ID='$datos[ID_PROFESOR]'"))
             {
-                $profesor = $nombre->fetch_assoc();
-                $profesor = $profesor['Nombre'];
+                $prof = $nombre->fetch_assoc();
+                $profesor = $prof['Nombre'];
+                $iniciales = $prof['Iniciales'];
             }
             else
             {
                 $ERR_MSG = $class->ERR_NETASYS;
             }
-                if($presente = $class->query("SELECT Asiste FROM Marcajes WHERE Asiste=1"))
-                {
-                    $si = $presente->fetch_assoc();
-                    $si = 'SI';
-                }
-                else
-                {
-                    $ERR_MSG = $class->ERR_NETASYS;
-                }
+
+            // Mostramos el Nombre del día de la semana 
+            if($dsm = $class->query("SELECT Diasemana FROM Diasemana WHERE ID='$datos[Dia]'"))
+            {
+                $diasemana = $dsm->fetch_assoc();
+                $diasemana = $diasemana['Diasemana'];
+            }
+            else
+            {
+                $ERR_MSG = $class->ERR_NETASYS;
+            }
+
+            if($datos['Asiste'] == 2)
+            {
+                $extra = "SI"; 
+            }
+            else
+            {
+                $extra = "NO";
+            }
             $sep = preg_split('/[ -]/', $datos['Fecha']);
             $dia = $sep[2];
             $m = $sep[1];
             $Y = $sep[0];
-            echo "  
-                <tr>
-                    <td>$profesor</td>
-                    <td>$dia/$m/$Y</td>
-                    <td>$datos[Hora]</td>
-                    <td>$datos[Dia]</td>
-                    <td>$si</td>
-                    <td>$datos[Extra]</td>
-                </tr> 
-            ";
+
+            $campos = [
+                $iniciales,
+                $profesor,
+                "$dia/$m/$Y",
+                $datos['Hora'],
+                $datos['Dia'],
+                $diasemana,
+                'SI',
+                $extra
+            ];
+
+            // Escibimos una línea por cada $datos
+            fputcsv($fp, $campos, $delimitador);
+        }
+        //cabeceras para descarga
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $fn . '";');
+        
+        ob_end_clean();
+
+        readfile($fn);
+
+        if(is_file($fn))
+        {
+            unlink($fn);
         }
     }
-    else
-    {
-        $ERR_MSG = $class->ERR_NETASYS;
-    }
-    echo "
-                </tbody>
-            </table>
-    ";
-}
-else
-{
-    $ERR_MSG = $class->ERR_NETASYS;
+    exit;
 }
