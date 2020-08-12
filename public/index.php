@@ -1126,11 +1126,11 @@ if(isset($_GET['ACTION']))
             }
             elseif(isset($_GET['export']) && $_GET['export'] == 'faltas')
             {
-              include_once($dirs['inc'] . 'list_faltas.php');
+              include_once($dirs['inc'] . 'export_faltas.php');
             }
             elseif(isset($_GET['export']) && $_GET['export'] == 'horarios')
             {
-              include_once($dirs['inc'] . 'list_faltas.php');
+              include_once($dirs['inc'] . 'export_horarios.php');
             }
             elseif(isset($_GET['select']) && $_GET['select'] == 'horarios')
             {
