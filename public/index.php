@@ -1090,6 +1090,64 @@ if(isset($_GET['ACTION']))
           include_once($dirs['inc'] . 'msg_modal.php');
         }
       break;
+
+      case 'admon':
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'menu_admon.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión ver listados.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+
+      case 'admon_select':
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            if(isset($_GET['select']) && $_GET['select'] == 'asistencias')
+            {
+              include_once($dirs['inc'] . 'list_asistencias.php');
+            }
+            elseif(isset($_GET['select']) && $_GET['select'] == 'faltas')
+            {
+              include_once($dirs['inc'] . 'list_faltas.php');
+            }
+            elseif(isset($_GET['select']) && $_GET['select'] == 'horarios')
+            {
+              include_once($dirs['inc'] . 'muestra-registros-horarios.php');
+            }
+            else
+            {
+              header('Location: index.php');
+            }
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión ver listados.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
     
       case 'fichar-asist':
         include_once($dirs['inc'] . 'fichar-asistencia.php');
