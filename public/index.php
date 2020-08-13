@@ -1136,6 +1136,10 @@ if(isset($_GET['ACTION']))
             {
               include_once($dirs['inc'] . 'muestra-registros-horarios.php');
             }
+            elseif(isset($_GET['select']) && $_GET['select'] == 'faltas')
+            {
+              include_once($dirs['inc'] . 'list_faltas.php');
+            }
             else
             {
               header('Location: index.php');

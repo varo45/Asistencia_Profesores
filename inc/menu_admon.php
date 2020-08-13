@@ -5,6 +5,7 @@
             <a enlace="index.php?ACTION=admon_select&export=faltas" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Exportar listados Faltas</a>
             <a enlace="index.php?ACTION=admon_select&export=horarios" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Exportar listados Horarios</a>
             </br></br>
+            <a enlace="index.php?ACTION=admon_select&select=faltas" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Mostrar listados Faltas</a>
             <a enlace="index.php?ACTION=admon_select&select=horarios" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Mostrar listados Horarios</a>
         </div>
         </br>
