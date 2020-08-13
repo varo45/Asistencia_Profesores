@@ -2,7 +2,7 @@
 echo '<div class="container" id="botonera" style="margin-top:75px">';
     echo '<div class="row">'; 
         echo '<div class="col-xs-12">';
-                $response = "SELECT Notificaciones.*, Profesores.Nombre, Profesores.Iniciales FROM Notificaciones INNER JOIN Profesores ON Notificaciones.ID_PROFESOR=Profesores.ID";
+                $response = "SELECT Notificaciones.*, Profesores.Nombre, Profesores.Iniciales FROM Notificaciones INNER JOIN Profesores ON Notificaciones.ID_PROFESOR=Profesores.ID ORDER BY Fecha DESC LIMIT 50";
 
                 $result = $class->query($response);
                 if (! empty($result)) 

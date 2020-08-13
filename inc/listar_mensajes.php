@@ -13,8 +13,8 @@ $consulta = "SELECT *
             <table class='table table-striped'>
                 <thead>
                     <tr>
-                        <th>EMISOR</th>
-                        <th>RECEPTOR</th>
+                        <th>EVIADO POR</th>
+                        <th>RECIBIDO</th>
                         <th>ASUNTO</th>
                         <th>MENSAJE</th>
                         <th>Fecha</th>
@@ -77,7 +77,9 @@ $consulta = "SELECT *
         }
         else
         {
-            $MSG = "No tienes mensajes.";
+            echo "<tr>";
+                echo "<td colspan='6' style='vertical-align: middle; text-align: center;'>No Tienes Mensajes.</td>";    
+            echo "</tr>";
         }
         echo "
                     </tbody>
