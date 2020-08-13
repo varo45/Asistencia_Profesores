@@ -18,7 +18,7 @@ if($class->updateSet("UPDATE Marcajes SET Asiste=$_GET[Valor] WHERE ID_PROFESOR=
         $msg = "";
     }
 
-    $notificacion = "INSERT INTO Notificaciones VALUES ('$_GET[Profesor]', $msg)";
+    $notificacion = "INSERT INTO Notificaciones (ID_PROFESOR, Modificacion) VALUES ('$_GET[Profesor]', '$msg')";
     if(! $class->query($notificacion))
     {
         echo $class->ERR_NETASYS;

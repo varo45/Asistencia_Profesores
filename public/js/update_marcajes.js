@@ -12,7 +12,7 @@
         }
         else
         {
-            $('#marcaje-response').html('Error');
+            $('#marcaje-response').html('Error')
         }
     });
 </script>
