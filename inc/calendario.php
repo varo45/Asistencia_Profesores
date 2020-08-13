@@ -84,7 +84,7 @@ if($response = $class->selectFrom("SELECT * FROM $class->lectivos ORDER BY Fecha
             $contador = 0;
             echo "</table>";
             echo "</div>";
-            echo "<div class='calendario_$contador' style='display:inline-block; margin-right: 17px;'>";
+            echo "<div class='calendario' style='display:inline-block; margin-right: 17px;'>";
             echo "<h2>$array[monthname]</h2>";            
             echo "<table>";
 

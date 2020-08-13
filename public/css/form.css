@@ -72,7 +72,7 @@ input[type=text]:placeholder {
     color: #cccccc;
 }
 
-.calendario_0 {
+.calendario {
     display: inline-block;
     margin-right: 17px;
     zoom: 0.75;
@@ -82,9 +82,10 @@ input[type=text]:placeholder {
     color: white;
     margin-top: 25px;
     font-weight: bolder;
+    box-shadow: 4px 4px 12px grey;
 }
 
-.calendario_0 h2 {
+.calendario h2 {
     font-weight: bolder;
     text-align: center;
     padding: 10px 5px 10px 5px;
@@ -92,7 +93,7 @@ input[type=text]:placeholder {
     color: white;
 }
 
-.calendario_0 table tbody tr td {
+.calendario table tbody tr td {
     text-align: center;
     padding: 8px;
     border: 2px solid transparent;
@@ -100,17 +101,17 @@ input[type=text]:placeholder {
     transition-duration: 0.1s;
 }
 
-.calendario_0 table thead {
+.calendario table thead {
     background-color: #329dd3;
     border-radius: 25px;
 }
 
-.calendario_0 table thead tr th{
+.calendario table thead tr th{
     text-align: center;
     padding: 18px;
 }
 
-.calendario_0 table tbody tr td:hover{
+.calendario table tbody tr td:hover{
     background-color: white;
     color: black;
     cursor: pointer;

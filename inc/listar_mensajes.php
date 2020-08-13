@@ -1,6 +1,11 @@
 <?php  
 
-    if($response = $class->selectFrom("SELECT * FROM Mensajes WHERE (ID_PROFESOR='$_SESSION[ID]' AND Borrado_Profesor=0) OR (ID_DESTINATARIO='$_SESSION[ID]' AND Borrado_Destinatario=0) ORDER BY ID DESC"))
+$consulta = "SELECT *
+            FROM Mensajes
+            WHERE (ID_PROFESOR='$_SESSION[ID]' AND Borrado_Profesor=0)
+                OR (ID_DESTINATARIO='$_SESSION[ID]' AND Borrado_Destinatario=0)
+            ORDER BY ID DESC";
+    if($response = $class->query($consulta))
     {
         echo "<div class='col-xs-12 col-md-8'>";
         echo "<h2>Mensajes</h2>";
@@ -41,6 +46,18 @@
                 {
                     $ERR_MSG = $class->ERR_NETASYS;
                 }
+
+                if($datos['ID_DESTINATARIO'] == $_SESSION['ID'] && $datos['Leido'] == 0)
+                {
+                    $leido = "UPDATE Mensajes
+                            SET Leido=1
+                            WHERE ID='$datos[ID]'";
+                    if(! $class->query($leido))
+                    {
+                        $ERR_MSG = $class->ERR_NETASYS;
+                    }
+                }
+
                 $sep = preg_split('/[ -]/', $datos['Fecha']);
                 $dia = $sep[2];
                 $m = $sep[1];

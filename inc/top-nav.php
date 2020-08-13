@@ -16,6 +16,7 @@
 
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <style>
+    .badge {background-color: #5cb85c;}
   <?php if(isset($style)){ echo $style;} ?>
   </style>
 </head>
@@ -23,7 +24,12 @@
 
 <?php
 
-if($response = $class->selectFrom("SELECT count(*) as new FROM Mensajes WHERE (ID_PROFESOR='$_SESSION[ID]' AND Borrado_Profesor=0) OR (ID_DESTINATARIO='$_SESSION[ID]' AND Borrado_Destinatario=0) ORDER BY ID DESC"))
+$noleidos = "SELECT count(*) as new
+FROM Mensajes
+WHERE (ID_DESTINATARIO='$_SESSION[ID]' AND Borrado_Destinatario=0 AND Leido=0)
+ORDER BY ID DESC";
+
+if($response = $class->query($noleidos))
 {
   $new = $response->fetch_assoc();
   if($new['new'] > 0)
@@ -86,15 +92,15 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">';
             echo '</a>';
             echo '<ul class="dropdown-menu">';
               echo '<li>';
-                echo'<a href="index.php?ACTION=form_mensajes"><span class="glyphicon glyphicon-comment"></span> Mensajes ';
+                echo'<a id="message" href="index.php?ACTION=form_mensajes"><span id="message-icon" class="glyphicon glyphicon-comment"></span> Mensajes ';
                   echo $notificacion;
                 echo '</a>';
               echo '</li>';
               echo '<li>';
-                echo '<a href="index.php?ACTION=admon"><span class="glyphicon glyphicon-folder-open"></span> Administración</a>';
+                echo '<a id="admon" href="index.php?ACTION=admon"><span id="admon-icon" class="glyphicon glyphicon-folder-close"></span> Administración</a>';
               echo '</li>';
               echo '<li>';
-                echo '<a href="index.php?ACTION=cambio_pass"><span id="cambio-pass" class="glyphicon glyphicon-refresh"></span> Cambio de contraseña</a>';
+                echo '<a id="cambio-pass" href="index.php?ACTION=cambio_pass"><span id="cambio-pass-icon" class="glyphicon glyphicon-refresh"></span> Cambio de contraseña</a>';
               echo '</li>';    
             echo '</ul>';
           echo '</li>';
@@ -159,3 +165,5 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">';
     echo '</div>';
   echo '</div>';
 echo '</nav>';
+
+include_once($dirs['public'] . 'js/animate.js');
