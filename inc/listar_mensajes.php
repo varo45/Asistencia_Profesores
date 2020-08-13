@@ -53,7 +53,7 @@
                         <td>$datos[Asunto]</td>
                         <td>$datos[Mensaje]</td>
                         <td>$dia/$m/$Y $h</td>
-                        <td><a onclick=\"return confirm('¿Estas seguro de borrar el registro?')\" href='index.php?ACTION=eliminar_mensaje&ID=$datos[ID]'><span class='glyphicon glyphicon-trash'></span></a></td>
+                        <td><a onclick=\"return confirm('¿Estas seguro de borrar el mensaje?')\" href='index.php?ACTION=eliminar_mensaje&ID=$datos[ID]'><span class='glyphicon glyphicon-trash'></span></a></td>
                     </tr> 
                 ";
             }
