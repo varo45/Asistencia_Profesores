@@ -15,6 +15,14 @@ $("#admon").hover(
       $("#admon-icon").removeClass('glyphicon-folder-open')
     }
 );
+$("#notif").hover(
+    function () {
+      $("#notif-icon").addClass('bell_rings')
+    }, 
+    function () {
+      $("#notif-icon").removeClass('bell_rings')
+    }
+);
 $("#cambio-pass").hover(
     function () {
       $("#cambio-pass-icon").addClass('rotate-pass')
