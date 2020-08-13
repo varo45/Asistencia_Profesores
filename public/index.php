@@ -686,30 +686,7 @@ if(isset($_GET['ACTION']))
           include_once($dirs['inc'] . 'msg_modal.php');
         }
       break;
-
-      case 'confirma-desactiva-prof':
-        if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
-        {
-          if($class->compruebaCambioPass())
-          {
-            include_once($dirs['inc'] . 'top-nav.php');
-            include_once($dirs['inc'] . 'confirma-desactivar-prof.php');
-            include_once($dirs['inc'] . 'errors.php');
-            include_once($dirs['inc'] . 'footer.php');
-          }
-          else
-          {
-            header('Location: index.php?ACTION=primer_cambio');
-          } 
-        }
-        else
-        {
-          $MSG = "Debes iniciar sesión para realizar esta acción.";
-          header("Refresh:2; url=index.php");
-          include_once($dirs['inc'] . 'msg_modal.php');
-        }
-      break;
-
+      
       case 'desactivar-profesor':
         if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
         {

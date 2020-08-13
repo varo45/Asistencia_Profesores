@@ -52,7 +52,7 @@ if($_SESSION['Perfil'] === 'Admin')
             echo "<td>$fila[Sustituido]</td>";
             echo "<td><a href='index.php?ACTION=editar_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-pencil'></span></a></td>";
             echo "<td><a href='index.php?ACTION=faltas_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-list'></span></a></td>";
-            echo "<td><a href='index.php?ACTION=confirma-desactiva-prof&ID=$fila[ID]'><span class='glyphicon glyphicon-remove'></span></a></td>";
+            echo "<td><a href='index.php?ACTION=desactivar-profesor&ID=$fila[ID]' onclick=\"return confirm('¿Seguro que desea realizar este cambio? Utilice solo esta opción si el profesor deja el centro por motivos de jubilación, fin de una sustitución o similares.')\"><span class='glyphicon glyphicon-remove'></span></a></td>";
         }
     echo "</tbody>";
     echo "</table>";
