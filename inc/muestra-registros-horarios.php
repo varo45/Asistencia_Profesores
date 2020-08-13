@@ -10,7 +10,8 @@ INNER JOIN Diasemana ON Diasemana.ID=Horarios.Dia
 ORDER BY ID_PROFESOR, Dia, HORA_TIPO";
 
 $result = $class->query($sql);
-if (! empty($result)) {
+if (! empty($result)) 
+{
 echo "<h2>Registros de Horarios</h2>"; 
 echo "<table id='userTable' class='table'>
 <thead>
@@ -22,25 +23,26 @@ echo "<table id='userTable' class='table'>
         <th>Aula</th>
         <th>Diasemana</th>
         <th>Hora</th>
-
     </tr>
-</thead>";
-    foreach ($result as $row) {
-        ?>
-        
+</thead>
+";
+    foreach ($result as $row) 
+    {
+echo "
     <tbody>
-    <tr>
-        <td><?php  echo $row['ID']; ?></td>
-        <td><?php  echo $row['Grupo']; ?></td>
-        <td><?php  echo $row['Iniciales']; ?></td>
-        <td><?php  echo $row['Nombre']; ?></td>
-        <td><?php  echo $row['Aula']; ?></td>
-        <td><?php  echo $row['Diasemana']; ?></td>
-        <td><?php  echo $row['HORA_TIPO']; ?></td>
-    </tr>
-        <?php
+        <tr>
+            <td>$row[ID]</td>
+            <td>$row[Grupo]</td>
+            <td>$row[Iniciales]</td>
+            <td>$row[Nombre]</td>
+            <td>$row[Aula]</td>
+            <td>$row[Diasemana]</td>
+            <td>$row[HORA_TIPO]</td>
+        </tr>
+    ";
     }
-    ?>
+}
+ echo "
     </tbody>
-</table>
-<?php } ?>
+    </table>  
+    ";  
