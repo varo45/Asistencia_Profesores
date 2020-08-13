@@ -946,6 +946,29 @@ if(isset($_GET['ACTION']))
         }
       break;
 
+      case 'notificaciones':
+        if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'top-nav.php');
+            include_once($dirs['inc'] . 'notificaciones.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para poder eliminar mensajes.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+
       case 'Edificio':
         if(isset($_GET['Numero']))
         {
@@ -1141,6 +1164,10 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
+            if(isset($_GET['export']) && $_GET['export'] == 'marcajes')
+            {
+              include_once($dirs['inc'] . 'export_marcajes.php');
+            }
             if(isset($_GET['export']) && $_GET['export'] == 'asistencias')
             {
               include_once($dirs['inc'] . 'export_asistencias.php');
@@ -1153,9 +1180,9 @@ if(isset($_GET['ACTION']))
             {
               include_once($dirs['inc'] . 'export_horarios.php');
             }
-            elseif(isset($_GET['select']) && $_GET['select'] == 'horarios')
+            elseif(isset($_GET['select']) && $_GET['select'] == 'marcajes')
             {
-              include_once($dirs['inc'] . 'list_horarios.php');
+              include_once($dirs['inc'] . 'list_marcajes.php');
             }
             elseif(isset($_GET['select']) && $_GET['select'] == 'asistencias')
             {
@@ -1164,6 +1191,10 @@ if(isset($_GET['ACTION']))
             elseif(isset($_GET['select']) && $_GET['select'] == 'faltas')
             {
               include_once($dirs['inc'] . 'list_faltas.php');
+            }
+            elseif(isset($_GET['select']) && $_GET['select'] == 'horarios')
+            {
+              include_once($dirs['inc'] . 'list_horarios.php');
             }
             else
             {

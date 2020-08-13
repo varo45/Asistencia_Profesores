@@ -16,7 +16,6 @@
 
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <style>
-    .badge {background-color: #5cb85c;}
   <?php if(isset($style)){ echo $style;} ?>
   </style>
 </head>
@@ -34,7 +33,8 @@ if($response = $class->query($noleidos))
   $new = $response->fetch_assoc();
   if($new['new'] > 0)
   {
-    $notificacion = " <span class='badge'>$new[new]</span>";
+    $color = "style='background-color: #5cb85c;'";
+    $notificacion = " <span $color class='badge'>$new[new]</span>";
   }
   else
   {
@@ -56,7 +56,8 @@ if($response = $class->query($novisto))
   $new = $response->fetch_assoc();
   if($new['new_alert'] > 0)
   {
-    $notificacion_alert = " <span class='badge'>$new[new_alert]</span>";
+    $color = "style='background-color: #f5d42f; color: black;'";
+    $notificacion_alert = " <span $color class='badge'>$new[new_alert]</span>";
   }
   else
   {
@@ -111,6 +112,7 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">';
             echo "<a class='dropdown-toggle' data-toggle='dropdown' href='#'><span class='glyphicon glyphicon-user'></span> ";
               echo $_SESSION['Nombre'];
               echo $notificacion;
+              echo $notificacion_alert;
               echo '<span class="caret"></span>';
             echo '</a>';
             echo '<ul class="dropdown-menu">';

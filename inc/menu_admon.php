@@ -1,10 +1,14 @@
 <div class="container" id="botonera" style="margin-top:75px">
     <div class="row"> 
         <div class="col-xs-12">
+            <h2>Exportar a Excel</h2>
+            <a enlace="index.php?ACTION=admon_select&export=marcajes" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Exportar listados Marcajes</a>
             <a enlace="index.php?ACTION=admon_select&export=asistencias" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Exportar listados Asistencias</a>
             <a enlace="index.php?ACTION=admon_select&export=faltas" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Exportar listados Faltas</a>
             <a enlace="index.php?ACTION=admon_select&export=horarios" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Exportar listados Horarios</a>
-            </br></br>
+            </br>
+            <h2>Mostrar en Pantalla</h2>
+            <a enlace="index.php?ACTION=admon_select&select=marcajes&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Mostrar listados Marcajes</a>
             <a enlace="index.php?ACTION=admon_select&select=asistencias&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Mostrar listados Asistencias</a>
             <a enlace="index.php?ACTION=admon_select&select=faltas&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Mostrar listados Faltas</a>
             <a enlace="index.php?ACTION=admon_select&select=horarios&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Mostrar listados Horarios</a>
