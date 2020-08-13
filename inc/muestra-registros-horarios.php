@@ -14,19 +14,19 @@ if (! empty($result))
 {
 echo "<h2>Registros de Horarios</h2>"; 
 echo "<table id='userTable' class='table'>
-<thead>
-    <tr>
-        <th>ID</th>
-        <th>Curso</th>
-        <th>Abreviatura profesor</th>
-        <th>Profesor</th>
-        <th>Aula</th>
-        <th>Diasemana</th>
-        <th>Hora</th>
-    </tr>
-</thead>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Curso</th>
+            <th>Abreviatura profesor</th>
+            <th>Profesor</th>
+            <th>Aula</th>
+            <th>Diasemana</th>
+            <th>Hora</th>
+        </tr>
+    </thead>
 ";
-    foreach ($result as $row) 
+foreach ($result as $row) 
     {
 echo "
     <tbody>
@@ -44,5 +44,5 @@ echo "
 }
  echo "
     </tbody>
-    </table>  
+</table>  
     ";  
