@@ -1155,7 +1155,11 @@ if(isset($_GET['ACTION']))
             }
             elseif(isset($_GET['select']) && $_GET['select'] == 'horarios')
             {
-              include_once($dirs['inc'] . 'muestra-registros-horarios.php');
+              include_once($dirs['inc'] . 'list_horarios.php');
+            }
+            elseif(isset($_GET['select']) && $_GET['select'] == 'asistencias')
+            {
+              include_once($dirs['inc'] . 'list_asistencias.php');
             }
             elseif(isset($_GET['select']) && $_GET['select'] == 'faltas')
             {
