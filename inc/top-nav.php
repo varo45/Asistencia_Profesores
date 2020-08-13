@@ -123,7 +123,7 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">';
                 echo '<a id="admon" href="index.php?ACTION=admon"><span id="admon-icon" class="glyphicon glyphicon-folder-close"></span> Administración</a>';
               echo '</li>';
               echo '<li>';
-                echo '<a id="notif" href="index.php?ACTION=admon"><span id="notif-icon" class="glyphicon glyphicon-bell"></span> Notificaciones';
+                echo '<a id="notif" href="index.php?ACTION=notificaciones"><span id="notif-icon" class="glyphicon glyphicon-bell"></span> Notificaciones';
                   echo $notificacion_alert;
                 echo '</a>';
               echo '</li>';
