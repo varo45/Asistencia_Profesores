@@ -858,6 +858,11 @@ if(isset($_GET['ACTION']))
           if($class->compruebaCambioPass())
           {
             $extras = '<link rel="stylesheet" href="css/login-style.css">';
+            $extras .= '<script>
+            $( function() {
+              $( "#tabs" ).tabs();
+            } );
+            </script>';
             $style = '
               html {
                 background-color: white;
