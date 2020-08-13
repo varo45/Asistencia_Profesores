@@ -1,17 +1,17 @@
 <?php
 if($class->updateSet("UPDATE Marcajes SET Asiste=$_GET[Valor] WHERE ID_PROFESOR='$_GET[Profesor]' AND Fecha='$_GET[Fecha]' AND Hora='$_GET[Hora]'"))
 {
-    if($_GET['valor'] == 1)
+    if($_GET['Valor'] == 1)
     {
-        $msg = "Ha modificado el registro del día $_GET[Fecha] como Asistido.";
+        $msg = "Ha modificado el registro del Día: $_GET[Fecha] Hora: $_GET[Hora] como Asistido.";
     }
-    elseif($_GET['valor'] == 0)
+    elseif($_GET['Valor'] == 0)
     {
-        $msg = "Ha modificado el registro del día $_GET[Fecha] como Ausente.";
+        $msg = "Ha modificado el registro del Día: $_GET[Fecha] Hora: $_GET[Hora] como Ausente.";
     }
-    elseif($_GET['valor'] == 2)
+    elseif($_GET['Valor'] == 2)
     {
-        $msg = "Ha modificado el registro del día $_GET[Fecha] como Actividad Extraescolar.";
+        $msg = "Ha modificado el registro del Día: $_GET[Fecha] Hora: $_GET[Hora] como Actividad Extraescolar.";
     }
     else
     {
