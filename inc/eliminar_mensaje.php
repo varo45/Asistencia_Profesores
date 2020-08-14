@@ -1,5 +1,4 @@
 <?php
-
 if($res = $class->query("SELECT ID_PROFESOR FROM Mensajes WHERE ID='$_GET[ID]' AND ID_PROFESOR = '$_SESSION[ID]' AND Borrado_Destinatario=1"))
 {
     if($res->num_rows == 1)
