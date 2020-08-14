@@ -46,6 +46,7 @@ if($response = $class->query("SELECT ID, Iniciales, Nombre, Tutor, Activo, Susti
 
                     }
                     echo "<h4>$datos[Sustituido]</h4>";
+                    echo "<a href='index.php?ACTION=pruebas-carlos&ID=$datos[ID]' class='btn btn-info'>Sustituir</a><br><br>";
                     echo "<button class='btn btn-info' name='ACTION' value='editar_profesor'>Actualizar Profesor</button></br></br>";
                 echo "</form>";
             echo '</div>';
