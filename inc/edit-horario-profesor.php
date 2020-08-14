@@ -96,7 +96,7 @@ if($response = $class->query($consulta))
                         * Valores ordenados por HORA_TIPO y Día
                         */
 
-                        if($response = $class->selectFrom("SELECT T_horarios.*, Diasemana.Diasemana, Diasemana.ID, $class->horas.Inicio, $class->horas.Fin 
+                        if($response = $class->query("SELECT T_horarios.*, Diasemana.Diasemana, Diasemana.ID, $class->horas.Inicio, $class->horas.Fin 
                         FROM ((T_horarios INNER JOIN $class->profesores ON T_horarios.ID_PROFESOR=$class->profesores.ID) 
                         INNER JOIN Diasemana ON Diasemana.ID=T_horarios.Dia)
                         INNER JOIN $class->horas ON $class->horas.Hora=T_horarios.HORA_TIPO
@@ -128,7 +128,7 @@ if($response = $class->query($consulta))
                                     echo "<b>Aula: </b>";
                                     echo "<span id='sp_" . $filahora[$k][0] . "_Aula' class='txt'>" . $filahora[$k][4] . "</span>";
                                     //echo "<input id='in_" . $filahora[$k][0] . "_Aula' class='entrada' type='text'>";
-                                    if($response = $class->selectFrom("SELECT DISTINCT $class->horarios.Aula FROM $class->horarios WHERE $class->horarios.Aula <> '' ORDER BY $class->horarios.Aula"))
+                                    if($response = $class->query("SELECT DISTINCT $class->horarios.Aula FROM $class->horarios WHERE $class->horarios.Aula <> '' ORDER BY $class->horarios.Aula"))
                                     {
                                         echo "<select id='in_" . $filahora[$k][0] . "_Aula' class='entrada' name='Aula'>";
                                             while($fila = $response->fetch_assoc())
@@ -144,7 +144,7 @@ if($response = $class->query($consulta))
                                     echo "<br>";
                                     echo "<b>Grupo:</b>";
                                     echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][5] . "</span>";
-                                    if($response2 = $class->selectFrom("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
+                                    if($response2 = $class->query("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
                                     {
                                         echo "<select id='in2_" . $filahora[$k][0] . "_Grupo' class='entrada' name='Grupo'>";
                                             while($fila = $response2->fetch_assoc())
@@ -178,7 +178,7 @@ if($response = $class->query($consulta))
                                             echo " ";
                                         }
                                         echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][5] . "</span>";
-                                        if($response2 = $class->selectFrom("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
+                                        if($response2 = $class->query("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
                                         {
                                             echo "<select id='in2_" . $filahora[$k][0] . "_Grupo' class='entrada' name='Grupo'>";
                                                 while($fila = $response2->fetch_assoc())

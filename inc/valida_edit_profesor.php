@@ -4,7 +4,7 @@ if(isset($_POST['ID']) && $_POST['ID'] != '')
 {
     if($class->validFormIni($_POST['Iniciales']))
     {
-        if($response = $class->selectFrom("SELECT ID FROM $class->profesores WHERE Iniciales = '$_POST[Iniciales]' AND ID = '$_POST[ID]'"))
+        if($response = $class->query("SELECT ID FROM $class->profesores WHERE Iniciales = '$_POST[Iniciales]' AND ID = '$_POST[ID]'"))
         {
             if(! $response->num_rows == 1)
             {

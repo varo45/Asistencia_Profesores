@@ -1,5 +1,5 @@
 <?php
-if($class->updateSet("UPDATE Profesores SET Activo=0 WHERE ID='$_GET[ID]'"))
+if($class->query("UPDATE Profesores SET Activo=0 WHERE ID='$_GET[ID]'"))
 {
     return true;
 }

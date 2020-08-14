@@ -1,5 +1,5 @@
 <?php
-if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diasemana as Dia 
+if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana as Dia 
                                     FROM ($class->horarios INNER JOIN $class->profesores ON $class->horarios.ID_PROFESOR=$class->profesores.ID)
                                     INNER JOIN Diasemana ON Diasemana.ID=$class->horarios.Dia
                                     WHERE $class->profesores.ID='$_SESSION[ID]'
@@ -37,7 +37,7 @@ if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diaseman
             * Valores ordenados por HORA_TIPO y Día
             */
 
-            if($response = $class->selectFrom("SELECT $class->horarios.*, Diasemana.Diasemana, Diasemana.ID, $class->horas.Inicio, $class->horas.Fin 
+            if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana, Diasemana.ID, $class->horas.Inicio, $class->horas.Fin 
             FROM (($class->horarios INNER JOIN $class->profesores ON $class->horarios.ID_PROFESOR=$class->profesores.ID) 
             INNER JOIN Diasemana ON Diasemana.ID=$class->horarios.Dia)
             INNER JOIN $class->horas ON $class->horas.Hora=$class->horarios.HORA_TIPO

@@ -2,7 +2,7 @@
 
 if(isset($_GET['abrev']) && isset($_GET['enp']) && $_GET['abrev'] != 'undefined' && $_GET['enp'] != 'undefined')
 {
-    if($response = $class->selectFrom("SELECT ID, Nombre FROM $class->profesores WHERE Iniciales='$_GET[abrev]' AND Password='$_GET[enp]'"))
+    if($response = $class->query("SELECT ID, Nombre FROM $class->profesores WHERE Iniciales='$_GET[abrev]' AND Password='$_GET[enp]'"))
     {
       if($response->num_rows == 1)
       {

@@ -5,7 +5,7 @@ $diaactual = date('Y-m-d');
 $idprof = $_SESSION['ID'];
 $idultimofichaje = $class->getLastIDFichaje();
 $sql = "UPDATE $class->fichar SET F_salida ='$horaactual' WHERE $class->fichar.ID_PROFESOR='$idprof' AND $class->fichar.ID='$idultimofichar' AND $class->fichar.Fecha='$diaactual'";
-if($response = $class->updateSet($sql))
+if($response = $class->query($sql))
 {
     if($conex->affected_rows == 1)
     {

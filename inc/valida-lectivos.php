@@ -17,11 +17,11 @@ if(isset($_POST['enviar']))
                 $m2 = $sep2[1];
                 $Y2 = $sep2[2];
                 $_POST['fin'] = $Y2 . '-' . $m2 . '-' . $dia2;
-                if($respuesta = $class->selectFrom("SELECT $class->profesores.ID FROM $class->profesores"))
+                if($respuesta = $class->query("SELECT $class->profesores.ID FROM $class->profesores"))
                 {
                     if($respuesta->num_rows > 0)
                     {
-                        if($respuesta2 = $class->selectFrom("SELECT $class->horarios.ID_PROFESOR FROM $class->horarios"))
+                        if($respuesta2 = $class->query("SELECT $class->horarios.ID_PROFESOR FROM $class->horarios"))
                         {
                             if($respuesta2->num_rows > 0)
                             {

@@ -55,75 +55,7 @@ class Netasys
             return false;
         }
     }
-
-    function selectFrom($sql)
-    {
-        if(! $conex = $this->bdConex())
-        {
-            return false;
-        }
-        if($response = $conex->query($sql))
-        {
-            return $response;
-        }
-        else
-        {
-            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
-            return false;
-        }
-    }
-
-    function insertInto($sql)
-    {
-        if(! $conex = $this->bdConex())
-        {
-            return false;
-        }
-        if($response = $conex->query($sql))
-        {
-            return $response;
-        }
-        else
-        {
-            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
-            return false;
-        }
-    }
-
-    function deleteFrom($sql)
-    {
-        if(! $conex = $this->bdConex())
-        {
-            return false;
-        }
-        if($response = $conex->query($sql))
-        {
-            return $response;
-        }
-        else
-        {
-            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
-            return false;
-        }
-    }
-
-    function updateSet($sql)
-    {
-        if(! $conex = $this->bdConex())
-        {
-            return false;
-        }
-        if($response = $conex->query($sql))
-        {
-            return $response;
-        }
-        else
-        {
-            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
-            return false;
-        }
-    }
-
+    
     function registerNewUser($name, $iniciales, $password, $type )
     {
         if(! $conex = $this->bdConex())
@@ -157,7 +89,7 @@ class Netasys
     function compruebaCambioPass()
     {
         $pass = $this->encryptPassword($_SESSION['Iniciales'] . '12345');
-        if($response = $this->selectFrom("SELECT ID FROM $this->profesores WHERE Password='$pass' AND ID='$_SESSION[ID]'"))
+        if($response = $this->query("SELECT ID FROM $this->profesores WHERE Password='$pass' AND ID='$_SESSION[ID]'"))
         {
             if($response->num_rows == 0)
             {
@@ -256,11 +188,11 @@ class Netasys
         if($conex = $this->bdConex())
         {
             $password = $this->encryptPassword($password);
-            if($response = $this->selectFrom("SELECT ID FROM $this->profesores WHERE Iniciales='$username' AND Password='$password'"))
+            if($response = $this->query("SELECT ID FROM $this->profesores WHERE Iniciales='$username' AND Password='$password'"))
             {
                 if($response->num_rows == 1)
                 {
-                    if($response = $this->selectFrom("SELECT $this->profesores.ID, $this->profesores.Nombre, $this->profesores.Iniciales, $this->perfiles.Tipo 
+                    if($response = $this->query("SELECT $this->profesores.ID, $this->profesores.Nombre, $this->profesores.Iniciales, $this->perfiles.Tipo 
                                                     FROM $this->profesores INNER JOIN $this->perfiles ON $this->profesores.TIPO=$this->perfiles.ID 
                                                     WHERE Iniciales='$username' AND Password='$password'"))
                     {
@@ -390,7 +322,7 @@ class Netasys
         $conex = $this->bdConex();
         $id = $_SESSION['ID'];
         $sql = "SELECT ID FROM $this->fichaje WHERE ID_PROFESOR='$id' ORDER BY ID DESC LIMIT 1";
-        if($lastID = $this->selectFrom($sql))
+        if($lastID = $this->query($sql))
         {
             $lastID = $lastID->fetch_assoc();
             return $lastID['ID'];
@@ -407,7 +339,7 @@ class Netasys
         date_default_timezone_set('Europe/Madrid');
         $now = date('H:i:s');
         //$now = '08:00:00';
-        if($response = $this->selectFrom("SELECT Hora FROM Horas WHERE Inicio <= '$now' AND Fin >= '$now'"))
+        if($response = $this->query("SELECT Hora FROM Horas WHERE Inicio <= '$now' AND Fin >= '$now'"))
         {  
             return $response;
         }
@@ -552,7 +484,7 @@ class Netasys
             AND $this->horas.Fin >= '$horasistema'
             $extra 
         ORDER BY $this->horarios.HORA_TIPO, $this->horarios.Aula, $this->profesores.Nombre";
-        if($exec = $this->selectFrom($sql))
+        if($exec = $this->query($sql))
         {
             if($exec->num_rows > 0)
             {
@@ -573,7 +505,7 @@ class Netasys
 
     function FicharWeb()
     {
-        if($response = $this->selectFrom("SELECT ID FROM $this->profesores WHERE Iniciales='$_GET[abrev]' AND Password='$_GET[enp]'"))
+        if($response = $this->query("SELECT ID FROM $this->profesores WHERE Iniciales='$_GET[abrev]' AND Password='$_GET[enp]'"))
         {
             $idprof = $response->fetch_assoc();
             $id = $idprof['ID'];
@@ -601,14 +533,14 @@ class Netasys
                     WHERE $this->fichar.Fecha='$fecha'
                     AND $this->fichar.ID_PROFESOR='$id'";
 
-            if($response = $this->selectFrom($sql))
+            if($response = $this->query($sql))
             {
                 if($response->num_rows == 0)
                 {
                     $fichar = "INSERT INTO $this->fichar (ID_PROFESOR, F_entrada, F_Salida, HORA_CLASE, DIA_SEMANA, Fecha) 
                                 VALUES ($id, '$hora', '15:00:00', '$horaclase', '$dia[weekday]', '$fecha')";
 
-                    if($response = $this->insertInto($fichar))
+                    if($response = $this->query($fichar))
                     {
                         return true;
                     }
@@ -651,7 +583,7 @@ class Netasys
     function getHoraEntrada()
     {
         $dia = $this->getDate();
-        if($response = $this->selectFrom("SELECT $this->horarios.Hora_entrada FROM $this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID WHERE $this->profesores.ID='$_SESSION[ID]' AND $this->profesores.Nombre='$_SESSION[Nombre]' AND $this->horarios.Dia='$dia[weekday]' LIMIT 1"))
+        if($response = $this->query("SELECT $this->horarios.Hora_entrada FROM $this->horarios INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID WHERE $this->profesores.ID='$_SESSION[ID]' AND $this->profesores.Nombre='$_SESSION[Nombre]' AND $this->horarios.Dia='$dia[weekday]' LIMIT 1"))
         {
             if($hora_entrada = $response->fetch_assoc())
             {
@@ -673,7 +605,7 @@ class Netasys
     {
         $dia = $this->getDate();
         $dia['weekday'] == 'Sabado' || $dia['weekday'] == 'Domingo' ? $this->ERR_NETASYS = "No puedes fichar fuera de Horario." : $dia['weekday'];
-        if($response = $this->selectFrom("SELECT $this->horarios.Hora_salida 
+        if($response = $this->query("SELECT $this->horarios.Hora_salida 
                                         FROM $this->horarios 
                                         INNER JOIN $this->profesores ON $this->horarios.ID_PROFESOR=$this->profesores.ID 
                                         WHERE $this->profesores.ID='$_SESSION[ID]' AND $this->profesores.Nombre='$_SESSION[Nombre]' AND $this->horarios.Dia='$dia[weekday]' 
@@ -697,7 +629,7 @@ class Netasys
 
     function searchDuplicateField($data, $field, $table)
     {
-        if($response = $this->selectFrom("SELECT $field FROM $table WHERE $field='$data'"))
+        if($response = $this->query("SELECT $field FROM $table WHERE $field='$data'"))
         {
             if($response->num_rows == 0)
             {
@@ -752,7 +684,7 @@ class Netasys
             if($this->searchDuplicateField($_POST['Iniciales'], 'Iniciales', $this->profesores))
             {
                 $pass = $this->encryptPassword($_POST['Iniciales'] . '12345');
-                if($this->insertInto("INSERT INTO $this->profesores (Nombre, Iniciales, Password, TIPO, Instituto)
+                if($this->query("INSERT INTO $this->profesores (Nombre, Iniciales, Password, TIPO, Instituto)
                 VALUES ('$_POST[Nombre]', '$_POST[Iniciales]', '$pass', '2', 'IES Bezmiliana')"))
                 {
                     return true;
@@ -796,11 +728,11 @@ class Netasys
             {
                 if(! $this->searchDuplicateField($diasmes, 'Fecha', $this->lectivos))
                 {
-                    $this->updateSet("UPDATE $this->lectivos SET $this->lectivos.Festivo='no' WHERE $this->lectivos.Fecha='$diasmes'");
+                    $this->query("UPDATE $this->lectivos SET $this->lectivos.Festivo='no' WHERE $this->lectivos.Fecha='$diasmes'");
                 }
                 else
                 {
-                    if($this->insertInto("INSERT INTO $this->lectivos (Fecha) VALUES ('$inicio')"))
+                    if($this->query("INSERT INTO $this->lectivos (Fecha) VALUES ('$inicio')"))
                     {
 
                     }
@@ -826,7 +758,7 @@ class Netasys
             $Y = $sep[0];
             $start = unixtojd(mktime(0,0,0,$m,$dia,$Y));
             $array = cal_from_jd($start,CAL_GREGORIAN);
-            if($this->updateSet("UPDATE $this->lectivos SET $this->lectivos.Festivo='si' WHERE $this->lectivos.Fecha='$inicio'"))
+            if($this->query("UPDATE $this->lectivos SET $this->lectivos.Festivo='si' WHERE $this->lectivos.Fecha='$inicio'"))
             {
 
             }

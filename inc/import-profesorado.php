@@ -25,7 +25,7 @@ require_once($dirs['inc'] . 'import-mysql-profesorado.php');
     </div>
             <?php
         $sql = "SELECT ID, Iniciales, Nombre, Tutor FROM Profesores ORDER BY Nombre, Iniciales";
-        $result = $class->selectFrom($sql);
+        $result = $class->query($sql);
         if (! empty($result)) {
             ?>
         <table id='userTable' class='table'>

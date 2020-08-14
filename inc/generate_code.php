@@ -1,7 +1,7 @@
 <?php 
 if(isset($_SESSION['ID']) && ! empty($_SESSION['ID']))
 {
-    if($response = $class->selectFrom("SELECT Iniciales, Password FROM $class->profesores WHERE ID='$_SESSION[ID]'"))
+    if($response = $class->query("SELECT Iniciales, Password FROM $class->profesores WHERE ID='$_SESSION[ID]'"))
     {
         $files = glob('tmp/*');
         foreach($files as $file)

@@ -2,7 +2,7 @@
 
 if($_POST['ID'] != '')
 {
-    if($class->updateSet("UPDATE $class->profesores 
+    if($class->query("UPDATE $class->profesores 
     SET $class->profesores.Iniciales='$_POST[Iniciales]', $class->profesores.Nombre='$_POST[Nombre]', 
     $class->profesores.Tutor='$_POST[Tutor]' WHERE $class->profesores.ID='$_POST[ID]'"))
     {

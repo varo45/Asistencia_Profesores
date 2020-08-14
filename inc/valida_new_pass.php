@@ -5,7 +5,7 @@ if(isset($_POST['new_password']))
 $_POST['act_pass'] = $class->encryptPassword($_POST['act_pass']);
 $_POST['new_pass'] = $class->encryptPassword($_POST['new_pass']);
 $_POST['new_pass_c'] = $class->encryptPassword($_POST['new_pass_c']);
-    if($response = $class->selectFrom("SELECT ID FROM $class->profesores WHERE ID='$_SESSION[ID]' AND Password = '$_POST[act_pass]'"))
+    if($response = $class->query("SELECT ID FROM $class->profesores WHERE ID='$_SESSION[ID]' AND Password = '$_POST[act_pass]'"))
     {
         if($response->num_rows == 1)
         {
@@ -13,7 +13,7 @@ $_POST['new_pass_c'] = $class->encryptPassword($_POST['new_pass_c']);
             {
                 if($_POST['new_pass'] === $_POST['new_pass_c'])
                 {
-                    if($class->updateSet("UPDATE $class->profesores SET $class->profesores.Password='$_POST[new_pass]' WHERE $class->profesores.ID='$_SESSION[ID]'"))
+                    if($class->query("UPDATE $class->profesores SET $class->profesores.Password='$_POST[new_pass]' WHERE $class->profesores.ID='$_SESSION[ID]'"))
                     {
                         $MSG = 'Contraseña cambiada satisfatoriamente.';
                         $cambiada = true;

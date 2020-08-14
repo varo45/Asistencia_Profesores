@@ -1,6 +1,6 @@
 <?php
 
-if($response = $class->selectFrom("SELECT * FROM $class->lectivos ORDER BY Fecha ASC"))
+if($response = $class->query("SELECT * FROM $class->lectivos ORDER BY Fecha ASC"))
 {
     echo "<div id='mitablita'>";
     $contador = 0;

@@ -8,7 +8,7 @@ $sql = "SELECT DISTINCT $class->fichar.*
         ORDER BY $class->fichar.ID DESC 
         ";
 echo "<h1>Fichajes diarios</h1>";
-if($response = $class->selectFrom($sql))
+if($response = $class->query($sql))
 {
     if ($response->num_rows > 0)
     {

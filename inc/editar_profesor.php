@@ -1,6 +1,6 @@
 <?php
 
-if($response = $class->selectFrom("SELECT ID, Iniciales, Nombre, Tutor, Activo, Sustituido FROM $class->profesores WHERE ID='$_GET[ID]'"))
+if($response = $class->query("SELECT ID, Iniciales, Nombre, Tutor, Activo, Sustituido FROM $class->profesores WHERE ID='$_GET[ID]'"))
 {
     
     $datos = $response->fetch_assoc();

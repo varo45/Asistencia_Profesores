@@ -28,7 +28,7 @@ echo "<tbody>";
                 </select>
                 <div class='clase'>
                     Aula: <!--input type='text' name='aula' class='form-control' maxlength='3' size='3'-->";
-                    if($response = $class->selectFrom("SELECT distinct Aula FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Aula"))
+                    if($response = $class->query("SELECT distinct Aula FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Aula"))
                         {
                             echo "<select>";
                             while($fila = $response->fetch_assoc())
@@ -44,7 +44,7 @@ echo "<tbody>";
                     echo "
                     <br />
                     Grupo: <!--input type='text' name='grupo' class='form-control' maxlength='14' size='3'-->";
-                    if($response = $class->selectFrom("SELECT distinct Grupo FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Grupo"))
+                    if($response = $class->query("SELECT distinct Grupo FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Grupo"))
                         {
                             echo "<select>";
                             while($fila = $response->fetch_assoc())
@@ -71,7 +71,7 @@ echo "<tbody>";
                 </select>
                 <div class='clase'>
                     Aula: <!--input type='text' name='aula' class='form-control' maxlength='3' size='3'-->";
-                    if($response = $class->selectFrom("SELECT distinct Aula FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Aula"))
+                    if($response = $class->query("SELECT distinct Aula FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Aula"))
                         {
                             echo "<select>";
                             while($fila = $response->fetch_assoc())
@@ -87,7 +87,7 @@ echo "<tbody>";
                     echo "
                     <br />
                     Grupo: <!--input type='text' name='grupo' class='form-control' maxlength='14' size='3'-->";
-                    if($response = $class->selectFrom("SELECT distinct Grupo FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Grupo"))
+                    if($response = $class->query("SELECT distinct Grupo FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Grupo"))
                         {
                             echo "<select>";
                             while($fila = $response->fetch_assoc())
@@ -114,7 +114,7 @@ echo "<tbody>";
                 </select>
                 <div class='clase'>
                     Aula: <!--input type='text' name='aula' class='form-control' maxlength='3' size='3'-->";
-                    if($response = $class->selectFrom("SELECT distinct Aula FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Aula"))
+                    if($response = $class->query("SELECT distinct Aula FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Aula"))
                         {
                             echo "<select>";
                             while($fila = $response->fetch_assoc())
@@ -130,7 +130,7 @@ echo "<tbody>";
                     echo "
                     <br />
                     Grupo: <!--input type='text' name='grupo' class='form-control' maxlength='14' size='3'-->";
-                    if($response = $class->selectFrom("SELECT distinct Grupo FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Grupo"))
+                    if($response = $class->query("SELECT distinct Grupo FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Grupo"))
                         {
                             echo "<select>";
                             while($fila = $response->fetch_assoc())
@@ -157,7 +157,7 @@ echo "<tbody>";
                 </select>
                 <div class='clase'>
                     Aula: <!--input type='text' name='aula' class='form-control' maxlength='3' size='3'-->";
-                    if($response = $class->selectFrom("SELECT distinct Aula FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Aula"))
+                    if($response = $class->query("SELECT distinct Aula FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Aula"))
                         {
                             echo "<select>";
                             while($fila = $response->fetch_assoc())
@@ -173,7 +173,7 @@ echo "<tbody>";
                     echo "
                     <br />
                     Grupo: <!--input type='text' name='grupo' class='form-control' maxlength='14' size='3'-->";
-                    if($response = $class->selectFrom("SELECT distinct Grupo FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Grupo"))
+                    if($response = $class->query("SELECT distinct Grupo FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Grupo"))
                         {
                             echo "<select>";
                             while($fila = $response->fetch_assoc())
@@ -200,7 +200,7 @@ echo "<tbody>";
                 </select>
                 <div class='clase'>
                     Aula: <!--input type='text' name='aula' class='form-control' maxlength='3' size='3'-->";
-                    if($response = $class->selectFrom("SELECT distinct Aula FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Aula"))
+                    if($response = $class->query("SELECT distinct Aula FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Aula"))
                         {
                             echo "<select>";
                             while($fila = $response->fetch_assoc())
@@ -216,7 +216,7 @@ echo "<tbody>";
                     echo "
                     <br />
                     Grupo: <!--input type='text' name='grupo' class='form-control' maxlength='14' size='3'-->";
-                    if($response = $class->selectFrom("SELECT distinct Grupo FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Grupo"))
+                    if($response = $class->query("SELECT distinct Grupo FROM $class->horarios WHERE Aula IS NOT NULL ORDER BY Grupo"))
                         {
                             echo "<select>";
                             while($fila = $response->fetch_assoc())

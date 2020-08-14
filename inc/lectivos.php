@@ -13,7 +13,7 @@
 
 <?php
 
-if($response = $class->selectFrom("SELECT * FROM $class->lectivos"))
+if($response = $class->query("SELECT * FROM $class->lectivos"))
 {
     if($response->num_rows > 0)
     {
