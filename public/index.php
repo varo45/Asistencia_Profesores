@@ -686,14 +686,41 @@ if(isset($_GET['ACTION']))
           include_once($dirs['inc'] . 'msg_modal.php');
         }
       break;
-      
+
+      case 'Agregar-sustituto':
+        if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'agregar-sustituto-profesor.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          } 
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para agregar un sustituto.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+
       case 'desactivar-profesor':
         if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
         {
           if($class->compruebaCambioPass())
           {
             include_once($dirs['inc'] . 'update-activo-profesor.php');
-            header("Location: index.php?ACTION=profesores");
+            if(isset($ERR_MSG) && $ERR_MSG != '')
+            {
+              header("Location: index.php?ACTION=profesores&ERR_MSG=" . $ERR_MSG);
+            }
+            else
+            {
+              header("Location: index.php?ACTION=profesores&MSG=" . $MSG);
+            }
           }
           else
           {
