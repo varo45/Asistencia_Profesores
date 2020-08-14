@@ -20,9 +20,9 @@
                     ?>
                     </br></br>
                     <label for="Asunto">Asunto</label></br>
-                    <input id="Asunto" type="text" minlength="2" maxlength="50" name="Asunto" class="fadeIn first" placeholder="Asunto" required></br>
+                    <input id="Asunto" type="text" minlength="2" maxlength="50" name="Asunto" class="fadeIn first" placeholder="Asunto" required autocomplete="off"></br>
                     <label for="Mensaje">Mensaje</label></br>
-                    <textarea id="Mensaje" minlength="4" type="text" name="Mensaje" class="fadeIn second" placeholder="Escriba aquí su mensaje..." required></textarea></br>
+                    <textarea id="Mensaje" minlength="4" type="text" name="Mensaje" class="fadeIn second" placeholder="Escriba aquí su mensaje..." required autocomplete="off"></textarea></br>
                     <input type="submit" name="enviar_mensaje" value="Enviar" class="fadeIn third">
                 </form>
             </div>
