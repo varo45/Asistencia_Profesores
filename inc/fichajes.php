@@ -1,10 +1,17 @@
 <?php
-
+if(isset($_GET['ID']))
+{
+    $profesor = $_GET['ID'];
+}
+else
+{
+    $profesor = $_SESSION['ID'];
+}
 $sql = "SELECT DISTINCT $class->fichar.* 
         FROM ($class->fichar 
             INNER JOIN $class->horarios ON $class->fichar.ID_PROFESOR=$class->horarios.ID_PROFESOR) 
             INNER JOIN $class->profesores ON $class->profesores.ID=$class->horarios.ID_PROFESOR 
-        WHERE $class->profesores.ID='$_SESSION[ID]' 
+        WHERE $class->profesores.ID='$profesor' 
         ORDER BY $class->fichar.ID DESC 
         ";
 echo "<h1>Fichajes diarios</h1>";
@@ -16,7 +23,7 @@ if($response = $class->query($sql))
             echo "<thead>";
                 echo "<tr>";
                     echo "<th>Nº</th>";
-                    echo "<th>F_entrada</th>";
+                    echo "<th>Hora Fichaje</th>";
                     echo "<th>Día semana</th>";
                     echo "<th>Fecha</th>";
                 echo "</tr>";
