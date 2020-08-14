@@ -49,23 +49,10 @@ if(isset($_GET['ACTION']))
         include_once($dirs['inc'] . 'logout.php');
       break;
     
-      case 'pruebas-pedro':
+      case 'pruebas':
         $extras = '<link rel="stylesheet" href="css/login-style.css">';
         include_once($dirs['inc'] . 'top-nav.php');
-        include_once($dirs['inc'] . 'pruebas-pedro.php');
-        include_once($dirs['inc'] . 'footer.php');
-      break;
-      
-      case 'pruebas-carlos':
-        include_once($dirs['inc'] . 'top-nav.php');
-        include_once($dirs['inc'] . 'pruebas-carlos.php');
-        include_once($dirs['inc'] . 'footer.php');
-      break;
-  
-      case 'pruebas-varo':
-        include_once($dirs['inc'] . 'top-nav.php');
-        include_once($dirs['inc'] . 'pruebas-varo.php');
-        include_once($dirs['inc'] . 'errors.php');
+        include_once($dirs['inc'] . 'pruebas.php');
         include_once($dirs['inc'] . 'footer.php');
       break;
   
