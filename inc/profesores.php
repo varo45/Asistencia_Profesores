@@ -21,7 +21,7 @@ if($_SESSION['Perfil'] === 'Admin')
             echo "<th>Sustituido</th>";
             echo "<th>Editar</th>";
             echo "<th>Asistencias</th>";
-            echo "<th>Desactivar Profesor</th>";
+            echo "<th>Desactivar/Activar Profesor</th>";
         echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
@@ -29,30 +29,49 @@ if($_SESSION['Perfil'] === 'Admin')
         {  
             if($fila['Activo'] == 1)
             {
-              $fila['Activo'] = 'Si';
+              $activo = 'Si';
             }
             else
             {
-              $fila['Activo'] = 'No';
+              $activo = 'No';
             }
+
             if($fila['Sustituido'] == 0)
             {
-              $fila['Sustituido'] = 'No';
+              $sustituido = 'No';
             }
             else
             {
-              $fila['Sustituido'] = 'Si';
+              $sustituido = 'Si';
             }
+            
             echo "<tr id='profesor_$fila[ID]' class='row_show'>";
             echo "<td>$fila[ID]</td>";
             echo "<td>$fila[Nombre]</td>";
             echo "<td>$fila[Iniciales]</td>";
             echo "<td>$fila[Tipo]</td>";
-            echo "<td>$fila[Activo]</td>";
-            echo "<td>$fila[Sustituido]</td>";
+            echo "<td>$activo</td>";
+            echo "<td>$sustituido</td>";
             echo "<td><a href='index.php?ACTION=editar_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-pencil'></span></a></td>";
             echo "<td><a href='index.php?ACTION=faltas_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-list'></span></a></td>";
-            echo "<td><a href='index.php?ACTION=desactivar-profesor&ID=$fila[ID]' onclick=\"return confirm('¿Seguro que desea realizar este cambio? Utilice solo esta opción si el profesor deja el centro por motivos de jubilación, fin de una sustitución o similares.')\"><span class='glyphicon glyphicon-remove'></span></a></td>";
+            if($fila['Activo'] == 1)
+            {
+              echo "<td>
+                <a href='index.php?ACTION=desactivar-profesor&ID=$fila[ID]'
+                    onclick=\"return confirm('¿Seguro que desea realizar este cambio? Utilice solo esta opción si el profesor deja el centro por motivos de jubilación, fin de una sustitución o similares.')\">
+                    <span class='glyphicon glyphicon-remove'></span>
+                </a>
+              </td>";
+            }
+            else
+            {
+              echo "<td>
+                <a href='index.php?ACTION=reactivar-profesor&ID=$fila[ID]'
+                    onclick=\"return confirm('¿Seguro que desea realizar este cambio? Utilice solo esta opción si el profesor deja el centro por motivos de jubilación, fin de una sustitución o similares.')\">
+                    <span class='glyphicon glyphicon-ok'></span>
+                </a>
+              </td>";
+            }
         }
     echo "</tbody>";
     echo "</table>";
