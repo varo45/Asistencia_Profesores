@@ -18,7 +18,7 @@ if (! empty($result))
             <tr>
                 <th>ID</th>
                 <th>Curso</th>
-                <th>Abreviatura profesor</th>
+                <th>Iniciales Profesor</th>
                 <th>Profesor</th>
                 <th>Aula</th>
                 <th>Diasemana</th>

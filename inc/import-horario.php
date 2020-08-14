@@ -59,8 +59,8 @@ require_once($dirs['inc'] . 'import-mysql-horario.php');
     <div id="todos-registros"></div>
     <div class="row">
         <div class="col-xs-12">
-            <div id="loading" style='text-align: center;'>
-                <img style="text-align: center;" src="resources/img/loading.gif" alt="Cargando...">
+            <div id="loading" style='text-align: center; position: absolute; width: 100%; height: 100%;'>
+                <img style="text-align: center; background-color: transparent;" src="resources/img/loading.gif" alt="Cargando...">
                 <h2 id="loading-msg"></h2>
             </div>
         </div>

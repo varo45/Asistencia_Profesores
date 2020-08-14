@@ -61,6 +61,7 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
+            $act_usuario = 'active';
             $extras = '<link rel="stylesheet" href="css/login-style.css">';
             include_once($dirs['inc'] . 'valida_new_pass.php');
             include_once($dirs['inc'] . 'top-nav.php');
@@ -97,6 +98,7 @@ if(isset($_GET['ACTION']))
           {
             if($response = $class->query("SELECT COUNT(*) as num FROM $class->marcajes"))
             {
+              $act_cal_escolar = 'active';
               $marcajes = $response->fetch_assoc();
               if($marcajes['num'] > 0)
               {
@@ -508,7 +510,27 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para importar profesorado.";
+          $MSG = "Debes iniciar sesión para mostrar los registros de los Horarios.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+    
+      case 'muestra-registros-profesores':
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'muestra-registros-profesores.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para mostrar los registros del profesorado.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -541,7 +563,7 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
-            $act_horario = 'active';
+            $act_profesores = 'active';
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'contenido-import-profesorado.php');
             include_once($dirs['inc'] . 'errors.php');
@@ -954,6 +976,7 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
+            $act_usuario = 'active';
             $extras = '<link rel="stylesheet" href="css/login-style.css">';
             $extras .= '<script>
             $( function() {
@@ -1053,6 +1076,7 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
+            $act_usuario = 'active';
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'notificaciones.php');
             include_once($dirs['inc'] . 'errors.php');
@@ -1242,6 +1266,7 @@ if(isset($_GET['ACTION']))
         {
           if($class->compruebaCambioPass())
           {
+            $act_usuario = 'active';
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'menu_admon.php');
             include_once($dirs['public'] . 'js/admon.js');

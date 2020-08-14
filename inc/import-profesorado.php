@@ -5,7 +5,7 @@ require_once($dirs['inc'] . 'import-mysql-profesorado.php');
 <div id="response"
     class="<?php if(!empty($type)) { echo $type . " display-block"; } ?>">
     <?php if(!empty($message)) { echo $message; } ?>
-    </div>
+</div>
 <div class="outer-scontainer">
     <div class="row">
         <form class="form-horizontal" action="" method="post"
@@ -17,61 +17,34 @@ require_once($dirs['inc'] . 'import-mysql-profesorado.php');
                 </label>
                 <button type="submit" id="submit" name="import" class="btn btn-success">Importar</button>
                 <br />
-
             </div>
-
         </form>
-
     </div>
-            <?php
-        $sql = "SELECT ID, Iniciales, Nombre, Tutor FROM Profesores ORDER BY Nombre, Iniciales";
-        $result = $class->query($sql);
-        if (! empty($result)) {
-            ?>
-        <table id='userTable' class='table'>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Abreviatura</th>
-                <th>Nombre</th>
-                <th>Tutor</th>
-
-            </tr>
-        </thead>
 <?php
-            
-            foreach ($result as $row) {
-                ?>
-                
-            <tbody>
-            <tr>
-                <td><?php  echo $row['ID']; ?></td>
-                <td><?php  echo $row['Iniciales']; ?></td>
-                <td><?php  echo $row['Nombre']; ?></td>
-                <td><?php  echo $row['Tutor']; ?></td>
-            </tr>
-                <?php
-            }
-            ?>
-            </tbody>
-    </table>
-    <?php } ?>
+    if(! $num_profesores_act = $class->query("SELECT count(DISTINCT ID) as activos FROM $class->profesores WHERE Activo=1"))
+    {
+        $ERR_MSG = $class->ERR_NETASYS;
+    }
+    $num_act = $num_profesores_act->fetch_assoc();
+    
+    if(! $num_profesores_all = $class->query("SELECT count(ID) as total FROM $class->profesores"))
+    {
+        $ERR_MSG = $class->ERR_NETASYS;
+    }
+    $num_all = $num_profesores_all->fetch_assoc();
+    echo "<h3>Profesores totales: $num_all[total]</h3>";
+    echo "<h3>Profesores activos: $num_act[activos]</h3>";
+    echo "<a id='btn-todos-registros-prof' class='btn btn-info'>Ver todos los registros</a>";
+?>
+    <div id="todos-registros"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="loading" style='text-align: center; position: absolute; width: 100%; height: 100%;'>
+                <img style="text-align: center; background-color: transparent;" src="resources/img/loading.gif" alt="Cargando...">
+                <h2 id="loading-msg"></h2>
+            </div>
+        </div>
+    </div>
 </div>
-<script type="text/javascript">
-$(document).ready(function() {
-    $("#frmCSVImport").on("submit", function () {
-
-	    $("#response").attr("class", "");
-        $("#response").html("");
-        var fileType = ".csv";
-        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + fileType + ")$");
-        if (!regex.test($("#file").val().toLowerCase())) {
-        	    $("#response").addClass("error");
-        	    $("#response").addClass("display-block");
-            $("#response").html("Tipo de fichero no válido. Documento válido: <b>" + fileType + "</b>.");
-            return false;
-        }
-        return true;
-    });
-});
-</script>
+<?php
+    include_once($dirs['public'] . 'js/import-profesorado.js');
