@@ -1,10 +1,18 @@
 <?php
+if($_GET['ACTION'] == 'update-horario')
+{
+  $tabla = $class->horarios;
+}
+elseif($_GET['ACTION'] == 'update-t-horario')
+{
+  $tabla = 'T_horarios';
+}
 $id=$_GET["id"];
 $columna=$_GET["columna"];
 $texto=$_GET["texto"];
 if($columna === 'Aula' || $columna === 'Grupo')
 {
-  $sql="UPDATE $class->horarios SET $columna='$texto' WHERE id='$id'";
+  $sql="UPDATE $tabla SET $columna='$texto' WHERE id='$id'";
   if(! $class->query($sql))
   {
     $ERR_MSG = $class->ERR_NETASYS;

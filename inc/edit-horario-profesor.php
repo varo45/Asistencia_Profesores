@@ -1,9 +1,9 @@
 <div class="container" style="margin-top:50px">
 <?php
 
+$fechaget = $_GET['fecha'];
 $sep = preg_split('/\//', $_GET['fecha']);
 $_GET['fecha'] = $sep[2] . '-' . $sep[1] . '-' . $sep[0];
-
 $temp_table = 
     "SELECT * 
     FROM T_horarios
@@ -67,117 +67,86 @@ if($response = $class->query($consulta))
             $n = $nombre->fetch_assoc();
         }
         echo "<h2>Horario: $n[Nombre]</h2>";
+        echo "<h4 style='color: grey;'><i>* Este horario entrará en vigor el día $fechaget</i></h4>";
         echo "<div id='response'></div>";
-        echo "</br><table class='table'>";
-            echo "<thead>";
-                echo "<tr>";
-                    echo "<th style='text-align: center;'>Horas</th>";
-                    echo "<th style='text-align: center;'>Lunes</th>";
-                    echo "<th style='text-align: center;'>Martes</th>";
-                    echo "<th style='text-align: center;'>Miercoles</th>";
-                    echo "<th style='text-align: center;'>Jueves</th>";
-                    echo "<th style='text-align: center;'>Viernes</th>";
-                    echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
+        echo "<div id='tabla_t_horario'>";
+            echo "</br><table class='table'>";
+                echo "<thead>";
+                    echo "<tr>";
+                        echo "<th style='text-align: center;'>Horas</th>";
+                        echo "<th style='text-align: center;'>Lunes</th>";
+                        echo "<th style='text-align: center;'>Martes</th>";
+                        echo "<th style='text-align: center;'>Miercoles</th>";
+                        echo "<th style='text-align: center;'>Jueves</th>";
+                        echo "<th style='text-align: center;'>Viernes</th>";
+                        echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
 
-                    /* 
-                    * Comienza bucle por filas horarias 
-                    * Hasta completar las 6 de cada horario
-                    */
-                    
-                    for ($i = 0; $i < 6; $i++)
-                    {
-                        $dia = $class->getDate();
-                        $hora = $i+1;
-
-                        /*
-                        * Recogemos valores de cada HORA_TIPO del Profesor en $response
-                        * Valores ordenados por HORA_TIPO y Día
+                        /* 
+                        * Comienza bucle por filas horarias 
+                        * Hasta completar las 6 de cada horario
                         */
-
-                        if($response = $class->query("SELECT T_horarios.*, Diasemana.Diasemana, Diasemana.ID, $class->horas.Inicio, $class->horas.Fin 
-                        FROM ((T_horarios INNER JOIN $class->profesores ON T_horarios.ID_PROFESOR=$class->profesores.ID) 
-                        INNER JOIN Diasemana ON Diasemana.ID=T_horarios.Dia)
-                        INNER JOIN $class->horas ON $class->horas.Hora=T_horarios.HORA_TIPO
-                        WHERE $class->profesores.ID='$_GET[profesor]' AND (T_horarios.HORA_TIPO=" . "'" . $hora ."M' OR T_horarios.HORA_TIPO=" . "'" . $hora ."T')
-                        ORDER BY T_horarios.HORA_TIPO, T_horarios.Dia"))
+                        
+                        for ($i = 0; $i < 6; $i++)
                         {
-                            // $k -> Contador de índice del array
-                            $k = 0;
-                            $filahora = $response->fetch_all();
-                            echo "<tr>";
-                            echo "<td style='vertical-align: middle; text-align: center;'><b>$hora</b></td>";
+                            $dia = $class->getDate();
+                            $hora = $i+1;
 
                             /*
-                            * Bucle que recorre el campo Dia
-                            * Este campo determinará su posición en la tabla (Horizontalmente)
+                            * Recogemos valores de cada HORA_TIPO del Profesor en $response
+                            * Valores ordenados por HORA_TIPO y Día
                             */
-                            
-                            for($j = 1; $j <= 5; $j++)
+
+                            if($response = $class->query("SELECT T_horarios.*, Diasemana.Diasemana, Diasemana.ID, $class->horas.Inicio, $class->horas.Fin 
+                            FROM ((T_horarios INNER JOIN $class->profesores ON T_horarios.ID_PROFESOR=$class->profesores.ID) 
+                            INNER JOIN Diasemana ON Diasemana.ID=T_horarios.Dia)
+                            INNER JOIN $class->horas ON $class->horas.Hora=T_horarios.HORA_TIPO
+                            WHERE $class->profesores.ID='$_GET[profesor]' AND (T_horarios.HORA_TIPO=" . "'" . $hora ."M' OR T_horarios.HORA_TIPO=" . "'" . $hora ."T')
+                            ORDER BY T_horarios.HORA_TIPO, T_horarios.Dia"))
                             {
+                                // $k -> Contador de índice del array
+                                $k = 0;
+                                $filahora = $response->fetch_all();
+                                echo "<tr>";
+                                echo "<td style='vertical-align: middle; text-align: center;'><b>$hora</b></td>";
 
                                 /*
-                                * Comprobamos si $filahora[$k][10] coincide con el Dia de la Semana exacto
+                                * Bucle que recorre el campo Dia
+                                * Este campo determinará su posición en la tabla (Horizontalmente)
                                 */
-
-                                if($filahora[$k][10] == $j)
+                                
+                                for($j = 1; $j <= 5; $j++)
                                 {
-                                    $dia['weekday'] === $filahora[$k][9] ? $dia['color'] = "success" : $dia['color'] = '';
-                                    echo "<td style='vertical-align: middle; text-align: center;' class='$dia[color]'>";
-                                    echo "<b>Aula: </b>";
-                                    echo "<span id='sp_" . $filahora[$k][0] . "_Aula' class='txt'>" . $filahora[$k][4] . "</span>";
-                                    //echo "<input id='in_" . $filahora[$k][0] . "_Aula' class='entrada' type='text'>";
-                                    if($response = $class->query("SELECT DISTINCT $class->horarios.Aula FROM $class->horarios WHERE $class->horarios.Aula <> '' ORDER BY $class->horarios.Aula"))
-                                    {
-                                        echo "<select id='in_" . $filahora[$k][0] . "_Aula' class='entrada' name='Aula'>";
-                                            while($fila = $response->fetch_assoc())
-                                            {
-                                                echo "<option value='$fila[Aula]'>$fila[Aula]</option>";
-                                            }
-                                        echo "</select>";
-                                    }
-                                    else
-                                    {
-                                        echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
-                                    }
-                                    echo "<br>";
-                                    echo "<b>Grupo:</b>";
-                                    echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][5] . "</span>";
-                                    if($response2 = $class->query("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
-                                    {
-                                        echo "<select id='in2_" . $filahora[$k][0] . "_Grupo' class='entrada' name='Grupo'>";
-                                            while($fila = $response2->fetch_assoc())
-                                            {
-                                                echo "<option value='$fila[Grupo]'>$fila[Grupo]</option>";
-                                            }
-                                        echo "</select>";
-                                    }
-                                    else
-                                    {
-                                        echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
-                                    }
-                                    $k++;
-                                    // $m -> Contador de pares para saltar línea o añadir espacio
-                                    $m = 2;
 
                                     /*
-                                    * Comprobamos si el siguiente objeto coincide con el mismo Dia de la Semana
-                                    * Esta comprobación se realizará hasta que ya no coincida
-                                    * Ya que pertenecerá al siguiente Dia
+                                    * Comprobamos si $filahora[$k][10] coincide con el Dia de la Semana exacto
                                     */
 
-                                    while($filahora[$k][10] == $j)
+                                    if($filahora[$k][10] == $j)
                                     {
-                                        if($m % 2 == 0)
+                                        $dia['weekday'] === $filahora[$k][9] ? $dia['color'] = "success" : $dia['color'] = '';
+                                        echo "<td style='vertical-align: middle; text-align: center;' class='$dia[color]'>";
+                                        echo "<a style='color: red;'class='act' enlace='index.php?ACTION=pruebas&act=del&ID=" . $filahora[$k][0] . "&Fecha=$_GET[fecha]'><span class='glyphicon glyphicon-remove-circle'></span></a><br>";
+                                        echo "<b>Aula: </b>";
+                                        echo "<span id='sp_" . $filahora[$k][0] . "_Aula' class='txt'>" . $filahora[$k][4] . "</span>";
+                                        //echo "<input id='in_" . $filahora[$k][0] . "_Aula' class='entrada' type='text'>";
+                                        if($response = $class->query("SELECT DISTINCT $class->horarios.Aula FROM $class->horarios WHERE $class->horarios.Aula <> '' ORDER BY $class->horarios.Aula"))
                                         {
-                                            echo "<br>";
+                                            echo "<select id='in_" . $filahora[$k][0] . "_Aula' class='entrada' name='Aula'>";
+                                                while($fila = $response->fetch_assoc())
+                                                {
+                                                    echo "<option value='$fila[Aula]'>$fila[Aula]</option>";
+                                                }
+                                            echo "</select>";
                                         }
                                         else
                                         {
-                                            echo " ";
+                                            echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
                                         }
-                                        echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][5] . "</span>";
+                                        echo "<br>";
+                                        echo "<b>Grupo:</b>";
+                                        echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][5] . "</span> ";
                                         if($response2 = $class->query("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
                                         {
                                             echo "<select id='in2_" . $filahora[$k][0] . "_Grupo' class='entrada' name='Grupo'>";
@@ -191,27 +160,71 @@ if($response = $class->query($consulta))
                                         {
                                             echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
                                         }
-                                        //echo $filahora[$k][5];
-                                        $m++;
                                         $k++;
+                                        // $m -> Contador de pares para saltar línea o añadir espacio
+                                        $m = 2;
+
+                                        /*
+                                        * Comprobamos si el siguiente objeto coincide con el mismo Dia de la Semana
+                                        * Esta comprobación se realizará hasta que ya no coincida
+                                        * Ya que pertenecerá al siguiente Dia
+                                        */
+
+                                        while($filahora[$k][10] == $j)
+                                        {
+                                            if($m % 2 == 0)
+                                            {
+                                                echo "<br>";
+                                            }
+                                            else
+                                            {
+                                                echo " ";
+                                            }
+                                            echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][5] . "</span>";
+                                            if($response2 = $class->query("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
+                                            {
+                                                echo "<select id='in2_" . $filahora[$k][0] . "_Grupo' class='entrada' name='Grupo'>";
+                                                    while($fila = $response2->fetch_assoc())
+                                                    {
+                                                        echo "<option value='$fila[Grupo]'>$fila[Grupo]</option>";
+                                                    }
+                                                echo "</select>";
+                                            }
+                                            else
+                                            {
+                                                echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
+                                            }
+                                            $m++;
+                                            $k++;
+                                        }
+                                        echo "</td>";
                                     }
-                                    echo "</td>";
+                                    else
+                                    {
+                                        echo "<td id='$j-$hora' style='vertical-align: middle; text-align: center;'><a class='act' enlace='index.php?ACTION=pruebas&act=add&ID=$n[ID]&Dia=$j&Hora=" . $filahora[$k][3] . "&Fecha=$_GET[fecha]'><span class='glyphicon glyphicon-plus'></span></a><span class='aula-grupo'></span></td>";
+                                    }
                                 }
-                                else
-                                {
-                                    echo "<td style='vertical-align: middle; text-align: center;'><a href='index.php?ACTION=nuevo-registro-horario-profesor&ID=$n[ID]&Dia=$j&Hora=$hora'><span class='glyphicon glyphicon-plus'></span></a><span class='aula-grupo'></span></td>";
-                                }
+                                echo "</tr>";
                             }
-                            echo "</tr>";
+                            else
+                            {
+                                $ERR_MSG = $class->ERR_NETASYS;
+                            }
                         }
-                        else
-                        {
-                            $ERR_MSG = $class->ERR_NETASYS;
-                        }
-                    }
-            echo "</tbody>";
-        echo "</table>";
-        include_once('js/update_horario.js');
+                echo "</tbody>";
+            echo "</table>";
+        echo "</div>";
+        echo "<script>";
+            echo "
+                $('.act').on('click', function(event) {
+                    event.preventDefault();
+                    enlace = $(this).attr('enlace'),
+                    $('#response').load(enlace),
+                    location.reload()
+                });
+            ";
+        echo "</script>";
+        include_once('js/update_t_horario.js');
     }
     else
     {
