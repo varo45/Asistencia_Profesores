@@ -828,7 +828,7 @@ if(isset($_GET['ACTION']))
           }
           else
           {
-            header('Location: profesores.php');
+            header('Location: index.php');
           }
         }
         else
