@@ -825,12 +825,10 @@ if(isset($_GET['ACTION']))
           if($class->compruebaCambioPass())
           {
             include_once($dirs['inc'] . 'reset_pass.php');
-            include_once($dirs['inc'] . 'errors.php');
-            include_once($dirs['inc'] . 'footer.php');
           }
           else
           {
-            header('Location: index.php');
+            header('Location: profesores.php');
           }
         }
         else
