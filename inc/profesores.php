@@ -73,7 +73,7 @@ if($_SESSION['Perfil'] === 'Admin')
                 </a>
               </td>";
             }
-            echo "<td><a href='index.php?ACTION=reset_pass&ID=$fila[ID]' onclick=\"return confirm('Va a reicicializar la contraseña de . $fila[Nombre]  ¿Es correcto?.')\"><span class='glyphicon glyphicon-refresh'></span></a></td>";
+            echo "<td><a href='index.php?ACTION=reset_pass&ID=$fila[ID]' onclick=\"return confirm('Va a reicicializar la contraseña de $fila[Nombre]  ¿Es correcto?.')\"><span class='glyphicon glyphicon-refresh'></span></a></td>";
         }
     echo "</tbody>";
     echo "</table>";
