@@ -22,6 +22,7 @@ if($_SESSION['Perfil'] === 'Admin')
             echo "<th>Editar</th>";
             echo "<th>Asistencias</th>";
             echo "<th>Desactivar/Activar Profesor</th>";
+            echo "<th>Reset Contraseña Profesor</th>";
         echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
@@ -72,6 +73,7 @@ if($_SESSION['Perfil'] === 'Admin')
                 </a>
               </td>";
             }
+            echo "<td><a href='index.php?ACTION=reset_pass&ID=$fila[ID]'><span class='glyphicon glyphicon-refresh'></span></a></td>";
         }
     echo "</tbody>";
     echo "</table>";

@@ -819,6 +819,28 @@ if(isset($_GET['ACTION']))
         }
       break;
 
+      case 'reset_pass':
+        if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'reset_pass.php');
+            include_once($dirs['inc'] . 'errors.php');
+            include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para poder inciar la contraseña.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+
       case 'delete-horario-profesor':
         if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
         {
@@ -997,7 +1019,7 @@ if(isset($_GET['ACTION']))
           if($class->compruebaCambioPass())
           {
             $act_usuario = 'active';
-            $extras = '<link rel="stylesheet" href="css/login-style.css">';
+            $extras = '<link rel="stylesheet" href="css/mensajes.css">';
             $extras .= '<script>
             $( function() {
               $( "#tabs" ).tabs();
