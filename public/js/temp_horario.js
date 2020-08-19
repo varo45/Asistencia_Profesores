@@ -1,7 +1,10 @@
 
 <script>
 $(function (){
-    $('#fecha-edit').datepicker()
+    $('#fecha-edit').datepicker({ minDate: +1})
+});
+$('#fecha-edit').keypress(function(e) {
+    e.preventDefault()
 });
 var href = $('#editar-horario').attr('href');
 $('#fecha-edit').on('change', function() {

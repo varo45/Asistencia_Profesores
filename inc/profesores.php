@@ -8,9 +8,10 @@ if($_SESSION['Perfil'] === 'Admin')
     echo "<div id='horario'></div>";
     echo "<h2>Profesores</h2>";
     include_once($dirs['inc'] . 'registrar-profesor.php');
-    echo "<br><span class='glyphicon glyphicon-search'></span> <h4 style='display: inline-block; margin-right: 15px;'>Buscar profesor: </h4>
-    <input style='width: 25%; display: inline-block;' id='busca_prof' class='form-control' type='text' placeholder='Buscar Profesor...' autocomplete='off'><br>";
-    echo "</br><table class='table table-hover'>";
+    echo "<br><h4 style='display: inline-block; margin-right: 15px;'>Buscar profesor: </h4>
+      <span class='glyphicon glyphicon-search'></span> 
+      <input style='width: 25%; display: inline-block;' id='busca_prof' class='form-control' type='text' placeholder='Buscar Profesor...' autocomplete='off'><br>";
+    echo "</br><table id='tabla_profesores' class='table table-hover'>";
     echo "<thead>";
         echo "<tr>";
             echo "<th>ID</th>";
@@ -21,8 +22,8 @@ if($_SESSION['Perfil'] === 'Admin')
             echo "<th>Sustituido</th>";
             echo "<th>Editar</th>";
             echo "<th>Asistencias</th>";
-            echo "<th>Desactivar/Activar Profesor</th>";
-            echo "<th>Reset Contraseña Profesor</th>";
+            echo "<th>Desactivar/Activar</th>";
+            echo "<th>Reset. Contraseña</th>";
         echo "</tr>";
     echo "</thead>";
     echo "<tbody>";
@@ -46,13 +47,13 @@ if($_SESSION['Perfil'] === 'Admin')
               $sustituido = 'Si';
             }
             
-            echo "<tr id='profesor_$fila[ID]' class='row_show'>";
-            echo "<td>$fila[ID]</td>";
-            echo "<td>$fila[Nombre]</td>";
-            echo "<td>$fila[Iniciales]</td>";
-            echo "<td>$fila[Tipo]</td>";
-            echo "<td>$activo</td>";
-            echo "<td>$sustituido</td>";
+            echo "<tr id='profesor_$fila[ID]' class='row_prof'>";
+            echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$fila[ID]</td>";
+            echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$fila[Nombre]</td>";
+            echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$fila[Iniciales]</td>";
+            echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$fila[Tipo]</td>";
+            echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$activo</td>";
+            echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$sustituido</td>";
             echo "<td><a href='index.php?ACTION=editar_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-pencil'></span></a></td>";
             echo "<td><a href='index.php?ACTION=faltas_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-list'></span></a></td>";
             if($fila['Activo'] == 1)

@@ -3,9 +3,9 @@ $(function(){
   $('#busca_prof').keyup(function(){
     var val = $(this).val().toLowerCase();
 
-    $(".row_show").hide();
+    $(".row_prof").hide();
 
-    $(".row_show").each(function(){
+    $(".row_prof").each(function(){
 
       var text = $(this).text().toLowerCase();
 

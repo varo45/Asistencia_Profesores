@@ -153,6 +153,7 @@ if(isset($_GET['ACTION']))
                 include_once($dirs['inc'] . 'valida-lectivos.php');
                 include_once($dirs['inc'] . 'top-nav.php');
                 include_once($dirs['inc'] . 'lectivos.php');
+                include_once($dirs['public'] . 'js/lectivos.js');
                 include_once($dirs['inc'] . 'errors.php');
                 include_once($dirs['inc'] . 'footer.php');
               }
@@ -304,10 +305,72 @@ if(isset($_GET['ACTION']))
           if($class->compruebaCambioPass())
           {
             $act_horario = 'active';
+            $style = "
+            .entrada {
+              display: none;
+            }
+            .btn-react-del {
+              transform: scale(1.4);
+              transition-duration: 0.1s;
+              cursor: pointer;
+            }
+            .btn-react-del:hover {
+              color: #b30c0c;
+              transform: scale(1.6);
+            }
+
+            .btn-react-add {
+              transform: scale(1.4);
+              transition-duration: 0.1s;
+              cursor: pointer;
+            }
+            .btn-react-add:hover {
+              color: green;
+              transform: scale(1.6);
+            }
+
+            .btn-react-add-more {
+              transition-duration: 0.1s;
+              cursor: pointer;
+            }
+            .btn-react-add-more:hover {
+              color: green;
+              transform: scale(1.2);
+            }
+
+            .btn-react-del-group {
+              transition-duration: 0.1s;
+              cursor: pointer;
+            }
+            .btn-react-del-group:hover {
+              color: #b30c0c;
+              transform: scale(1.2);
+            }
+            ";
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'edit-horario-profesor.php');
             include_once($dirs['inc'] . 'errors.php');
             include_once($dirs['inc'] . 'footer.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para modificar horarios.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+        
+      case 'edit-t-horario':
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'edit-t-horario.php');
           }
           else
           {
@@ -493,7 +556,7 @@ if(isset($_GET['ACTION']))
             $.datepicker.setDefaults($.datepicker.regional['es']);
         
             $(function (){
-                $('#fecha_incorpora').datepicker();
+                $('#fecha_incorpora').datepicker({ minDate: +1});
             });
             </script>
             ";
@@ -628,6 +691,15 @@ if(isset($_GET['ACTION']))
             };
             $.datepicker.setDefaults($.datepicker.regional['es']);
             </script>
+            ";
+            $style = "
+            .row_show:hover {
+              cursor: pointer;
+            }
+            #tabla_profesores td, #tabla_profesores th{
+              text-align: center;
+              vertical-align: middle;
+            }
             ";
             if(isset($_GET['profesor']) && $_GET['profesor'] != '')
             {

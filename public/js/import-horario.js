@@ -30,6 +30,9 @@ $('#btn-todos-registros').on('click', function() {
     $('#todos-registros').load('index.php?ACTION=muestra-registros-horarios'),
     $("#loading").delay().fadeOut()
 });
+$('#fecha_incorpora').keypress(function(e) {
+    e.preventDefault();
+});
 </script>
 <script type="text/javascript">
 $(window).on('beforeunload', function(){

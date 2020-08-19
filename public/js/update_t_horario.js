@@ -53,8 +53,25 @@ $('.entrada').on('change', function(){
 	$(sp).html(texto),
 	$(sp).show(),
 	enlace="index.php?ACTION=update-t-horario&id="+id+"&columna="+columna+"&texto="+texto,
-	$('#response').load(encodeURI(enlace))
+	$('#response').load(encodeURI(enlace)),
+	location.reload()
 	
 });
 
+</script>
+<script>
+$(document).ready(function () {
+	$('#loading').hide(),
+	$("#loading-msg").hide()
+});
+$('.act').on('click', function(event) {
+	id = $(this).parent().attr('id'),
+	event.preventDefault(),
+	$("#loading-msg").html("Aplicando cambios...").show(),
+	$('#loading').show(),
+	enlace = $(this).attr('enlace'),
+	$('#response').load(encodeURI(enlace)),
+	$('#tabla_t_horario').html(''),
+	location.reload()
+});
 </script>

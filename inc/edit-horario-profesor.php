@@ -83,15 +83,31 @@ if($response = $class->query($consulta))
                 echo "</thead>";
                 echo "<tbody>";
 
+                if($response2 = $class->query("SELECT $class->horarios.HORA_TIPO FROM $class->horarios WHERE ID_PROFESOR='$_GET[profesor]' AND HORA_TIPO LIKE '%M'"))
+                {
+                    if($response2->num_rows > 0)
+                    {
+                        $l = 6;
+                    }
+                    else
+                    {
+                        $l = 5;
+                    }
+                }
+                else
+                {
+                    $ERR_MSG = $class->ERR_NETASYS;
+                }
                         /* 
                         * Comienza bucle por filas horarias 
                         * Hasta completar las 6 de cada horario
                         */
                         
-                        for ($i = 0; $i < 6; $i++)
+                        for ($i = 0; $i < $l; $i++)
                         {
                             $dia = $class->getDate();
                             $hora = $i+1;
+                            $l == 6 ? $tipo = 'M' : $tipo = 'T';
 
                             /*
                             * Recogemos valores de cada HORA_TIPO del Profesor en $response
@@ -102,7 +118,7 @@ if($response = $class->query($consulta))
                             FROM ((T_horarios INNER JOIN $class->profesores ON T_horarios.ID_PROFESOR=$class->profesores.ID) 
                             INNER JOIN Diasemana ON Diasemana.ID=T_horarios.Dia)
                             INNER JOIN $class->horas ON $class->horas.Hora=T_horarios.HORA_TIPO
-                            WHERE $class->profesores.ID='$_GET[profesor]' AND (T_horarios.HORA_TIPO=" . "'" . $hora ."M' OR T_horarios.HORA_TIPO=" . "'" . $hora ."T')
+                            WHERE $class->profesores.ID='$_GET[profesor]' AND Fecha_incorpora='$_GET[fecha]' AND (T_horarios.HORA_TIPO=" . "'" . $hora ."M' OR T_horarios.HORA_TIPO=" . "'" . $hora ."T')
                             ORDER BY T_horarios.HORA_TIPO, T_horarios.Dia"))
                             {
                                 // $k -> Contador de índice del array
@@ -126,10 +142,14 @@ if($response = $class->query($consulta))
                                     if($filahora[$k][10] == $j)
                                     {
                                         $dia['weekday'] === $filahora[$k][9] ? $dia['color'] = "success" : $dia['color'] = '';
-                                        echo "<td style='vertical-align: middle; text-align: center;' class='$dia[color]'>";
-                                        echo "<a style='color: red;'class='act' enlace='index.php?ACTION=pruebas&act=del&ID=" . $filahora[$k][0] . "&Fecha=$_GET[fecha]'><span class='glyphicon glyphicon-remove-circle'></span></a><br>";
+                                        echo "<td id='$j-$hora' style='vertical-align: middle; text-align: center;' class='$dia[color]'>";
+                                        isset($filahora[$k][3]) ? $horavar = $filahora[$k][3] : $horavar = $hora . $tipo;
+                                        echo "<a style='color: red;' class='act' enlace='index.php?ACTION=edit-t-horario&act=del_hora&ID_PROFESOR=" . $filahora[$k][1] . "&Dia=$j&Hora=" . $horavar . "&Fecha=" . $_GET['fecha'] . "'>";
+                                            echo "<span class='glyphicon glyphicon-remove-circle btn-react-del'></span>";
+                                        echo "</a><br>";
                                         echo "<b>Aula: </b>";
                                         echo "<span id='sp_" . $filahora[$k][0] . "_Aula' class='txt'>" . $filahora[$k][4] . "</span>";
+                                        $mismoaula = $filahora[$k][4];
                                         //echo "<input id='in_" . $filahora[$k][0] . "_Aula' class='entrada' type='text'>";
                                         if($response = $class->query("SELECT DISTINCT $class->horarios.Aula FROM $class->horarios WHERE $class->horarios.Aula <> '' ORDER BY $class->horarios.Aula"))
                                         {
@@ -161,8 +181,6 @@ if($response = $class->query($consulta))
                                             echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
                                         }
                                         $k++;
-                                        // $m -> Contador de pares para saltar línea o añadir espacio
-                                        $m = 2;
 
                                         /*
                                         * Comprobamos si el siguiente objeto coincide con el mismo Dia de la Semana
@@ -172,14 +190,7 @@ if($response = $class->query($consulta))
 
                                         while($filahora[$k][10] == $j)
                                         {
-                                            if($m % 2 == 0)
-                                            {
-                                                echo "<br>";
-                                            }
-                                            else
-                                            {
-                                                echo " ";
-                                            }
+                                            echo "<br>";
                                             echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][5] . "</span>";
                                             if($response2 = $class->query("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
                                             {
@@ -194,14 +205,29 @@ if($response = $class->query($consulta))
                                             {
                                                 echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
                                             }
-                                            $m++;
+                                            echo "<a style='color: red;' class='act' enlace='index.php?ACTION=edit-t-horario&act=del&ID=" . $filahora[$k][0] . "'>";
+                                                echo "<span class='glyphicon glyphicon-minus btn-react-del-group'></span>";
+                                            echo "</a>";
                                             $k++;
                                         }
+                                            isset($filahora[$k][3]) ? $horavar = $filahora[$k][3] : $horavar = $hora . $tipo;
+                                            if($mismoaula != 'Selec.' && $mismoaula != '')
+                                            {
+                                                echo "<br>";
+                                                echo "<a class='act' enlace='index.php?ACTION=edit-t-horario&act=add_more&Aula=" . $mismoaula . "&ID=$n[ID]&Dia=$j&Hora=" . $horavar . "&Fecha=$_GET[fecha]'>";
+                                                    echo "<span class='glyphicon glyphicon-plus btn-react-add-more'></span>";
+                                                echo "</a>";
+                                            }
                                         echo "</td>";
                                     }
                                     else
                                     {
-                                        echo "<td id='$j-$hora' style='vertical-align: middle; text-align: center;'><a class='act' enlace='index.php?ACTION=pruebas&act=add&ID=$n[ID]&Dia=$j&Hora=" . $filahora[$k][3] . "&Fecha=$_GET[fecha]'><span class='glyphicon glyphicon-plus'></span></a><span class='aula-grupo'></span></td>";
+                                        echo "<td id='$j-$hora' style='vertical-align: middle; text-align: center;'>";
+                                        isset($filahora[$k][3]) ? $horavar = $filahora[$k][3] : $horavar = $hora . $tipo;
+                                            echo "<a class='act' enlace='index.php?ACTION=edit-t-horario&act=add&ID=$n[ID]&Dia=$j&Hora=" . $horavar . "&Fecha=$_GET[fecha]'>";
+                                                echo "<span class='glyphicon glyphicon-plus btn-react-add'></span>";
+                                            echo "</a>";
+                                        echo "</td>";
                                     }
                                 }
                                 echo "</tr>";
@@ -214,16 +240,6 @@ if($response = $class->query($consulta))
                 echo "</tbody>";
             echo "</table>";
         echo "</div>";
-        echo "<script>";
-            echo "
-                $('.act').on('click', function(event) {
-                    event.preventDefault();
-                    enlace = $(this).attr('enlace'),
-                    $('#response').load(enlace),
-                    location.reload()
-                });
-            ";
-        echo "</script>";
         include_once('js/update_t_horario.js');
     }
     else

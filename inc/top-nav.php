@@ -6,7 +6,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/bootstrap-3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style-cal.css">
   <link rel="stylesheet" href="css/netasys.css">
   <link rel="stylesheet" href="js/jquery-ui/jquery-ui.min.css">
   <script src="js/jquery.min.js"></script>
