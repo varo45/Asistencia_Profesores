@@ -50,7 +50,6 @@ if(isset($_GET['ACTION']))
       break;
     
       case 'pruebas':
-        $extras = '<link rel="stylesheet" href="css/login-style.css">';
         include_once($dirs['inc'] . 'top-nav.php');
         include_once($dirs['inc'] . 'pruebas.php');
         include_once($dirs['inc'] . 'footer.php');
