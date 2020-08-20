@@ -1,6 +1,7 @@
 <?php
 
-if($resp = $class->query("SELECT Nombre FROM $class->profesores WHERE ID='$_GET[ID]'"))
+$sql = "SELECT Nombre FROM $class->profesores WHERE ID=" . mysqli_real_escape_string($class->bdConex(), $_GET['ID']);
+if($resp = $class->query($sql))
 {
     $n = $resp->fetch_assoc();
     $n = $n['Nombre'];
@@ -9,7 +10,7 @@ if($resp = $class->query("SELECT Nombre FROM $class->profesores WHERE ID='$_GET[
     // La variable Fecha la utilizará como día límite desde que existen marcajes para mostrar los registros
     // La siguiente línea la utilizaremos para realizar pruebas
     $fecha = '2020-10-22';
-    if($response = $class->query("SELECT Marcajes.*, Diasemana FROM Marcajes INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID WHERE ID_PROFESOR='$_GET[ID]' AND Fecha <= '$fecha' ORDER BY Fecha DESC, Dia, Hora"))
+    if($response = $class->query("SELECT Marcajes.*, Diasemana FROM Marcajes INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID WHERE ID_PROFESOR=" . mysqli_real_escape_string($class->bdConex(), $_GET['ID']) . " AND Fecha <= '$fecha' ORDER BY Fecha DESC, Dia, Hora"))
     {
             echo "<h1>Asistencias lectivas de <b>$n</b></h1>";
             echo "<input id='busca_asiste' calss='fadeIn' type='text' placeholder='Buscar registro...' autocomplete='off'>";

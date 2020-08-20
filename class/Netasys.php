@@ -684,8 +684,8 @@ class Netasys
             if($this->searchDuplicateField($_POST['Iniciales'], 'Iniciales', $this->profesores))
             {
                 $pass = $this->encryptPassword($_POST['Iniciales'] . '12345');
-                if($this->query("INSERT INTO $this->profesores (Nombre, Iniciales, Password, TIPO, Instituto)
-                VALUES ('$_POST[Nombre]', '$_POST[Iniciales]', '$pass', '2', 'IES Bezmiliana')"))
+                if($this->query("INSERT INTO $this->profesores (Nombre, Iniciales, Password, TIPO)
+                VALUES ('$_POST[Nombre]', '$_POST[Iniciales]', '$pass', '2')"))
                 {
                     return true;
                 }

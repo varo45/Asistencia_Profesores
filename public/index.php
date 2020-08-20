@@ -1054,7 +1054,12 @@ if(isset($_GET['ACTION']))
             
             input[type=text]:placeholder {
             color: #cccccc;
-            }";
+            }
+            #full-table td, #full-table th {
+              text-align: center;
+              vertical-align: middle;
+            }
+            ";
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'contenido-asistencias.php');
             include_once('js/filtro_asistencias.js');
