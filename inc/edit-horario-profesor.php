@@ -1,4 +1,6 @@
 <div class="container" style="margin-top:50px">
+    <div class="row">
+        <div class="col-xs-12">
 <?php
 
 $fechaget = $_GET['fecha'];
@@ -252,4 +254,6 @@ else
     $ERR_MSG = $class->ERR_NETASYS;
 }
 ?>
+        </div>
+    </div>
 </div>

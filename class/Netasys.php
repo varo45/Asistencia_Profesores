@@ -402,7 +402,7 @@ class Netasys
                                     }
                                 }
 
-                                if(! $class->query("DELETE FROM $class->marcajes WHERE ID_PROFESOR='$id' AND Fecha>'$fechaactual'"))
+                                if(! $this->query("DELETE FROM $this->marcajes WHERE ID_PROFESOR='$id' AND Fecha>'$fechaactual'"))
                                 {
                                     return false;
                                 }

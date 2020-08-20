@@ -2,6 +2,10 @@
 <script>
 $('.entrada').hide();
 
+$(document).ready(function () {
+	$('#loading').hide(),
+	$("#loading-msg").hide()
+});
 $(window).click(function() {
 	$('.entrada').hide(),
 	$('.txt').show()
@@ -44,11 +48,11 @@ $('.entrada').on('change', function(){
 		sp='#sp2_'+id+'_'+columna
 	}
 
-    if(! confirm('¿Modificar?'))
+   /*  if(! confirm('¿Modificar?'))
     {
         $(sp).show();
         return
-    }
+    } */
 
 	$(sp).html(texto),
 	$(sp).show(),
@@ -57,13 +61,6 @@ $('.entrada').on('change', function(){
 	location.reload()
 	
 });
-
-</script>
-<script>
-$(document).ready(function () {
-	$('#loading').hide(),
-	$("#loading-msg").hide()
-});
 $('.act').on('click', function(event) {
 	id = $(this).parent().attr('id'),
 	event.preventDefault(),
@@ -71,7 +68,6 @@ $('.act').on('click', function(event) {
 	$('#loading').show(),
 	enlace = $(this).attr('enlace'),
 	$('#response').load(encodeURI(enlace)),
-	$('#tabla_t_horario').html(''),
 	location.reload()
 });
 </script>
