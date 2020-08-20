@@ -863,6 +863,27 @@ if(isset($_GET['ACTION']))
         }
       break;
 
+      case 'retirar-sustitucion':
+        if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'retirar-sustituto-profesor.php');
+            header('location: index.php?ACTION=profesores');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          } 
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para agregar un sustituto.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+
       case 'desactivar-profesor':
         if($class->isLogged() && $_SESSION['Perfil'] == 'Admin')
         {

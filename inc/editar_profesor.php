@@ -46,7 +46,17 @@ if($response = $class->query("SELECT ID, Iniciales, Nombre, Tutor, Activo, Susti
 
                     }
                     echo "<h4>$datos[Sustituido]</h4>";
-                    echo "<a href='index.php?ACTION=formulario-sustituto&ID=$datos[ID]' class='btn btn-info'>Sustituir</a><br><br>";
+                    if($resp = $class->query("SELECT Nombre, ID FROM $class->profesores WHERE ID=$_GET[ID] AND Sustituido=0"))
+                    {
+                        if($resp->num_rows > 0)
+                        {
+                            echo "<a href='index.php?ACTION=formulario-sustituto&ID=$datos[ID]' class='btn btn-info'>Sustituir</a><br><br>";
+                        } 
+                        else
+                        {
+                            echo "<a href='index.php?ACTION=retirar-sustitucion&ID=$datos[ID]' class='btn btn-info'>Retirar Sustituto</a><br><br>";
+                        }
+                    }
                     echo "<button class='btn btn-info' name='ACTION' value='editar_profesor'>Actualizar Profesor</button></br></br>";
                 echo "</form>";
             echo '</div>';
