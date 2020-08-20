@@ -1438,7 +1438,27 @@ if(isset($_GET['ACTION']))
       break;
     
       case 'fichar-asist':
-        include_once($dirs['inc'] . 'fichar-asistencia.php');
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'fichar-asistencia.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión ver listados.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
+      break;
+    
+      case 'clean_tmp':
+        include_once($dirs['inc'] . 'clean_tmp.php');
       break;
     }
 }
