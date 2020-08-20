@@ -75,7 +75,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para cambiar la contraseña.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -169,7 +169,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para ver los dias lectivos.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -192,7 +192,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para generar un codigo qr.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -219,7 +219,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para registrarse.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -243,7 +243,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para ver los horarios.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -267,7 +267,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para crear horarios.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -292,7 +292,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para modificar horarios.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -358,7 +358,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para modificar horarios.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -378,7 +378,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para modificar horarios.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -402,7 +402,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para modificar horarios.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -422,7 +422,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para actualizar horarios.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -442,7 +442,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para actualizar horarios.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -521,7 +521,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para ver las asistencias.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -571,7 +571,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para importar horario.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -592,7 +592,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para mostrar los registros de los Horarios.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -612,7 +612,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para mostrar los registros del profesorado.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -634,7 +634,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para actualizar horarios.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -658,7 +658,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para importar profesorado.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -736,7 +736,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para acceder a la lista de profesores.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -756,7 +756,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para editar un profesor.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -781,7 +781,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para editar un profesor.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -827,7 +827,7 @@ if(isset($_GET['ACTION']))
           }
           else
           {
-            $MSG = "Debes iniciar sesión para agregar un sustituto.";
+            $MSG = "Debes iniciar sesión para realizar esta acción.";
             header("Refresh:2; url=index.php");
             include_once($dirs['inc'] . 'msg_modal.php');
           }
@@ -856,7 +856,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para agregar un sustituto.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -877,7 +877,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para agregar un sustituto.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -961,7 +961,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para poder inciar la contraseña.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -1073,7 +1073,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para editar un profesor.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -1094,7 +1094,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para editar un profesor.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -1114,7 +1114,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para editar un profesor.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -1138,7 +1138,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para acceder a la lista de profesores.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -1198,7 +1198,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para poder enviar mensajes.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -1218,7 +1218,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para poder ver los mensajes.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -1238,7 +1238,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para poder eliminar mensajes.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -1262,7 +1262,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión para poder eliminar mensajes.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -1346,7 +1346,7 @@ if(isset($_GET['ACTION']))
           }
           else
           {
-            $MSG = "Debes iniciar sesión para acceder a la lista de profesores.";
+            $MSG = "Debes iniciar sesión para realizar esta acción.";
             header("Refresh:2; url=index.php");
             include_once($dirs['inc'] . 'msg_modal.php');
           }
@@ -1376,7 +1376,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión ver listados.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -1431,7 +1431,7 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión ver listados.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
@@ -1451,14 +1451,30 @@ if(isset($_GET['ACTION']))
         }
         else
         {
-          $MSG = "Debes iniciar sesión ver listados.";
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
           include_once($dirs['inc'] . 'msg_modal.php');
         }
       break;
     
       case 'clean_tmp':
-        include_once($dirs['inc'] . 'clean_tmp.php');
+        if($class->isLogged())
+        {
+          if($class->compruebaCambioPass())
+          {
+            include_once($dirs['inc'] . 'clean_tmp.php');
+          }
+          else
+          {
+            header('Location: index.php?ACTION=primer_cambio');
+          }
+        }
+        else
+        {
+          $MSG = "Debes iniciar sesión para realizar esta acción.";
+          header("Refresh:2; url=index.php");
+          include_once($dirs['inc'] . 'msg_modal.php');
+        }
       break;
     }
 }
