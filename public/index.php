@@ -1419,9 +1419,9 @@ if(isset($_GET['ACTION']))
             {
               include_once($dirs['inc'] . 'list_horarios.php');
             }
-            elseif(isset($_GET['select']) && $_GET['select'] == 'fichage')
+            elseif(isset($_GET['select']) && $_GET['select'] == 'fichadi')
             {
-              include_once($dirs['inc'] . 'ficha_general.php');
+              include_once($dirs['inc'] . 'ficha_diario.php');
             }
             elseif(isset($_GET['select']) && $_GET['select'] == 'fichafe')
             {

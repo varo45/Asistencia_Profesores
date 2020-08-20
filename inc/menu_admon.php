@@ -14,7 +14,7 @@
             <a enlace="index.php?ACTION=admon_select&select=horarios&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Horarios</a>
             </br>
             <h2>Mostrar Fichajes</h2>
-            <a enlace="index.php?ACTION=admon_select&select=fichage&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-calendar"></span> Fichaje Diario</a>
+            <a enlace="index.php?ACTION=admon_select&select=fichadi&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-calendar"></span> Fichaje Diario</a>
             <a enlace="index.php?ACTION=admon_select&select=fichafe&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-calendar"></span> Fichaje Por Fechas</a>
 
         </div>
