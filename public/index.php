@@ -1419,6 +1419,14 @@ if(isset($_GET['ACTION']))
             {
               include_once($dirs['inc'] . 'list_horarios.php');
             }
+            elseif(isset($_GET['select']) && $_GET['select'] == 'fichage')
+            {
+              include_once($dirs['inc'] . 'ficha_general.php');
+            }
+            elseif(isset($_GET['select']) && $_GET['select'] == 'fichafe')
+            {
+              include_once($dirs['inc'] . 'ficha_fecha.php');
+            }
             else
             {
               header('Location: index.php');
