@@ -7,9 +7,9 @@ elseif($_GET['ACTION'] == 'update-t-horario')
 {
   $tabla = 'T_horarios';
 }
-$id=$_GET["id"];
-$columna=$_GET["columna"];
-$texto=$_GET["texto"];
+$id = mysqli_real_escape_string($class->$bdconex(), $_GET["id"]);
+$columna = mysqli_real_escape_string($class->$bdconex(), $_GET["columna"]);
+$texto = mysqli_real_escape_string($class->$bdconex(), $_GET["texto"]);
 if($columna === 'Aula' || $columna === 'Grupo')
 {
   $sql="UPDATE $tabla SET $columna='$texto' WHERE id='$id'";
