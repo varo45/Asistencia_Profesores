@@ -256,7 +256,7 @@ if(isset($_GET['ACTION']))
           {
             $act_horario = 'active';
             include_once($dirs['inc'] . 'top-nav.php');
-            include_once($dirs['inc'] . 'contenido-horarios.php');
+            include_once($dirs['inc'] . 'crear-horario.php');
             include_once($dirs['inc'] . 'errors.php');
             include_once($dirs['inc'] . 'footer.php');
           }
