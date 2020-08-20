@@ -44,7 +44,7 @@
                     updateOutputValue(decodedValue);
                     // Stops scanning
                     autoCaptureStatus = false;
-                    setTimeout(scanAgain, 1000);
+                    setTimeout(scanAgain, 1200);
                 } catch (err) {
                     if (err !== "No se ha podido encontrar la codificación (found 0)") {
                         //throw err;
@@ -96,7 +96,8 @@
                   }
                   else
                   {
-                    $('#output').load('index.php?ACTION=fichar-asist&abrev='+abrev+'&enp='+enp);
+                    $('#output').load('index.php?ACTION=fichar-asist&criptedval='+encodeURI(val)),
+                    $('.table').load(location.href + ' .table > *')
                   }
                 }
             }

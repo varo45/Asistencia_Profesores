@@ -338,7 +338,7 @@ class Netasys
     {
         date_default_timezone_set('Europe/Madrid');
         $now = date('H:i:s');
-        //$now = '08:00:00';
+        $now = '08:00:00';
         if($response = $this->query("SELECT Hora FROM Horas WHERE Inicio <= '$now' AND Fin >= '$now'"))
         {  
             return $response;
@@ -450,9 +450,10 @@ class Netasys
             $horasistema = $ahora['hours'] . ":" . $ahora['minutes'] . ":" . $ahora['seconds'];
 
             // Línea de comprobación para que muestre todas las horas a partir de las 08:00:00 día 1-Lunes Fecha 2020-9-21
-            $diasemananum = 1;
-            $diasemana = 'Lunes';
-            $dia = '2020-9-21';
+            // Quitar en producción getHoraClase() también
+            $diasemananum = 2;
+            $diasemana = 'Martes';
+            $dia = '2020-9-15';
             $horasistema = '08:00:00';
         }
         if(isset($_GET['Numero']))
@@ -482,6 +483,7 @@ class Netasys
             AND $this->horarios.Aula IS NOT NULL
             AND $this->horarios.Grupo IS NOT NULL
             AND $this->horas.Fin >= '$horasistema'
+            AND $this->horarios.HORA_TIPO = $this->marcajes.Hora
             $extra 
         ORDER BY $this->horarios.HORA_TIPO, $this->horarios.Aula, $this->profesores.Nombre";
         if($exec = $this->query($sql))
