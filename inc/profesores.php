@@ -69,7 +69,7 @@ if($_SESSION['Perfil'] === 'Admin')
             {
               echo "<td>
                 <a href='index.php?ACTION=reactivar-profesor&ID=$fila[ID]'
-                    onclick=\"return confirm('¿Seguro que desea realizar este cambio? Utilice solo esta opción si el profesor deja el centro por motivos de jubilación, fin de una sustitución o similares.')\">
+                    onclick=\"return confirm('¡Cuidado! Si realiza este cambio ahora, se considerará que el profesor vuelve a trabajar en el centro.')\">
                     <span class='glyphicon glyphicon-ok'></span>
                 </a>
               </td>";
