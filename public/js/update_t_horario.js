@@ -58,7 +58,7 @@ $('.entrada').on('change', function(){
 	$(sp).show(),
 	enlace="index.php?ACTION=update-t-horario&id="+id+"&columna="+columna+"&texto="+texto,
 	$('#response').load(encodeURI(enlace)),
-	location.reload()
+	setTimeout(function(){location.reload()}, 500);
 	
 });
 $('.act').on('click', function(event) {
@@ -66,6 +66,6 @@ $('.act').on('click', function(event) {
 	event.preventDefault(),
 	enlace = $(this).attr('enlace'),
 	$('#response').load(encodeURI(enlace)),
-	location.reload()
+	setTimeout(function(){location.reload()}, 500);
 });
 </script>
