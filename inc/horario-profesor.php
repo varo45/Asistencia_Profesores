@@ -167,7 +167,7 @@ if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana
         {
             $ERR_MSG = $class->ERR_NETASYS;
         }
-        echo "<a id='crear-horario' href='index.php?ACTION=crear-horario&profesor=$n[ID]' class='btn btn-success'>Crear horario</a>";
+        echo "<a id='crear-horario' href='index.php?ACTION=crear-horario&profesor=$n[ID]&Tipo=M' class='btn btn-success'>Crear horario</a>";
     }
 }
 else
