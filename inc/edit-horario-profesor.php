@@ -243,45 +243,6 @@ if($response = $class->query($consulta))
             echo "</table>";
         echo "</div>";
         include_once('js/update_t_horario.js');
-
-        echo '
-        <!-- Modal -->
-        <div class="modal fade" id="OK_MODAL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p style="color: green;">
-                  Actualizado correctamente.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        ';
-        echo '
-        <!-- Modal -->
-        <div class="modal fade" id="BAD_MODAL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p style="color: red;">
-                  Error al actualizar.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        ';
     }
     else
     {
