@@ -50,6 +50,12 @@ if (isset($_POST["import"]))
                         $Hora_tipo = mysqli_real_escape_string($conn, utf8_encode($column[6]));
                         $Hora_tipo .= 'M';
                     }
+                    $Edificio = "";
+                    if (isset($Aula)) {
+                        $sed = preg_split('//', $Aula, -1, PREG_SPLIT_NO_EMPTY);
+                        $Edificio = mysqli_real_escape_string($conn, utf8_encode($sed[2]));
+                        preg_match('/^[0-9]$/', $Edificio) ? $Edificio = $Edificio : $Edificio=0;
+                    }
                     $response = $class->query("SELECT ID FROM Profesores WHERE Iniciales='$Iniciales'");
                     $IDPROFESOR = $response->fetch_assoc();
                     $IDPROFESOR = $IDPROFESOR['ID'];
@@ -60,11 +66,12 @@ if (isset($_POST["import"]))
                     $m = $sep[1];
                     $Y = $sep[2];
                     $Hora_incorpora = "$Y-$m-$dia";
-                    if(! $class->query("INSERT into T_horarios (ID_PROFESOR, Dia, HORA_TIPO, Aula, Grupo, Hora_entrada, Hora_salida, Fecha_incorpora)
+                    if(! $class->query("INSERT into T_horarios (ID_PROFESOR, Dia, HORA_TIPO, Edificio, Aula, Grupo, Hora_entrada, Hora_salida, Fecha_incorpora)
                     values (
                         '$IDPROFESOR',
                         '$Diasemana',
                         '$Hora_tipo',
+                        '$Edificio',
                         '$Aula',
                         '$Grupo',
                         '$Hora_entrada',
@@ -130,18 +137,28 @@ if (isset($_POST["import"]))
                     $Hora_tipo = mysqli_real_escape_string($conn, utf8_encode($column[6]));
                     $Hora_tipo .= 'M';
                 }
+                $Edificio = "";
+                if (isset($Aula)) {
+                    $sed = preg_split('//', $Aula, -1, PREG_SPLIT_NO_EMPTY);
+                    $Edificio = mysqli_real_escape_string($conn, utf8_encode($sed[2]));
+                }
+                if(is_string($Edificio))
+                {
+                    $Edificio = NULL;
+                }
                 $response = $class->query("SELECT ID FROM Profesores WHERE Iniciales='$Iniciales'");
                 $IDPROFESOR = $response->fetch_assoc();
                 $IDPROFESOR = $IDPROFESOR['ID'];
                 $Hora_entrada = "08:30:00";
                 $Hora_salida = "15:00:00";
-                $sqlInsert = "INSERT into Horarios (ID_PROFESOR, Dia, HORA_TIPO, Aula, Grupo, Hora_entrada, Hora_salida)
-                       values (?,?,?,?,?,?,?)";
-                $paramType = "iisssss"; 
+                $sqlInsert = "INSERT into Horarios (ID_PROFESOR, Dia, HORA_TIPO, Edificio, Aula, Grupo, Hora_entrada, Hora_salida)
+                       values (?,?,?,?,?,?,?,?)";
+                $paramType = "iisissss"; 
                 $paramArray = array(
                     $IDPROFESOR,
                     $Diasemana,
                     $Hora_tipo,
+                    $Edificio,
                     $Aula,
                     $Grupo,
                     $Hora_entrada,
