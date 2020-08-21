@@ -64,8 +64,6 @@ $('.entrada').on('change', function(){
 $('.act').on('click', function(event) {
 	id = $(this).parent().attr('id'),
 	event.preventDefault(),
-	$("#loading-msg").html("Aplicando cambios...").show(),
-	$('#loading').show(),
 	enlace = $(this).attr('enlace'),
 	$('#response').load(encodeURI(enlace)),
 	location.reload()
