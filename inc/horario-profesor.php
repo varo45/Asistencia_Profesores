@@ -6,13 +6,9 @@ if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana
 {
     if ($response->num_rows > 0)
     {
-        if(! $nombre = $class->query("SELECT Nombre, ID FROM $class->profesores WHERE ID='$_GET[profesor]'"))
+        if(! $n = $class->query("SELECT Nombre, ID FROM $class->profesores WHERE ID='$_GET[profesor]'")->fetch_assoc())
         {
             $ERR_MSG = $class->ERR_NETASYS;
-        }
-        else
-        {
-            $n = $nombre->fetch_assoc();
         }
         echo "<h2>Horario: $n[Nombre]</h2>";
         echo "<a id='editar-horario' href='index.php?ACTION=edit-horario-profesor&profesor=$n[ID]' class='btn btn-success'>Editar horario</a>";
@@ -167,7 +163,11 @@ if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana
     }
     else
     {
-        echo "<a id='crear-horario' href='index.php?ACTION=create-horario-profesor&profesor=$n[ID]' class='btn btn-success'>Crear horario</a>";
+        if(! $n = $class->query("SELECT ID FROM $class->profesores WHERE ID='$_GET[profesor]'")->fetch_assoc())
+        {
+            $ERR_MSG = $class->ERR_NETASYS;
+        }
+        echo "<a id='crear-horario' href='index.php?ACTION=crear-horario&profesor=$n[ID]' class='btn btn-success'>Crear horario</a>";
     }
 }
 else
