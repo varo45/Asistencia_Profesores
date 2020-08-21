@@ -31,26 +31,24 @@ if (isset($_POST["import"])) {
             }
             $password = $class->encryptPassword($iniciales . '12345');
             $tipo = mysqli_real_escape_string($conn, utf8_encode(2));
-            $instituto = mysqli_real_escape_string($conn, utf8_encode('IES Bezmiliana'));
-            $sqlInsert = "INSERT INTO Profesores (Iniciales, Nombre, Password, TIPO, Tutor, Instituto)
-                   values (?,?,?,?,?,?)";
-            $paramType = "sssiss";
-            $paramArray = array(
-                $iniciales,
-                $nombre,
-                $password,
-                $tipo,
-                $tutor,
-                $instituto
-            );
-            $insertId = $db->insert($sqlInsert, $paramType, $paramArray);
-            
-            if (! empty($insertId)) {
-                $type = "success";
-                $message = "Datos importados correctamente.";
-            } else {
-                $type = "error";
-                $message = "Error al importar datos desde CSV";
+            $activo = mysqli_real_escape_string($conn, utf8_encode(1));
+            $sustituido = mysqli_real_escape_string($conn, utf8_encode(0));
+            if(! $class->query("INSERT INTO Profesores (Iniciales, Nombre, Password, TIPO, Tutor, Activo, Sustituido)
+            values (
+                '$iniciales',
+                '$nombre',
+                '$password',
+                '$tipo',
+                '$tutor',
+                $activo,
+                $sustituido)"))
+            {
+                $ERR_MSG = "<br>Error al importar datos desde CSV.<br>";
+                $ERR_MSG .= $class->ERR_NETASYS;
+            }
+            else
+            {
+                $MSG = "Profesores importados correctamente.<br>";
             }
         }
     }

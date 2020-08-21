@@ -1,11 +1,10 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $("#frmCSVImport").on("submit", function () {
-        var fecha = $("#fecha_incorpora").val();
 	    $("#response").attr("class", "");
         $("#response").html("");
         $("#userTable").remove("");
-        $("#loading-msg").html("Importando horarios con fecha: "+fecha+" ...");
+        $("#loading-msg").html("Importando horarios...");
         $("#loading").show();
         var fileType = ".csv";
         var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + fileType + ")$");

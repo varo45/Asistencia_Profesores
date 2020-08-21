@@ -141,43 +141,34 @@ if (isset($_POST["import"]))
                 if (isset($Aula)) {
                     $sed = preg_split('//', $Aula, -1, PREG_SPLIT_NO_EMPTY);
                     $Edificio = mysqli_real_escape_string($conn, utf8_encode($sed[2]));
-                }
-                if(is_string($Edificio))
-                {
-                    $Edificio = NULL;
+                    preg_match('/^[0-9]$/', $Edificio) ? $Edificio = $Edificio : $Edificio=0;
                 }
                 $response = $class->query("SELECT ID FROM Profesores WHERE Iniciales='$Iniciales'");
                 $IDPROFESOR = $response->fetch_assoc();
                 $IDPROFESOR = $IDPROFESOR['ID'];
                 $Hora_entrada = "08:30:00";
                 $Hora_salida = "15:00:00";
-                $sqlInsert = "INSERT into Horarios (ID_PROFESOR, Dia, HORA_TIPO, Edificio, Aula, Grupo, Hora_entrada, Hora_salida)
-                       values (?,?,?,?,?,?,?,?)";
-                $paramType = "iisissss"; 
-                $paramArray = array(
-                    $IDPROFESOR,
-                    $Diasemana,
-                    $Hora_tipo,
-                    $Edificio,
-                    $Aula,
-                    $Grupo,
-                    $Hora_entrada,
-                    $Hora_salida
-                );
                 $response = $class->query("SELECT ID FROM Horarios WHERE ID_PROFESOR='$IDPROFESOR' AND Dia='$Diasemana' AND HORA_TIPO='$Hora_tipo' AND Grupo='$Grupo'");
                 if($response->num_rows == 0)
                 {
-                    $insertId = $db->insert($sqlInsert, $paramType, $paramArray);
-                }
-    
-                if (! empty($insertId)) {
-                    $type = "success";
-                    $MSG = "Datos importados correctamente.";
-                }
-                else
-                {
-                    $type = "error";
-                    $ERR_MSG = "Error al importar datos desde CSV <br>Compruebe que ha importado primero al profesorado.";
+                    if(! $class->query("INSERT into $class->horarios (ID_PROFESOR, Dia, HORA_TIPO, Edificio, Aula, Grupo, Hora_entrada, Hora_salida)
+                    values (
+                        '$IDPROFESOR',
+                        '$Diasemana',
+                        '$Hora_tipo',
+                        '$Edificio',
+                        '$Aula',
+                        '$Grupo',
+                        '$Hora_entrada',
+                        '$Hora_salida')"))
+                    {
+                        $ERR_MSG = "<br>Error al importar datos desde CSV.<br>";
+                        $ERR_MSG .= $class->ERR_NETASYS;
+                    }
+                    else
+                    {
+                        $MSG = "Horarios importados correctamente.<br>";
+                    }
                 }
             }
         }
