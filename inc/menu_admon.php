@@ -15,7 +15,8 @@
             </br>
             <h2>Mostrar Fichajes</h2>
             <a enlace="index.php?ACTION=admon_select&select=fichadi&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-calendar"></span> Fichaje Diario</a>
-            <a enlace="index.php?ACTION=admon_select&select=fichafe&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-calendar"></span> Fichaje Por Fechas</a>
+            <a enlace="index.php?ACTION=admon_select&select=fichafe&pag=0" id='fichafe' class="btn btn-success btn-select"><span class="glyphicon glyphicon-calendar"></span> Fichaje Por Fechas</a> 
+            <input id='fichafeini' type='text' placeholder='Fecha Inicio'> <input id='fichafefin' type='text' placeholder='Fecha Fin'>
 
         </div>
         </br>

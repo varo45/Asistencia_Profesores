@@ -30,9 +30,10 @@ if(isset($_GET['pag']))
         echo "</h3>";
     echo "<div>";
     $offset_var = $_GET['pag'];
+    $fechahoy = date('Y-m-d');
     $query = "SELECT ID_PROFESOR, Nombre, F_entrada, HORA_CLASE, DIA_SEMANA, Fecha
     FROM (Fichar INNER JOIN Profesores ON Fichar.ID_PROFESOR=Profesores.ID)
-    WHERE CAST('$_GET[Fecha]' as DATE)
+    WHERE Fecha = '$fechahoy'
     ORDER BY Profesores.Nombre ASC
     LIMIT $page_size OFFSET $offset_var";
     # "select id from shipment Limit ".$page_size." OFFSET ".$offset_var;
