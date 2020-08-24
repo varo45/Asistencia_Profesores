@@ -1,6 +1,10 @@
 <h2>Importar Horarios desde CSV</h2>
 <?php
-require_once($dirs['inc'] . 'import-mysql-horario.php');
+    if (isset($_POST["import"]))
+    {
+        require_once($dirs['inc'] . 'import-mysql-horario.php');
+        require_once($dirs['inc'] . 'actualiza_horas.php');
+    }
 ?>
 <div id="response"
     class="<?php if(!empty($type)) { echo $type . " display-block"; } ?>">

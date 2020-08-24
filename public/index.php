@@ -52,6 +52,7 @@ if(isset($_GET['ACTION']))
       case 'pruebas':
         include_once($dirs['inc'] . 'top-nav.php');
         include_once($dirs['inc'] . 'pruebas.php');
+        include_once($dirs['inc'] . 'errors.php');
         include_once($dirs['inc'] . 'footer.php');
       break;
   
