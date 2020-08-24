@@ -639,14 +639,14 @@ if(isset($_GET['ACTION']))
             $.datepicker.setDefaults($.datepicker.regional['es']);
         
             $(function (){
-                $('#fecha_incorpora').datepicker();
+                $('#fecha_incorpora').datepicker({minDate: +1});
             });
             </script>";
-            $style = "
-            input[type=file], input[type=text] {
-              display: inline-block;
+            if (isset($_POST["import"]))
+            {
+                require_once($dirs['inc'] . 'import-mysql-horario.php');
+                require_once($dirs['inc'] . 'actualiza_horas.php');
             }
-            ";
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'contenido-import-horario.php');
             include_once($dirs['inc'] . 'errors.php');
