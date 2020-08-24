@@ -7,9 +7,9 @@
                 <!-- Tabs Titles -->
 
                 <!-- Icon -->
-                <div class="fadeIn first">
+                <div class="fadeIn first" id ="mostrar">
                     <h2>Enviar mensaje a: </h2>
-                </div>
+                
 
                 <!-- Login Form -->
                 <form class="login-form" action="index.php?ACTION=enviar_mensaje" method="post">
@@ -24,6 +24,9 @@
                     <textarea id="Mensaje" minlength="4" type="text" name="Mensaje" class="fadeIn second" placeholder="Escriba aquí su mensaje..." required autocomplete="off"></textarea></br>
                     <input type="submit" name="enviar_mensaje" value="Enviar" class="fadeIn third">
                 </form>
+                </div>
             </div>
         </div>
+        
+
 
