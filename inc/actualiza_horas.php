@@ -148,6 +148,5 @@ else
 if(! isset($ERR_MSG))
 {
     $MSG .= "<br>Horarios actualizados correctamente.";
+    header("Refresh: 1; url=$_SERVER[HTTP_REFERER]");
 }
-
-header("Refresh: 1; url=$_SERVER[HTTP_REFERER]");

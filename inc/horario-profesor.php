@@ -27,7 +27,7 @@ if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana
                     echo "</tr>";
             echo "</thead>";
             echo "<tbody>";
-                if($response2 = $class->query("SELECT $class->horarios.HORA_TIPO FROM $class->horarios WHERE ID_PROFESOR='$_GET[profesor]' AND HORA_TIPO LIKE '%M'"))
+                if($response2 = $class->query("SELECT $class->horarios.HORA_TIPO FROM $class->horarios WHERE ID_PROFESOR='$_GET[profesor]' AND (HORA_TIPO LIKE '%M' OR HORA_TIPO LIKE '%C')"))
                 {
                     if($response2->num_rows > 0)
                     {
@@ -61,7 +61,7 @@ if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana
                         FROM (($class->horarios INNER JOIN $class->profesores ON $class->horarios.ID_PROFESOR=$class->profesores.ID) 
                         INNER JOIN Diasemana ON Diasemana.ID=$class->horarios.Dia)
                         INNER JOIN $class->horas ON $class->horas.Hora=$class->horarios.HORA_TIPO
-                        WHERE $class->profesores.ID='$_GET[profesor]' AND ($class->horarios.HORA_TIPO=" . "'" . $hora ."M' OR $class->horarios.HORA_TIPO=" . "'" . $hora ."T')
+                        WHERE $class->profesores.ID='$_GET[profesor]' AND ($class->horarios.HORA_TIPO=" . "'" . $hora ."M' OR $class->horarios.HORA_TIPO=" . "'" . $hora ."T' OR $class->horarios.HORA_TIPO=" . "'" . $hora ."C')
                         ORDER BY $class->horarios.HORA_TIPO, $class->horarios.Dia"))
                         {
                             // $k -> Contador de índice del array

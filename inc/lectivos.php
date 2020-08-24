@@ -26,9 +26,7 @@ if($response = $class->query("SELECT * FROM $class->lectivos"))
             <input id="datepicker_fin_fest" type="text" name="fin" placeholder="* Fecha de fin" autocomplete="off"><br><br>
             <input type="submit" name="enviar" value="Festivos"><br><br>
         </form>
-        <h3>Generar cuadrante de horas:</h3>
-        <span style="color:grey;"><i>* Después de realizar esta acción, no se podrán modificar las fechas lectivas y/o festivas.</i></span><br>
-        <a href="index.php?ACTION=create_marcajes"><input type="submit" id="generar_marcajes" value="Generar"></a>
+        
     </div>
         ';        
     }

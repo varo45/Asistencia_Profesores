@@ -21,24 +21,10 @@ if(isset($_POST['enviar']))
                 {
                     if($respuesta->num_rows > 0)
                     {
-                        if($respuesta2 = $class->query("SELECT $class->horarios.ID_PROFESOR FROM $class->horarios"))
+                        if($response = $class->dateLoop($_POST['inicio'], $_POST['fin']))
                         {
-                            if($respuesta2->num_rows > 0)
-                            {
-                                if($response = $class->dateLoop($_POST['inicio'], $_POST['fin']))
-                                {
-                                    $MSG = 'Datos insertados correctamente.';
-                                    //header("Refresh: 0;  $_SERVER[REQUEST_URI]");
-                                }
-                                else
-                                {
-                                    $ERR_MSG = $class->ERR_NETASYS;
-                                }
-                            }
-                            else
-                            {
-                                $ERR_MSG ="Debe registrar los horarios de cada profesor.";
-                            }
+                            $MSG = 'Datos insertados correctamente.';
+                            //header("Refresh: 0;  $_SERVER[REQUEST_URI]");
                         }
                         else
                         {

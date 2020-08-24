@@ -68,7 +68,7 @@ if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectiv
     }
     else
     {   
-        $ERR_MSG ="Debe registrar primero el listado de profesores.";
+        $ERR_MSG ="Debe establecer el calendario lectivo/festivo.";
     }
 }
 else
