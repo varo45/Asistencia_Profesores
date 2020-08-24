@@ -15,8 +15,21 @@ if($response = $class->query("SELECT ID, Iniciales, Nombre, Tutor, Activo, Susti
                     echo "<label>Nombre</label></br>";
                     echo "<input type='text' name='Nombre' value='$datos[Nombre]'></br>";
                     echo "<label>Tutor</label></br>";
-                    echo "<input type='text' name='Tutor' value='$datos[Tutor]'></br>";
-                    echo "<label>Activo</label></br>";
+                    echo "<input id='grupo-tutor' type='text' name='Tutor' value='$datos[Tutor]'>";
+                    if($response2 = $class->query("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' AND $class->horarios.Grupo <> 'Selec.' ORDER BY $class->horarios.Grupo"))
+                    {
+                        echo "<select id='grupo-tutor-select' class='entrada'>";
+                            while($fila = $response2->fetch_assoc())
+                            {
+                                echo "<option value='$fila[Grupo]'>$fila[Grupo]</option>";
+                            }
+                        echo "</select>";
+                    }
+                    else
+                    {
+                        echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
+                    }
+                    echo "</br><label>Activo</label></br>";
                     echo "<input type='text' class='hidden' id='Activo' name='Activo' value='$datos[Activo]'>";
                     if($response == true)
                     {
@@ -62,7 +75,7 @@ if($response = $class->query("SELECT ID, Iniciales, Nombre, Tutor, Activo, Susti
             echo '</div>';
         echo '</div>';
     echo '</div>';
-    
+    include_once('js/editar_profesor.js');
 }
  
 else
