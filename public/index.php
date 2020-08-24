@@ -618,7 +618,7 @@ if(isset($_GET['ACTION']))
           if($class->compruebaCambioPass())
           {
             $act_horario = 'active';
-            $extras .= "<script>
+            $extras = "<script>
             $.datepicker.regional['es'] = {
             closeText: 'Cerrar',
             prevText: '< Ant',
@@ -639,9 +639,13 @@ if(isset($_GET['ACTION']))
             $.datepicker.setDefaults($.datepicker.regional['es']);
         
             $(function (){
-                $('#fecha_incorpora').datepicker({ minDate: +1});
+                $('#fecha_incorpora').datepicker();
             });
-            </script>
+            </script>";
+            $style = "
+            input[type=file], input[type=text] {
+              display: inline-block;
+            }
             ";
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'contenido-import-horario.php');
@@ -754,27 +758,6 @@ if(isset($_GET['ACTION']))
           if($class->compruebaCambioPass())
           {
             $act_profesores = 'active';
-            $extras .= "<script>
-            $.datepicker.regional['es'] = {
-            closeText: 'Cerrar',
-            prevText: '< Ant',
-            nextText: 'Sig >',
-            currentText: 'Hoy',
-            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-            monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
-            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-            dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
-            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
-            weekHeader: 'Sm',
-            dateFormat: 'dd/mm/yy',
-            firstDay: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: ''
-            };
-            $.datepicker.setDefaults($.datepicker.regional['es']);
-            </script>
-            ";
             $style = "
             .reset_icon {
               transition-duration: 0.4s;
@@ -1302,6 +1285,7 @@ if(isset($_GET['ACTION']))
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'form_mensajes.php');
             include_once($dirs['inc'] . 'listar_mensajes.php');
+            include_once($dirs['public'] . 'js/menu_mensaje.js');
             include_once($dirs['inc'] . 'errors.php');
             include_once($dirs['inc'] . 'footer.php');
           }
