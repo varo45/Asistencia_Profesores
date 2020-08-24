@@ -1,8 +1,7 @@
 <?php  
-
         echo "<div class='col-xs-12 col-md-8'>";
+        echo "<input type='button' id='show' name='Mostrar_Ocultar' value='Mostra/Ocultar Envio de Mensajes'>";
         echo "<h2>Mensajes</h2>";
-
         echo '<div id="tabs">';
             echo '<ul>';
                 echo '<li><a href="#tabs-1">Recibidos</a></li>';
