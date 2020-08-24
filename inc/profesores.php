@@ -54,14 +54,14 @@ if($_SESSION['Perfil'] === 'Admin')
             echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$fila[Tipo]</td>";
             echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$activo</td>";
             echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$sustituido</td>";
-            echo "<td><a href='index.php?ACTION=editar_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-pencil'></span></a></td>";
-            echo "<td><a href='index.php?ACTION=faltas_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-list'></span></a></td>";
+            echo "<td><a href='index.php?ACTION=editar_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-pencil edit_icon'></span></a></td>";
+            echo "<td><a href='index.php?ACTION=faltas_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-list list_icon'></span></a></td>";
             if($fila['Activo'] == 1)
             {
               echo "<td>
                 <a href='index.php?ACTION=desactivar-profesor&ID=$fila[ID]'
                     onclick=\"return confirm('¿Seguro que desea realizar este cambio? Utilice solo esta opción si el profesor deja el centro por motivos de jubilación, fin de una sustitución o similares.')\">
-                    <span class='glyphicon glyphicon-remove'></span>
+                    <span class='glyphicon glyphicon-remove remove_icon'></span>
                 </a>
               </td>";
             }
@@ -70,11 +70,11 @@ if($_SESSION['Perfil'] === 'Admin')
               echo "<td>
                 <a href='index.php?ACTION=reactivar-profesor&ID=$fila[ID]'
                     onclick=\"return confirm('¡Cuidado! Si realiza este cambio ahora, se considerará que el profesor vuelve a trabajar en el centro.')\">
-                    <span class='glyphicon glyphicon-ok'></span>
+                    <span class='glyphicon glyphicon-ok add_icon'></span>
                 </a>
               </td>";
             }
-            echo "<td><a href='index.php?ACTION=reset_pass&ID=$fila[ID]' onclick=\"return confirm('Va a reicicializar la contraseña de $fila[Nombre]  ¿Es correcto?.')\"><span class='glyphicon glyphicon-refresh'></span></a></td>";
+            echo "<td><a class='reset_icon' href='index.php?ACTION=reset_pass&ID=$fila[ID]' onclick=\"return confirm('Va a reicicializar la contraseña de $fila[Nombre]  ¿Es correcto?.')\"><span class='glyphicon glyphicon-refresh reset_icon'></span></a></td>";
         }
     echo "</tbody>";
     echo "</table>";
