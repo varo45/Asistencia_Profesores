@@ -1248,6 +1248,7 @@ if(isset($_GET['ACTION']))
           {
             $act_usuario = 'active';
             $extras = '<link rel="stylesheet" href="css/mensajes.css">';
+            $extras .= '<link rel="stylesheet" href="css/message.css">';
             $extras .= '<script>
             $( function() {
               $( "#tabs" ).tabs();

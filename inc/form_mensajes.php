@@ -2,7 +2,14 @@
 ?>
 <div class="container-fluid" style="margin-top:50px">
     <div class="row">
-        <div id='formulario_mensajes' class="col-xs-12 col-md-3">
+        <div class="col-xs-12 col-md-3">
+        <a id="show">
+            <div class="new_mess_container">
+                <span class="new_mess"></span>
+                <span class="new_mess"></span>
+                <span id="message_plus">Nuevo mensaje</span>
+            </div>
+        </a>
             <div id="formContent">
                 <!-- Tabs Titles -->
 

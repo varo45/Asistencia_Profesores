@@ -1,6 +1,5 @@
 <?php  
         echo "<div id='listado_mensajes' class='col-xs-12'>";
-        echo "<a id='show'>Nuevo Mensaje</a>";
         echo "<h2>Mensajes</h2>";
         echo '<div id="tabs">';
             echo '<ul>';
