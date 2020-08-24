@@ -46,7 +46,6 @@ if(isset($_POST['fecha']))
                 if (isset($column[6])) {
                     $column[6] = preg_replace('/(\")|(\s)/', '', $column[6]);
                     $Hora_tipo = mysqli_real_escape_string($conn, utf8_encode($column[6]));
-                    $Hora_tipo .= 'M';
                 }
                 $Edificio = "";
                 if (isset($Aula)) {
@@ -54,17 +53,25 @@ if(isset($_POST['fecha']))
                     $Edificio = mysqli_real_escape_string($conn, utf8_encode($sed[2]));
                     preg_match('/^[0-9]$/', $Edificio) ? $Edificio = $Edificio : $Edificio=0;
                 }
+                if($Edificio == 1)
+                {
+                    $Hora_tipo .= 'C';
+                }
+                else
+                {
+                    $Hora_tipo .= 'M';
+                }
                 $response = $class->query("SELECT ID FROM Profesores WHERE Iniciales='$Iniciales'");
                 $IDPROFESOR = $response->fetch_assoc();
                 $IDPROFESOR = $IDPROFESOR['ID'];
-                $Hora_entrada = "08:30:00";
-                $Hora_salida = "15:00:00";
+                $Hora_entrada = "00:00:00";
+                $Hora_salida = "00:00:00";
                 $sep = preg_split('/\//', $_POST['fecha']);
                 $dia = $sep[0];
                 $m = $sep[1];
                 $Y = $sep[2];
                 $Hora_incorpora = "$Y-$m-$dia";
-                if(! $class->query("INSERT into T_horarios (ID_PROFESOR, Dia, HORA_TIPO, Edificio, Aula, Grupo, Hora_entrada, Hora_salida, Fecha_incorpora)
+                if($class->query("INSERT into T_horarios (ID_PROFESOR, Dia, HORA_TIPO, Edificio, Aula, Grupo, Hora_entrada, Hora_salida, Fecha_incorpora)
                 values (
                     '$IDPROFESOR',
                     '$Diasemana',
@@ -76,13 +83,13 @@ if(isset($_POST['fecha']))
                     '$Hora_salida',
                     '$Hora_incorpora')"))
                 {
-                    $ERR_MSG = "<br>Error al importar datos desde CSV.<br>";
-                    $ERR_MSG .= $class->ERR_NETASYS;
+                    $MSG = "Horarios importados correctamente.<br>";
+                    $MSG .= "Entrarán en vigor el día $_POST[fecha]";
                 }
                 else
                 {
-                    $MSG = "Horarios importados correctamente.<br>";
-                    $MSG .= "Entrarán en vigor el día $_POST[fecha]";
+                    $ERR_MSG = "<br>Error al importar datos desde CSV.<br>";
+                    $ERR_MSG .= $class->ERR_NETASYS;
                 }
             }
         }
@@ -90,7 +97,7 @@ if(isset($_POST['fecha']))
         {
             $ERR_MSG = "El fichero está vacío.";
         }
-        //include_once($dirs['inc'] . 'marcajes.php');
+        include_once($dirs['inc'] . 'marcajes.php');
     }
 }
 else
@@ -181,5 +188,6 @@ else
     {
         $ERR_MSG = "El fichero está vacío.";
     }
+    include_once($dirs['inc'] . 'marcajes.php');
 }
 ?>

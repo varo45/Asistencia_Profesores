@@ -18,7 +18,6 @@ if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectiv
                     }
                 }
                 $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
-                include_once($dirs['inc'] . 'msg_modal.php');
             }
             else
             {
@@ -40,8 +39,6 @@ if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectiv
                     }
                 }
                 $MSG .= "<br><span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
-                header('Refresh: 1; url=index.php?ACTION=profesores');
-                include_once($dirs['inc'] . 'msg_modal.php');
             }
             else
             {
@@ -62,7 +59,6 @@ if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectiv
                     }
                 }
                 $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
-                include_once($dirs['inc'] . 'msg_modal.php');
             }
             else
             {

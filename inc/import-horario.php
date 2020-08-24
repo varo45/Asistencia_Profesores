@@ -1,11 +1,4 @@
 <h2>Importar Horarios desde CSV</h2>
-<?php
-    if (isset($_POST["import"]))
-    {
-        require_once($dirs['inc'] . 'import-mysql-horario.php');
-        require_once($dirs['inc'] . 'actualiza_horas.php');
-    }
-?>
 <div id="response"
     class="<?php if(!empty($type)) { echo $type . " display-block"; } ?>">
     <?php if(!empty($message)) { echo $message; } ?>
@@ -22,18 +15,15 @@
             {
                 $fecha = date('Y-m-d');
                 echo '
-                <label id="import-manual-trigger">Subir documento CSV:
-                        <input type="file" name="file" id="file" accept=".csv" class="btn btn-link" style="display: inline-block;" required>
-                        <input id="fecha_incorpora" type="text" class="form-control" name="fecha" placeholder="Fecha de incorporación de horarios" autocomplete="off">
-                </label>
-                ';
+                <label id="import-manual-trigger">Subir documento CSV:</label>
+                <input type="file" name="file" id="file" accept=".csv" class="btn btn-link" style="display: inline-block;" required>
+                <input id="fecha_incorpora" style="display: inline-block; width: 25%;" type="text" class="form-control" name="fecha" placeholder="Fecha de incorporación de horarios" autocomplete="off" required>';
             }
             else
             {
                 echo '
-                <label id="import-manual-trigger">Subir documento CSV:
-                        <input type="file" name="file" id="file" accept=".csv" class="btn btn-link" required>
-                </label>
+                <label id="import-manual-trigger">Subir documento CSV:</label>
+                <input type="file" name="file" id="file" accept=".csv" class="btn btn-link" required>
                 ';
             }
         }
