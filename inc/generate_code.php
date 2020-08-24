@@ -22,7 +22,7 @@ if(isset($_SESSION['ID']) && ! empty($_SESSION['ID']))
                     
                     // Imagen QR generada por Google justo debajo 
                     //          UTILIZAR EN CASO DE FALLO DE MÓDULO phpqrcode/qrlib.php
-                    //echo '<img class="img-thumbnail" src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=' . urlencode($dato_encriptado) . '&choe=UTF-8" title="Código QR" />';
+                    // echo '<img class="img-thumbnail" src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=' . urlencode($dato_encriptado) . '&choe=UTF-8" title="Código QR" />';
                     echo "<br><br><span>* Acerque el código al lector QR para fichar.</span>";
                     echo "<div id='clean_tmp' class='hidden'></div>";
                 echo "</div>";

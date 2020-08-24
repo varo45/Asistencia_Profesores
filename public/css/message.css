@@ -6,17 +6,16 @@
     height: 32px;
     opacity: 1;
     transition-duration: 0.4s;
-    z-index: 99999;
+    z-index: 1;
 }
 #message_plus {
     position: absolute;
-    left: 55px;
+    left: 50px;
     width: 32px;
     height: 32px;
     opacity: 1;
     font-weight: bolder;
     transition-duration: 0.4s;
-    z-index: 99999;
     color: white;
 }
 .new_mess_container {
@@ -45,7 +44,7 @@
     background-color: rgb(255, 255, 255);
 }
 .new_mess:before {
-    transform: rotate(180deg);
+    transform: rotate(0deg);
     transition-duration: 0.4s;
 }
 .new_mess:after {
@@ -57,11 +56,11 @@
     transition-duration: 0.4s;
 }
 .new_mess_close:before {
-    transform: rotate(45deg);
+    transform: rotate(135deg);
     transition-duration: 0.4s;
 }
 .new_mess_close:after {
-    transform: rotate(-45deg);
+    transform: rotate(225deg);
     transition-duration: 0.4s;
 }
 .new_mess_close:hover {
