@@ -18,7 +18,7 @@ if(isset($_POST['fecha']))
                 $columnas = count($column);
                 if($columnas == 7)
                 {
-                    if($row == 0 && is_string($column[0], $column[1], $column[2], $column[3], $column[4], $column[5], $column[6])){ $row++; continue; }
+                    if($row == 1 && is_string($column[0], $column[1], $column[2], $column[3], $column[4], $column[5], $column[6])){ $row++; continue; }
                     $row++;
                     $horarioID = "";
                     if (isset($column[0])) {
@@ -120,7 +120,7 @@ else
             $columnas = count($column);
             if($columnas == 7)
             {
-                if($row == 1){ $row++; continue; }
+                if($row == 1 && is_string($column[0], $column[1], $column[2], $column[3], $column[4], $column[5], $column[6])){ $row++; continue; }
                 $row++;
                 $horarioID = "";
                 if (isset($column[0])) {
