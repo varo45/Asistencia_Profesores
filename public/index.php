@@ -1471,7 +1471,7 @@ if(isset($_GET['ACTION']))
             </script>
             ";
             $style = "
-            input[type=text] {
+            input[type=text], #select_admon_marcajes {
               width: 25%;
               display: inline-block;
             }
