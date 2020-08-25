@@ -17,15 +17,16 @@ class Netasys
     public $diasemana = 'Diasemana';
     public $marcajes = 'Marcajes';
     public $mensajes = 'Mensajes';
-
+    
+    public $conex;
     public $ERR_NETASYS;
 
 
     function bdConex()
     {
-        $conex = new mysqli($this->host, $this->user, $this->pass, $this->db);
+        $this->conex = new mysqli($this->host, $this->user, $this->pass, $this->db);
         if(! $conex->connect_errno) {
-            return $conex;
+            return $this->conex;
         }
         else
         {
