@@ -15,7 +15,7 @@
 
                 <!-- Icon -->
                 <div class="fadeIn first" id ="mostrar">
-                    <h2>Enviar mensaje a: </h2>
+                    <h2>Enviar a: </h2>
                 
 
                 <!-- Login Form -->
