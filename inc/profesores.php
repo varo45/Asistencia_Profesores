@@ -103,7 +103,8 @@ if($_SESSION['Perfil'] === 'Admin')
    }
    else
    {
-    $ERR_MSG = $class->ERR_NETASYS;
+    echo "<h3>No existen profesores, debes importar profesores para poder comenzar.</h3>";
+    echo "<a href='index.php?ACTION=import-profesorado' class='btn btn-info'>Importar Profesorado</a>";
    }
  }
  else

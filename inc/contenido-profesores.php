@@ -2,7 +2,6 @@
 <?php
 
 include_once($dirs['inc'] . 'profesores.php');
-include_once($dirs['inc'] . 'errors.php');
 
 ?>
 </div>

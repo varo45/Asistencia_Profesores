@@ -7,19 +7,16 @@ require_once($dirs['inc'] . 'import-mysql-profesorado.php');
     <?php if(!empty($message)) { echo $message; } ?>
 </div>
 <div class="outer-scontainer">
-    <div class="row">
-        <form class="form-horizontal" action="" method="post"
-            name="frmCSVImport" id="frmCSVImport"
-            enctype="multipart/form-data">
-            <div class="input-row">
-                <label id="import-manual-trigger">Subir documento CSV:
-                    <input type="file" name="file" id="file" accept=".csv" class="btn btn-link">
-                </label>
-                <button type="submit" id="submit" name="import" class="btn btn-success">Importar</button>
-                <br />
-            </div>
-        </form>
-    </div>
+    <form class="form-horizontal" action="" method="post"
+        name="frmCSVImport" id="frmCSVImport"
+        enctype="multipart/form-data">
+        <div class="input-row">
+            <label id="import-manual-trigger">Subir documento CSV:</label><br />
+            <input type="file" name="file" id="file" accept=".csv" class="btn btn-link">
+            <button type="submit" id="submit" name="import" class="btn btn-success">Importar</button>
+            <br />
+        </div>
+    </form>
 <?php
     if(! $num_profesores_act = $class->query("SELECT count(DISTINCT ID) as activos FROM $class->profesores WHERE Activo=1"))
     {

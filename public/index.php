@@ -642,6 +642,11 @@ if(isset($_GET['ACTION']))
                 $('#fecha_incorpora').datepicker({minDate: +1});
             });
             </script>";
+            $style = "
+            input[type=file] {
+              display: inline-block;
+              padding: 6px 12px 6px 0;
+            }";
             if (isset($_POST["import"]))
             {
                 require_once($dirs['inc'] . 'import-mysql-horario.php');
@@ -734,6 +739,11 @@ if(isset($_GET['ACTION']))
           if($class->compruebaCambioPass())
           {
             $act_profesores = 'active';
+            $style = "
+            input[type=file] {
+              display: inline-block;
+              padding: 6px 12px 6px 0;
+            }";
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'contenido-import-profesorado.php');
             include_once($dirs['inc'] . 'errors.php');
@@ -1484,12 +1494,14 @@ if(isset($_GET['ACTION']))
         
             $(function (){
                 $('#fichafeini').datepicker();
+                $('#marcajefeini').datepicker();
             });
             </script>
             ";
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'menu_admon.php');
             include_once($dirs['public'] . 'js/admon.js');
+            include_once($dirs['public'] . 'js/temp_marcaje.js');
             include_once($dirs['public'] . 'js/temp_ficha.js');
             include_once($dirs['inc'] . 'errors.php');
             include_once($dirs['inc'] . 'footer.php');

@@ -15,14 +15,14 @@
             {
                 $fecha = date('Y-m-d');
                 echo '
-                <label id="import-manual-trigger">Subir documento CSV:</label>
+                <label id="import-manual-trigger">Subir documento CSV:</label><br />
                 <input type="file" name="file" id="file" accept=".csv" class="btn btn-link" style="display: inline-block;" required>
                 <input id="fecha_incorpora" style="display: inline-block; width: 25%;" type="text" class="form-control" name="fecha" placeholder="Fecha de incorporación de horarios" autocomplete="off" required>';
             }
             else
             {
                 echo '
-                <label id="import-manual-trigger">Subir documento CSV:</label>
+                <label id="import-manual-trigger">Subir documento CSV:</label><br />
                 <input type="file" name="file" id="file" accept=".csv" class="btn btn-link" required>
                 ';
             }

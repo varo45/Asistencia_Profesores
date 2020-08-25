@@ -158,8 +158,8 @@ else
             $response = $class->query("SELECT ID FROM Profesores WHERE Iniciales='$Iniciales'");
             $IDPROFESOR = $response->fetch_assoc();
             $IDPROFESOR = $IDPROFESOR['ID'];
-            $Hora_entrada = "08:30:00";
-            $Hora_salida = "15:00:00";
+            $Hora_entrada = "00:00:00";
+            $Hora_salida = "00:00:00";
             $response = $class->query("SELECT ID FROM Horarios WHERE ID_PROFESOR='$IDPROFESOR' AND Dia='$Diasemana' AND HORA_TIPO='$Hora_tipo' AND Grupo='$Grupo'");
             if($response->num_rows == 0)
             {
