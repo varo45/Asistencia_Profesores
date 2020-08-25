@@ -37,9 +37,7 @@ if(isset($_POST['fecha']))
                             continue;
                         }
                     }
-    
-                    if($row == 1 && is_string($column[0]) && is_string($column[1]) && is_string($column[2]) && is_string($column[3]) && is_string($column[4]) && is_string($column[5]) && is_string($column[6])){ $row++; continue; }
-                    $row++;
+                    
                     $horarioID = "";
                     if (isset($column[0])) {
                         $column[0] = preg_replace('/(\")|(\s)/', '', $column[0]);

@@ -19,8 +19,26 @@ if (isset($_POST["import"])) {
             $columnas = count($column);
             if($columnas == 3)
             {
-                if($row == 1){ $row++; continue; }
-                $row++;
+                if($row == 1)
+                {
+                    foreach($column as $dato)
+                    {
+                        if(preg_match('/^[A-Z]+$/i', $dato))
+                        {
+                            $cabecera = true;
+                        }
+                        else
+                        {
+                            $cabecera = false;
+                        }
+                    }
+                    if($cabecera)
+                    {
+                        $row++;
+                        continue;
+                    }
+                }
+                
                 $iniciales = "";
                 if (isset($column[0])) {
                     $iniciales = mysqli_real_escape_string($conn, utf8_encode($column[0]));
