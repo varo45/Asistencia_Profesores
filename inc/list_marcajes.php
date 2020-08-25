@@ -1,5 +1,4 @@
 <?php
-
 if(! $response = $class->query("SELECT ID_PROFESOR FROM Marcajes INNER JOIN Profesores ON Marcajes.ID_PROFESOR=Profesores.ID WHERE Profesores.Activo=1"))
 {
     die($class->ERR_NETASYS);
@@ -30,14 +29,34 @@ if(isset($_GET['pag']))
         echo "</h3>";
     echo "<div>";
     $offset_var = $_GET['pag'];
-    $query = "SELECT Marcajes.*, Nombre, Iniciales, Diasemana.Diasemana
-    FROM (Marcajes INNER JOIN Profesores ON Marcajes.ID_PROFESOR=Profesores.ID)
-        INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID
-    WHERE Profesores.Activo=1
-    ORDER BY Profesores.Nombre ASC
-    LIMIT $page_size OFFSET $offset_var";
-    # "select id from shipment Limit ".$page_size." OFFSET ".$offset_var;
-
+    $fi = preg_split('/\//', $_GET['marcajefeini']);
+            $dia = $fi[0];
+            $m = $fi[1];
+            $Y = $fi[2];
+    $fini = $Y .'-'. $m .'-'. $dia;
+    $ff = preg_split('/\//', $_GET['marcajefefin']);
+            $dia = $ff[0];
+            $m = $ff[1];
+            $Y = $ff[2];
+    $ffin = $Y .'-'. $m .'-'. $dia;
+    if(isset($_GET['marcajefeini']) && isset($_GET['marcajefefin']) && $_GET['marcajefeini'] !='' && $_GET['marcajefefin'] !='')
+    {
+        $query = "SELECT Marcajes.*, Nombre, Iniciales, Diasemana.Diasemana
+        FROM (Marcajes INNER JOIN Profesores ON Marcajes.ID_PROFESOR=Profesores.ID)
+            INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID
+        WHERE Profesores.Activo=1 AND Fecha BETWEEN '$fini' AND '$ffin'
+        ORDER BY Profesores.Nombre ASC
+        LIMIT $page_size OFFSET $offset_var";
+    }
+    else
+    {
+        $query = "SELECT Marcajes.*, Nombre, Iniciales, Diasemana.Diasemana
+        FROM (Marcajes INNER JOIN Profesores ON Marcajes.ID_PROFESOR=Profesores.ID)
+            INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID
+        WHERE Profesores.Activo=1
+        ORDER BY Profesores.Nombre ASC
+        LIMIT $page_size OFFSET $offset_var";
+    }
     $result =  $class->query($query);
     echo "<table class='table table-striped'>";
         echo "<thead>";
@@ -84,12 +103,14 @@ if(isset($_GET['pag']))
             echo "</tr>";
         }
         echo "</tbody>";
-    echo "</table>";
+        echo "</table>";
 }
 else
 {
     echo "No hay páginas.<br>";
 }
+    # "select id from shipment Limit ".$page_size." OFFSET ".$offset_var;
+
 
 echo "<script>";
     echo "$(document).ready(function () {
