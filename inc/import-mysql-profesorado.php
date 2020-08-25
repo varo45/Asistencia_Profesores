@@ -14,7 +14,8 @@ if (isset($_POST["import"])) {
         
         $file = fopen($fileName, "r");
         $row = 1;
-        while (($column = fgetcsv($file, 10000, ";")) !== FALSE) {
+        while (($column = fgetcsv($file, 10000, ";")) !== FALSE) 
+        {
             $columnas = count($column);
             if($columnas == 3)
             {
@@ -58,7 +59,6 @@ if (isset($_POST["import"])) {
             {
                 $ERR_MSG = "<br>Error en Fichero, no es el esperado.<br>";
             }
-            
         }
     }
 }
