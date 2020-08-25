@@ -103,8 +103,8 @@ if($_SESSION['Perfil'] === 'Admin')
    }
    else
    {
-    echo "<h3>No existen profesores, debes importar profesores para poder comenzar.</h3>";
-    echo "<a href='index.php?ACTION=import-profesorado' class='btn btn-info'>Importar Profesorado</a>";
+    $ERR_MSG = "No existen profesores ni administradores.<br>";
+    $ERR_MSG .= "<a href='$_SERVER[PHP_SELF]?ACTION=logout' class='btn btn-success'>Aceptar</a>";
    }
  }
  else
