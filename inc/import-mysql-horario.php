@@ -18,7 +18,27 @@ if(isset($_POST['fecha']))
                 $columnas = count($column);
                 if($columnas == 7)
                 {
-                    if($row == 1 && is_string($column[0], $column[1], $column[2], $column[3], $column[4], $column[5], $column[6])){ $row++; continue; }
+                    if($row == 1)
+                    {
+                        foreach($column as $dato)
+                        {
+                            if(preg_match('/^[A-Z]+$/i', $dato))
+                            {
+                                $cabecera = true;
+                            }
+                            else
+                            {
+                                $cabecera = false;
+                            }
+                        }
+                        if($cabecera)
+                        {
+                            $row++;
+                            continue;
+                        }
+                    }
+    
+                    if($row == 1 && is_string($column[0]) && is_string($column[1]) && is_string($column[2]) && is_string($column[3]) && is_string($column[4]) && is_string($column[5]) && is_string($column[6])){ $row++; continue; }
                     $row++;
                     $horarioID = "";
                     if (isset($column[0])) {
@@ -120,8 +140,26 @@ else
             $columnas = count($column);
             if($columnas == 7)
             {
-                if($row == 1 && is_string($column[0], $column[1], $column[2], $column[3], $column[4], $column[5], $column[6])){ $row++; continue; }
-                $row++;
+                if($row == 1)
+                {
+                    foreach($column as $dato)
+                    {
+                        if(preg_match('/^[A-Z]+$/i', $dato))
+                        {
+                            $cabecera = true;
+                        }
+                        else
+                        {
+                            $cabecera = false;
+                        }
+                    }
+                    if($cabecera)
+                    {
+                        $row++;
+                        continue;
+                    }
+                }
+
                 $horarioID = "";
                 if (isset($column[0])) {
                     $column[0] = preg_replace('/(\")|(\s)/', '', $column[0]);
