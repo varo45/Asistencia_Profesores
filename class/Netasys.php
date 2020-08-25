@@ -42,11 +42,11 @@ class Netasys
 
     function query($sql)
     {
-        if(! $conex = $this->bdConex())
+        if(! isset($this->conex))
         {
-            return false;
+            $this->bdConex();
         }
-        if($response = $conex->query($sql))
+        if($response = $this->conex->query($sql))
         {
             return $response;
         }
