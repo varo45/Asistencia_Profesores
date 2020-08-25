@@ -1498,6 +1498,12 @@ if(isset($_GET['ACTION']))
             });
             </script>
             ";
+            $style = "
+            input[type=text] {
+              width: 25%;
+              display: inline-block;
+            }
+            ";
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'menu_admon.php');
             include_once($dirs['public'] . 'js/admon.js');

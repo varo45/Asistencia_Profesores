@@ -9,13 +9,13 @@
             </br>
             <h2>Mostrar en Pantalla</h2>
             <a enlace="index.php?ACTION=admon_select&select=marcajes&pag=0" id='marcajefe' class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Marcajes</a> 
-            <input id='marcajefeini' type='text' placeholder='Fecha Inicio'> <input id='marcajefefin' type='text' placeholder='Fecha Fin'><br><br>
+            <input id='marcajefeini' class='form-control' type='text' placeholder='Fecha Inicio'> <input id='marcajefefin' class='form-control' type='text' placeholder='Fecha Fin'><br><br>
             <a enlace="index.php?ACTION=admon_select&select=asistencias&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Asistencias</a><br><br>
             <a enlace="index.php?ACTION=admon_select&select=faltas&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Faltas</a><br><br>
             <a enlace="index.php?ACTION=admon_select&select=horarios&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Horarios</a><br><br>
             <a enlace="index.php?ACTION=admon_select&select=fichadi&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-calendar"></span> Fichajes de hoy</a><br><br>
             <a enlace="index.php?ACTION=admon_select&select=fichafe&pag=0" id='fichafe' class="btn btn-success btn-select"><span class="glyphicon glyphicon-calendar"></span> Fichaje Por Fechas</a> 
-            <input id='fichafeini' type='text' placeholder='Fecha Inicio'> <input id='fichafefin' type='text' placeholder='Fecha Fin'>
+            <input id='fichafeini' class='form-control' type='text' placeholder='Fecha Inicio'> <input id='fichafefin' class='form-control' type='text' placeholder='Fecha Fin'>
 
         </div>
         </br>
