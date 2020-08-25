@@ -3,10 +3,10 @@
 class Netasys
 {
 
-    private $host = '192.168.1.133:8989';
+    private $host = 'PMYSQL135.dns-servicio.com:3306';
     private $user = 'profesores';
     private $pass = 'f36c0d6388963313095f349dabd4c2e9f730868e';
-    private $db = 'Netasys';
+    private $db = '7828181_Bezmiliana';
 
     public $fichar = 'Fichar';
     public $horarios = 'Horarios';
@@ -115,8 +115,8 @@ class Netasys
         unset($_SESSION['Nombre']);
         unset($_SESSION['Tipo']);
         session_destroy();
-        session_abort();
-        header("Location : index.php");
+		session_abort();
+        header("Refresh: 1; https://asysteco.com/Bezmiliana/index.php");
     }
 
     function validFormName($registername)

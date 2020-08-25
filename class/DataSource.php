@@ -20,13 +20,14 @@ class DataSource
 
     // PHP 7.1.0 visibility modifiers are allowed for class constants.
     // when using above 7.1.0, declare the below constants as private
-    const HOST = '192.168.1.133:8989';
+	
+    const HOST = 'PMYSQL135.dns-servicio.com:3306';
 
-    const USERNAME = 'root';
+    const USERNAME = 'profesores';
 
-    const PASSWORD = 'PractiRoot2020';
+    const PASSWORD = 'f36c0d6388963313095f349dabd4c2e9f730868e';
 
-    const DATABASENAME = 'Netasys';
+    const DATABASENAME = '7828181_Bezmiliana';
 
     private $conn;
 
