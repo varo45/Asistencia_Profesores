@@ -13,6 +13,8 @@ if($resp = $class->query("SELECT ID, Nombre, TIPO FROM $class->profesores WHERE 
             if($class->query("UPDATE Profesores SET Activo=0 WHERE ID='$_GET[ID]'"))
             {
                 $MSG = "Cambios realizados correctamente.";
+                $_GET['profesor'] = $_GET['ID'];
+                include_once($dirs['inc'] . 'delete-horario-profesor.php');
             }
             else
             {
