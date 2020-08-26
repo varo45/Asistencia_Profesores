@@ -2,16 +2,13 @@
 
 // Configuración de variables de entorno de trabajo
 
-$basedir = '/var/www/html/';
+
+$basedir = dirname($_SERVER['DOCUMENT_ROOT']);
+$Instituto = preg_split('/\//', $_SERVER['REQUEST_URI']);
+$subdir = '/' . $Instituto[1];
+preg_match('/^\/[A-Z]+$/i', $subdir) ? $subdir = $subdir : $subdir = '' ;
 $dirs = [
-    'public' => $basedir . 'public/',
-    'inc' => $basedir . 'inc/',
-    'class' => $basedir . 'class/',
+    'public' => '',
+    'inc' => $basedir . $subdir . '/inc/',
+    'class' => $basedir . $subdir . '/class/',
 ];
-
-// Iniciamos variables vacías de control de directorio activo
-
-$act_home;
-$act_horario;
-$act_asistencia;
-$act_usuario;
