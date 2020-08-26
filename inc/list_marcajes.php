@@ -29,17 +29,17 @@ if(isset($_GET['pag']))
         echo "</h3>";
     echo "<div>";
     $offset_var = $_GET['pag'];
-    $fi = preg_split('/\//', $_GET['marcajefeini']);
+    $fi = preg_split('/\//', $_GET['fechainimarc']);
             $dia = $fi[0];
             $m = $fi[1];
             $Y = $fi[2];
     $fini = $Y .'-'. $m .'-'. $dia;
-    $ff = preg_split('/\//', $_GET['marcajefefin']);
+    $ff = preg_split('/\//', $_GET['fechafinmarc']);
             $dia = $ff[0];
             $m = $ff[1];
             $Y = $ff[2];
     $ffin = $Y .'-'. $m .'-'. $dia;
-    if(isset($_GET['marcajefeini']) && isset($_GET['marcajefefin']) && $_GET['marcajefeini'] !='' && $_GET['marcajefefin'] !='')
+    if(isset($_GET['fechainimarc']) && isset($_GET['fechafinmarc']) && $_GET['fechainimarc'] !='' && $_GET['fechafinmarc'] !='')
     {
         $query = "SELECT Marcajes.*, Nombre, Iniciales, Diasemana.Diasemana
         FROM (Marcajes INNER JOIN Profesores ON Marcajes.ID_PROFESOR=Profesores.ID)

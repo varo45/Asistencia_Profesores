@@ -29,12 +29,12 @@ if(isset($_GET['pag']))
         echo "</h3>";
     echo "<div>";
     $offset_var = $_GET['pag'];
-    $fi = preg_split('/\//', $_GET['fichafeini']);
+    $fi = preg_split('/\//', $_GET['fechainifichaje']);
             $dia = $fi[0];
             $m = $fi[1];
             $Y = $fi[2];
     $fini = $Y .'-'. $m .'-'. $dia;
-    $ff = preg_split('/\//', $_GET['fichafefin']);
+    $ff = preg_split('/\//', $_GET['fechafinfichaje']);
             $dia = $ff[0];
             $m = $ff[1];
             $Y = $ff[2];

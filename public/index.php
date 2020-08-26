@@ -1465,8 +1465,10 @@ if(isset($_GET['ACTION']))
             $.datepicker.setDefaults($.datepicker.regional['es']);
         
             $(function (){
-                $('#fichafeini').datepicker();
-                $('#marcajefeini').datepicker();
+                $('#fechainifichaje').datepicker();
+                $('#fechainimarc').datepicker();
+                $('#fechainicioasis').datepicker();
+                $('#fechainifaltas').datepicker();
             });
             </script>
             ";
@@ -1479,8 +1481,10 @@ if(isset($_GET['ACTION']))
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'menu_admon.php');
             include_once($dirs['public'] . 'js/admon.js');
-            include_once($dirs['public'] . 'js/temp_marcaje.js');
-            include_once($dirs['public'] . 'js/temp_ficha.js');
+            include_once($dirs['public'] . 'js/admon_fecha_marcaje.js');
+            include_once($dirs['public'] . 'js/admon_fecha_asistencias.js');
+            include_once($dirs['public'] . 'js/admon_fecha_faltas.js');
+            include_once($dirs['public'] . 'js/admon_fecha_fichaje.js');
             include_once($dirs['inc'] . 'errors.php');
             include_once($dirs['inc'] . 'footer.php');
           }

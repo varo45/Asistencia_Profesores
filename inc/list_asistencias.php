@@ -30,12 +30,34 @@ if(isset($_GET['pag']))
         echo "</h3>";
     echo "<div>";
     $offset_var = $_GET['pag'];
-    $query = "SELECT Marcajes.*, Nombre, Iniciales, Diasemana.Diasemana
-    FROM (Marcajes INNER JOIN Profesores ON Marcajes.ID_PROFESOR=Profesores.ID)
-        INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID
-    WHERE Asiste=1 OR Asiste=2
-    ORDER BY Profesores.Nombre ASC
-    LIMIT $page_size OFFSET $offset_var";
+    $fi = preg_split('/\//', $_GET['fechainicioasis']);
+            $dia = $fi[0];
+            $m = $fi[1];
+            $Y = $fi[2];
+    $fini = $Y .'-'. $m .'-'. $dia;
+    $ff = preg_split('/\//', $_GET['fechafinasis']);
+            $dia = $ff[0];
+            $m = $ff[1];
+            $Y = $ff[2];
+    $ffin = $Y .'-'. $m .'-'. $dia;
+    if(isset($_GET['fechainicioasis']) && isset($_GET['fechafinasis']) && $_GET['fechainicioasis'] !='' && $_GET['fechafinasis'] !='')
+    {
+        $query = "SELECT Marcajes.*, Nombre, Iniciales, Diasemana.Diasemana
+        FROM (Marcajes INNER JOIN Profesores ON Marcajes.ID_PROFESOR=Profesores.ID)
+            INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID
+        WHERE Asiste=1 OR Asiste=2 AND Fecha BETWEEN '$fini' AND '$ffin'
+        ORDER BY Profesores.Nombre ASC
+        LIMIT $page_size OFFSET $offset_var";
+    }
+    else
+    {
+        $query = "SELECT Marcajes.*, Nombre, Iniciales, Diasemana.Diasemana
+        FROM (Marcajes INNER JOIN Profesores ON Marcajes.ID_PROFESOR=Profesores.ID)
+            INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID
+        WHERE Asiste=1 OR Asiste=2
+        ORDER BY Profesores.Nombre ASC
+        LIMIT $page_size OFFSET $offset_var";
+    }
     # "select id from shipment Limit ".$page_size." OFFSET ".$offset_var;
 
     $result =  $class->query($query);

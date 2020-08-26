@@ -8,8 +8,8 @@
             <a enlace="index.php?ACTION=admon_select&export=horarios" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Horarios</a>
             </br>
             <h2>Mostrar en Pantalla</h2>
-            <a enlace="index.php?ACTION=admon_select&select=marcajes&pag=0" id='marcajefe' class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Marcajes</a> 
-            <input id='marcajefeini' class='form-control' type='text' placeholder='Fecha Inicio'> <input id='marcajefefin' class='form-control' type='text' placeholder='Fecha Fin'>
+            <a enlace="index.php?ACTION=admon_select&select=marcajes&pag=0" id='fechamarcajes' class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Marcajes</a> 
+            <input id='fechainimarc' class='form-control' type='text' placeholder='Fecha Inicio'> <input id='fechafinmarc' class='form-control' type='text' placeholder='Fecha Fin'>
             <?php
                 if($response = $class->query("SELECT ID, Nombre FROM $class->profesores WHERE TIPO <>1 ORDER BY Nombre"))
                 {
@@ -30,12 +30,14 @@
                 }
             ?>
             <br/><br/>
-            <a enlace="index.php?ACTION=admon_select&select=asistencias&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Asistencias</a><br><br>
-            <a enlace="index.php?ACTION=admon_select&select=faltas&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Faltas</a><br><br>
-            <a enlace="index.php?ACTION=admon_select&select=horarios&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Horarios</a><br><br>
+            <a enlace="index.php?ACTION=admon_select&select=asistencias&pag=0" id='fechaasiste' class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Asistencias</a>
+            <input id='fechainicioasis' class='form-control' type='text' placeholder='Fecha Inicio'> <input id='fechafinasis' class='form-control' type='text' placeholder='Fecha Fin'><br><br>
+            <a enlace="index.php?ACTION=admon_select&select=faltas&pag=0" id='fechafaltas' class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Faltas</a>
+            <input id='fechainifaltas' class='form-control' type='text' placeholder='Fecha Inicio'> <input id='fechafinfaltas' class='form-control' type='text' placeholder='Fecha Fin'><br><br>
+            <a enlace="index.php?ACTION=admon_select&select=horarios&pag=0" id='fechahorarios' class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Horarios</a><br><br>
             <a enlace="index.php?ACTION=admon_select&select=fichadi&pag=0" class="btn btn-success btn-select"><span class="glyphicon glyphicon-calendar"></span> Fichajes de hoy</a><br><br>
-            <a enlace="index.php?ACTION=admon_select&select=fichafe&pag=0" id='fichafe' class="btn btn-success btn-select"><span class="glyphicon glyphicon-calendar"></span> Fichaje Por Fechas</a> 
-            <input id='fichafeini' class='form-control' type='text' placeholder='Fecha Inicio'> <input id='fichafefin' class='form-control' type='text' placeholder='Fecha Fin'>
+            <a enlace="index.php?ACTION=admon_select&select=fichafe&pag=0" id='fechafichajes' class="btn btn-success btn-select"><span class="glyphicon glyphicon-calendar"></span> Fichaje Por Fechas</a> 
+            <input id='fechainifichaje' class='form-control' type='text' placeholder='Fecha Inicio'> <input id='fechafinfichaje' class='form-control' type='text' placeholder='Fecha Fin'>
         </div>
         </br>
         <div class="col-xs-12">
