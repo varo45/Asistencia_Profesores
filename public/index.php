@@ -6,7 +6,7 @@
 // Requerimos los ficheros de las clases que hemos creado
 $subrootsplit = preg_split('/\//', $_SERVER['REQUEST_URI']);
 $subroot = '/' . $subrootsplit[1];
-preg_match('/^\/[A-Z]+$/i', $subrootsplit) ? $subrootsplit = $subrootsplit : $subrootsplit = '' ;
+preg_match('/^\/[A-Z]+$/i', $subroot) ? $subroot = $subroot : $subroot = '' ;
 require_once(dirname($_SERVER['DOCUMENT_ROOT']) . $subroot . '/inc/dir_config.php');
 require_once($basedir . $subdir . '/config_instituto.php');
 require_once($dirs['class'] . 'Netasys.php');
@@ -1584,7 +1584,7 @@ if(isset($_GET['ACTION']))
         {
           $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
-          include_once($dirs['inc'] . 'msg_modal.php');
+          include_once($dsubdirirs['inc'] . 'msg_modal.php');
         }
       break;
     
