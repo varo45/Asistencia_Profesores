@@ -1,7 +1,6 @@
 <?php
 if(isset($_GET['act']))
 {
-  var_dump($_GET);
     if($_GET['act'] == 'add' && isset($_GET['ID']) && isset($_GET['Dia']) && isset($_GET['Hora']) && isset($_GET['Fecha']))
     {
         if($res = $class->query("SELECT Inicio, Fin FROM Horas WHERE Hora='$_GET[Hora]'")->fetch_assoc())
