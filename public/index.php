@@ -1473,7 +1473,7 @@ if(isset($_GET['ACTION']))
             </script>
             ";
             $style = "
-            input[type=text], #select_admon_marcajes {
+            input[type=text], #select_admon_marcajes, #select_admon_asistencias, #select_admon_horarios {
               width: 25%;
               display: inline-block;
             }
@@ -1508,7 +1508,7 @@ if(isset($_GET['ACTION']))
           {
             if(isset($_GET['export']) && $_GET['export'] == 'marcajes')
             {
-              include_once($dirs['inc'] . 'export_marcajes.php');
+              include_once($dirs['inc'] . 'pruebas.php');
             }
             if(isset($_GET['export']) && $_GET['export'] == 'asistencias')
             {
