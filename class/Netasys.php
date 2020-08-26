@@ -2,12 +2,7 @@
 
 class Netasys
 {
-
-    private $host = 'PMYSQL135.dns-servicio.com:3306';
-    private $user = 'profesores';
-    private $pass = 'f36c0d6388963313095f349dabd4c2e9f730868e';
-    private $db = '7828181_Bezmiliana';
-
+	
     public $fichar = 'Fichar';
     public $horarios = 'Horarios';
     public $profesores = 'Profesores';
@@ -17,15 +12,15 @@ class Netasys
     public $diasemana = 'Diasemana';
     public $marcajes = 'Marcajes';
     public $mensajes = 'Mensajes';
-    
+ 
     public $conex;
     public $ERR_NETASYS;
 
 
-    function bdConex()
+    function bdConex($host, $user, $pass, $db)
     {
-        $this->conex = new mysqli($this->host, $this->user, $this->pass, $this->db);
-        if(! $conex->connect_errno) {
+        $this->conex = new mysqli($host, $user, $pass, $db);
+        if(! $this->conex->connect_errno) {
             return $this->conex;
         }
         else
@@ -42,9 +37,9 @@ class Netasys
 
     function query($sql)
     {
-        if(! isset($this->conex))
+        if(! $this->conex)
         {
-            $this->bdConex();
+            return false;
         }
         if($response = $this->conex->query($sql))
         {
@@ -52,24 +47,24 @@ class Netasys
         }
         else
         {
-            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            $this->ERR_NETASYS = "ERR_CODE: " . $this->conex->errno . "<br>ERROR: " . $this->conex->error;
             return false;
         }
     }
     
     function registerNewUser($name, $iniciales, $password, $type )
     {
-        if(! $conex = $this->bdConex())
+        if(! $this->conex)
         {
             return false;
         }
-        if($response = $conex->query($sql))
+        if($response = $this->conex->query($sql))
         {
             return $response;
         }
         else
         {
-            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            $this->ERR_NETASYS = "ERR_CODE: " . $this->conex->errno . "<br>ERROR: " . $this->conex->error;
             return false;
         }
     }
@@ -186,7 +181,7 @@ class Netasys
 
     function Login($username, $password)
     {
-        if($conex = $this->bdConex())
+        if($this->conex)
         {
             $password = $this->encryptPassword($password);
             if($response = $this->query("SELECT ID FROM $this->profesores WHERE Iniciales='$username' AND Password='$password'"))
@@ -320,7 +315,6 @@ class Netasys
 
     function getLastIDFichaje()
     {
-        $conex = $this->bdConex();
         $id = $_SESSION['ID'];
         $sql = "SELECT ID FROM $this->fichaje WHERE ID_PROFESOR='$id' ORDER BY ID DESC LIMIT 1";
         if($lastID = $this->query($sql))
@@ -330,7 +324,7 @@ class Netasys
         }
         else
         {
-            $this->ERR_NETASYS = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+            $this->ERR_NETASYS = "ERR_CODE: " . $this->conex->errno . "<br>ERROR: " . $this->conex->error;
             return false;
         }
     }
@@ -339,7 +333,7 @@ class Netasys
     {
         date_default_timezone_set('Europe/Madrid');
         $now = date('H:i:s');
-        //$now = '08:00:00';
+        // $now = '08:00:00';
         if($response = $this->query("SELECT Hora FROM Horas WHERE Inicio <= '$now' AND Fin >= '$now'"))
         {  
             return $response;
@@ -595,7 +589,7 @@ class Netasys
             }
             else
             {
-                $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+                $this->ERR_BD = "ERR_CODE: " . $this->conex->errno . "<br>ERROR: " . $this->conex->error;
                 return false;
             }
         }
@@ -621,7 +615,7 @@ class Netasys
             }
             else
             {
-                $this->ERR_BD = "ERR_CODE: " . $conex->errno . "<br>ERROR: " . $conex->error;
+                $this->ERR_BD = "ERR_CODE: " . $this->conex->errno . "<br>ERROR: " . $this->conex->error;
                 return false;
             }
         }
