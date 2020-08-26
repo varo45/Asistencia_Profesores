@@ -12,7 +12,6 @@ $temp_table =
     WHERE ID_PROFESOR = '$_GET[profesor]'
         AND Fecha_incorpora = '$_GET[fecha]'
     ";
-
 if($result = $class->query($temp_table))
 {
     if(! $result->num_rows > 0)
@@ -22,6 +21,7 @@ if($result = $class->query($temp_table))
                 (ID_PROFESOR,
                 Dia,
                 HORA_TIPO,
+                Edificio,
                 Aula,
                 Grupo,
                 Hora_Entrada,
@@ -30,6 +30,7 @@ if($result = $class->query($temp_table))
                     SELECT ID_PROFESOR,
                             Dia,
                             HORA_TIPO,
+                            Edificio,
                             Aula,
                             Grupo,
                             Hora_Entrada,
@@ -85,7 +86,7 @@ if($response = $class->query($consulta))
                 echo "</thead>";
                 echo "<tbody>";
 
-                if($response2 = $class->query("SELECT $class->horarios.HORA_TIPO FROM $class->horarios WHERE ID_PROFESOR='$_GET[profesor]' AND HORA_TIPO LIKE '%M'"))
+                if($response2 = $class->query("SELECT $class->horarios.HORA_TIPO FROM $class->horarios WHERE ID_PROFESOR='$_GET[profesor]' AND (HORA_TIPO LIKE '%M' OR HORA_TIPO LIKE '%C')"))
                 {
                     if($response2->num_rows > 0)
                     {
@@ -120,7 +121,7 @@ if($response = $class->query($consulta))
                             FROM ((T_horarios INNER JOIN $class->profesores ON T_horarios.ID_PROFESOR=$class->profesores.ID) 
                             INNER JOIN Diasemana ON Diasemana.ID=T_horarios.Dia)
                             INNER JOIN $class->horas ON $class->horas.Hora=T_horarios.HORA_TIPO
-                            WHERE $class->profesores.ID='$_GET[profesor]' AND Fecha_incorpora='$_GET[fecha]' AND (T_horarios.HORA_TIPO=" . "'" . $hora ."M' OR T_horarios.HORA_TIPO=" . "'" . $hora ."T')
+                            WHERE $class->profesores.ID='$_GET[profesor]' AND Fecha_incorpora='$_GET[fecha]' AND (T_horarios.HORA_TIPO=" . "'" . $hora ."M' OR T_horarios.HORA_TIPO=" . "'" . $hora ."T' OR T_horarios.HORA_TIPO=" . "'" . $hora ."C')
                             ORDER BY T_horarios.HORA_TIPO, T_horarios.Dia"))
                             {
                                 // $k -> Contador de índice del array
@@ -138,10 +139,9 @@ if($response = $class->query($consulta))
                                 {
 
                                     /*
-                                    * Comprobamos si $filahora[$k][10] coincide con el Dia de la Semana exacto
+                                    * Comprobamos si $filahora[$k][11] coincide con el Dia de la Semana exacto
                                     */
-
-                                    if($filahora[$k][10] == $j)
+                                    if($filahora[$k][11] == $j)
                                     {
                                         $dia['weekday'] === $filahora[$k][9] ? $dia['color'] = "success" : $dia['color'] = '';
                                         echo "<td id='$j-$hora' style='vertical-align: middle; text-align: center;' class='$dia[color]'>";
@@ -150,8 +150,8 @@ if($response = $class->query($consulta))
                                             echo "<span class='glyphicon glyphicon-remove-circle btn-react-del'></span>";
                                         echo "</a><br>";
                                         echo "<b>Aula: </b>";
-                                        echo "<span id='sp_" . $filahora[$k][0] . "_Aula' class='txt'>" . $filahora[$k][4] . "</span>";
-                                        $mismoaula = $filahora[$k][4];
+                                        echo "<span id='sp_" . $filahora[$k][0] . "_Aula' class='txt'>" . $filahora[$k][5] . "</span>";
+                                        $mismoaula = $filahora[$k][5];
                                         //echo "<input id='in_" . $filahora[$k][0] . "_Aula' class='entrada' type='text'>";
                                         if($response = $class->query("SELECT DISTINCT $class->horarios.Aula FROM $class->horarios WHERE $class->horarios.Aula <> '' ORDER BY $class->horarios.Aula"))
                                         {
@@ -168,7 +168,7 @@ if($response = $class->query($consulta))
                                         }
                                         echo "<br>";
                                         echo "<b>Grupo:</b>";
-                                        echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][5] . "</span> ";
+                                        echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][6] . "</span> ";
                                         if($response2 = $class->query("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
                                         {
                                             echo "<select id='in2_" . $filahora[$k][0] . "_Grupo' class='entrada' name='Grupo'>";
@@ -190,10 +190,10 @@ if($response = $class->query($consulta))
                                         * Ya que pertenecerá al siguiente Dia
                                         */
 
-                                        while($filahora[$k][10] == $j)
+                                        while($filahora[$k][11] == $j)
                                         {
                                             echo "<br>";
-                                            echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][5] . "</span>";
+                                            echo "<span id='sp2_" . $filahora[$k][0] . "_Grupo' class='txt'>" . $filahora[$k][6] . "</span>";
                                             if($response2 = $class->query("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' ORDER BY $class->horarios.Grupo"))
                                             {
                                                 echo "<select id='in2_" . $filahora[$k][0] . "_Grupo' class='entrada' name='Grupo'>";
