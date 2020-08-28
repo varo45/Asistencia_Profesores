@@ -3,6 +3,7 @@
         <div class="col-xs-12">
             <h2>Exportar a Excel</h2>
             <a enlace="index.php?ACTION=admon_select&export=marcajes" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Marcajes</a>
+            <input id='fechainimarc' class='form-control' type='text' placeholder='Fecha Inicio'> <input id='fechafinmarc' class='form-control' type='text' placeholder='Fecha Fin'><br><br>
             <a enlace="index.php?ACTION=admon_select&export=asistencias" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Asistencias</a>
             <a enlace="index.php?ACTION=admon_select&export=faltas" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Faltas</a>
             <a enlace="index.php?ACTION=admon_select&export=horarios" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Horarios</a>
