@@ -4,12 +4,15 @@
 
 // Requerimos el fichero de configuración de directorios
 // Requerimos los ficheros de las clases que hemos creado
-require_once('../inc/dir_config.php');
+$subrootsplit = preg_split('/\//', $_SERVER['REQUEST_URI']);
+$subroot = '/' . $subrootsplit[1];
+preg_match('/^\/[A-Z]+$/i', $subroot) ? $subroot = $subroot : $subroot = '' ;
+require_once(dirname($_SERVER['DOCUMENT_ROOT']) . $subroot . '/inc/dir_config.php');
+require_once($basedir . $subdir . '/config_instituto.php');
 require_once($dirs['class'] . 'Netasys.php');
-
 // iniciamos las clases y las guardamos en variables
 $class = new Netasys;
-
+$class->bdConex($insti_host, $insti_user, $insti_pass, $insti_db);
 // Comprobamos si existen horarios para actualizar
 
 $class->tempToValid();
@@ -744,6 +747,10 @@ if(isset($_GET['ACTION']))
               display: inline-block;
               padding: 6px 12px 6px 0;
             }";
+            if (isset($_POST["import"]))
+            {
+				require_once($dirs['inc'] . 'import-mysql-profesorado.php');
+            }
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'contenido-import-profesorado.php');
             include_once($dirs['inc'] . 'errors.php');
@@ -768,6 +775,27 @@ if(isset($_GET['ACTION']))
           if($class->compruebaCambioPass())
           {
             $act_profesores = 'active';
+			$extras = "
+				<script>
+				$.datepicker.regional['es'] = {
+					closeText: 'Cerrar',
+					prevText: '< Ant',
+					nextText: 'Sig >',
+					currentText: 'Hoy',
+					monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+					monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+					dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+					dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+					dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+					weekHeader: 'Sm',
+					dateFormat: 'dd/mm/yy',
+					firstDay: 1,
+					isRTL: false,
+					showMonthAfterYear: false,
+					yearSuffix: ''
+				};
+				$.datepicker.setDefaults($.datepicker.regional['es']);
+			</script>";
             $style = "
             .reset_icon {
               transition-duration: 0.4s;
@@ -1465,15 +1493,13 @@ if(isset($_GET['ACTION']))
             $.datepicker.setDefaults($.datepicker.regional['es']);
         
             $(function (){
-                $('#fechainifichaje').datepicker();
-                $('#fechainimarc').datepicker();
-                $('#fechainicioasis').datepicker();
-                $('#fechainifaltas').datepicker();
+                $('#fichafeini').datepicker();
+                $('#marcajefeini').datepicker();
             });
             </script>
             ";
             $style = "
-            input[type=text], #select_admon_marcajes, #select_admon_asistencias, #select_admon_horarios {
+            input[type=text], #select_admon_marcajes {
               width: 25%;
               display: inline-block;
             }
@@ -1481,10 +1507,8 @@ if(isset($_GET['ACTION']))
             include_once($dirs['inc'] . 'top-nav.php');
             include_once($dirs['inc'] . 'menu_admon.php');
             include_once($dirs['public'] . 'js/admon.js');
-            include_once($dirs['public'] . 'js/admon_fecha_marcaje.js');
-            include_once($dirs['public'] . 'js/admon_fecha_asistencias.js');
-            include_once($dirs['public'] . 'js/admon_fecha_faltas.js');
-            include_once($dirs['public'] . 'js/admon_fecha_fichaje.js');
+            include_once($dirs['public'] . 'js/temp_marcaje.js');
+            include_once($dirs['public'] . 'js/temp_ficha.js');
             include_once($dirs['inc'] . 'errors.php');
             include_once($dirs['inc'] . 'footer.php');
           }
@@ -1508,7 +1532,7 @@ if(isset($_GET['ACTION']))
           {
             if(isset($_GET['export']) && $_GET['export'] == 'marcajes')
             {
-              include_once($dirs['inc'] . 'pruebas.php');
+              include_once($dirs['inc'] . 'export_marcajes.php');
             }
             if(isset($_GET['export']) && $_GET['export'] == 'asistencias')
             {
@@ -1560,7 +1584,7 @@ if(isset($_GET['ACTION']))
         {
           $MSG = "Debes iniciar sesión para realizar esta acción.";
           header("Refresh:2; url=index.php");
-          include_once($dirs['inc'] . 'msg_modal.php');
+          include_once($dsubdirirs['inc'] . 'msg_modal.php');
         }
       break;
     
