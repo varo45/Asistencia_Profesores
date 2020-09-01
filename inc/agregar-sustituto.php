@@ -18,7 +18,7 @@ if($response = $class->query("SELECT ID, Nombre FROM $class->profesores WHERE $c
         }
         else
         {
-            echo $class->ERR_NETASYS;
+            echo $class->ERR_ASYSTECO;
             return false;
         }
     }

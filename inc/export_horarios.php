@@ -1,8 +1,19 @@
 <?php
 
-if($response = $class->query("SELECT Horarios.*, Profesores.Nombre, Profesores.Iniciales, Diasemana.Diasemana FROM
-(Horarios INNER JOIN Profesores ON Horarios.ID_PROFESOR=Profesores.ID) INNER JOIN Diasemana ON Diasemana.ID=Horarios.Dia
-ORDER BY ID_PROFESOR, Dia, HORA_TIPO"))
+if(isset($_GET['profesor']) && $_GET['profesor'] != '')
+{
+    $sql = "SELECT Horarios.*, Profesores.Nombre, Profesores.Iniciales, Diasemana.Diasemana FROM
+    (Horarios INNER JOIN Profesores ON Horarios.ID_PROFESOR=Profesores.ID) INNER JOIN Diasemana ON Diasemana.ID=Horarios.Dia
+    WHERE ID_PROFESOR = '$_GET[profesor]'
+    ORDER BY ID_PROFESOR, Dia, HORA_TIPO";
+}
+else
+{
+    $sql = "SELECT Horarios.*, Profesores.Nombre, Profesores.Iniciales, Diasemana.Diasemana FROM
+    (Horarios INNER JOIN Profesores ON Horarios.ID_PROFESOR=Profesores.ID) INNER JOIN Diasemana ON Diasemana.ID=Horarios.Dia
+    ORDER BY ID_PROFESOR, Dia, HORA_TIPO";
+}
+if($response = $class->query($sql))
 {
     //echo "<h2>Registros de Horarios</h2>"; 
     if ($response->num_rows > 0) 
@@ -37,7 +48,7 @@ ORDER BY ID_PROFESOR, Dia, HORA_TIPO"))
             }
             else
             {
-                $ERR_MSG = $class->ERR_NETASYS;
+                $ERR_MSG = $class->ERR_ASYSTECO;
             }
             $campos = [
                         $datos['ID'],

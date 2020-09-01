@@ -1,21 +1,21 @@
 <?php
-if($_GET['ACTION'] == 'update-horario')
+if($_GET['SUBOPT'] == 'horario')
 {
   $tabla = $class->horarios;
 }
-elseif($_GET['ACTION'] == 'update-t-horario')
+elseif($_GET['SUBOPT'] == 't-horario')
 {
   $tabla = 'T_horarios';
 }
-$id = mysqli_real_escape_string($class->bdconex(), $_GET["id"]);
-$columna = mysqli_real_escape_string($class->bdconex(), $_GET["columna"]);
-$texto = mysqli_real_escape_string($class->bdconex(), $_GET["texto"]);
+$id = mysqli_real_escape_string($class->conex, $_GET["id"]);
+$columna = mysqli_real_escape_string($class->conex, $_GET["columna"]);
+$texto = mysqli_real_escape_string($class->conex, $_GET["texto"]);
 if($columna === 'Aula' || $columna === 'Grupo')
 {
   $sql="UPDATE $tabla SET $columna='$texto' WHERE id='$id'";
   if(! $class->query($sql))
   {
-    $ERR_MSG = $class->ERR_NETASYS;
+    $ERR_MSG = $class->ERR_ASYSTECO;
   }
 }
 else
@@ -53,7 +53,7 @@ if(isset($sql) && $sql != '')
     }
     else
     {
-        echo $class->ERR_NETASYS;
+        echo $class->ERR_ASYSTECO;
     }
 }
 ?>

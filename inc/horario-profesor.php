@@ -1,3 +1,4 @@
+<div class="container" style="margin-top:50px">
 <?php
 if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana 
                                     FROM ($class->horarios INNER JOIN $class->profesores ON $class->horarios.ID_PROFESOR=$class->profesores.ID) 
@@ -8,12 +9,12 @@ if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana
     {
         if(! $n = $class->query("SELECT Nombre, ID FROM $class->profesores WHERE ID='$_GET[profesor]'")->fetch_assoc())
         {
-            $ERR_MSG = $class->ERR_NETASYS;
+            $ERR_MSG = $class->ERR_ASYSTECO;
         }
         echo "<h2>Horario: $n[Nombre]</h2>";
-        echo "<a id='editar-horario' href='index.php?ACTION=edit-horario-profesor&profesor=$n[ID]' class='btn btn-success'>Editar horario</a>";
+        echo "<a id='editar-horario' href='index.php?ACTION=horarios&OPT=edit-horario-profesor&profesor=$n[ID]' class='btn btn-success'>Editar horario</a>";
         echo "<input id='fecha-edit' style='width: 25%; display: inline-block; margin-left: 25px;' type='text' class='form-control' placeholder='Seleccione una fecha...'>";
-        echo "<a id='eliminar-horario' style='margin-left: 50%;' href='index.php?ACTION=delete-horario-profesor&profesor=$n[ID]' class='btn btn-danger' onclick=\"return confirm('¿Seguro que desea eliminar el horario de este profesor?')\">Limpiar horario</a>";
+        echo "<a id='eliminar-horario' style='margin-left: 50%;' href='index.php?ACTION=horarios&OPT=remove&profesor=$n[ID]' class='btn btn-danger' onclick=\"return confirm('¿Seguro que desea eliminar el horario de este profesor?')\">Limpiar horario</a>";
         echo "<div id='response'></div>";
         echo "</br><table class='table'>";
             echo "<thead>";
@@ -40,7 +41,7 @@ if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana
                 }
                 else
                 {
-                    $ERR_MSG = $class->ERR_NETASYS;
+                    $ERR_MSG = $class->ERR_ASYSTECO;
                 }
                     /* 
                     * Comienza bucle por filas horarias 
@@ -100,7 +101,7 @@ if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana
                                     }
                                     else
                                     {
-                                        echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
+                                        echo "<span style='color:red;'>$class->ERR_ASYSTECO</span>";
                                     }
                                     echo "<br>";
                                     echo "<b>Grupo:</b>";
@@ -116,7 +117,7 @@ if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana
                                     }
                                     else
                                     {
-                                        echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
+                                        echo "<span style='color:red;'>$class->ERR_ASYSTECO</span>";
                                     }
                                     $k++;
                                     // $m -> Contador de pares para saltar línea o añadir espacio
@@ -153,7 +154,7 @@ if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana
                         }
                         else
                         {
-                            $ERR_MSG = $class->ERR_NETASYS;
+                            $ERR_MSG = $class->ERR_ASYSTECO;
                         }
                     }
             echo "</tbody>";
@@ -165,13 +166,14 @@ if($response = $class->query("SELECT $class->horarios.*, Diasemana.Diasemana
     {
         if(! $n = $class->query("SELECT ID, Nombre FROM $class->profesores WHERE ID='$_GET[profesor]'")->fetch_assoc())
         {
-            $ERR_MSG = $class->ERR_NETASYS;
+            $ERR_MSG = $class->ERR_ASYSTECO;
         }
         echo "<a id='crear-horario' href='index.php?ACTION=crear-horario&profesor=$n[ID]&Tipo=M' class='btn btn-success'>Crear horario para $n[Nombre]</a>";
     }
 }
 else
 {
-    $ERR_MSG = $class->ERR_NETASYS;
+    $ERR_MSG = $class->ERR_ASYSTECO;
 }
 ?>
+</div>

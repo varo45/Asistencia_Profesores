@@ -37,7 +37,7 @@ if(isset($ERR_MSG))
   </div>
 ';
 }
-elseif(isset($class->ERR_NETASYS))
+elseif(isset($class->ERR_ASYSTECO))
 {
   echo "
   <script>
@@ -67,7 +67,7 @@ elseif(isset($class->ERR_NETASYS))
         </div>
         <div class="modal-body">
           <p style="color: red;">
-            ' . $class->ERR_NETASYS . '
+            ' . $class->ERR_ASYSTECO . '
           </p>
         </div>
       </div>
@@ -133,7 +133,7 @@ elseif(isset($_GET['MSG']))
             <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
             </svg>
 
-            Mensaje de Netasys
+            Mensaje de Asysteco
 
           </h2>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -170,7 +170,7 @@ elseif(isset($MSG))
             <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
             </svg>
 
-            Mensaje de Netasys
+            Mensaje de Asysteco
 
           </h2>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">

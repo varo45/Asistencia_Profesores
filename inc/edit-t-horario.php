@@ -59,7 +59,7 @@ if(isset($_GET['act']))
                       </div>
                       <div class="modal-body">
                         <p style="color: red;">
-                          ' . $class->ERR_NETASYS . '
+                          ' . $class->ERR_ASYSTECO . '
                         </p>
                       </div>
                     </div>
@@ -87,7 +87,7 @@ if(isset($_GET['act']))
                   </div>
                   <div class="modal-body">
                     <p style="color: red;">
-                      ' . $class->ERR_NETASYS . '
+                      ' . $class->ERR_ASYSTECO . '
                     </p>
                   </div>
                 </div>
@@ -144,7 +144,7 @@ if(isset($_GET['act']))
                   </div>
                   <div class="modal-body">
                     <p style="color: red;">
-                      ' . $class->ERR_NETASYS . '
+                      ' . $class->ERR_ASYSTECO . '
                     </p>
                   </div>
                 </div>
@@ -201,7 +201,7 @@ if(isset($_GET['act']))
                   </div>
                   <div class="modal-body">
                     <p style="color: red;">
-                      ' . $class->ERR_NETASYS . '
+                      ' . $class->ERR_ASYSTECO . '
                     </p>
                   </div>
                 </div>
@@ -266,7 +266,7 @@ if(isset($_GET['act']))
                 </div>
                 <div class="modal-body">
                   <p style="color: red;">
-                    ' . $class->ERR_NETASYS . '
+                    ' . $class->ERR_ASYSTECO . '
                   </p>
                 </div>
               </div>

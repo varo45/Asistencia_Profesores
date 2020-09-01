@@ -10,6 +10,6 @@ if($response = $class->query("SELECT ID, Nombre FROM $class->profesores WHERE ID
 }
 else
 {
-    $ERR_MSG = $class->ERR_NETASYS;
+    $ERR_MSG = $class->ERR_ASYSTECO;
 }
 ?>

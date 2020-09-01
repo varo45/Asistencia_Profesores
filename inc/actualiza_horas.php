@@ -24,7 +24,7 @@ if(isset($_POST['fecha']))
                             $primera = $res->fetch_assoc();
                             if(! $p = $class->query("SELECT Inicio FROM Horas WHERE Hora='$primera[HORA_TIPO]'")->fetch_assoc())
                             {
-                                $ERR_MSG = $class->NETASYS;
+                                $ERR_MSG = $class->ERR_ASYSTECO;
                             }
                         }
                         else
@@ -34,7 +34,7 @@ if(isset($_POST['fecha']))
                     }
                     else
                     {
-                        $ERR_MSG = $class->NETASYS;
+                        $ERR_MSG = $class->ERR_ASYSTECO;
                     }
         
                     // Conseguimos su ultima Hora
@@ -45,7 +45,7 @@ if(isset($_POST['fecha']))
                             $ultima = $res->fetch_assoc();
                             if(! $u = $class->query("SELECT Fin FROM Horas WHERE Hora='$ultima[HORA_TIPO]'")->fetch_assoc())
                             {
-                                $ERR_MSG = $class->NETASYS;
+                                $ERR_MSG = $class->ERR_ASYSTECO;
                             }
                         }
                         else
@@ -55,20 +55,20 @@ if(isset($_POST['fecha']))
                     }
                     else
                     {
-                        $ERR_MSG = $class->NETASYS;
+                        $ERR_MSG = $class->ERR_ASYSTECO;
                     }
         
                     // Modificamos Hora_entrada y Hora_salida de cada Horario
                     if(! $class->query("UPDATE T_horarios SET Hora_entrada='$p[Inicio]', Hora_salida='$u[Fin]' WHERE ID_PROFESOR='$profe' AND Dia='$i'"))
                     {
-                        $ERR_MSG = $class->NETASYS;
+                        $ERR_MSG = $class->ERR_ASYSTECO;
                     }
                 }
             }
         }
         else
         {
-            $ERR_MSG = $class->NETASYS;
+            $ERR_MSG = $class->ERR_ASYSTECO;
         }
     }
     else
@@ -98,7 +98,7 @@ else
                         $primera = $res->fetch_assoc();
                         if(! $p = $class->query("SELECT Inicio FROM Horas WHERE Hora='$primera[HORA_TIPO]'")->fetch_assoc())
                         {
-                            $ERR_MSG = $class->NETASYS;
+                            $ERR_MSG = $class->ERR_ASYSTECO;
                         }
                     }
                     else
@@ -108,7 +108,7 @@ else
                 }
                 else
                 {
-                    $ERR_MSG = $class->NETASYS;
+                    $ERR_MSG = $class->ERR_ASYSTECO;
                 }
     
                 // Conseguimos su ultima Hora
@@ -119,7 +119,7 @@ else
                         $ultima = $res->fetch_assoc();
                         if(! $u = $class->query("SELECT Fin FROM Horas WHERE Hora='$ultima[HORA_TIPO]'")->fetch_assoc())
                         {
-                            $ERR_MSG = $class->NETASYS;
+                            $ERR_MSG = $class->ERR_ASYSTECO;
                         }
                     }
                     else
@@ -129,24 +129,24 @@ else
                 }
                 else
                 {
-                    $ERR_MSG = $class->NETASYS;
+                    $ERR_MSG = $class->ERR_ASYSTECO;
                 }
     
                 // Modificamos Hora_entrada y Hora_salida de cada Horario
                 if(! $class->query("UPDATE $class->horarios SET Hora_entrada='$p[Inicio]', Hora_salida='$u[Fin]' WHERE ID_PROFESOR='$profe' AND Dia='$i'"))
                 {
-                    $ERR_MSG = $class->NETASYS;
+                    $ERR_MSG = $class->ERR_ASYSTECO;
                 }
             }
         }
     }
     else
     {
-        $ERR_MSG = $class->NETASYS;
+        $ERR_MSG = $class->ERR_ASYSTECO;
     }
 }
 if(! isset($ERR_MSG))
 {
     $MSG .= "<br>Horarios actualizados correctamente.";
-    header("Refresh: 1; url=$_SERVER[HTTP_REFERER]");
+    header("Refresh: 0; url=$_SERVER[HTTP_REFERER]");
 }

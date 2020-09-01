@@ -30,7 +30,7 @@
           <!-- Remind Passowrd -->
           <div id="formFooter">
             <!--a class="underlineHover" href="<?php echo $_SERVER['PHP_SELF'] . "?ACTION=registrarse"; ?>">Registrarme</a-->
-            <a class="underlineHover" href="#">¿Has olvidado la contraseña?</a>
+            <p>Si has olvidado la contraseña, por favor contacta con Jefatura para que puedan reiniciarla. Gracias.</p>
           </div>
         </div>
       </div>

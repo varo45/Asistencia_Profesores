@@ -26,7 +26,7 @@ $titulo = [
 fputcsv($fp, $titulo, $delimitador);
 if(! $response = $class->query("SELECT ID_PROFESOR FROM Marcajes WHERE Asiste=0"))
 {
-    die($class->ERR_NETASYS);
+    die($class->ERR_ASYSTECO);
 }
 $page_size = 15000;
 $total_records = $response->num_rows;

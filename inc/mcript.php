@@ -4,7 +4,7 @@
 
 //Debes cambiar esta cadena, debe ser larga y unica
 //nadie mas debe conocerla
-$clave  = "Netasys_QR-generator?2020&C4R10S&P3DR0&4IvaR4S";
+$clave  = "Asysteco_QR-generator?2020&C4R10S&P3DR0&4IvaR4S";
 
 //Metodo de encriptación
 $method = 'aes-256-cbc';

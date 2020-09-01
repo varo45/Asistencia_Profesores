@@ -28,7 +28,7 @@ if(isset($_POST['enviar']))
                         }
                         else
                         {
-                            $ERR_MSG = $class->ERR_NETASYS;
+                            $ERR_MSG = $class->ERR_ASYSTECO;
                         }
                     }
                     else
@@ -38,7 +38,7 @@ if(isset($_POST['enviar']))
                 }
                 else
                 {
-                    $ERR_MSG = $class->ERR_NETASYS;
+                    $ERR_MSG = $class->ERR_ASYSTECO;
                 }
             }
             else
@@ -75,7 +75,7 @@ if(isset($_POST['enviar']))
                 }
                 else
                 {
-                    $ERR_MSG = $class->ERR_NETASYS;
+                    $ERR_MSG = $class->ERR_ASYSTECO;
                 }
             }
             else

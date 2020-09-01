@@ -2,7 +2,7 @@
 
 if(! $response = $class->query("SELECT ID_PROFESOR FROM Marcajes WHERE Asiste=1 OR Asiste=2"))
 {
-    die($class->ERR_NETASYS);
+    die($class->ERR_ASYSTECO);
 }
 
 $page_size = 200;
@@ -24,7 +24,7 @@ if(isset($_GET['pag']))
                 {
                     $selected = '';
                 }
-                echo '<option value="index.php?ACTION=admon_select&select=faltas&pag=' . $j*$page_size . '" class="btn-select" ' . $selected . '><span class="glyphicon glyphicon-eye-open"></span> ' . $pag = ($j+1) . '</option> ';
+                echo '<option value="index.php?ACTION=admon&OPT=select&select=faltas&pag=' . $j*$page_size . '" class="btn-select" ' . $selected . '><span class="glyphicon glyphicon-eye-open"></span> ' . $pag = ($j+1) . '</option> ';
             }
         echo "</select>";
         echo "</h3>";

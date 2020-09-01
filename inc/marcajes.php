@@ -14,14 +14,22 @@ if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectiv
                     FROM Horarios INNER JOIN Diasemana ON Horarios.Dia=Diasemana.ID
                     WHERE Dia = WEEKDAY('$fila[Fecha]')+1"))
                     {
-                        $ERR_MSG = $class->ERR_NETASYS;
+                        $ERR_MSG = $class->ERR_ASYSTECO;
                     }
                 }
                 $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
+                if(isset($ERR_MSG)  && $ERR_MSG != '')
+                {
+                    header("Location: $_SERVER[HTTP_REFERER]&ERR_MSG=" . $ERR_MSG);
+                }
+                else
+                {
+                    header("Location: $_SERVER[HTTP_REFERER]&MSG=" . $MSG);
+                }
             }
             else
             {
-                $ERR_MSG = $class->ERR_NETASYS;
+                $ERR_MSG = $class->ERR_ASYSTECO;
             }
         }
         elseif(isset($_GET['ID_PROFESOR']))
@@ -35,14 +43,22 @@ if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectiv
                     FROM Horarios INNER JOIN Diasemana ON Horarios.Dia=Diasemana.ID
                     WHERE Dia = WEEKDAY('$fila[Fecha]')+1 AND ID_PROFESOR='$_GET[ID_PROFESOR]'"))
                     {
-                        $ERR_MSG = $class->ERR_NETASYS;
+                        $ERR_MSG = $class->ERR_ASYSTECO;
                     }
                 }
                 $MSG .= "<br><span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
+                if(isset($ERR_MSG)  && $ERR_MSG != '')
+                {
+                    header("Location: $_SERVER[HTTP_REFERER]&ERR_MSG=" . $ERR_MSG);
+                }
+                else
+                {
+                    header("Location: $_SERVER[HTTP_REFERER]&MSG=" . $MSG);
+                }
             }
             else
             {
-                $ERR_MSG = $class->ERR_NETASYS;
+                $ERR_MSG = $class->ERR_ASYSTECO;
             }
         }
         else
@@ -55,14 +71,22 @@ if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectiv
                     FROM Horarios INNER JOIN Diasemana ON Horarios.Dia=Diasemana.ID
                     WHERE Dia = WEEKDAY('$fila[Fecha]')+1"))
                     {
-                        $ERR_MSG = $class->ERR_NETASYS;
+                        $ERR_MSG = $class->ERR_ASYSTECO;
                     }
                 }
                 $MSG = "<span style='color: green;'>Marcajes por horas actualizados correctamente</span>";
+                if(isset($ERR_MSG)  && $ERR_MSG != '')
+                {
+                    header("Location: $_SERVER[HTTP_REFERER]&ERR_MSG=" . $ERR_MSG);
+                }
+                else
+                {
+                    header("Location: $_SERVER[HTTP_REFERER]&MSG=" . $MSG);
+                }
             }
             else
             {
-                $ERR_MSG = $class->ERR_NETASYS;
+                $ERR_MSG = $class->ERR_ASYSTECO;
             }
         }
     }
@@ -73,5 +97,5 @@ if($response4 = $class->query("SELECT $class->lectivos.Fecha FROM $class->lectiv
 }
 else
 {
-    $ERR_MSG = $class->ERR_NETASYS;
+    $ERR_MSG = $class->ERR_ASYSTECO;
 }

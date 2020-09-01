@@ -4,11 +4,11 @@
 
 if(! $class->validFormName($_POST['Nombre']))
 {
-    $ERR_REG_FORM .= $class->ERR_NETASYS;
+    $ERR_REG_FORM .= $class->ERR_ASYSTECO;
 }
 if(! $class->validFormIni($_POST['Iniciales']))
 {
-    $ERR_REG_FORM .= $class->ERR_NETASYS;
+    $ERR_REG_FORM .= $class->ERR_ASYSTECO;
 }
 if(! $class->encryptPassword($_POST['pass1']) == $class->encryptPassword($_POST['pass2']))
 {
@@ -26,7 +26,7 @@ if(! isset($ERR_REG_FORM))
         }
         else
         {
-            $ERR_REG_FORM = $class->ERR_NETASYS;
+            $ERR_REG_FORM = $class->ERR_ASYSTECO;
             include_once($dirs['inc'] . 'register_form.php');
         }
     }

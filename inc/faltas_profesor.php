@@ -1,6 +1,6 @@
 <?php
 
-$sql = "SELECT Nombre FROM $class->profesores WHERE ID=" . mysqli_real_escape_string($class->bdConex(), $_GET['ID']);
+$sql = "SELECT Nombre FROM $class->profesores WHERE ID=" . mysqli_real_escape_string($class->conex, $_GET['ID']);
 if($resp = $class->query($sql))
 {
     $n = $resp->fetch_assoc();
@@ -11,7 +11,7 @@ if($resp = $class->query($sql))
     // La siguiente línea la utilizaremos para realizar pruebas
     
     //$fecha = '2020-10-22';
-    if($response = $class->query("SELECT Marcajes.*, Diasemana FROM Marcajes INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID WHERE ID_PROFESOR=" . mysqli_real_escape_string($class->bdConex(), $_GET['ID']) . " AND Fecha <= '$fecha' ORDER BY Fecha DESC, Dia, Hora"))
+    if($response = $class->query("SELECT Marcajes.*, Diasemana FROM Marcajes INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID WHERE ID_PROFESOR=" . mysqli_real_escape_string($class->conex, $_GET['ID']) . " AND Fecha <= '$fecha' ORDER BY Fecha DESC, Dia, Hora"))
     {
             echo "<h1>Asistencias lectivas de <b>$n</b></h1>";
             echo "<input id='busca_asiste' class='fadeIn' type='text' placeholder='Buscar registro...' autocomplete='off'>";
@@ -71,12 +71,12 @@ if($resp = $class->query($sql))
     }
     else
     {
-        $ERR_MSG = $class->ERR_NETASYS;
+        $ERR_MSG = $class->ERR_ASYSTECO;
     }
 }
 else
 {
-    $ERR_MSG = $class->ERR_NETASYS;
+    $ERR_MSG = $class->ERR_ASYSTECO;
 }
 
 ?>

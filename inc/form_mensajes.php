@@ -2,7 +2,7 @@
 ?>
 <div class="container-fluid" style="margin-top:50px">
     <div class="row">
-        <div class="col-xs-12 col-md-3">
+        <div class="col-xs-12 col-md-4">
         <a id="show">
             <div class="new_mess_container">
                 <span class="new_mess"></span>
@@ -19,7 +19,7 @@
                 
 
                 <!-- Login Form -->
-                <form class="login-form" action="index.php?ACTION=enviar_mensaje" method="post">
+                <form class="login-form" action="index.php?ACTION=mensajes&OPT=add" method="post">
                     <input type="text" name="ID" class="hidden" value="<?php echo $_SESSION['ID']; ?>">
                     <?php
                         include_once($dirs['inc'] . 'select_profesores.php');

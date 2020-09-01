@@ -1,11 +1,5 @@
 <?php
 
-require_once($dirs['class'] . 'DataSource.php');
-require_once($dirs['class'] . 'Netasys.php');
-$db = new DataSource();
-$class = new Netasys();
-$conn = $db->getConnection();
-
 if (isset($_POST["import"])) {
     
     $fileName = $_FILES["file"]["tmp_name"];
@@ -41,20 +35,20 @@ if (isset($_POST["import"])) {
                 
                 $iniciales = "";
                 if (isset($column[0])) {
-                    $iniciales = mysqli_real_escape_string($conn, utf8_encode($column[0]));
+                    $iniciales = mysqli_real_escape_string($class->conex, utf8_encode($column[0]));
                 }
                 $nombre = "";
                 if (isset($column[1])) {
-                    $nombre = mysqli_real_escape_string($conn, utf8_encode($column[1]));
+                    $nombre = mysqli_real_escape_string($class->conex, utf8_encode($column[1]));
                 }
                 $tutor = "";
                 if (isset($column[2])) {
-                    $tutor = mysqli_real_escape_string($conn, utf8_encode($column[2]));
+                    $tutor = mysqli_real_escape_string($class->conex, utf8_encode($column[2]));
                 }
                 $password = $class->encryptPassword($iniciales . '12345');
-                $tipo = mysqli_real_escape_string($conn, utf8_encode(2));
-                $activo = mysqli_real_escape_string($conn, utf8_encode(1));
-                $sustituido = mysqli_real_escape_string($conn, utf8_encode(0));
+                $tipo = mysqli_real_escape_string($class->conex, utf8_encode(2));
+                $activo = mysqli_real_escape_string($class->conex, utf8_encode(1));
+                $sustituido = mysqli_real_escape_string($class->conex, utf8_encode(0));
                 if(! $class->query("INSERT INTO Profesores (Iniciales, Nombre, Password, TIPO, Tutor, Activo, Sustituido)
                 values (
                     '$iniciales',
@@ -66,7 +60,7 @@ if (isset($_POST["import"])) {
                     $sustituido)"))
                 {
                     $ERR_MSG = "<br>Error al importar datos desde CSV.<br>";
-                    $ERR_MSG .= $class->ERR_NETASYS;
+                    $ERR_MSG .= $class->ERR_ASYSTECO;
                 }
                 else
                 {

@@ -20,7 +20,7 @@ $_POST['new_pass_c'] = $class->encryptPassword($_POST['new_pass_c']);
                 }
                 else
                 {
-                    $ERR_MSG = $class->ERR_NETASYS;
+                    $ERR_MSG = $class->ERR_ASYSTECO;
                 }
             }
             else
@@ -36,7 +36,7 @@ $_POST['new_pass_c'] = $class->encryptPassword($_POST['new_pass_c']);
     }
     else
     {
-        $ERR_MSG = $class->ERR_NETASYS;
+        $ERR_MSG = $class->ERR_ASYSTECO;
     }
 
 }

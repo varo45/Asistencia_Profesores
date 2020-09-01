@@ -20,7 +20,7 @@ if(isset($_GET['criptedval']) && $_GET['criptedval'] != 'undefined')
           }
           else
           {
-              echo $class->ERR_NETASYS;
+              echo $class->ERR_ASYSTECO;
           }
         }
         else
@@ -30,7 +30,7 @@ if(isset($_GET['criptedval']) && $_GET['criptedval'] != 'undefined')
       }
       else
       {
-        echo "<span id='noqr' style='color: white; font-weight: bolder; background-color: red;'><h3>$class->ERR_NETASYS</h3></span>";
+        echo "<span id='noqr' style='color: white; font-weight: bolder; background-color: red;'><h3>$class->ERR_ASYSTECO</h3></span>";
       }
   }
   else

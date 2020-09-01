@@ -72,5 +72,5 @@ if($response = $class->getGuardias())
 }
 else
 {
-    echo $ERR_MSG = $class->ERR_NETASYS;
+    echo $ERR_MSG = $class->ERR_ASYSTECO;
 }

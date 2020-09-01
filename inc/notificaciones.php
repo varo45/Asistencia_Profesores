@@ -21,14 +21,16 @@ echo '<div class="container" id="botonera" style="margin-top:75px">';
                     ";
                     while($datos = $result->fetch_assoc()) 
                         {
+                            $ultimos = "";
                             if($datos['Visto'] == 0)
                             {
+                                $ultimos = "style='background-color: #f5d42f;'";
                                 $visto = "UPDATE Notificaciones
                                 SET Visto=1
                                 WHERE ID='$datos[ID]'";
                                 if(! $class->query($visto))
                                 {
-                                    $ERR_MSG = $class->ERR_NETASYS;
+                                    $ERR_MSG = $class->ERR_ASYSTECO;
                                 }
                             }
                         $sep = preg_split('/[ -]/', $datos['Fecha']);
@@ -38,7 +40,7 @@ echo '<div class="container" id="botonera" style="margin-top:75px">';
                         $h = $sep[3];
                     echo "
                         <tbody>
-                            <tr>
+                            <tr $ultimos>
                                 <td>$datos[ID_PROFESOR]</td>
                                 <td>$datos[Iniciales]</td>
                                 <td>$datos[Nombre]</td>

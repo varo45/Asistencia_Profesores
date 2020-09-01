@@ -37,6 +37,6 @@ if($response = $class->query("SELECT * FROM $class->lectivos"))
 }
 else
 {
-    $ERR_MSG = $class->ERR_NETASYS;
+    $ERR_MSG = $class->ERR_ASYSTECO;
 }
 ?>

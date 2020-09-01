@@ -21,13 +21,13 @@ if($class->query("UPDATE Marcajes SET Asiste=$_GET[Valor] WHERE ID_PROFESOR='$_G
     $notificacion = "INSERT INTO Notificaciones (ID_PROFESOR, Modificacion) VALUES ('$_GET[Profesor]', '$msg')";
     if(! $class->query($notificacion))
     {
-        echo $class->ERR_NETASYS;
+        echo $class->ERR_ASYSTECO;
         return false;
     }
     return true;
 }
 else
 {
-    echo $class->ERR_NETASYS;
+    echo $class->ERR_ASYSTECO;
     return false;
 }

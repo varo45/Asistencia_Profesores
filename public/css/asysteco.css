@@ -1,0 +1,83 @@
+html {
+    scroll-behavior: smooth;
+}
+.flecha_div {
+    position: fixed;
+    visibility: visible;
+    bottom: -50px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    transition-duration: 0.8s;
+    opacity: 0;
+    z-index: 998;
+    box-shadow: 8px 6px 5px  rgba(66, 66, 66, 0.7);
+}
+.flecha_div_visible {
+    position: fixed;
+    visibility: visible;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    transition-duration: 0.4s;
+    z-index: 998;
+    opacity: 1;
+    box-shadow: 4px 4px 12px  rgba(66, 66, 66, 0.7);
+}
+.flecha {
+    position: fixed;
+    bottom: -50px;
+    right: 20px;
+    width: 50px;
+    opacity: 0;
+    visibility: visible;
+    transition-duration: 0.8s;
+    z-index: 999;
+}
+.jsflecha {
+    opacity: 0.6;
+    visibility: visible;
+    bottom: 20px;
+    transition-duration: 0.4s;
+    z-index: 999;
+}
+.jsflecha:hover {
+    transform: rotate(360deg);
+    opacity: 1;
+    z-index: 999;
+}
+
+#btn-import {
+    cursor: pointer;
+}
+
+#cambio-pass-icon {
+    transition-duration: 0.6s;
+}
+
+.rotate-pass {
+    transform: rotate(360deg);
+    transition-duration: 0.6s;
+}
+#message {
+    transition-duration: 0.4s;
+}
+.message-jump {
+    transform: rotate(-15deg);
+    transition-duration: 0.4s;
+}
+
+.bell_rings {
+  animation: bell_rings 1s ease infinite;
+}
+
+@keyframes bell_rings {
+    0% {transform: rotate(0deg);}
+    25% {transform: rotate(25deg);}
+    50% {transform: rotate(-25deg);}
+    75% {transform: rotate(35deg);}
+    100% {transform: rotate(0deg);}
+}

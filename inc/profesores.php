@@ -5,6 +5,7 @@ if($_SESSION['Perfil'] === 'Admin')
  {
    if ($response->num_rows > 0)
    {
+    echo '<div class="container" style="margin-top:50px">';
     echo "<div id='horario'></div>";
     echo "<h2>Profesores</h2>";
     include_once($dirs['inc'] . 'registrar-profesor.php');
@@ -69,12 +70,12 @@ if($_SESSION['Perfil'] === 'Admin')
               echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$fila[Tipo]</td>";
               echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$activo</td>";
               echo "<td class='row_show' title='Haz click para ver el horario de $fila[Nombre]'>$sustituido</td>";
-              echo "<td><a title='Editar a $fila[Nombre]' href='index.php?ACTION=editar_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-pencil edit_icon'></span></a></td>";
-              echo "<td><a title='Mostrar asistencias de $fila[Nombre]' href='index.php?ACTION=faltas_profesor&ID=$fila[ID]'><span class='glyphicon glyphicon-list list_icon'></span></a></td>";
+              echo "<td><a title='Editar a $fila[Nombre]' href='index.php?ACTION=profesores&OPT=edit&ID=$fila[ID]'><span class='glyphicon glyphicon-pencil edit_icon'></span></a></td>";
+              echo "<td><a title='Mostrar asistencias de $fila[Nombre]' href='index.php?ACTION=asistencias&ID=$fila[ID]'><span class='glyphicon glyphicon-list list_icon'></span></a></td>";
               if($fila['Activo'] == 1)
               {
                 echo "<td>
-                  <a href='index.php?ACTION=desactivar-activar-profesor&ID=$fila[ID]'
+                  <a href='index.php?ACTION=profesores&OPT=des-act&ID=$fila[ID]'
                       title='Desctivar a $fila[Nombre]'
                       onclick=\"return confirm('¿Seguro que desea realizar este cambio? Utilice solo esta opción si el profesor deja el centro por motivos de jubilación, fin de una sustitución o similares.')\">
                       <span class='glyphicon glyphicon-remove remove_icon'></span>
@@ -84,7 +85,7 @@ if($_SESSION['Perfil'] === 'Admin')
               else
               {
                 echo "<td>
-                  <a href='index.php?ACTION=desactivar-activar-profesor&ID=$fila[ID]'
+                  <a href='index.php?ACTION=profesores&OPT=des-act&ID=$fila[ID]'
                       title='Activar a $fila[Nombre]'
                       onclick=\"return confirm('¡Cuidado! Si realiza este cambio ahora, se considerará que el profesor vuelve a trabajar en el centro.')\">
                       <span class='glyphicon glyphicon-ok add_icon'></span>
@@ -93,12 +94,13 @@ if($_SESSION['Perfil'] === 'Admin')
               }
               echo "<td><a class='reset_icon'
                       title='Restablecer contraseña de $fila[Nombre]'
-                      href='index.php?ACTION=reset_pass&ID=$fila[ID]'
+                      href='index.php?ACTION=profesores&OPT=reset-pass&ID=$fila[ID]'
                       onclick=\"return confirm('Va a restablecer la contraseña de $fila[Nombre]  ¿Desea continuar?.')\"><span class='glyphicon glyphicon-refresh reset_icon'></span></a></td>";
             }
         }
     echo "</tbody>";
     echo "</table>";
+    echo '</div>';
     include_once($dirs['public'] . 'js/profesores.js');
    }
    else
@@ -109,7 +111,7 @@ if($_SESSION['Perfil'] === 'Admin')
  }
  else
  {
-   $ERR_MSG = $class->ERR_NETASYS;
+   $ERR_MSG = $class->ERR_ASYSTECO;
  }
 }
 else

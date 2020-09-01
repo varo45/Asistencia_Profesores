@@ -8,16 +8,23 @@ if($_POST['Iniciales'] != '' && $_POST['pass'] != '')
     {
         if($class->Login($_POST['Iniciales'], $_POST['pass']))
         {
-            header("Location: index.php");
+            if($_SESSION['Perfil'] === 'Admin')
+            {
+                header("Location: index.php");
+            }
+            else
+            {
+                header("Location: index.php?ACTION=horarios");
+            }
         }
         else
         {
-            $ERR_LOGIN_FORM = $class->ERR_NETASYS;
+            $ERR_LOGIN_FORM = $class->ERR_ASYSTECO;
         }
     }
     else
     {
-        $ERR_LOGIN_FORM = $class->ERR_NETASYS;
+        $ERR_LOGIN_FORM = $class->ERR_ASYSTECO;
     }
 }
 else

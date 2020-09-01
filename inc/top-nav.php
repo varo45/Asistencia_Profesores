@@ -6,16 +6,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="css/bootstrap-3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/netasys.css">
+  <link rel="stylesheet" href="css/asysteco.css">
   <link rel="stylesheet" href="js/jquery-ui/jquery-ui.min.css">
+  <link rel="shortcut icon" href="resources/img/asysteco.ico" type="image/x-icon">
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery-ui/jquery-ui.min.js"></script>
-  <?php if(isset($extras)){ echo $extras;} ?>
+  <script src="js/datepicker_common.js"></script>
+  <script src="js/flecha.js"></script>
+  
+  <?php if(isset($scripts)){ echo $scripts;} ?>
 
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script>
+    <?php if(isset($extras)){ echo $extras;} ?>
+  </script>
+
   <style>
-  <?php if(isset($style)){ echo $style;} ?>
+    <?php if(isset($style)){ echo $style;} ?>
   </style>
 </head>
 <body>
@@ -42,7 +49,7 @@ if($response = $class->query($noleidos))
 }
 else
 {
-  $ERR_MSG = $class->ERR_NETASYS;
+  $ERR_MSG = $class->ERR_ASYSTECO;
 }
 
 $novisto = "SELECT count(*) as new_alert
@@ -65,7 +72,7 @@ if($response = $class->query($novisto))
 }
 else
 {
-  $ERR_MSG = $class->ERR_NETASYS;
+  $ERR_MSG = $class->ERR_ASYSTECO;
 }
 
 echo '<nav class="navbar navbar-inverse navbar-fixed-top">';
@@ -76,12 +83,12 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">';
         echo '<span class="icon-bar"></span>';
         echo '<span class="icon-bar"></span>';
       echo '</button>';
-      echo '<a class="navbar-brand" href="index.php">Netasys</a>';
-    echo '</div>';
-    echo '<div class="collapse navbar-collapse" id="top-menu">';
 
       if($_SESSION['Perfil'] === 'Admin')
       {
+        echo '<a class="navbar-brand" href="index.php">' . $Titulo . '</a>';
+      echo '</div>';
+      echo '<div class="collapse navbar-collapse" id="top-menu">';
         echo '<ul class="nav navbar-nav">';
           echo "<li class='$act_home'>";
             echo "<a href='index.php'><span class='glyphicon glyphicon-home'></span> Inicio</a>";
@@ -89,15 +96,23 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">';
 
           echo "<li class='dropdown $act_horario'><a class='dropdown-toggle' data-toggle='dropdown' href='#'><span class='glyphicon glyphicon-calendar'></span> Horario <span class='caret'></span></a>";
             echo '<ul class="dropdown-menu">';
-              //echo "<li><a href='$_SERVER[PHP_SELF]?ACTION=horarios'><span class='glyphicon glyphicon-calendar'></span> Consultar horario</a></li>";
-              echo '<li><a href="index.php?ACTION=import-horario"><span class="glyphicon glyphicon-open"></span> Importar horarios</a></li>';
+              echo '<li>';
+                echo '<a href="index.php?ACTION=horarios&OPT=edit-guardias">
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar3-week" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                  <path fill-rule="evenodd" d="M12 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-5 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm2-3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-5 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg> 
+                  Editar Guardias
+                </a>';
+                echo '</li>';
+              echo '<li><a href="index.php?ACTION=horarios&OPT=import"><span class="glyphicon glyphicon-open"></span> Importar horarios</a></li>';
             echo '</ul>';
           echo '</li>';
 
           echo "<li class='dropdown $act_profesores '><a class='dropdown-toggle' data-toggle='dropdown' href='#'><span class='glyphicon glyphicon-education'></span> Profesores <span class='caret'></a>";
             echo "<ul class='dropdown-menu'>";
               echo "<li><a href='$_SERVER[PHP_SELF]?ACTION=profesores'><span class='glyphicon glyphicon-education'></span> Mostrar profesores</a></li>";
-              echo "<li><a href='$_SERVER[PHP_SELF]?ACTION=import-profesorado'><span class='glyphicon glyphicon-plus'></span> Importar profesores</a></li>";
+              echo "<li><a href='$_SERVER[PHP_SELF]?ACTION=profesores&OPT=import'><span class='glyphicon glyphicon-plus'></span> Importar profesores</a></li>";
             echo "</ul>";
           echo "</li>";
 
@@ -116,7 +131,7 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">';
             echo '</a>';
             echo '<ul class="dropdown-menu">';
               echo '<li>';
-                echo'<a id="message" href="index.php?ACTION=form_mensajes"><span id="message-icon" class="glyphicon glyphicon-comment"></span> Mensajes ';
+                echo'<a id="message" href="index.php?ACTION=mensajes"><span id="message-icon" class="glyphicon glyphicon-comment"></span> Mensajes ';
                   echo $notificacion;
                 echo '</a>';
               echo '</li>';
@@ -145,21 +160,21 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">';
         $d = date('d');
         $m = date('m');
         $Y = date('Y');
+        echo "<a class='navbar-brand' href='$_SERVER[PHP_SELF]?ACTION=horarios'>$Titulo</a>";
+      echo '</div>';
+      echo '<div class="collapse navbar-collapse" id="top-menu">';
         echo '<ul class="nav navbar-nav">';
-          echo "<li class='$act_home'>";
-            echo "<a href='index.php'><span class='glyphicon glyphicon-home'></span> Inicio</a>";
-          echo "</li>";
 
-          echo "<li class='dropdown $act_horario'><a class='dropdown-toggle' data-toggle='dropdown' href='#'><span class='glyphicon glyphicon-calendar'></span> Horario <span class='caret'></span></a>";
-            echo '<ul class="dropdown-menu">';
-              echo "<li>";
-                echo "<a href='$_SERVER[PHP_SELF]?ACTION=horarios'><span class='glyphicon glyphicon-calendar'></span> Consultar horario</a>";
-              echo "</li>";
-            echo '</ul>';
-          echo '</li>';
+        echo "<li class='$act_horario'>";
+          echo "<a href='$_SERVER[PHP_SELF]?ACTION=horarios'><span class='glyphicon glyphicon-home'></span> Inicio</a>";
+        echo "</li>";
+
+          echo "<li class='$act_home'>";
+            echo "<a href='index.php'><span class='glyphicon glyphicon-eye-open'></span> Guardias</a>";
+          echo "</li>";
           
           echo "<li class='$act_asistencia'>";
-            echo "<a href='$_SERVER[PHP_SELF]?ACTION=asistencias&d=$d&m=$m&Y=$Y'><span class='glyphicon glyphicon-check'></span> Mis asistencias</a>";
+            echo "<a href='$_SERVER[PHP_SELF]?ACTION=asistencias&OPT=sesion&d=$d&m=$m&Y=$Y'><span class='glyphicon glyphicon-check'></span> Mis asistencias</a>";
           echo "</li>";
         echo '</ul>';
 
@@ -175,7 +190,7 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">';
                 echo '<a href="index.php?ACTION=qrcoder"><span class="glyphicon glyphicon-qrcode"></span> Mi código QR</a>';
               echo '</li>';
               echo '<li>';
-                echo'<a id="message" href="index.php?ACTION=form_mensajes"><span id="message-icon" class="glyphicon glyphicon-comment"></span> Mensajes ';
+                echo'<a id="message" href="index.php?ACTION=mensajes"><span id="message-icon" class="glyphicon glyphicon-comment"></span> Mensajes ';
                   echo $notificacion;
                 echo '</a>';
               echo '</li>';
@@ -196,3 +211,5 @@ echo '<nav class="navbar navbar-inverse navbar-fixed-top">';
 echo '</nav>';
 
 include_once($dirs['public'] . 'js/animate.js');
+
+echo "<div id='flecha_div' class='flecha_div'><a href='#'><img id='flecha' class='flecha' src='resources/img/flecha.png'/></a></div>";

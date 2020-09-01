@@ -19,6 +19,7 @@ if($response = $class->query("SELECT ID, Iniciales, Nombre, Tutor, Activo, Susti
                     if($response2 = $class->query("SELECT DISTINCT $class->horarios.Grupo FROM $class->horarios WHERE $class->horarios.Grupo <> '' AND $class->horarios.Grupo <> 'Selec.' ORDER BY $class->horarios.Grupo"))
                     {
                         echo "<select id='grupo-tutor-select' class='entrada'>";
+                            echo "<option value='No'>No</option>";
                             while($fila = $response2->fetch_assoc())
                             {
                                 echo "<option value='$fila[Grupo]'>$fila[Grupo]</option>";
@@ -27,7 +28,7 @@ if($response = $class->query("SELECT ID, Iniciales, Nombre, Tutor, Activo, Susti
                     }
                     else
                     {
-                        echo "<span style='color:red;'>$class->ERR_NETASYS</span>";
+                        echo "<span style='color:red;'>$class->ERR_ASYSTECO</span>";
                     }
                     echo "</br><label>Activo</label></br>";
                     echo "<input type='text' class='hidden' id='Activo' name='Activo' value='$datos[Activo]'>";
@@ -63,11 +64,11 @@ if($response = $class->query("SELECT ID, Iniciales, Nombre, Tutor, Activo, Susti
                     {
                         if($resp->num_rows > 0)
                         {
-                            echo "<a href='index.php?ACTION=formulario-sustituto&ID=$datos[ID]' class='btn btn-info'>Sustituir</a><br><br>";
+                            echo "<a href='index.php?ACTION=profesores&OPT=sustituir&ID=$datos[ID]' class='btn btn-info'>Sustituir</a><br><br>";
                         } 
                         else
                         {
-                            echo "<a href='index.php?ACTION=retirar-sustitucion&ID=$datos[ID]' class='btn btn-info'>Retirar Sustituto</a><br><br>";
+                            echo "<a href='index.php?ACTION=profesores&OPT=remove-sustituto&ID=$datos[ID]' class='btn btn-info'>Retirar Sustituto</a><br><br>";
                         }
                     }
                     echo "<button class='btn btn-info' name='ACTION' value='editar_profesor'>Actualizar Profesor</button></br></br>";
@@ -80,7 +81,7 @@ if($response = $class->query("SELECT ID, Iniciales, Nombre, Tutor, Activo, Susti
  
 else
 {
-    $ERR_MSG = $class->ERR_NETASYS;
+    $ERR_MSG = $class->ERR_ASYSTECO;
 }
 
 ?>

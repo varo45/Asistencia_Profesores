@@ -12,13 +12,15 @@ if($resp = $class->query("SELECT ID, Nombre, TIPO FROM $class->profesores WHERE 
         {
             if($class->query("UPDATE Profesores SET Activo=0 WHERE ID='$_GET[ID]'"))
             {
+                $msg = "Usuario desactivado.";
+                $class->notificar($_GET['ID'], $msg);
                 $MSG = "Cambios realizados correctamente.";
                 $_GET['profesor'] = $_GET['ID'];
                 include_once($dirs['inc'] . 'delete-horario-profesor.php');
             }
             else
             {
-                echo $class->ERR_NETASYS;
+                echo $class->ERR_ASYSTECO;
                 return false;
             }
         }
@@ -27,16 +29,18 @@ if($resp = $class->query("SELECT ID, Nombre, TIPO FROM $class->profesores WHERE 
     {
         if($class->query("UPDATE Profesores SET Activo=1 WHERE ID='$_GET[ID]'"))
         {
+            $msg = "Usuario activado.";
+            $class->notificar($_GET['ID'], $msg);
             $MSG = "Cambios realizados correctamente.";
         }
         else
         {
-            echo $class->ERR_NETASYS;
+            echo $class->ERR_ASYSTECO;
             return false;
         }
     }
 }
 else
 {
-    $ERR_MSG = $class->ERR_NETASYS;
+    $ERR_MSG = $class->ERR_ASYSTECO;
 }

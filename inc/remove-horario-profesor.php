@@ -7,11 +7,11 @@ if($class->query("DELETE FROM $class->horarios WHERE ID_PROFESOR='$_GET[profesor
     }
     else
     {
-        $ERR_MSG = $class->ERR_NETASYS;
+        $ERR_MSG = $class->ERR_ASYSTECO;
     }
     
 }
 else
 {
-    $ERR_MSG = $class->ERR_NETASYS;
+    $ERR_MSG = $class->ERR_ASYSTECO;
 }

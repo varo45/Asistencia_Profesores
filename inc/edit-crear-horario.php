@@ -15,13 +15,13 @@ if(isset($_GET['act']))
             else
             {
               $color = 'red';
-              $MSG = $class->ERR_NETASYS;
+              $MSG = $class->ERR_ASYSTECO;
             }
         }
         else
         {
           $color = 'red';
-          $MSG = $class->ERR_NETASYS;
+          $MSG = $class->ERR_ASYSTECO;
         }
     }
     elseif($_GET['act'] == 'del' && isset($_GET['ID']))
@@ -34,7 +34,7 @@ if(isset($_GET['act']))
         else
         {
           $color = 'red';
-          $MSG = $class->ERR_NETASYS;
+          $MSG = $class->ERR_ASYSTECO;
         }
     }
     elseif($_GET['act'] == 'del_hora' && isset($_GET['ID_PROFESOR']) && isset($_GET['Dia']) && isset($_GET['Hora']))
@@ -47,7 +47,7 @@ if(isset($_GET['act']))
         else
         {
           $color = 'red';
-          $MSG = $class->ERR_NETASYS;
+          $MSG = $class->ERR_ASYSTECO;
         }
     }
     elseif($_GET['act'] == 'add_more' && isset($_GET['ID']) && isset($_GET['Aula']) && isset($_GET['Dia']) && isset($_GET['Hora']))
@@ -64,13 +64,13 @@ if(isset($_GET['act']))
             else
             {
               $color = 'red';
-              $MSG = $class->ERR_NETASYS;
+              $MSG = $class->ERR_ASYSTECO;
             }
         }
         else
         {
           $color = 'red';
-          $MSG = $class->ERR_NETASYS;
+          $MSG = $class->ERR_ASYSTECO;
         }
     }
     else

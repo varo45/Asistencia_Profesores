@@ -32,9 +32,9 @@ if(isset($_SESSION['ID']) && ! empty($_SESSION['ID']))
     }
     else
     {
-        $ERR_MSG = $class->ERR_NETASYS;
+        $ERR_MSG = $class->ERR_ASYSTECO;
     }
 } 
 else {
-    echo $class->ERR_NETASYS;
+    echo $class->ERR_ASYSTECO;
 }
