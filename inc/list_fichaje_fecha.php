@@ -1,21 +1,24 @@
 <?php
 
 $offset_var = $_GET['pag'];
-$fi = preg_split('/\//', $_GET['fechainicio']);
-        $dia = $fi[0];
-        $m = $fi[1];
-        $Y = $fi[2];
-$fini = $Y .'-'. $m .'-'. $dia;
-$ff = preg_split('/\//', $_GET['fechafin']);
-        $dia = $ff[0];
-        $m = $ff[1];
-        $Y = $ff[2];
-$ffin = $Y .'-'. $m .'-'. $dia;
-if(isset($_GET['fechainicio']) && isset($_GET['fechafin']) && $class->validFormSQLDate($fini) && $class->validFormSQLDate($ffin))
+if(isset($_GET['fechainicio']) && isset($_GET['fechafin']))
 {
-    if(! $response = $class->query("SELECT ID_PROFESOR FROM Fichar INNER JOIN Profesores ON Fichar.ID_PROFESOR=Profesores.ID AND Fecha BETWEEN '$fini' AND '$ffin'"))
+    $fi = preg_split('/\//', $_GET['fechainicio']);
+            $dia = $fi[0];
+            $m = $fi[1];
+            $Y = $fi[2];
+    $fini = $Y .'-'. $m .'-'. $dia;
+    $ff = preg_split('/\//', $_GET['fechafin']);
+            $dia = $ff[0];
+            $m = $ff[1];
+            $Y = $ff[2];
+    $ffin = $Y .'-'. $m .'-'. $dia;
+    if($class->validFormSQLDate($fini) && $class->validFormSQLDate($ffin))
     {
-        die($class->ERR_ASYSTECO);
+        if(! $response = $class->query("SELECT ID_PROFESOR FROM Fichar INNER JOIN Profesores ON Fichar.ID_PROFESOR=Profesores.ID AND Fecha BETWEEN '$fini' AND '$ffin'"))
+        {
+            die($class->ERR_ASYSTECO);
+        }
     }
 }
 else

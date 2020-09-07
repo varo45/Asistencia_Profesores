@@ -7,7 +7,7 @@
                 {
                     if($response->num_rows > 0)
                     {
-                        echo "<select id='select_admon_marcajes' name='Profesor' class='form-control'>";
+                        echo "<select id='select_admon' name='Profesor' class='form-control'>";
                         echo "<option value=''> Selecciona un profesor... </option>";
                         while($fila = $response->fetch_assoc())
                         {
@@ -22,10 +22,10 @@
                 }
             ?>
             <h2>Exportar a Excel</h2>
-            <a enlace="index.php?ACTION=admon&OPT=select&export=marcajes" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Marcajes</a>
-            <a enlace="index.php?ACTION=admon&OPT=select&export=asistencias" id="exportfechaasis" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Asistencias</a>
-            <a enlace="index.php?ACTION=admon&OPT=select&export=faltas" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Faltas</a>
-            <a enlace="index.php?ACTION=admon&OPT=select&export=horarios" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Horarios</a>
+            <a enlace="index.php?ACTION=admon&OPT=select&export=marcajes" id="exportmarcajes" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Marcajes</a>
+            <a enlace="index.php?ACTION=admon&OPT=select&export=asistencias" id="exportasistencias" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Asistencias</a>
+            <a enlace="index.php?ACTION=admon&OPT=select&export=faltas" id="exportfaltas" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Faltas</a>
+            <a enlace="index.php?ACTION=admon&OPT=select&export=horarios" id="exporthorarios" class="btn btn-info btn-export"><span class="glyphicon glyphicon-open"></span> Horarios</a>
             </br>
             <h2>Mostrar en Pantalla</h2>
             <a enlace="index.php?ACTION=admon&OPT=select&select=marcajes&pag=0" id='filtromarcaje' class="btn btn-success btn-select"><span class="glyphicon glyphicon-eye-open"></span> Marcajes</a>
