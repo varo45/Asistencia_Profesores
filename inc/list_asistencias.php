@@ -1,10 +1,30 @@
 <?php
 
-if(! $response = $class->query("SELECT ID_PROFESOR FROM Marcajes WHERE Asiste=1 OR Asiste=2"))
+$offset_var = $_GET['pag'];
+$fi = preg_split('/\//', $_GET['fechainicio']);
+        $dia = $fi[0];
+        $m = $fi[1];
+        $Y = $fi[2];
+$fini = $Y .'-'. $m .'-'. $dia;
+$ff = preg_split('/\//', $_GET['fechafin']);
+        $dia = $ff[0];
+        $m = $ff[1];
+        $Y = $ff[2];
+$ffin = $Y .'-'. $m .'-'. $dia;
+if(isset($_GET['fechainicio']) && isset($_GET['fechafin']) && $class->validFormSQLDate($fini) && $class->validFormSQLDate($ffin))
 {
-    die($class->ERR_ASYSTECO);
+    if(! $response = $class->query("SELECT ID_PROFESOR FROM Marcajes INNER JOIN Profesores ON Marcajes.ID_PROFESOR=Profesores.ID WHERE (Asiste=1 OR Asiste=2) AND Fecha BETWEEN '$fini' AND '$ffin'"))
+    {
+        die($class->ERR_ASYSTECO);
+    }
 }
-
+else
+{
+    if(! $response = $class->query("SELECT ID_PROFESOR FROM Marcajes INNER JOIN Profesores ON Marcajes.ID_PROFESOR=Profesores.ID WHERE Asiste=1 OR Asiste=2"))
+    {
+        die($class->ERR_ASYSTECO);
+    }
+}
 $page_size = 200;
 $total_records = $response->num_rows;
 $count=ceil($total_records/$page_size);
@@ -24,28 +44,17 @@ if(isset($_GET['pag']))
                 {
                     $selected = '';
                 }
-                echo '<option value="index.php?ACTION=admon&OPT=select&select=faltas&pag=' . $j*$page_size . '" class="btn-select" ' . $selected . '><span class="glyphicon glyphicon-eye-open"></span> ' . $pag = ($j+1) . '</option> ';
+                echo '<option value="index.php?ACTION=admon&OPT=select&select=asistencias&pag=' . $j*$page_size . '&fechainicio=' . $_GET['fechainicio'] . '&fechafin=' . $_GET['fechafin'] . '" class="btn-select" ' . $selected . '><span class="glyphicon glyphicon-eye-open"></span> ' . $pag = ($j+1) . '</option> ';
             }
         echo "</select>";
         echo "</h3>";
     echo "<div>";
-    $offset_var = $_GET['pag'];
-    $fi = preg_split('/\//', $_GET['fechainicioasis']);
-            $dia = $fi[0];
-            $m = $fi[1];
-            $Y = $fi[2];
-    $fini = $Y .'-'. $m .'-'. $dia;
-    $ff = preg_split('/\//', $_GET['fechafinasis']);
-            $dia = $ff[0];
-            $m = $ff[1];
-            $Y = $ff[2];
-    $ffin = $Y .'-'. $m .'-'. $dia;
-    if(isset($_GET['fechainicioasis']) && isset($_GET['fechafinasis']) && $_GET['fechainicioasis'] !='' && $_GET['fechafinasis'] !='')
+    if(isset($_GET['fechainicio']) && isset($_GET['fechafin']) && $_GET['fechainicio'] !='' && $_GET['fechafin'] !='')
     {
         $query = "SELECT Marcajes.*, Nombre, Iniciales, Diasemana.Diasemana
         FROM (Marcajes INNER JOIN Profesores ON Marcajes.ID_PROFESOR=Profesores.ID)
             INNER JOIN Diasemana ON Marcajes.Dia=Diasemana.ID
-        WHERE Asiste=1 OR Asiste=2 AND Fecha BETWEEN '$fini' AND '$ffin'
+        WHERE (Asiste=1 OR Asiste=2) AND Fecha BETWEEN '$fini' AND '$ffin'
         ORDER BY Profesores.Nombre ASC
         LIMIT $page_size OFFSET $offset_var";
     }
@@ -90,9 +99,13 @@ if(isset($_GET['pag']))
             echo "<td>$datos[Dia]</td>";
             echo "<td>$datos[Diasemana]</td>";
             echo "<td>SI</td>";
-            if($datos['Asiste'] == 2)
+            if($datos['Asiste'] == 1)
             {
                 echo "<td>SI</td>";
+            }
+            elseif($datos['Asiste'] == 2)
+            {
+                echo "<td>Extraescolar</td>";
             }
             else
             {
